@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-//use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of User
@@ -26,10 +25,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
  * @UniqueEntity(fields="email", message="Email already taken")
- * @UniqueEntity(fields="username", message="Username already taken")
  */
 class User implements AdvancedUserInterface, \Serializable
-//class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -39,12 +36,6 @@ class User implements AdvancedUserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     * @Assert\NotBlank()
-     */
-    private $username;
-
-    /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
@@ -52,12 +43,12 @@ class User implements AdvancedUserInterface, \Serializable
     private $email;
 
     /**
-    * @ORM\Column(type="string", length=64)
+    * @ORM\Column(type="string", length=64, nullable=true)
     */
     private $password;
     
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"register"})
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -76,12 +67,62 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $roles;
     
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     * @Assert\NotBlank(groups={"register"})
+     */
+    private $fistname;
+    
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     */
+    private $middlename;
+    
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     * @Assert\NotBlank(groups={"register"})
+     */
+    private $lastname;
+    
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
+     */
+    private $tel;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="School", inversedBy="users")
+     * @ORM\JoinColumn(name="school_id", referencedColumnName="id")
+     */
+    protected $school;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
+     * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     */
+    private $job;
+    
+    /**
+     * @var date $birthday
+     *
+     * @ORM\Column(name="birthday", type="date", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Date
+     */
+    private $birthday;
+    
+    /**
+     * @var string $activationKey
+     *
+     * @ORM\Column(name="activation_key", type="string", length=100, nullable=true)
+     */
+    private $activationKey;
+
+    
     public function __construct()
     {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
     }
 
     public function getRoles()
@@ -103,7 +144,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->username,
+            $this->email,
             $this->password,
             $this->isActive,
             // see section on salt below
@@ -116,11 +157,9 @@ class User implements AdvancedUserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->username,
+            $this->email,
             $this->password,
             $this->isActive,
-            // see section on salt below
-            // $this->salt
         ) = unserialize($serialized);
     }
 
@@ -146,22 +185,7 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function getUsername()
     {
-        //return $this->email;
-        return $this->username;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
+        return $this->email;
     }
 
     /**
@@ -301,5 +325,173 @@ class User implements AdvancedUserInterface, \Serializable
     public function removeRole(\AppBundle\Entity\Role $role)
     {
         $this->roles->removeElement($role);
+    }
+
+    /**
+     * Set fistname
+     *
+     * @param string $fistname
+     *
+     * @return User
+     */
+    public function setFistname($fistname)
+    {
+        $this->fistname = $fistname;
+
+        return $this;
+    }
+
+    /**
+     * Get fistname
+     *
+     * @return string
+     */
+    public function getFistname()
+    {
+        return $this->fistname;
+    }
+
+    /**
+     * Set middlename
+     *
+     * @param string $middlename
+     *
+     * @return User
+     */
+    public function setMiddlename($middlename)
+    {
+        $this->middlename = $middlename;
+
+        return $this;
+    }
+
+    /**
+     * Get middlename
+     *
+     * @return string
+     */
+    public function getMiddlename()
+    {
+        return $this->middlename;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     *
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set tel
+     *
+     * @param string $tel
+     *
+     * @return User
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return string
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     *
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set school
+     *
+     * @param \AppBundle\Entity\School $school
+     *
+     * @return User
+     */
+    public function setSchool(\AppBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return \AppBundle\Entity\School
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+
+    /**
+     * Set job
+     *
+     * @param \AppBundle\Entity\Job $job
+     *
+     * @return User
+     */
+    public function setJob(\AppBundle\Entity\Job $job = null)
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    /**
+     * Get job
+     *
+     * @return \AppBundle\Entity\Job
+     */
+    public function getJob()
+    {
+        return $this->job;
     }
 }
