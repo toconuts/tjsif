@@ -44,65 +44,53 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $admin = $this->createUser(
-            'admin', 
-            //'$2a$08$jHZj/wJfcVKlIwr5AvR78euJxYK7Ku5kURNhNx.7.CSIJ3Pq6LEPC', 
-            'admin',
             'admin@example.com', 
+            'admin', 
             true,
             [
                 'ROLE_ADMIN',
                 'ROLE_SUPER_ADMIN',
-            ]
+            ],
+            'JP_Ichikawa',
+            'Student'
         );
         $manager->persist($admin);
         
         $user = $this->createUser(
-            'user', 
-            //'$2a$08$jHZj/wJfcVKlIwr5AvR78euJxYK7Ku5kURNhNx.7.CSIJ3Pq6LEPC', 
-            'user',
             'user@example.com', 
+            'user',
             true,
             [
                 'ROLE_USER',
-            ]
+            ],
+            'PCSHS_Chonburi',
+            'Teacher'
         );
         $manager->persist($user);
         
         $manager->flush();
     }
     
-    protected function createUser($username, $password, $email, $isActive, array $roles)
+    protected function createUser($email, $password, $isActive, array $roles, $school, $job)
     {
         $user = new User();
-        $user->setUsername($username);
-        //$user->setPassword($password);
+        
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($user, $password);
         $user->setPassword($password);
         $user->setEmail($email);
         $user->setIsActive($isActive);
-//        $role = $this->getReference('ROLE_ADMIN');
-        
-        //$role = $this->getReference($roles);
-        //$user->addRole($role);
         foreach ($roles as $rolaname) {
             $role = $this->getReference($rolaname);
             $user->addRole($role);
         }
-        /*$em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:Role');
-        foreach ($roles as $role) {
-            $role = $repository->findOneBy(['name' => $role]);
-            $user->addRole($role);
-        }*/
-        
+        $user->setSchool($this->getReference($school));
+        $user->setJob($this->getReference($job));
         return $user;
     }
     
     public function getOrder()
     {
-        // the order in which fixtures will be loaded
-        // the lower the number, the sooner that this fixture is loaded
-        return 2;
+        return 5;
     }
 }

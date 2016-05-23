@@ -105,11 +105,18 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var date $birthday
      *
-     * @ORM\Column(name="birthday", type="date", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      * @Assert\NotBlank
      * @Assert\Date
      */
     private $birthday;
+    
+    /**
+     * @var string $activationKey
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $position;
     
     /**
      * @var string $activationKey
@@ -180,6 +187,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * Get username
+     * User have only email property for login (no username).
      * 
      * @return string
      */
@@ -188,6 +196,21 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->email;
     }
 
+    /**
+     * Set username 
+     * User have only email property for login (no username).
+     * 
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setUsername($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+    
     /**
      * Get email
      *
@@ -493,5 +516,53 @@ class User implements AdvancedUserInterface, \Serializable
     public function getJob()
     {
         return $this->job;
+    }
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     *
+     * @return User
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set activationKey
+     *
+     * @param string $activationKey
+     *
+     * @return User
+     */
+    public function setActivationKey($activationKey)
+    {
+        $this->activationKey = $activationKey;
+
+        return $this;
+    }
+
+    /**
+     * Get activationKey
+     *
+     * @return string
+     */
+    public function getActivationKey()
+    {
+        return $this->activationKey;
     }
 }

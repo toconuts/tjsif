@@ -17,7 +17,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Role;
 
 /**
- * Description of LoadUserData
+ * Description of LoadRoleData
  *
  * @author toconuts <toconuts@gmail.com>
  */

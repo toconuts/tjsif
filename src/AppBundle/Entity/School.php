@@ -12,6 +12,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * School
@@ -33,7 +34,7 @@ class School
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=60)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
