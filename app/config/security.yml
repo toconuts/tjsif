@@ -30,14 +30,21 @@ security:
             http_basic: ~
             provider: our_db_provider
             anonymous: ~
+
             form_login:
                 login_path: login
                 check_path: login
                 #default_target_path: default_security_target
+
             logout:
                 path:   /logout
                 target: /
-            # activate different ways to authenticate
+
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
