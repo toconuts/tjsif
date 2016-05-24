@@ -12,15 +12,16 @@ security:
                 class: AppBundle:User
                 # property: email
 
-#        in_memory:
-#            memory: ~
     access_control:
         - { path: ^/admin/users, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/member, roles: ROLE_USER }
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -34,7 +35,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                #default_target_path: default_security_target
+                default_target_path: app_default_member
 
             logout:
                 path:   /logout
