@@ -44,7 +44,8 @@ security:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
-            
+
+            switch_user: true
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
