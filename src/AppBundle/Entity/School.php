@@ -12,6 +12,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -19,13 +20,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="school")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SchoolRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class School
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -34,14 +36,75 @@ class School
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="User", mappedBy="school")
      */
-    protected $users;
+    private $users;
+       
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+    
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
+     */
+    private $tel;
+    
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
+     */
+    private $fax;
+    
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     * @Assert\Email()
+     */
+    private $email;   
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
+     */
+    private $homepage;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
+     */
+    private $blog;
+
+    /**
+     * Created Time/Date
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * Updated Time\Date
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -114,5 +177,46 @@ class School
     public function getUsers()
     {
         return $this->users;
+    }
+    
+        /**
+     * Set createdAt
+     *
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Get updatedAt
+     * 
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
