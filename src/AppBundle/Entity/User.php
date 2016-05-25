@@ -24,6 +24,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields="email", message="Email already taken")
  */
 class User implements AdvancedUserInterface, \Serializable
@@ -46,62 +47,62 @@ class User implements AdvancedUserInterface, \Serializable
     * @ORM\Column(type="string", length=64, nullable=true)
     */
     private $password;
-    
+
     /**
      * @Assert\NotBlank(groups={"register"})
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
-    
+
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
-    
+
     /**
      * User's roles. (Owning Side)
-     * 
+     *
      * @var ArrayCollection
-     * 
+     *
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      */
     private $roles;
-    
+
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      * @Assert\NotBlank(groups={"register"})
      */
     private $fistname;
-    
+
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $middlename;
-    
+
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      * @Assert\NotBlank(groups={"register"})
      */
     private $lastname;
-    
+
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
      * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
      */
     private $tel;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="School", inversedBy="users")
      * @ORM\JoinColumn(name="school_id", referencedColumnName="id")
      */
     protected $school;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
      * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
      */
     private $job;
-    
+
     /**
      * @var date $birthday
      *
@@ -110,14 +111,14 @@ class User implements AdvancedUserInterface, \Serializable
      * @Assert\Date
      */
     private $birthday;
-    
+
     /**
      * @var string $activationKey
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $position;
-    
+
     /**
      * @var string $activationKey
      *
@@ -125,23 +126,52 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $activationKey;
 
-    
+    /**
+     * Created Time/Date
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * Updated Time\date
+     *
+     * @var \datetime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+
     public function __construct()
     {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getRoles()
     {
         return $this->roles->toArray();
     }
-    
+
+    /**
+     * Get roles.
+     * 
+     * @return (Role|ArrayCollection) The user roles
+     */
     public function getUserRoles()
     {
         return $this->roles;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function eraseCredentials()
     {
     }
@@ -154,8 +184,6 @@ class User implements AdvancedUserInterface, \Serializable
             $this->email,
             $this->password,
             $this->isActive,
-            // see section on salt below
-            // $this->salt,
         ));
     }
 
@@ -170,11 +198,12 @@ class User implements AdvancedUserInterface, \Serializable
         ) = unserialize($serialized);
     }
 
+    /** @see ArrayCollection::isEnabled() */
     public function isEnabled()
     {
         return $this->isActive;
     }
-    
+
     /**
      * Get id
      *
@@ -186,20 +215,9 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get username
+     * Set username
      * User have only email property for login (no username).
-     * 
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set username 
-     * User have only email property for login (no username).
-     * 
+     *
      * @param string $email
      *
      * @return User
@@ -210,13 +228,14 @@ class User implements AdvancedUserInterface, \Serializable
 
         return $this;
     }
-    
+
     /**
-     * Get email
+     * Get username
+     * User have only email property for login (no username).
      *
-     * @return string
+     * @inheritdoc
      */
-    public function getEmail()
+    public function getUsername()
     {
         return $this->email;
     }
@@ -236,14 +255,15 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get password
-     * @return type string
+     * Get email
+     *
+     * @return string
      */
-    public function getPassword()
+    public function getEmail()
     {
-        return $this->password;
+        return $this->email;
     }
-    
+
     /**
      * Set password
      *
@@ -259,8 +279,29 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set plainPassword
+     *
+     * @param type $password
+     * @return User
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+
+        return $this;
+    }
+
+    /**
      * Get plainPassword
-     * 
+     *
      * @return string
      */
     public function getPlainPassword()
@@ -268,19 +309,6 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->plainPassword;
     }
 
-    /**
-     * Set plainPassword
-     * 
-     * @param type $password
-     * @return User
-     */
-    public function setPlainPassword($password)
-    {
-        $this->plainPassword = $password;
-        
-        return $this;
-    }
-    
     /**
      * Set isActive
      *
@@ -305,21 +333,33 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->isActive;
     }
     
+    /**
+     * @inheritdoc
+     */
     public function isAccountNonExpired()
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isAccountNonLocked()
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isCredentialsNonExpired()
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getSalt()
     {
         // it's not used because bcrypt does this internally.
@@ -564,5 +604,46 @@ class User implements AdvancedUserInterface, \Serializable
     public function getActivationKey()
     {
         return $this->activationKey;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Get updatedAt
+     * 
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
