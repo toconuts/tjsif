@@ -44,12 +44,12 @@ class User implements AdvancedUserInterface, \Serializable
     private $email;
 
     /**
-    * @ORM\Column(type="string", length=64, nullable=true)
+    * @ORM\Column(type="string", length=64)
     */
     private $password;
 
     /**
-     * @Assert\NotBlank(groups={"register"})
+     * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -69,8 +69,8 @@ class User implements AdvancedUserInterface, \Serializable
     private $roles;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
-     * @Assert\NotBlank(groups={"register"})
+     * @ORM\Column(type="string", length=25)
+     * @Assert\NotBlank()
      */
     private $fistname;
 
@@ -80,8 +80,8 @@ class User implements AdvancedUserInterface, \Serializable
     private $middlename;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
-     * @Assert\NotBlank(groups={"register"})
+     * @ORM\Column(type="string", length=25)
+     * @Assert\NotBlank()
      */
     private $lastname;
 
@@ -95,22 +95,13 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\ManyToOne(targetEntity="School", inversedBy="users")
      * @ORM\JoinColumn(name="school_id", referencedColumnName="id")
      */
-    protected $school;
+    private $school;
 
     /**
      * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
      * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
      */
     private $job;
-
-    /**
-     * @var date $birthday
-     *
-     * @ORM\Column(type="date", nullable=true)
-     * @Assert\NotBlank
-     * @Assert\Date
-     */
-    private $birthday;
 
     /**
      * @var string $activationKey
@@ -120,12 +111,12 @@ class User implements AdvancedUserInterface, \Serializable
     private $position;
 
     /**
-     * @var string $activationKey
-     *
-     * @ORM\Column(name="activation_key", type="string", length=100, nullable=true)
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Invitation", mappedBy="invitedBy")
      */
-    private $activationKey;
-
+    private $users;
+    
     /**
      * Created Time/Date
      *
@@ -487,30 +478,6 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set birthday
-     *
-     * @param \DateTime $birthday
-     *
-     * @return User
-     */
-    public function setBirthday($birthday)
-    {
-        $this->birthday = $birthday;
-
-        return $this;
-    }
-
-    /**
-     * Get birthday
-     *
-     * @return \DateTime
-     */
-    public function getBirthday()
-    {
-        return $this->birthday;
-    }
-
-    /**
      * Set school
      *
      * @param \AppBundle\Entity\School $school
@@ -580,30 +547,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPosition()
     {
         return $this->position;
-    }
-
-    /**
-     * Set activationKey
-     *
-     * @param string $activationKey
-     *
-     * @return User
-     */
-    public function setActivationKey($activationKey)
-    {
-        $this->activationKey = $activationKey;
-
-        return $this;
-    }
-
-    /**
-     * Get activationKey
-     *
-     * @return string
-     */
-    public function getActivationKey()
-    {
-        return $this->activationKey;
     }
 
     /**

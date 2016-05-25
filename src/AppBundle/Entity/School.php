@@ -18,6 +18,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * School
  *
+ * @author toconuts <toconuts@gmail.com>
+ * 
  * @ORM\Table(name="school")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SchoolRepository")
  * @ORM\HasLifecycleCallbacks()

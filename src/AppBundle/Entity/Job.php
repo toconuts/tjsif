@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Job
  *
+ * @author toconuts <toconuts@gmail.com>
+ * 
  * @ORM\Table(name="job")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\JobRepository")
  */

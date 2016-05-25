@@ -17,34 +17,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+//use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+//use Symfony\Component\Validator\Constraints\IsTrue;
+//use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Description of UserType
+ * Description of InvitationType
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class UserType extends AbstractType
+class InvitationType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
             ->add('username', TextType::class)
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+            ->add('email', RepeatedType::class, array(
+                'type' => EmailType::class,
+                'first_options'  => array('label' => 'Email'),
+                'second_options' => array('label' => 'Repeat Email'),
                 )        
             )
-            ->add('termsAccepted', CheckboxType::class, array(
-                'mapped' => false,
-                'constraints' => new IsTrue(),
-                )
-            );
+            ->add('submit', SubmitType::class, [
+                'label' => 'Invite',
+            ]);
+        
     }
 
     /**
@@ -53,7 +52,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User',
+            'data_class' => 'AppBundle\Entity\Invitation',
         ));
     }
 }

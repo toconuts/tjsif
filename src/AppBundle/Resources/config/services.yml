@@ -1,0 +1,9 @@
+parameters:
+#    parameter_name: value
+
+services:
+    app.user_repository:
+        class:          AppBundle\Entity\UserRepository
+        factory:        ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+          - AppBundle\Entity\User
