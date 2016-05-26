@@ -21,7 +21,7 @@ use AppBundle\Entity\User;
  *
  * @author toconuts <toconuts@gmail.com>
  * @ORM\Table(name="invitation")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\InvitationRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\InvitationRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Invitation
@@ -49,9 +49,9 @@ class Invitation
     /**
      * @var string $activationKey
      *
-     * @ORM\Column(name="activation_key", type="string", length=100, nullable=true)
+     * @ORM\Column(name="ticket", type="string", length=100, nullable=true)
      */
-    private $activationKey;
+    private $ticket;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="invitations")
@@ -82,27 +82,27 @@ class Invitation
     }
     
     /**
-     * Set activationKey
+     * Set ticket
      *
-     * @param string $activationKey
+     * @param string $ticket
      *
      * @return User
      */
-    public function setActivationKey($activationKey)
+    public function setTicket($ticket)
     {
-        $this->activationKey = $activationKey;
+        $this->ticket = $activationKey;
 
         return $this;
     }
 
     /**
-     * Get activationKey
+     * Get ticket
      *
      * @return string
      */
-    public function getActivationKey()
+    public function getTicket()
     {
-        return $this->activationKey;
+        return $this->ticket;
     }
 
     /**

@@ -13,13 +13,14 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Form\UserType;
-use AppBundle\Form\InvitationType;
 use AppBundle\Entity\User;
-use AppBundle\Entity\Invitation;
+
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use AppBundle\Form\InvitationType;
+
 
 /**
  * Description of RegistrationController
@@ -41,6 +42,8 @@ class RegistrationController extends Controller
         
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $this->get('app.registration_manager')->registerUser($user, 'ticket');
+/*
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
@@ -50,7 +53,7 @@ class RegistrationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
+*/
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
@@ -64,40 +67,18 @@ class RegistrationController extends Controller
     }
     
     /**
-     * @Route("/admin/invitation")
+     * @Route("/confirm", name="user_confirm")
      */
-    public function inviteAction()
+    public function confirmAction(Request $request)
     {
-        
-        $invitation = new Invitation($this->getUser());
-        $form = $this->createForm(InvitationType::class, $invitation);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            // create activation key
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($invitation);
-            $em->flush();
-            
-            $message = \Swift_Message::newInstance()
-                ->setSubject('The invitation to TJ-SIF2016 Official Website')
-                ->setFrom('tjsif2016@gmail.com')
-                ->setTo('admin@example.com')
-                ->setBody(
-                    $this->renderView(
-                        'mail/invitation.txt.twig',
-                        ['invitation' => $invitation]
-                    )
-                );
-            
-            $this->get('mailer')->send($message);
-            
-            return $this->redirect('app_invite_complete');
-        }
-        
-        return $this->render('registration/inbitation.html.twig',
-            ['form' => $form->createView()]
-        );
+        return array();
+    }
+    
+    /**
+     * @Route("/activate", name="user_activate")
+     */
+    public function activateAction(Request $request)
+    {
+        return array();
     }
 }

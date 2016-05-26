@@ -115,7 +115,14 @@ class User implements AdvancedUserInterface, \Serializable
      * 
      * @ORM\OneToMany(targetEntity="Invitation", mappedBy="invitedBy")
      */
-    private $users;
+    private $invitations;
+    
+    /**
+     * @var string $activationKey
+     *
+     * @ORM\Column(name="activation_key", type="string", length=100, nullable=true)
+     */
+    private $activationKey;
     
     /**
      * Created Time/Date
@@ -588,5 +595,29 @@ class User implements AdvancedUserInterface, \Serializable
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    
+    /**
+     * Set activationKey
+     *
+     * @param string $activationKey
+     *
+     * @return User
+     */
+    public function setActivationKey($activationKey)
+    {
+        $this->activationKey = $activationKey;
+
+        return $this;
+    }
+
+    /**
+     * Get activationKey
+     *
+     * @return string
+     */
+    public function getActivationKey()
+    {
+        return $this->activationKey;
     }
 }

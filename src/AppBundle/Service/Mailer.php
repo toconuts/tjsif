@@ -11,6 +11,10 @@
 
 namespace AppBundle\Service;
 
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Invitation;
+
 /**
  * Description of Mailer
  *
@@ -18,8 +22,38 @@ namespace AppBundle\Service;
  */
 class Mailer
 {
-    public function __construct()
+    /**
+     * Mailer
+     * 
+     * @var \Swift_Mailer
+     */
+    private $mailer;
+    
+    /**
+     * Twig EngineInterface
+     * 
+     * @var EngineInterface 
+     */
+    private $templating;
+    
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
     {
-        ;
+        $this->mailer = $mailer;
+        $this->templating = $templating;
+    }
+    
+    public function sendVerificationMail(User $user)
+    {
+        
+    }
+    
+    public function sendWelcomeMail(User $user)
+    {
+        
+    }
+    
+    public function sendInvitationMail(Invitation $invitation)
+    {
+        
     }
 }
