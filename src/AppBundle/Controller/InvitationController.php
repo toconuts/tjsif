@@ -13,13 +13,14 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Form\InvitationType;
+use AppBundle\Entity\Invitation;
+
+use AppBundle\Form\UserType;
+use AppBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Form\UserType;
-use AppBundle\Form\InvitationType;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Invitation;
 
 /**
  * Description of InvitationController

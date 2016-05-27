@@ -77,7 +77,7 @@ class RegistrationController extends Controller
     /**
      * @Route("/activate", name="user_activate")
      */
-    public function activateAction(Request $request)
+    public  function activateAction(Request $request)
     {
         return array();
     }

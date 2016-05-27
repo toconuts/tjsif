@@ -53,13 +53,12 @@ class RegistrationManager
         $this->mailer = $mailer;
     }
     
-    public function registerUser(User $user, $tiket)
+    public function registerUser(User $user, $ticket)
     {
         $invitationRepository = $this->entityManager->getRepository('AppBundle:Invitation');
         // findInvitation($tiket)
         // checkTicket()
         $this->entityManager->persist($invitation);
-        
         
         $password = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);

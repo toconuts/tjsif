@@ -55,5 +55,17 @@ class Mailer
     public function sendInvitationMail(Invitation $invitation)
     {
         
+        $message = \Swift_Message::newInstance()
+            ->setSubject('The invitation to TJ-SIF2016 Official Website')
+            ->setFrom('tjsif2016@gmail.com')
+            ->setTo($invitation->getEmail())
+            ->setBody(
+            $this->templating->render(
+                    'mail/invitation.txt.twig',
+                    ['invitation' => $invitation]
+                )
+            );
+        
+        return $this->mailer->send($message);
     }
 }
