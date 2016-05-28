@@ -44,17 +44,22 @@ class Mailer
     
     public function sendVerificationMail(User $user)
     {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Inportant: verify your email to use TJ-SIF2016 Official Website')
+            ->setFrom('tjsif2016@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+            $this->templating->render(
+                    'mail/verification.txt.twig',
+                    ['user' => $user]
+                )
+            );
         
-    }
-    
-    public function sendWelcomeMail(User $user)
-    {
-        
+        return $this->mailer->send($message);
     }
     
     public function sendInvitationMail(Invitation $invitation)
     {
-        
         $message = \Swift_Message::newInstance()
             ->setSubject('The invitation to TJ-SIF2016 Official Website')
             ->setFrom('tjsif2016@gmail.com')

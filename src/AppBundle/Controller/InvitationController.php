@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Form\InvitationType;
 use AppBundle\Entity\Invitation;
+use AppBundle\Entity\User;
 
 use AppBundle\Form\UserType;
-use AppBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -34,35 +34,36 @@ class InvitationController extends Controller
     /**
      * @Route("/invitation", name="admin_invitation")
      */
-    public function inviteAction()
+    public function inviteAction(Request $request)
     {
         
         $invitation = new Invitation($this->getUser());
+        
         $form = $this->createForm(InvitationType::class, $invitation);
         
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            // check duplicate            
-            // create activation key
-            //$this->get('app.registration_manager')->sendInvitation($invitation);
-            
-            $message = \Swift_Message::newInstance()
-                ->setSubject('The invitation to TJ-SIF2016 Official Website')
-                ->setFrom('tjsif2016@gmail.com')
-                ->setTo('admin@example.com')
-                ->setBody(
-                    $this->renderView(
-                        'mail/invitation.txt.twig',
-                        ['invitation' => $invitation]
-                    )
+
+            $rm = $this->get('app.registration_manager');            
+            if ($rm->getUser($invitation->getEmail())) {
+                $this->addFlash(
+                    'error',
+                    'The invitation has already been sent to' . $invitation->getEmail()
                 );
+                $this->redirect('admin_invitation');
+            }
+
+            $rm->sendInvitation($invitation);
             
-            $this->get('mailer')->send($message);
-            
-            return $this->redirect('app_invite_complete');
+            $this->addFlash(
+                'success',
+                'Sent the invitation to ' . $invitation->getUsername() . '!'
+            );
+
+            $this->redirect('admin_invitation');
         }
         
-        return $this->render('registration/inbitation.html.twig',
+        return $this->render('invitation/invite.html.twig',
             ['form' => $form->createView()]
         );
     }

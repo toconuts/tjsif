@@ -17,19 +17,49 @@ use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Invitation;
 
 class InvitationRepository extends EntityRepository
-{ 
-    public function createInvitation(Invitation $invitation)
+{   
+   
+    public function findByTicket($ticket)
     {
-        $this->updateInvitation($invitation);
+        return $this->createQueryBuilder('i')
+            ->where('i.ticket = :ticket')
+            ->setParameter('ticket', $ticket)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
     
-    public function updateInvitation(Invitation $invitation)
+    public function findAllByEmail($email)
     {
-        // search
-        // if (exist) {
-        // unactivate
-        // }
-        // 
+        return $this->createQueryBuilder('i')
+            ->where('i.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getResult();
+        
+        /*
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT p
+            FROM AppBundle:Product p
+            WHERE p.email > :email'
+        )->setParameter('email', $email);
+        $products = $query->getResult();
+        */
+
+    }
+    
+    public function createInvitation(Invitation $invitation)
+    {
+        $invitations = $this->findAllByEmail($invitation->getEmail());
+
+        foreach ($invitations as $oldInvitation) {
+            $ticket = $oldInvitation->getTicket();
+            if (!empty($ticket)) {
+                $invitation->setTicket($ticket);
+                $oldInvitation->setTicket(NULL);
+            }
+        }
+        
         $em = $this->getEntityManager();
         $em->persist($invitation);
         $em->flush();

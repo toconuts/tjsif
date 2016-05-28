@@ -44,6 +44,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $admin = $this->createUser(
+            'Mr.',
+            'Fadmin',
+            'Ladmin',
             'admin@example.com', 
             'admin', 
             true,
@@ -57,6 +60,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($admin);
         
         $user = $this->createUser(
+            'Ms.',
+            'Fuser',
+            'Luser',
             'user@example.com', 
             'user',
             true,
@@ -71,11 +77,14 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->flush();
     }
     
-    protected function createUser($email, $password, $isActive, array $roles, $school, $job)
+    protected function createUser($title, $firstname, $lastname, $email, $password, $isActive, array $roles, $school, $job)
     {
         $user = new User();
         
         $encoder = $this->container->get('security.password_encoder');
+        $user->setTitle($title);
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
         $password = $encoder->encodePassword($user, $password);
         $user->setPassword($password);
         $user->setEmail($email);

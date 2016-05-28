@@ -13,7 +13,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\User;
 
 /**
@@ -36,13 +35,15 @@ class Invitation
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank()
+     * @Assert\Length(max=50)
      */
     private $username;
     
     /**
-     * @ORM\Column(type="string", length=60, unique=true)
+     * @ORM\Column(type="string", length=60)
      * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Email(checkMX=true)
+     * @Assert\Length(max=60)
      */    
     private $email;
     
@@ -77,7 +78,7 @@ class Invitation
      */
     private $updatedAt;
     
-    public function __construct(AppBundle\Entity\User $user) {
+    public function __construct(User $user) {
         $this->invitedBy = $user;
     }
     
@@ -90,7 +91,7 @@ class Invitation
      */
     public function setTicket($ticket)
     {
-        $this->ticket = $activationKey;
+        $this->ticket = $ticket;
 
         return $this;
     }

@@ -69,10 +69,16 @@ class User implements AdvancedUserInterface, \Serializable
     private $roles;
 
     /**
+     * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank()
+     */
+    private $title;
+    
+    /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank()
      */
-    private $fistname;
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
@@ -149,6 +155,11 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles = new ArrayCollection();
     }
 
+    public function getFullname()
+    {
+        return $this->title . " " . $this->firstname . " " . $this->lastname;
+    }
+    
     /**
      * @inheritdoc
      */
@@ -389,27 +400,27 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set fistname
+     * Set fisrtname
      *
-     * @param string $fistname
+     * @param string $firstname
      *
      * @return User
      */
-    public function setFistname($fistname)
+    public function setFirstname($firstname)
     {
-        $this->fistname = $fistname;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Get fistname
+     * Get firstname
      *
      * @return string
      */
-    public function getFistname()
+    public function getFirstname()
     {
-        return $this->fistname;
+        return $this->firstname;
     }
 
     /**
@@ -619,5 +630,63 @@ class User implements AdvancedUserInterface, \Serializable
     public function getActivationKey()
     {
         return $this->activationKey;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return User
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Add invitation
+     *
+     * @param \AppBundle\Entity\Invitation $invitation
+     *
+     * @return User
+     */
+    public function addInvitation(\AppBundle\Entity\Invitation $invitation)
+    {
+        $this->invitations[] = $invitation;
+
+        return $this;
+    }
+
+    /**
+     * Remove invitation
+     *
+     * @param \AppBundle\Entity\Invitation $invitation
+     */
+    public function removeInvitation(\AppBundle\Entity\Invitation $invitation)
+    {
+        $this->invitations->removeElement($invitation);
+    }
+
+    /**
+     * Get invitations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInvitations()
+    {
+        return $this->invitations;
     }
 }

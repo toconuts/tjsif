@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -32,19 +33,27 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('username', TextType::class)
+            ->add('title', TextType::class, ['label' => 'Title*'])
+            ->add('firstname', TextType::class, ['label' => 'Firstname*'])
+            ->add('middlename', TextType::class)
+            ->add('lastname', TextType::class, ['label' => 'Lastname*'])
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => array('label' => 'Password*'),
+                'second_options' => array('label' => 'Repeat Password*'),
                 )        
             )
+            ->add('email', EmailType::class, ['label' => 'Email*'])
+            ->add('tel', TextType::class)
+            ->add('position', TextType::class)
             ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
                 )
-            );
+            )
+            ->add('register', SubmitType::class, [
+                'label' => 'REGISTER!',
+            ]);
     }
 
     /**

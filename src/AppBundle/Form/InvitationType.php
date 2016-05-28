@@ -40,8 +40,8 @@ class InvitationType extends AbstractType
                 'second_options' => array('label' => 'Repeat Email'),
                 )        
             )
-            ->add('submit', SubmitType::class, [
-                'label' => 'Invite',
+            ->add('invite', SubmitType::class, [
+                'label' => 'INVITE!',
             ]);
         
     }

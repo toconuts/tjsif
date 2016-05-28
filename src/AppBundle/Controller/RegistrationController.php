@@ -16,11 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
-
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use AppBundle\Form\InvitationType;
-
+//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of RegistrationController
@@ -34,30 +30,44 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $user = new User();
+        $rm = $this->get('app.registration_manager');
+        
+        $ticket = $request->query->get('key');
+        $invitation = $rm->getInvitation($ticket);
+        if (!$invitation) {
+            throw $this->createNotFoundException(
+                'Invalid Access because the invitation is not correct or might be expired.'
+            );
+        }
+        
+        $user = new User();   
+        $user->setEmail($invitation->getEmail());
         
         $form = $this->createForm(UserType::class, $user);
-        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->get('app.registration_manager')->registerUser($user, 'ticket');
-/*
-            $password = $this->get('security.password_encoder')
-                ->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
+            $rm->registerUser($user, $invitation);
 
-            //delete activationkey from invitation
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-*/
-            // ... do any other work - like sending them an email, etc
+            if ($rm->isChangedEmail($user, $invitation)) {
+                $session = $request->getSession();
+                $session->set('registration/user', $user);
+                return $this->redirectToRoute('user_confirm');
+            }
+
+            $this->addFlash(
+                'success',
+                'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
+            );
+
+            return $this->redirect('/login');
+//               return $this->redirectToRoute('login');
+
+
             // maybe set a "flash" success message for the user
-
-            return $this->redirectToRoute('replace_with_some_route');
+            // flash = $e->getMessage();
+            
         }
 
         return $this->render(
@@ -71,7 +81,16 @@ class RegistrationController extends Controller
      */
     public function confirmAction(Request $request)
     {
-        return array();
+        $session = $request->getSession();
+        $user = $session->get('registration/user');
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        
+        return $this->render(
+            'registration/confirm.html.twig',
+            array('user' => $user)
+        );
     }
     
     /**
@@ -79,6 +98,21 @@ class RegistrationController extends Controller
      */
     public  function activateAction(Request $request)
     {
-        return array();
+        $rm = $this->get('app.registration_manager');
+        $activationKey = $request->query->get('key');
+        
+        if (!$activationKey || !$rm->activateUser($activationKey)) {
+            throw $this->createNotFoundException(
+                'Invalid Access because the invitation is not correct or might be expired.'
+            );
+
+        }
+
+        $this->addFlash(
+            'success',
+            'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
+        );
+
+        return $this->redirect('login');
     }
 }

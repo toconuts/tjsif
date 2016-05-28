@@ -19,7 +19,7 @@ services:
         arguments:
           - "@mailer"
           - "@templating"
-
+    
     app.registration_manager:
         class:          AppBundle\Service\RegistrationManager
         arguments:

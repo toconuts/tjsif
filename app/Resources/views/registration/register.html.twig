@@ -4,13 +4,69 @@
 
 {% block body %}
 
-{{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
-    {{ form_row(form.termsAccepted) }}
-    <button type="submit">Register!</button>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+
+    <div>
+        {{ form_errors(form.title) }}
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+
+    <div>
+        {{ form_errors(form.firstname) }}
+        {{ form_label(form.firstname) }}
+        {{ form_widget(form.firstname) }}
+    </div>
+    
+    <div>
+        {{ form_errors(form.middlename) }}
+        {{ form_label(form.middlename) }}
+        {{ form_widget(form.middlename) }}
+    </div>
+    
+    <div>
+        {{ form_errors(form.lastname) }}
+        {{ form_label(form.lastname) }}
+        {{ form_widget(form.lastname) }}
+    </div>
+    
+    <div>
+        {{ form_errors(form.plainPassword.first) }}
+        {{ form_label(form.plainPassword.first) }}
+        {{ form_widget(form.plainPassword.first) }}
+        {{ form_label(form.plainPassword.second) }}
+        {{ form_widget(form.plainPassword.second) }}
+    </div>
+    
+    <div>
+        {{ form_errors(form.email) }}
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+    </div>
+    
+    <div>
+        {{ form_errors(form.tel) }}
+        {{ form_label(form.tel) }}
+        {{ form_widget(form.tel) }}
+    </div>
+
+    <div>
+        {{ form_errors(form.position) }}
+        {{ form_label(form.position) }}
+        {{ form_widget(form.position) }}
+    </div>
+
+    <div>
+        {{ form_errors(form.termsAccepted) }}
+        {{ form_label(form.termsAccepted) }}
+        {{ form_widget(form.termsAccepted) }}
+    </div>
+    
+    <div>
+        {{ form_widget(form.register) }}
+    </div>
+
 {{ form_end(form) }}
 
 {% endblock %}
