@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\UserImage;
 
 /**
  * Description of User
@@ -115,6 +116,13 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $position;
+    
+    /**
+     * @var UserImage
+     * 
+     * @ORM\OneToOne(targetEntity="UserImage", mappedBy="user")
+     */
+    private $image;
 
     /**
      * @var ArrayCollection
@@ -153,6 +161,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
+        $this->image = new UserImage();
     }
 
     public function getFullname()
@@ -543,6 +552,30 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->job;
     }
 
+    /**
+     * Set image
+     *
+     * @param string $position
+     *
+     * @return User
+     */
+    public function setImage(UserImage $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return UserImage
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+    
     /**
      * Set position
      *

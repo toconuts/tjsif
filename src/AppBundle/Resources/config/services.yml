@@ -28,3 +28,6 @@ services:
           - "@app.mailer"
           #- "@app.user_repository"
           #- "@app.invitation_repository"
+    
+    app.directory_namer.user_image:
+        class:          AppBundle\Service\UserImageDirectoryNamer

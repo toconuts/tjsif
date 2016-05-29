@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
-//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of RegistrationController
@@ -62,8 +61,8 @@ class RegistrationController extends Controller
                 'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
             );
 
-            return $this->redirect('/login');
-//               return $this->redirectToRoute('login');
+//            return $this->redirect('/login');
+            return $this->redirectToRoute('login');
 
 
             // maybe set a "flash" success message for the user
