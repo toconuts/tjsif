@@ -57,7 +57,7 @@ class InvitationController extends Controller
             
             $this->addFlash(
                 'success',
-                'Sent the invitation to ' . $invitation->getUsername() . '!'
+                'Sent the invitation to ' . $invitation->getEmail() . '!'
             );
 
             $this->redirect('admin_invitation');

@@ -57,7 +57,7 @@ class RegistrationManager
     
     public function registerUser(User $user, Invitation $invitation)
     {
-        $invitation->setTicket(NULL);
+        $invitation->setTicket(null);
         $password = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);
         

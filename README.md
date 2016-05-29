@@ -20,6 +20,10 @@ Verify Environment
 
 Setup Composer
 ----------------------------------
+### Clone project
+In your working directory.
+    git clone https://github.com/toconuts/tjsif.git
+
 ### Install Composer
 
     curl -sS https://getcomposer.org/installer | php
@@ -85,6 +89,14 @@ Deploy
 $kernel = new AppKernel('prod', false);
 
     php bin/console cache:clear --env=prod
+
+#TODO LIST#
+
+* Create tests
+* Add more comments in the code
+* Think about removed image deletion (for now images are not deleted, you have to care about it by yourself…)
+* Update existing images list dynamicly after an image upload
+
 
 [1]:  http://localhost:8000/
 [2]:  http://localhost:8000/config.php

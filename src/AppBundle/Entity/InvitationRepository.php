@@ -56,7 +56,7 @@ class InvitationRepository extends EntityRepository
             $ticket = $oldInvitation->getTicket();
             if (!empty($ticket)) {
                 $invitation->setTicket($ticket);
-                $oldInvitation->setTicket(NULL);
+                $oldInvitation->setTicket(null);
             }
         }
         
