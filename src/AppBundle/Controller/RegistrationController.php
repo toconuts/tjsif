@@ -61,12 +61,7 @@ class RegistrationController extends Controller
                 'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
             );
 
-//            return $this->redirect('/login');
             return $this->redirectToRoute('login');
-
-
-            // maybe set a "flash" success message for the user
-            // flash = $e->getMessage();
             
         }
 

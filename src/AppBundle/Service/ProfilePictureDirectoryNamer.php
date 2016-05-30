@@ -13,20 +13,32 @@ namespace AppBundle\Service;
 
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
- * Description of UserImageDirectoryNamer
+ * Description of ProfilePictureDirectoryNamer
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class UserImageDirectoryNamer implements DirectoryNamerInterface
+class ProfilePictureDirectoryNamer implements DirectoryNamerInterface
 {
+    protected $tokenStorage;
+    
+    public function __construct(TokenStorage $tokenStrage)
+    {
+        $this->tokenStorage = $tokenStrage;
+    }
+    
     /**
      * {@inheritDoc}
      */
     public function directoryName($object, PropertyMapping $mapping)
     {
-//TODO $object->getUser()->getSchool()->getId()
-        return '';
+        return $this->getUser()->getOrganization()->getId();
+    }
+    
+    protected function getUser()
+    {
+        return $this->tokenStorage->getToken()->getUser();
     }
 }

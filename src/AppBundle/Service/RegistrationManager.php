@@ -62,6 +62,7 @@ class RegistrationManager
         $user->setPassword($password);
         
 //TODO: set role;
+//TODO: set initial profile picture
 
         if ($this->isChangedEmail($user, $invitation)) {
             $user->setActivationKey($this->issueActivationKey());

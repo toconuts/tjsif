@@ -44,23 +44,25 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $admin = $this->createUser(
-            'Mr.',
+            '1',    // 'Mr.'
             'Fadmin',
             'Ladmin',
-            'admin@example.com', 
+            'admin@example.com',
             'admin', 
             true,
             [
                 'ROLE_ADMIN',
                 'ROLE_SUPER_ADMIN',
             ],
-            'JP_Ichikawa',
-            'Student'
+            'PCSHS_Chonburi',
+            'Teacher',
+            '1',  //Male
+            '1'  //Participant
         );
         $manager->persist($admin);
         
         $user = $this->createUser(
-            'Ms.',
+            '2',  // 'Ms.'
             'Fuser',
             'Luser',
             'user@example.com', 
@@ -69,15 +71,32 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             [
                 'ROLE_USER',
             ],
-            'PCSHS_Chonburi',
-            'Teacher'
+            'JP_Ichikawa',
+            'Student',
+            '2',   //Female
+            '1'   //Participant
         );
         $manager->persist($user);
         
         $manager->flush();
+        
+        $this->addReference('USER_ADMIN', $admin);
+        $this->addReference('USER_USER', $user);
     }
     
-    protected function createUser($title, $firstname, $lastname, $email, $password, $isActive, array $roles, $school, $job)
+    protected function createUser(
+        $title, 
+        $firstname, 
+        $lastname, 
+        $email, 
+        $password, 
+        $isActive, 
+        array $roles, 
+        $organization, 
+        $job,
+        $gender,
+        $type
+        )
     {
         $user = new User();
         
@@ -85,16 +104,17 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setTitle($title);
         $user->setFirstname($firstname);
         $user->setLastname($lastname);
-        $password = $encoder->encodePassword($user, $password);
-        $user->setPassword($password);
+        $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $user->setIsActive($isActive);
         foreach ($roles as $rolaname) {
             $role = $this->getReference($rolaname);
             $user->addRole($role);
         }
-        $user->setSchool($this->getReference($school));
+        $user->setOrganization($this->getReference($organization));
         $user->setJob($this->getReference($job));
+        $user->setGender($gender);
+        $user->setType($type);
         return $user;
     }
     

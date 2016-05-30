@@ -11,13 +11,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @author toconuts <toconuts@gmail.com>
  * 
  * @ORM\Table(name="job")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\JobRepository")
+ * @ORM\Entity
  */
 class Job
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,9 +23,7 @@ class Job
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
 

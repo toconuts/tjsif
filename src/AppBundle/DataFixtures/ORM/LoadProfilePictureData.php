@@ -14,14 +14,14 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\School;
+use AppBundle\Entity\ProfilePicture;
 
 /**
- * Description of LoadSchoolData
+ * Description of LoadJobData
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class LoadSchoolData extends AbstractFixture implements OrderedFixtureInterface
+class LoadProfilePictureData extends AbstractFixture implements OrderedFixtureInterface
 {
     
     /**
@@ -29,25 +29,26 @@ class LoadSchoolData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        /* Chulabhorn Science High School Chonburi */
-        $pcshs_chonburi = new School();
-        $pcshs_chonburi->setName('Princess Churabhorn Science High School');
-        $manager->persist($pcshs_chonburi);
         
-        /* Ichikawa Gakuen */
-        $jp_ichikawa = new School();
-        $jp_ichikawa->setName('Princess Churabhorn Science High School');
-        $manager->persist($jp_ichikawa);
+        $picture1 = new ProfilePicture();
+        $picture1->setImageName('initial_user.png');
+        $picture1->setUser($this->getReference('USER_ADMIN'));
+        $manager->persist($picture1);
+        
+        $picture2 = new ProfilePicture();
+        $picture2->setImageName('initial_user.png');
+        $picture2->setUser($this->getReference('USER_USER'));
+        $manager->persist($picture2);
         
         $manager->flush();
         
-        $this->addReference('PCSHS_Chonburi', $pcshs_chonburi);
-        $this->addReference('JP_Ichikawa', $jp_ichikawa);
-
+        $this->addReference('Picture1', $picture1);
+        $this->addReference('Picture2', $picture2);
+        
     }
     
     public function getOrder()
     {
-        return 2;
+        return 10;
     }
 }

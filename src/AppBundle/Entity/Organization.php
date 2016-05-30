@@ -16,19 +16,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * School
+ * Organization
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @ORM\Table(name="school")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SchoolRepository")
+ * @ORM\Table(name="organization")
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class School
+class Organization
 {
     /**
-     * @var int
-     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -36,22 +34,21 @@ class School
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $name;
 
     /**
-     * @var ArrayCollection
-     * 
-     * @ORM\OneToMany(targetEntity="User", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="organization")
      */
     private $users;
-       
+    
     /**
-     * @var string
-     * 
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="organization")
+     */
+    private $projects;
+    
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $address;
@@ -75,35 +72,23 @@ class School
     private $email;   
     
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
      */
     private $homepage;
     
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
      */
     private $blog;
 
     /**
-     * Created Time/Date
-     *
-     * @var \DateTime
-     *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * Updated Time\Date
-     *
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
@@ -220,5 +205,149 @@ class School
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Organization
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set tel
+     *
+     * @param string $tel
+     *
+     * @return Organization
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return string
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     *
+     * @return Organization
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Organization
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set homepage
+     *
+     * @param string $homepage
+     *
+     * @return Organization
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return string
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
+    }
+
+    /**
+     * Set blog
+     *
+     * @param string $blog
+     *
+     * @return Organization
+     */
+    public function setBlog($blog)
+    {
+        $this->blog = $blog;
+
+        return $this;
+    }
+
+    /**
+     * Get blog
+     *
+     * @return string
+     */
+    public function getBlog()
+    {
+        return $this->blog;
     }
 }

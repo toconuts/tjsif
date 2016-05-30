@@ -18,13 +18,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use AppBundle\Entity\User;
 
 /**
- * Description of UserImage
+ * Description of ProfilePicture
  *
  * @author toconuts <toconuts@gmail.com>
+ * 
+ * @ORM\Table(name="profile_picture")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
-class UserImage
+class ProfilePicture
 {
     /**
      * @ORM\Id
@@ -36,10 +39,10 @@ class UserImage
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="user_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="profile_picture", fileNameProperty="imageName")
      *
      * @Assert\Image(
-     *   maxSize = "5240000",
+     *   maxSize = "1048000",
      *   maxSizeMessage = "Files must be less than 5 MB",
      *   mimeTypes = {"image/jpeg", "image/pjpeg", "image/png", "image/x-png"},
      *   mimeTypesMessage = "Allowed filetypes: jpg, png",
@@ -61,18 +64,26 @@ class UserImage
 
     /**
      * @ORM\Column(type="datetime")
-     *
-     * @var \DateTime
+     */
+    private $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="image")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="picture")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
  
 //TODO: in constructor to set default user image.
+    
+    public function __construct()
+    {
+        $this->imageName = 'initial_user.png';
+    }
     
     /**
      * @return integer
@@ -153,4 +164,54 @@ class UserImage
     {
         return $this->user;
     }
+
+    /**
+     * Set createdAt
+     *
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+    /**
+     * Set updatedAt
+     *
+     * @ORM\PreUpdate
+     * 
+     * @param \DateTime $updatedAt
+     * @return ProfilePicture
+     */
+    public function setUpdatedAt($updatedAt = null)
+    {
+        if ($updatedAt) {
+            $this->updatedAt = new \DateTime();
+        } else {
+            $this->updatedAt = $updatedAt;
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
 }

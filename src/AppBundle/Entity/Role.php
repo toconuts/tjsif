@@ -42,10 +42,6 @@ class Role implements RoleInterface, \Serializable
     private $role;
 
     /**
-     * Users in group (Inverse Side)
-     * 
-     * @var ArrayCollection
-     * 
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
     private $users;

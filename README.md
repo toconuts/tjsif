@@ -91,12 +91,14 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-
+* Install Pagenator
+* Implement Profile Picture and delete User Image
+* Implement BBS
+* Implement What's new
+* Implement History
+* Implement Log
 * Create tests
 * Add more comments in the code
-* Think about removed image deletion (for now images are not deleted, you have to care about it by yourself…)
-* Update existing images list dynamicly after an image upload
-
 
 [1]:  http://localhost:8000/
 [2]:  http://localhost:8000/config.php

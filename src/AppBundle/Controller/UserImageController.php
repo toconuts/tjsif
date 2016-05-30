@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Form\UserImageType;
-use AppBundle\Entity\UserImage;
+use AppBundle\Entity\ProfilePicture;
 
 /**
  * Description of UserImageController
@@ -48,7 +48,7 @@ class UserImageController extends Controller
      */
     public function createAction(Request $request)
     {
-        $image = new UserImage();
+        $image = new ProfilePicture();
         $form = $this->createForm(UserImageType::class, $image);
 
         $form->handleRequest($request);
@@ -69,7 +69,7 @@ class UserImageController extends Controller
      */
     public function updateAction(Request $request)
     {
-        $image = new UserImage();
+        $image = new ProfilePicture();
         
         $form = $this->createForm(UserImageType::class, $image);
         
@@ -94,7 +94,7 @@ class UserImageController extends Controller
      */
     public function listAction()
     {
-        $images = $this->getDoctrine()->getRepository('AppBundle:UserImage')->findAll();
+        $images = $this->getDoctrine()->getRepository('AppBundle:ProfilePicture')->findAll();
         dump($images);
         return $this->render(
             'userimage/list.html.twig',
@@ -107,7 +107,7 @@ class UserImageController extends Controller
      * @Method({"DELETE"})
      * @ParamConverter("image", class="AppBundle:UserImage")
      */
-    public function deleteAction(UserImage $image)
+    public function deleteAction(ProfilePicture $image)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($image);

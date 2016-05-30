@@ -14,13 +14,17 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 /**
  * Description of UserType
@@ -44,8 +48,25 @@ class UserType extends AbstractType
                 )        
             )
             ->add('email', EmailType::class, ['label' => 'Email*'])
+        /*    ->add('gender', ChoiceType::class, array(
+                'choices' => [
+                    'Male',
+                    'Female',
+                ],
+                'empty_data' => 0,
+                'expanded' => true,
+            ))*/
             ->add('tel', TextType::class)
             ->add('position', TextType::class)
+            ->add('organization', EntityType::class, array(
+                // query choices from this entity
+                'class' => 'AppBundle:Organization',
+                // use the User.username property as the visible option string
+                'choice_label' => 'name',
+            ))
+            
+
+     //       ->add('about_me', TextareaType::class, ['label' => 'About me (less than 255)'])
             ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
@@ -55,6 +76,20 @@ class UserType extends AbstractType
                 'label' => 'REGISTER!',
             ]);
     }
+    
+    /*
+     * job
+     * organization
+     * type
+     * position
+     * city
+     * province
+     * country
+     * zip
+     * homepage
+     * blog
+     * allergies
+     */
 
     /**
      * {@inheritdoc}

@@ -48,8 +48,6 @@ class Invitation
     private $email;
     
     /**
-     * @var string $activationKey
-     *
      * @ORM\Column(name="ticket", type="string", length=100, nullable=true)
      */
     private $ticket;
@@ -61,19 +59,11 @@ class Invitation
     private $invitedBy;
     
     /**
-     * Created Time/Date
-     *
-     * @var \DateTime
-     *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * Updated Time\date
-     *
-     * @var \datetime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;

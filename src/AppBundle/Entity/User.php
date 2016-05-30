@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use AppBundle\Entity\UserImage;
+use AppBundle\Entity\ProfilePicture;
 
 /**
  * Description of User
@@ -45,8 +45,8 @@ class User implements AdvancedUserInterface, \Serializable
     private $email;
 
     /**
-    * @ORM\Column(type="string", length=64)
-    */
+     * @ORM\Column(type="string", length=64)
+     */
     private $password;
 
     /**
@@ -61,10 +61,6 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
 
     /**
-     * User's roles. (Owning Side)
-     *
-     * @var ArrayCollection
-     *
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      */
     private $roles;
@@ -91,6 +87,11 @@ class User implements AdvancedUserInterface, \Serializable
      * @Assert\NotBlank()
      */
     private $lastname;
+    
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $gender;
 
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
@@ -99,59 +100,96 @@ class User implements AdvancedUserInterface, \Serializable
     private $tel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="School", inversedBy="users")
-     * @ORM\JoinColumn(name="school_id", referencedColumnName="id")
-     */
-    private $school;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
      * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
      */
     private $job;
 
     /**
-     * @var string $activationKey
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="users")
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     */
+    private $organization;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Project", inversedBy="users")
+     */
+    private $projects;
+    
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $type;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $position;
     
     /**
-     * @var UserImage
-     * 
-     * @ORM\OneToOne(targetEntity="UserImage", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="ProfilePicture", mappedBy="user")
      */
-    private $image;
+    private $picture;
+    
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $city;
+    
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $province;
+    
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $country;
+    
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
+     */
+    private $zip;
+    
+    /**
+     * @ORM\Column(name="about_me", type="string", length=255, nullable=true)
+     */
+    private $aboutMe;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
+     */
+    private $homepage;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
+     */
+    private $blog;
 
     /**
-     * @var ArrayCollection
-     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $allergies;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Invitation", mappedBy="invitedBy")
      */
     private $invitations;
     
     /**
-     * @var string $activationKey
-     *
      * @ORM\Column(name="activation_key", type="string", length=100, nullable=true)
      */
     private $activationKey;
     
     /**
-     * Created Time/Date
-     *
-     * @var \DateTime
-     *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * Updated Time\date
-     *
-     * @var \datetime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
@@ -161,7 +199,8 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
-        $this->image = new UserImage();
+        $this->projects = new ArrayCollection();
+ //       $this->picture = new ProfilePicture();
     }
 
     public function getFullname()
@@ -505,27 +544,27 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set school
+     * Set Organization
      *
-     * @param \AppBundle\Entity\School $school
+     * @param Organization $organization
      *
      * @return User
      */
-    public function setSchool(\AppBundle\Entity\School $school = null)
+    public function setOrganization(Organization $organization = null)
     {
-        $this->school = $school;
+        $this->organization = $organization;
 
         return $this;
     }
 
     /**
-     * Get school
+     * Get Organization
      *
-     * @return \AppBundle\Entity\School
+     * @return Organization
      */
-    public function getSchool()
+    public function getOrganization()
     {
-        return $this->school;
+        return $this->organization;
     }
 
     /**
@@ -553,27 +592,27 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set image
+     * Set picture
      *
-     * @param string $position
+     * @param ProfilePicture $picture
      *
      * @return User
      */
-    public function setImage(UserImage $image)
+    public function setPicture(ProfilePicture $picture)
     {
-        $this->image = $image;
+        $this->picture = $picture;
 
         return $this;
     }
 
     /**
-     * Get image
+     * Get picture
      *
-     * @return UserImage
+     * @return ProfilePicture
      */
-    public function getImage()
+    public function getPicture()
     {
-        return $this->image;
+        return $this->picture;
     }
     
     /**
@@ -721,5 +760,245 @@ class User implements AdvancedUserInterface, \Serializable
     public function getInvitations()
     {
         return $this->invitations;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     *
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return User
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set province
+     *
+     * @param string $province
+     *
+     * @return User
+     */
+    public function setProvince($province)
+    {
+        $this->province = $province;
+
+        return $this;
+    }
+
+    /**
+     * Get province
+     *
+     * @return string
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return User
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set zip
+     *
+     * @param string $zip
+     *
+     * @return User
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    /**
+     * Get zip
+     *
+     * @return string
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Set aboutMe
+     *
+     * @param string $aboutMe
+     *
+     * @return User
+     */
+    public function setAboutMe($aboutMe)
+    {
+        $this->aboutMe = $aboutMe;
+
+        return $this;
+    }
+
+    /**
+     * Get aboutMe
+     *
+     * @return string
+     */
+    public function getAboutMe()
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * Set homepage
+     *
+     * @param string $homepage
+     *
+     * @return User
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return string
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
+    }
+
+    /**
+     * Set blog
+     *
+     * @param string $blog
+     *
+     * @return User
+     */
+    public function setBlog($blog)
+    {
+        $this->blog = $blog;
+
+        return $this;
+    }
+
+    /**
+     * Get blog
+     *
+     * @return string
+     */
+    public function getBlog()
+    {
+        return $this->blog;
+    }
+
+    /**
+     * Set allergies
+     *
+     * @param string $allergies
+     *
+     * @return User
+     */
+    public function setAllergies($allergies)
+    {
+        $this->allergies = $allergies;
+
+        return $this;
+    }
+
+    /**
+     * Get allergies
+     *
+     * @return string
+     */
+    public function getAllergies()
+    {
+        return $this->allergies;
     }
 }

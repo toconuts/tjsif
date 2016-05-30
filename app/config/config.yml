@@ -74,8 +74,8 @@ vich_uploader:
     db_driver: orm
     
     mappings:
-        user_image:
+        profile_picture:
             uri_prefix:         /images/user
             upload_destination: %kernel.root_dir%/../web/images/user
             namer:              vich_uploader.namer_uniqid
-            directory_namer:    app.directory_namer.user_image
+            directory_namer:    app.directory_namer.user_picture
