@@ -3,7 +3,7 @@
 {% block title %}Registration{% endblock %}
 
 {% block body %}
-
+{#
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
 
@@ -66,7 +66,13 @@
     <div>
         {{ form_widget(form.register) }}
     </div>
-
+    <input type="submit" value="REGISTER!"
+           class="btn btn-default pull-right" />
 {{ form_end(form) }}
-
+#}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+    <input type="submit" value="REGISTER"
+       class="btn btn-default pull-right" />
+{{ form_end(form) }}
 {% endblock %}

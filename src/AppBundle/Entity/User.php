@@ -50,8 +50,8 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(max=4096, groups={"registration"})
      */
     private $plainPassword;
 
@@ -203,6 +203,14 @@ class User implements AdvancedUserInterface, \Serializable
  //       $this->picture = new ProfilePicture();
     }
 
+    /**
+     * @return bool
+     */
+    public function isUser(User $user = null)
+    {
+        return $user && $user->getId() == $this->getId();
+    }
+    
     public function getFullname()
     {
         return $this->title . " " . $this->firstname . " " . $this->lastname;

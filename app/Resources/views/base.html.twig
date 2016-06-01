@@ -11,3 +11,19 @@
         {% block javascripts %}{% endblock %}
     </body>
 </html>
+
+{#
+{% stylesheets
+    'css/bootstrap.min.css'
+    'css/main.css'
+    filter='cssrewrite' output='css/compiled/app.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+
+{% javascripts
+    'js/jquery.min.js'
+    'js/bootstrap.min.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+#}

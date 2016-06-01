@@ -83,6 +83,19 @@ To generate the missing getter and setter methods:
 ### Load fixtures
     php bin/console doctrine:fixtures:load
 
+Node.js and npm
+----------------------------------
+    sudo apt-get update
+    sudo apt-get install nodejs
+    sudo apt-get install npm
+
+Bower
+----------------------------------
+Install (Global)
+    sudo npm install -g bower
+
+    bower install
+
 Deploy
 ----------------------------------
 `web/app.php`

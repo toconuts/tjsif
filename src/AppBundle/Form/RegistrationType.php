@@ -28,11 +28,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 /**
- * Description of UserType
+ * Description of RegistrationType
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class UserType extends AbstractType
+class RegistrationType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -50,12 +50,12 @@ class UserType extends AbstractType
             ->add('firstname', TextType::class, ['label' => 'Firstname*'])
             ->add('middlename', TextType::class)
             ->add('lastname', TextType::class, ['label' => 'Lastname*'])
-        /*    ->add('plainPassword', RepeatedType::class, array(
+            ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Password*'),
                 'second_options' => array('label' => 'Repeat Password*'),
                 )        
-            )*/
+            )
             ->add('gender', ChoiceType::class, array(
                 'choices' => [
                     'Not Specified' => 0,
@@ -64,26 +64,21 @@ class UserType extends AbstractType
                 ],
                 'expanded' => true,
             ))
-            ->add('email', EmailType::class, array(
-                'disabled' => true,
-                'label' => 'Email*',
-            ))
+            ->add('email', EmailType::class, ['label' => 'Email*'])
             ->add('tel', TextType::class)
 
             ->add('type', ChoiceType::class, array(
                 'choices' => [
-                    'Participants'  => 1,
+                    'Participant'  => 1,
                     'Observer'      => 2,
                 ]
             ))
             ->add('job', EntityType::class, array(
                 'class' => 'AppBundle:Job',
-                'disabled' => true,
                 'choice_label' => 'name',
             ))
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
-                'disabled' => true,
                 'choice_label' => 'name',
             ))
             ->add('position', TextType::class)
@@ -102,11 +97,11 @@ class UserType extends AbstractType
             ->add('blog', UrlType::class)
             ->add('allergies', TextareaType::class)
             ->add('about_me', TextareaType::class, ['label' => 'About me (less than 255)'])
-            /*->add('termsAccepted', CheckboxType::class, array(
+            ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
                 )
-            )*/
+            )
         ;
     }
     
@@ -117,6 +112,11 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User',
+            'validation_groups' => array('registration'),
         ));
+        
+        
     }
+    
+    
 }

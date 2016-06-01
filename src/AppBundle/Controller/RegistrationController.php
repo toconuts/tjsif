@@ -14,7 +14,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Form\UserType;
+use AppBundle\Form\RegistrationType;
 use AppBundle\Entity\User;
 
 /**
@@ -43,7 +43,7 @@ class RegistrationController extends Controller
         $user = new User();   
         $user->setEmail($invitation->getEmail());
         
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {

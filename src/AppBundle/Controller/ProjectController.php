@@ -15,63 +15,67 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
+use AppBundle\Entity\Project;
 
 /**
- * Description of UserController
+ * Description of ProjectController
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @Route("/member/user")
+ * @Route("/member/project")
  */
 class UserController extends Controller
 {
     /**
-     * @Route("", name="user_index")
+     * @Route("", name="project_index")
      */
     public function indexAction()
     {
-        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        dump($users);
+        $projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
         return $this->render(
             'user/list.html.twig',
-            array('users' => $users)
+            array('projects' => $peojects)
         );
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="user_show")
-     * @ParamConverter("user", class="AppBundle:User")
+     * @Route("/{id}", requirements = {"id" = "\d+"}, name="project_show")
+     * @ParamConverter("project", class="AppBundle:Project")
      */
-    public function showAction(User $user)
+    public function showAction(Project $project)
     {   
         return $this->render(
             'user/show.html.twig',
-            array('user' => $user)
+            array('project' => $project)
         );
     }
     
     /**
-     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="user_edit")
-     * @ParamConverter("user", class="AppBundle:User")
+     * @Route("/new", name="project_new")
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function editAction(Request $request, User $user)
+    public function newAction()
     {
-        if (!$user->isUser($this->getUser())) {
-            throw $this->denyAccessUnlessGranted('edit', $user);
-            //throw $this->createAccessDeniedException();
-        }
+        // ...
+    }
+    
+    /**
+     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="project_edit")
+     * @ParamConverter("project", class="AppBundle:Project")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function editAction(Request $request, Project $project)
+    {
         
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-//TODO: Add Flash Message
             return $this->redirectToRoute('user_list');
         }
         
@@ -82,13 +86,14 @@ class UserController extends Controller
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="user_delete")
+     * @Route("/{id}", requirements = {"id" = "\d+"}, name="project_delete")
      * @Method({"DELETE"})
-     * @ParamConverter("user", class="AppBundle:User")
+     * @ParamConverter("project", class="AppBundle:Project")
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function unactiveAction(User $user)
+    public function unactiveAction(Project $project)
     {
-        $user->setIsActive(false);
+        $project->setIsActive(false);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
