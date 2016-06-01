@@ -1,29 +1,36 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{% block title %}TJ-SIF2016{% endblock %}</title>
+    
+    {% block stylesheets %}
+    {% stylesheets
+        'bootstrap/css/bootstrap.min.css'
+        'fontawesome/css/font-awesome.min.css'
+        'css/bootstrap-custom.css'
+        'css/my.css'
+        filter='cssrewrite' output='css/compiled/app.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {# <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> #}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+    {% block body %}{% endblock %}
+    {% block javascripts %}
+    {% javascripts
+        'jquery/jquery.min.js'
+        'bootstrap/bootstrap.min.js'
+        'js/my.js'
+        output='js/compiled/app.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endblock %}
+</body>
 </html>
-
-{#
-{% stylesheets
-    'css/bootstrap.min.css'
-    'css/main.css'
-    filter='cssrewrite' output='css/compiled/app.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
-
-{% javascripts
-    'js/jquery.min.js'
-    'js/bootstrap.min.js'
-    output='js/compiled/app.js' %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-#}
