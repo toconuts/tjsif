@@ -12,6 +12,7 @@
         'bootstrap/css/bootstrap.min.css'
         'fontawesome/css/font-awesome.min.css'
         'css/bootstrap-custom.css'
+        'css/ie10-viewport-bug-workaround.css'
         'css/my.css'
         filter='cssrewrite' output='css/compiled/app.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -30,6 +31,7 @@
     {% javascripts
         'jquery/jquery.min.js'
         'bootstrap/bootstrap.min.js'
+        'assets/js/ie10-viewport-bug-workaround.js'
         'js/my.js'
         output='js/compiled/app.js' %}
         <script src="{{ asset_url }}"></script>
