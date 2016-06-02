@@ -24,11 +24,13 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\User;
-//use AppBundle\Utils\Constraints\Gender;
 use AppBundle\Utils\ChoiceList\Gender;
 use AppBundle\Utils\ChoiceList\Title;
+use AppBundle\Utils\ChoiceList\AccountType;
+
 /**
  * Description of UserType
  *
@@ -40,43 +42,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /*->add('title', ChoiceType::class, array(
-                'choices' => [
-                    'Mr. '  => 1,
-                    'Ms.'   => 2,
-                    'Mrs.'  => 3,
-                    'Miss.' => 4,
-                    'Dr.'   => 5,
-                ]
-            ))*/
             ->add('title', ChoiceType::class, array(
                 'choice_loader' => new Title()
             ))
             ->add('firstname', TextType::class, ['label' => 'Firstname*'])
             ->add('middlename', TextType::class)
             ->add('lastname', TextType::class, ['label' => 'Lastname*'])
-        /*    ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password*'),
-                'second_options' => array('label' => 'Repeat Password*'),
-                )        
-            )*/
-            /*->add('gender', ChoiceType::class, array(
-                'choices' => [
-                    'Not Specified' => 0,
-                    'Male' => 1,
-                    'Female' => 2,
-                ],
-                'expanded' => true,
-            ))*/
-            /*->add('gender', ChoiceType::class, array(
-                'choices' => [
-                    GENDER::NOT_SPECIFIED_TEXT => GENDER::NOT_SPECIFIED_VALUE,
-                    GENDER::MALE_TEXT => GENDER::MALE_VALUE,
-                    GENDER::FEMALE_TEXT => GENDER::FEMALE_VALUE,
-                ],
-                'expanded' => true,
-            ))*/
             ->add('gender', ChoiceType::class, array(
                 'choice_loader' => new Gender(),
                 'expanded' => true,
@@ -86,12 +57,8 @@ class UserType extends AbstractType
                 'label' => 'Email*',
             ))
             ->add('tel', TextType::class)
-
             ->add('type', ChoiceType::class, array(
-                'choices' => [
-                    'Participants'  => 1,
-                    'Observer'      => 2,
-                ]
+                'choice_loader' => new AccountType(),
             ))
             ->add('job', EntityType::class, array(
                 'class' => 'AppBundle:Job',
@@ -104,26 +71,25 @@ class UserType extends AbstractType
                 'choice_label' => 'name',
             ))
             ->add('position', TextType::class)
+            ->add('address1', TextType::class)
+            ->add('address2', TextType::class)
             ->add('city', TextType::class)
             ->add('province', TextType::class)
-            ->add('country', ChoiceType::class, array(
+            /*->add('country', ChoiceType::class, array(
                 'choices' => [
                     'Thailand'  => 1,
                     'Japan'     => 2,
                     'The other' => 3,
                 ]
+            ))*/
+            ->add('country', CountryType::class, array(
+                'placeholder' => 'Choose your ocuntry'
             ))
             ->add('zip', TextType::class)
-
             ->add('homepage', UrlType::class)
             ->add('blog', UrlType::class)
             ->add('allergies', TextareaType::class)
             ->add('about_me', TextareaType::class, ['label' => 'About me (less than 255)'])
-            /*->add('termsAccepted', CheckboxType::class, array(
-                'mapped' => false,
-                'constraints' => new IsTrue(),
-                )
-            )*/
         ;
     }
     

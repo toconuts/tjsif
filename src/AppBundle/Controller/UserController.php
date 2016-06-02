@@ -72,7 +72,7 @@ class UserController extends Controller
             $em->flush();
 
 //TODO: Add Flash Message
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('user_index');
         }
         
         return $this->render(
@@ -82,16 +82,33 @@ class UserController extends Controller
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="user_delete")
-     * @Method({"DELETE"})
+     * @Route("/{id}/unactive", requirements = {"id" = "\d+"}, name="user_inactivate")
+     * @Method({"INACTIVATE"})
      * @ParamConverter("user", class="AppBundle:User")
      */
-    public function unactiveAction(User $user)
+    public function inactivateAction(User $user)
     {
         $user->setIsActive(false);
+        dump($user);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('user_index');
+    }
+//TODO: add activateAction
+    
+    /**
+     * @Route("/{id}/delete", requirements = {"id" = "\d+"}, name="user_delete")
+     * @Method({"DELETE"})
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function deleteAction(User $user)
+    {
+        dump($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+        
+        return $this->redirectToRoute('user_index');
     }
 }

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Job
@@ -12,18 +13,18 @@ use Doctrine\Common\Collections\ArrayCollection;
  * 
  * @ORM\Table(name="job")
  * @ORM\Entity
+ * @UniqueEntity(fields="name", message="Job already exist")
  */
 class Job
 {
     /**
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $name;
 
@@ -31,6 +32,12 @@ class Job
      * @ORM\OneToMany(targetEntity="User", mappedBy="job")
      */
     private $users;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Role")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     */
+    private $role;
 
     public function __construct()
     {
@@ -103,5 +110,43 @@ class Job
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Set role
+     *
+     * @param \AppBundle\Entity\Role $role
+     *
+     * @return Job
+     */
+    public function setRole(\AppBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \AppBundle\Entity\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Job
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

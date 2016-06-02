@@ -24,7 +24,12 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\User;
+use AppBundle\Utils\ChoiceList\Gender;
+use AppBundle\Utils\ChoiceList\Title;
+use AppBundle\Utils\ChoiceList\AccountType;
 
 
 /**
@@ -38,7 +43,7 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', ChoiceType::class, array(
+            /*->add('title', ChoiceType::class, array(
                 'choices' => [
                     'Mr. '  => 1,
                     'Ms.'   => 2,
@@ -46,6 +51,9 @@ class RegistrationType extends AbstractType
                     'Miss.' => 4,
                     'Dr.'   => 5,
                 ]
+            ))*/
+            ->add('title', ChoiceType::class, array(
+                'choice_loader' => new Title()
             ))
             ->add('firstname', TextType::class, ['label' => 'Firstname*'])
             ->add('middlename', TextType::class)
@@ -56,22 +64,29 @@ class RegistrationType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password*'),
                 )        
             )
-            ->add('gender', ChoiceType::class, array(
+            /*->add('gender', ChoiceType::class, array(
                 'choices' => [
                     'Not Specified' => 0,
                     'Male' => 1,
                     'Female' => 2,
                 ],
                 'expanded' => true,
+            ))*/
+            ->add('gender', ChoiceType::class, array(
+                'choice_loader' => new Gender(),
+                'expanded' => true,
             ))
             ->add('email', EmailType::class, ['label' => 'Email*'])
             ->add('tel', TextType::class)
 
-            ->add('type', ChoiceType::class, array(
+            /*->add('type', ChoiceType::class, array(
                 'choices' => [
                     'Participant'  => 1,
                     'Observer'      => 2,
                 ]
+            ))*/
+            ->add('type', ChoiceType::class, array(
+                'choice_loader' => new AccountType(),
             ))
             ->add('job', EntityType::class, array(
                 'class' => 'AppBundle:Job',
@@ -82,17 +97,21 @@ class RegistrationType extends AbstractType
                 'choice_label' => 'name',
             ))
             ->add('position', TextType::class)
+            ->add('address1', TextType::class)
+            ->add('address2', TextType::class)
             ->add('city', TextType::class)
             ->add('province', TextType::class)
-            ->add('country', ChoiceType::class, array(
+            /*->add('country', ChoiceType::class, array(
                 'choices' => [
                     'Thailand'  => 1,
                     'Japan'     => 2,
                     'The other' => 3,
                 ]
+            ))*/
+            ->add('country', CountryType::class, array(
+                'placeholder' => 'Choose your ocuntry'
             ))
             ->add('zip', TextType::class)
-
             ->add('homepage', UrlType::class)
             ->add('blog', UrlType::class)
             ->add('allergies', TextareaType::class)

@@ -107,8 +107,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $user->setIsActive($isActive);
-        foreach ($roles as $rolaname) {
-            $role = $this->getReference($rolaname);
+        foreach ($roles as $rolename) {
+            $role = $this->getReference($rolename);
             $user->addRole($role);
         }
         $user->setOrganization($this->getReference($organization));

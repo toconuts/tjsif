@@ -18,14 +18,12 @@ use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class Title extends AbstractChoiceLoader
+class AccountType extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'Mr. '  => '1',
-        'Ms.'   => '2',
-        'Mrs.'  => '3',
-        'Miss.' => '4',
-        'Dr.'   => '5',
+        'Participants'      => '1',
+        'Operation staff'   => '2',
+        'Observer'          => '3',
     ];
 }

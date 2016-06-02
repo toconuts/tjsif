@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "layout_member.html.twig" %}
 
 {% block title %}Login{% endblock %}
 {% block body %}
@@ -8,7 +8,23 @@ test in show
     <a class="btn btn-primary" href="{{ path("user_edit", {"id": user.id}) }}">Edit</a>
 {% endif %}
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="...">Delete</a>
+    <form action="{{ path('user_unactivate', {id: user.id}) }}" method="POST">
+            <input type="hidden" name="_method" value="UNACTIVE"/>
+            <input type="submit" value="Unactivate"/>
+    </form>
+{# //TODO Only display ROLE_SADMIN & Create FormType #}
+    {% if user.isActive %}
+        <form action="{{ path('user_inactivate', {id: user.id}) }}" method="POST">
+            <input type="hidden" name="_method" value="INACTIVATE"/>
+            <input type="submit" value="Inactivate"/>
+        </form>
+    {% else %}
+        <form action="{{ path('user_activate', {id: user.id}) }}" method="POST">
+            <input type="hidden" name="_method" value="ACTIVATE"/>
+            <input type="submit" value="Activate"/>
+        </form>
+    {% endif %}
+    {#<a href="{{ path("user_unactivate", {"id": user.id}) }}">Unactivate</a>#}
 {% endif %}
 
 {% endblock %}
