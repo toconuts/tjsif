@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+{#{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}#}
+{{ form_start(form, {
+        'attr': {
+            'novalidate': 'novalidate',            
+            'action': path('user_image_create')
+        }
+    })
+}}
+{# 'method': 'post',#}
+
+    {{ form_errors(form) }}
+    <div>
+        {{ form_errors(form.imageFile) }}
+        {{ form_label(form.imageFile) }}
+        {{ form_widget(form.imageFile) }}
+    </div>
+    <div>
+        {{ form_widget(form.save) }}
+    </div>
+{{ form_end(form) }}
+{#{{ form_start(form, {action: path('user_image_create')}) }}
+    {{ form_rest(form) }}
+{{ form_end(form) }}#}
+{% endblock %}

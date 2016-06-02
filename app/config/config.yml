@@ -36,6 +36,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        #- 'bootstrap_3_layout.html.twig'
+        - 'bootstrap_3_horizontal_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -68,4 +71,21 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+
+# VichUploader Configuration
+vich_uploader:
+    db_driver: orm
+    
+    mappings:
+        profile_picture:
+            uri_prefix:         /images/user
+            upload_destination: %kernel.root_dir%/../web/images/user
+            namer:              vich_uploader.namer_uniqid
+            directory_namer:    app.directory_namer.user_picture
+
+# Assetic Configuration
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~

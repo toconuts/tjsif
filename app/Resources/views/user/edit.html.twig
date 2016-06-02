@@ -1,0 +1,12 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Login{% endblock %}
+{% block body %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+<input type="submit" value="UPDATE"
+       class="btn btn-default pull-right" />
+{{ form_end(form) }}
+    
+{% endblock %}

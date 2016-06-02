@@ -1,0 +1,35 @@
+parameters:
+#    parameter_name: value
+
+services:
+    app.user_repository:
+        class:          AppBundle\Entity\UserRepository
+        factory:        ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+          - AppBundle\Entity\User
+
+    app.invitation_repository:
+        class:          AppBundle\Entity\Invantionrepository
+        factory:        ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+          - AppBundle\Entity\User
+
+    app.mailer:
+        class:          AppBundle\Service\Mailer
+        arguments:
+          - "@mailer"
+          - "@templating"
+    
+    app.registration_manager:
+        class:          AppBundle\Service\RegistrationManager
+        arguments:
+          - "@security.password_encoder"
+          - "@doctrine.orm.entity_manager"
+          - "@app.mailer"
+          #- "@app.user_repository"
+          #- "@app.invitation_repository"
+    
+    app.directory_namer.user_picture:
+        class:          AppBundle\Service\ProfilePictureDirectoryNamer
+        arguments:
+          - "@security.token_storage"

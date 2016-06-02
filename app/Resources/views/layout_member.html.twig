@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block layout %}
+{% include "components/navbar_member.html.twig" %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            {% include "components/sidebar_member.html.twig" %}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {{ parent() }}
+        </div>
+    </div>
+</div>
+{% include "components/footer.html.twig" %}
+{% endblock %}

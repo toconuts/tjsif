@@ -1,0 +1,15 @@
+{% autoescape false %}
+Thailand - Japan ICT Fair 2016 Official Web Site Account
+
+Verify your email address
+Hi {{ user.fullname }},
+
+To finish setting up your account, we just need to make sure this email address is yours.
+
+Please click the link below to verify your email address and activate your Account.
+{{ url('user_activate', {'key': user.activationKey}) }}
+
+Thanks,
+TJ-SIF 2016 Secretariat
+Princess Chulabhorn Science High School Chonburi
+{% endautoescape %}

@@ -1,0 +1,16 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Login{% endblock %}
+{% block body %}
+<ul>
+    {% for image in images %}
+    <li>
+        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" />
+        <form action="{{ path('user_image_delete', {id: image.id}) }}" method="POST">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <input type="submit" value="DELETE"/>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

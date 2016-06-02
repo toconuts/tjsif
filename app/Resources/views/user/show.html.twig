@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+{% block body %}
+
+test in show
+{% if user.isUser(app.user) %}
+    <a class="btn btn-primary" href="{{ path("user_edit", {"id": user.id}) }}">Edit</a>
+{% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="...">Delete</a>
+{% endif %}
+
+{% endblock %}

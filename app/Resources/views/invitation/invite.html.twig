@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+
+{# {{ form.vars.value.invitation }} #}
+
+{% for flash_message in app.session.flashBag.get('success') %}
+    <div class="flash-success">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+{% for flash_message in app.session.flashBag.get('error') %}
+    <div class="flash-error">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+
+    <div>
+        {{ form_errors(form.username) }}
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username) }}
+    </div>
+
+    <div>
+        {{ form_errors(form.email.first) }}
+        {{ form_label(form.email.first) }}
+        {{ form_widget(form.email.first) }}
+        {{ form_label(form.email.second) }}
+        {{ form_widget(form.email.second) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.invite) }}
+    </div>
+
+{{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% autoescape false %}
+Welcome to Thailand - Japan ICT Fair 2016 Official Web Site!
+
+Hi {{ invitation.username }},
+You're receiving this email because {{ invitation.invitedBy.fullname }} is invitig you.
+
+Verify your email address and register now!
+
+To finish setting up your account, please click the link below then register some information about you.
+{{ url('user_registration', {'key': invitation.ticket}) }}
+
+
+If you were not aware that you were going to receive this message, please delete this email.
+Your account will not be registered unless you register with the site by clicking the link above.
+
+Thanks,
+TJ-SIF 2016 Secretariat
+Princess Chulabhorn Science High School Chonburi
+{% endautoescape %}
