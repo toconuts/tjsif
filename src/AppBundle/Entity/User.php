@@ -132,6 +132,16 @@ class User implements AdvancedUserInterface, \Serializable
     private $picture;
     
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $address1;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $address2;
+    
+    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $city;
@@ -1008,5 +1018,87 @@ class User implements AdvancedUserInterface, \Serializable
     public function getAllergies()
     {
         return $this->allergies;
+    }
+
+    /**
+     * Set address1
+     *
+     * @param string $address1
+     *
+     * @return User
+     */
+    public function setAddress1($address1)
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Get address1
+     *
+     * @return string
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     *
+     * @return User
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Add project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return User
+     */
+    public function addProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Remove project
+     *
+     * @param \AppBundle\Entity\Project $project
+     */
+    public function removeProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects->removeElement($project);
+    }
+
+    /**
+     * Get projects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjects()
+    {
+        return $this->projects;
     }
 }

@@ -1,9 +1,16 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Signin for TJ-SIF member site{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets 'css/signin.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% endblock %}
 
 {% block body %}
-
+<div class="container">
 {% for flash_message in app.session.flashBag.get('success') %}
     <div class="flash-success">
         {{ flash_message }}
@@ -14,16 +21,21 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-<form action="{{ path('login') }}" method="post">
-    <label for="username">Email:</label>
-    <input type="email" id="username" name="_username" value="{{ last_username }}" />
+<form class="form-signin" action="{{ path('login') }}" method="post">
+    <h2 class="form-signin-heading">TJ-SIF 2016</h2>
+    <p>Sign in with your TJ-SIF 2016 Account</p>
+    <label for="username" class="sr-only">Email address</label>
+    <input type="email" id="username" name="_username" value="{{ last_username }} " class="form-control" placeholder="Email address" required autofocus>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required>
 
-    <input type="checkbox" id="remember_me" name="_remember_me"/>
-    <label for="remember_me">Keep me logged in</label>
-    
+    <div class="checkbox">
+    <label>
+    <input type="checkbox" id="remember_me" name="_remember_me">Keep me signed in
+   {# <label for="remember_me">Keep me logged in</label>#}
+    </label>
+    </div>
     <input type="hidden" name="_csrf_token"
         value="{{ csrf_token('authenticate') }}"
     >
@@ -34,6 +46,7 @@
         <input type="hidden" name="_target_path" value="/account" />
     #}
 
-    <button type="submit">login</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
+</div>  <!-- /container -->
 {% endblock %}

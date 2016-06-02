@@ -25,8 +25,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
-
+use AppBundle\Entity\User;
+//use AppBundle\Utils\Constraints\Gender;
+use AppBundle\Utils\ChoiceList\Gender;
+use AppBundle\Utils\ChoiceList\Title;
 /**
  * Description of UserType
  *
@@ -38,7 +40,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', ChoiceType::class, array(
+            /*->add('title', ChoiceType::class, array(
                 'choices' => [
                     'Mr. '  => 1,
                     'Ms.'   => 2,
@@ -46,6 +48,9 @@ class UserType extends AbstractType
                     'Miss.' => 4,
                     'Dr.'   => 5,
                 ]
+            ))*/
+            ->add('title', ChoiceType::class, array(
+                'choice_loader' => new Title()
             ))
             ->add('firstname', TextType::class, ['label' => 'Firstname*'])
             ->add('middlename', TextType::class)
@@ -56,12 +61,24 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password*'),
                 )        
             )*/
-            ->add('gender', ChoiceType::class, array(
+            /*->add('gender', ChoiceType::class, array(
                 'choices' => [
                     'Not Specified' => 0,
                     'Male' => 1,
                     'Female' => 2,
                 ],
+                'expanded' => true,
+            ))*/
+            /*->add('gender', ChoiceType::class, array(
+                'choices' => [
+                    GENDER::NOT_SPECIFIED_TEXT => GENDER::NOT_SPECIFIED_VALUE,
+                    GENDER::MALE_TEXT => GENDER::MALE_VALUE,
+                    GENDER::FEMALE_TEXT => GENDER::FEMALE_VALUE,
+                ],
+                'expanded' => true,
+            ))*/
+            ->add('gender', ChoiceType::class, array(
+                'choice_loader' => new Gender(),
                 'expanded' => true,
             ))
             ->add('email', EmailType::class, array(

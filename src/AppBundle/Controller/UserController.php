@@ -29,14 +29,14 @@ use AppBundle\Form\UserType;
 class UserController extends Controller
 {
     /**
-     * @Route("", name="user_index")
+     * @Route("/", name="user_index")
      */
     public function indexAction()
     {
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         dump($users);
         return $this->render(
-            'user/list.html.twig',
+            'user/index.html.twig',
             array('users' => $users)
         );
     }
