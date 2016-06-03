@@ -1,7 +1,19 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets 'css/carousel.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% endblock %}
+
 {% block layout %}
 {% include "components/navbar_default.html.twig" %}
 {{ parent() }}
 {% include "components/footer.html.twig" %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>window.jQuery || document.write('<script src="jquery/jquery.min.js"><\/script>')</script>
 {% endblock %}

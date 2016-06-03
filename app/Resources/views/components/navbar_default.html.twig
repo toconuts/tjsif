@@ -1,5 +1,5 @@
 <div class="navbar navbar-default navbar-fixed-top navbar-inverse" >
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -31,7 +31,9 @@
             <li><a href="../navbar/">Default</a></li>
             <li><a href="../navbar-static-top/">Static top</a></li>
             <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
-            <li><button type="button" class="btn btn-default navbar-btn"><a href="{{ path("login") }}">Sign in</a></button></li>
+            <!-- <li><a href="{{ path("login") }}"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a></li> -->
+            <!-- <li><button type="button" class="btn btn-default navbar-btn">Sign in</button></li>-->
+            <li><a href="{{ path("login") }}" class="btn btn-default navbar-btn">Sign in</a></li>
           </ul>
         </div><!--/.nav-collapse -->
     </div><!-- / .container -->

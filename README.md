@@ -91,6 +91,7 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* Place vertically center Sign in button in the navbar.
 * Assign role from job
 * Install Pagenator
 * Implement Profile Picture and delete User Image
@@ -103,6 +104,9 @@ $kernel = new AppKernel('prod', false);
 * Uploader Form validation message
 * Change password
 * Error page 404
+
+#Gide line#
+Carousel Image Size: 1024 x 576 (16:9 PALt)
 
 [1]:  http://localhost:8000/
 [2]:  http://localhost:8000/config.php
