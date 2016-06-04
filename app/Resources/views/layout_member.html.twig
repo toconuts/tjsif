@@ -12,7 +12,7 @@
 {# <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> #}
 {% endblock %}
 
-{% block layout %}
+{% block body %}
 {% include "components/navbar_member.html.twig" %}
 <div class="container-fluid">
     <div class="row">
@@ -20,7 +20,7 @@
             {% include "components/sidebar_member.html.twig" %}
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            {{ parent() }}
+            {% block content %}{% endblock %}
         </div>
     </div>
 </div>

@@ -1,17 +1,59 @@
 {% extends "layout_member.html.twig" %}
 
 {% block title %}Login{% endblock %}
-{% block body %}
 
+{% block content %}
 test in show
 {% if user.isUser(app.user) %}
     <a class="btn btn-primary" href="{{ path("user_edit", {"id": user.id}) }}">Edit</a>
 {% endif %}
+
+{#
+<th></th>
+<th>Name</th>
+<th>Email</th>
+<th>Job</th>
+<th>Organization</th>
+<th>Type</th>
+<th>Position</th>
+<th>Address Line 1</th>
+<th>Address Line 2</th>
+<th>City</th>
+<th>Province</th>
+<th>Country</th>
+<th>Zip Code</th>
+<th>About me</th>
+<th>Homepage</th>
+<th>Blog</th>
+<th>Allergies</th>
+<th>Created at</th>
+<th>Updated at</th>
+<th>Active</th>
+<th></th>
+
+<td>{% if user.gender == 0 %}Male{% else %}Female{% endif %}</td>
+<td>{% if user.gender == 0 %}Male{% else %}Female{% endif %}</td>
+<td>{{ user.tel }}</td>
+<td>{{ user.job.name }}</td>
+<td>{{ user.organization.name }}</td>
+<td>{{ user.type }}</td>
+<td>{{ user.position }}</td>
+<td>{{ user.address1 }}</td>
+<td>{{ user.address2 }}</td>
+<td>{{ user.city }}</td>
+<td>{{ user.province }}</td>
+<td>{{ user.country }}</td>
+<td>{{ user.zip }}</td>
+<td>{{ user.aboutMe }}</td>
+<td>{{ user.homepage }}</td>
+<td>{{ user.blog }}</td>
+<td>{{ user.allergies }}</td>
+<td>{{ user.createdAt|date('Y-m-d') }}</td>
+<td>{{ user.updatedAt|date('Y-m-d') }}</td>
+<td>{{ user.isActive }}</td>
+#}
+
 {% if is_granted('ROLE_ADMIN') %}
-    <form action="{{ path('user_unactivate', {id: user.id}) }}" method="POST">
-            <input type="hidden" name="_method" value="UNACTIVE"/>
-            <input type="submit" value="Unactivate"/>
-    </form>
 {# //TODO Only display ROLE_SADMIN & Create FormType #}
     {% if user.isActive %}
         <form action="{{ path('user_inactivate', {id: user.id}) }}" method="POST">
@@ -24,6 +66,12 @@ test in show
             <input type="submit" value="Activate"/>
         </form>
     {% endif %}
+{% endif %}
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    <form action="{{ path('user_delete', {id: user.id}) }}" method="POST">
+            <input type="hidden" name="_method" value="UNACTIVE"/>
+            <input type="submit" value="Unactivate"/>
+    </form>
     {#<a href="{{ path("user_unactivate", {"id": user.id}) }}">Unactivate</a>#}
 {% endif %}
 

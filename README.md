@@ -91,6 +91,7 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* Body -> content
 * Place vertically center Sign in button in the navbar.
 * Assign role from job
 * Install Pagenator

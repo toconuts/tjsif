@@ -1,5 +1,22 @@
-<ul class="nav nav-sidebar">
-    <li><a href="">Profile</a></li>
-    <li><a href="{{ path("user_index") }}">User</a></li>
-    <li><a href="{{ path("admin_invitation") }}">Send Invitation!</a></li>
-</ul>
+<div class="pofile-picture">
+   <a href="{{ path("user_show", {"id": app.user.id}) }}"><img src="{{ vich_uploader_asset(app.user.picture, 'imageFile') }}" alt="{{ app.user.picture.imageName }}" /></a>
+</div>
+
+<aside>
+    <ul class="nav nav-sidebar">
+        <li><a href="path("dashboard_index")">Home<span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ path("user_index") }}">Member</a></li>
+        <li><a href="#">Project</a></li>
+        <li><a href="#">...</a></li>
+    </ul>
+</aside>
+
+{% if is_granted('ROLE_ADMIN') %}
+<aside>
+    <h4>Invitation</h4>
+        <ul class="list-unstyled">
+        <!-- <ul class="nav list-unstyled"> -->
+            <li><a href="{{ path("admin_invitation") }}">Send the invitation</a></li>
+        </ul>
+</aside>
+{% endif %}

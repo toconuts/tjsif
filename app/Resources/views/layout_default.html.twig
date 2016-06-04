@@ -7,9 +7,9 @@
 {% endstylesheets %}
 {% endblock %}
 
-{% block layout %}
+{% block body %}
 {% include "components/navbar_default.html.twig" %}
-{{ parent() }}
+{% block content %}{% endblock %}
 {% include "components/footer.html.twig" %}
 {% endblock %}
 
