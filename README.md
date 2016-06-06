@@ -91,7 +91,6 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Delete sidebar, my.css, dashboard/index, layout_BK
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
 * Assign role from job
