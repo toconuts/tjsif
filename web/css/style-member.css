@@ -1,0 +1,53 @@
+/*
+ * This file is part of the TJ-SIF 2016 project.
+ *
+ * (c) toconuts <toconuts@google.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *//* 
+    Created on : Jun 5, 2016, 9:33:16 PM
+    Author     : toconuts <toconuts@gmail.com>
+*/
+
+/*
+ * Base structure
+ */
+body { 
+  padding-top: 30px;
+}
+
+.profile-picture-xs {
+    width: 24px;
+    height: 24px;
+}
+
+.profile-picture-sm {
+    width: 50px;
+    height: 50px;
+}
+
+.prifile-picture-md {
+    width: 100px;
+    height: 100px;
+}
+
+/*
+ * Footer
+ */
+
+.footer {
+  background-color: #222;
+  color: #808080;
+  /*text-align: center;*/
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*width: 100%;*/
+  /* Set the fixed height of the footer here */
+  /*height: 100px;*/
+}
+
+.footer h4 {
+  text-transform: uppercase;
+  color: #fff;
+}

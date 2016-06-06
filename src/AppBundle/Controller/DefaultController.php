@@ -34,14 +34,6 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/member")
-     */
-    public function memberAction()
-    {
-        return new Response('<html><body>Test for Member Page!</body></html>');
-    }
-    
-    /**
      * @Route("/projects")
      */
     public function projectsAction()

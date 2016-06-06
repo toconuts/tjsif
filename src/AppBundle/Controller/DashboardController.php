@@ -24,12 +24,12 @@ use AppBundle\Form\UserType;
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @Route("/member/")
+ * @Route("/member/old")
  */
 class DashboardController extends Controller
 {
     /**
-     * @Route("/", name="dashboard_index")
+     * @Route("", name="dashboard_index")
      */
     public function indexAction()
     {

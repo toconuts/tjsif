@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+{% stylesheets
+    'bootstrap/css/bootstrap.min.css'
+    'fontawesome/css/font-awesome.min.css'
+    'assets/css/ie10-viewport-bug-workaround.css'
+    'css/dashboard.css'
+    filter='cssrewrite' output='css/compiled/app.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{# <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> #}
+{% endblock %}
+
+{% block body %}
+{% include "components/navbar_member.html.twig" %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            {% include "components/sidebar_member.html.twig" %}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% include "components/footer.html.twig" %}
+{% endblock %}

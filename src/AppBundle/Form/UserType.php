@@ -75,13 +75,6 @@ class UserType extends AbstractType
             ->add('address2', TextType::class)
             ->add('city', TextType::class)
             ->add('province', TextType::class)
-            /*->add('country', ChoiceType::class, array(
-                'choices' => [
-                    'Thailand'  => 1,
-                    'Japan'     => 2,
-                    'The other' => 3,
-                ]
-            ))*/
             ->add('country', CountryType::class, array(
                 'placeholder' => 'Choose your ocuntry'
             ))

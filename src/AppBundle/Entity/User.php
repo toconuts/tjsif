@@ -1107,4 +1107,15 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->projects;
     }
+    
+    /**
+     * Get profile completeness
+     * 
+     * @return int
+     */
+    public function getProfileCompleteness()
+    {
+//TODO: calc profile completeness
+        return 50;
+    }
 }

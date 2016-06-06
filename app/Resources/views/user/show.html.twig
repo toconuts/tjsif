@@ -1,78 +1,81 @@
 {% extends "layout_member.html.twig" %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Profile | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Profile <small>- {{ user.getFullname }}</small>
+{% endblock %}
 
 {% block content %}
-test in show
-{% if user.isUser(app.user) %}
-    <a class="btn btn-primary" href="{{ path("user_edit", {"id": user.id}) }}">Edit</a>
-{% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-6 col-md-4">
+        {% if app.user.id == user.id %}
+            {% include "components/member/profile_completeness.html.twig" %}
+        {% endif %}
+        </div>
+    </div>
+</div>
 
-{#
-<th></th>
-<th>Name</th>
-<th>Email</th>
-<th>Job</th>
-<th>Organization</th>
-<th>Type</th>
-<th>Position</th>
-<th>Address Line 1</th>
-<th>Address Line 2</th>
-<th>City</th>
-<th>Province</th>
-<th>Country</th>
-<th>Zip Code</th>
-<th>About me</th>
-<th>Homepage</th>
-<th>Blog</th>
-<th>Allergies</th>
-<th>Created at</th>
-<th>Updated at</th>
-<th>Active</th>
-<th></th>
+<div class="container">
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Personal information</h2>
+        </div>
+        {% if user.isUser(app.user) %}
+        <div class="col-sm-4">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-primary" href="{{ app.request.headers.get('referer') }}">Back</a>
+<!--//TODO: Change password-->
+                <a class="btn btn-default" href="{{ path("member_user_edit", {"id": user.id}) }}">Change password</a>
+                <a type="button" class="btn btn-default" href="{{ path("member_user_edit", {"id": user.id}) }}">Edit</a>
+            </div>
+        </div>
+        {% endif %}
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-md-10">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div><!-- /.row -->
+   
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-2">
+            {% if is_granted('ROLE_SUPER_ADMIN') and not user.isUser(app.user) %}
+            <form action="{{ path('member_user_delete', {id: user.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <input type="submit" value="Delete" class="btn btn-danger"/>
+            </form>
+            {% endif %}
+        </div>
+        
+        {% if is_granted('ROLE_ADMIN') and not user.isUser(app.user) %}
+        {% if user.isActive %}
+        <div class="col-sm-2">
+            <form action="{{ path('member_user_inactivate', {id: user.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="INACTIVATE"/>
+                <input type="submit" value="Inactivate" class="btn btn-warning"/>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-warning" disabled>Activate</button>
+        </div>
+        {% else %}
+        <div class="col-sm-2">
+            <button class="btn btn-warning" disabled>Inactive</button>
+        </div>
+        <div class="col-sm-2">
+            <form action="{{ path('member_user_activate', {id: user.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="ACTIVATE"/>
+                <input type="submit" value="Activate" class="btn btn-warning"/>
+            </form>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div><!-- /.row -->
 
-<td>{% if user.gender == 0 %}Male{% else %}Female{% endif %}</td>
-<td>{% if user.gender == 0 %}Male{% else %}Female{% endif %}</td>
-<td>{{ user.tel }}</td>
-<td>{{ user.job.name }}</td>
-<td>{{ user.organization.name }}</td>
-<td>{{ user.type }}</td>
-<td>{{ user.position }}</td>
-<td>{{ user.address1 }}</td>
-<td>{{ user.address2 }}</td>
-<td>{{ user.city }}</td>
-<td>{{ user.province }}</td>
-<td>{{ user.country }}</td>
-<td>{{ user.zip }}</td>
-<td>{{ user.aboutMe }}</td>
-<td>{{ user.homepage }}</td>
-<td>{{ user.blog }}</td>
-<td>{{ user.allergies }}</td>
-<td>{{ user.createdAt|date('Y-m-d') }}</td>
-<td>{{ user.updatedAt|date('Y-m-d') }}</td>
-<td>{{ user.isActive }}</td>
-#}
-
-{% if is_granted('ROLE_ADMIN') %}
-{# //TODO Only display ROLE_SADMIN & Create FormType #}
-    {% if user.isActive %}
-        <form action="{{ path('user_inactivate', {id: user.id}) }}" method="POST">
-            <input type="hidden" name="_method" value="INACTIVATE"/>
-            <input type="submit" value="Inactivate"/>
-        </form>
-    {% else %}
-        <form action="{{ path('user_activate', {id: user.id}) }}" method="POST">
-            <input type="hidden" name="_method" value="ACTIVATE"/>
-            <input type="submit" value="Activate"/>
-        </form>
-    {% endif %}
-{% endif %}
-{% if is_granted('ROLE_SUPER_ADMIN') %}
-    <form action="{{ path('user_delete', {id: user.id}) }}" method="POST">
-            <input type="hidden" name="_method" value="UNACTIVE"/>
-            <input type="submit" value="Unactivate"/>
-    </form>
-    {#<a href="{{ path("user_unactivate", {"id": user.id}) }}">Unactivate</a>#}
-{% endif %}
-
+</div><!-- /.container -->
 {% endblock %}
