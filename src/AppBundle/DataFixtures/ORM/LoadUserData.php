@@ -57,7 +57,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             'PCSHS_Chonburi',
             'Teacher',
             '1',  //Male
-            '1'  //Participant
+            '1',  //Participant
+            array()
         );
         $manager->persist($admin);
         
@@ -74,7 +75,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             'JP_Ichikawa',
             'Student',
             '2',   //Female
-            '1'   //Participant
+            '1',   //Participant
+            array('Project_1', 'Project_2')
         );
         $manager->persist($user);
         
@@ -95,7 +97,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $organization, 
         $job,
         $gender,
-        $type
+        $type,
+        array $projects
         )
     {
         $user = new User();
@@ -115,11 +118,14 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setJob($this->getReference($job));
         $user->setGender($gender);
         $user->setType($type);
+        foreach ($projects as $project) {
+            $user->addProject($this->getReference($project));
+        }
         return $user;
     }
     
     public function getOrder()
     {
-        return 5;
+        return 10;
     }
 }

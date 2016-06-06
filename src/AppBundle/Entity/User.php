@@ -117,6 +117,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $projects;
     
     /**
+     * @ORM\OneToMany(targetEntity="Attendance", mappedBy="user")
+     */
+    private $attendances;
+    
+    /**
      * @ORM\Column(type="string", length=10)
      */
     private $type;
@@ -211,6 +216,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->attendances = new ArrayCollection();
  //       $this->picture = new ProfilePicture();
     }
 
@@ -1117,5 +1123,39 @@ class User implements AdvancedUserInterface, \Serializable
     {
 //TODO: calc profile completeness
         return 50;
+    }
+
+    /**
+     * Add attendance
+     *
+     * @param \AppBundle\Entity\Attendance $attendance
+     *
+     * @return User
+     */
+    public function addAttendance(\AppBundle\Entity\Attendance $attendance)
+    {
+        $this->attendances[] = $attendance;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendance
+     *
+     * @param \AppBundle\Entity\Attendance $attendance
+     */
+    public function removeAttendance(\AppBundle\Entity\Attendance $attendance)
+    {
+        $this->attendances->removeElement($attendance);
+    }
+
+    /**
+     * Get attendances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendances()
+    {
+        return $this->attendances;
     }
 }

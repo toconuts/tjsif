@@ -31,11 +31,13 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
     {
         /* Chulabhorn Science High School Chonburi */
         $pcshs_chonburi = new Organization();
+        $pcshs_chonburi->setId('1');
         $pcshs_chonburi->setName('Princess Churabhorn Science High School');
         $manager->persist($pcshs_chonburi);
         
         /* Ichikawa Gakuen */
         $jp_ichikawa = new Organization();
+        $jp_ichikawa->setId('2');
         $jp_ichikawa->setName('Ichikawa Gakuen High School');
         $manager->persist($jp_ichikawa);
         

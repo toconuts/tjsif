@@ -17,7 +17,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\ProfilePicture;
 
 /**
- * Description of LoadJobData
+ * Description of LoadProfilePictureData
  *
  * @author toconuts <toconuts@gmail.com>
  */
@@ -49,6 +49,6 @@ class LoadProfilePictureData extends AbstractFixture implements OrderedFixtureIn
     
     public function getOrder()
     {
-        return 10;
+        return 15;
     }
 }
