@@ -97,8 +97,8 @@ $kernel = new AppKernel('prod', false);
 * Install Pagenator
 * Implement Profile Picture and delete User Image
 * Implement BBS
-* Implement What's new
-* Implement History
+* Implement What's new -> notification
+* Implement History -> activities
 * Implement Log
 * Create tests
 * Add more comments in the code

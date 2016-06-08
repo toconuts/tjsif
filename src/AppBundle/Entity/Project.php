@@ -72,6 +72,7 @@ class Project
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->isActive = true;
     }
     
     /**
@@ -117,6 +118,7 @@ class Project
      */
     public function addUser(\AppBundle\Entity\User $user)
     {
+        $user->addProject($this);
         $this->users[] = $user;
 
         return $this;
@@ -129,6 +131,7 @@ class Project
      */
     public function removeUser(\AppBundle\Entity\User $user)
     {
+        $user->removeProject($this);
         $this->users->removeElement($user);
     }
 

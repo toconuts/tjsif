@@ -14,6 +14,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Utils\ChoiceList\AccountType;
 
 /**
  * Organization
@@ -83,6 +84,11 @@ class Organization
     private $blog;
 
     /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+    
+    /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -96,6 +102,7 @@ class Organization
     {
         $this->users = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->isActive = true;
     }
 
     /**
@@ -397,5 +404,70 @@ class Organization
     public function getProjects()
     {
         return $this->projects;
+    }
+    
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+    
+    protected function getUserList($id)
+    {
+        $list = new ArrayCollection();
+        foreach ($this->users as $user) {
+            if ($id == $user->getJob()->getId()) {
+                $list[] = $user;
+            }
+        }
+        return $list;
+    }
+
+    public function getStudents()
+    {
+        return $this->getUserList(1);
+    }
+    
+    public function getTeachers()
+    {
+        return $this->getUserList(2);
+    }
+    
+    public function getDeputies()
+    {
+        return $this->getUserList(3);
+    }
+    
+    public function getDirectors()
+    {
+        return $this->getUserList(4);
+    }
+    
+    public function getJOCVs()
+    {
+        return $this->getUserList(5);
+    }
+    
+    public function getTheOthers()
+    {
+        return $this->getUserList(6);
     }
 }

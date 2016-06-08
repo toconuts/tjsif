@@ -93,20 +93,6 @@ class UserController extends Controller
     }
     
     /**
-     * @Route("/{id}/unactive", requirements = {"id" = "\d+"}, name="member_user_inactivate")
-     * @Method({"INACTIVATE"})
-     * @ParamConverter("user", class="AppBundle:User")
-     */
-    public function inactivateAction(User $user)
-    {
-        $user->setIsActive(false);
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
-        
-        return $this->redirectToRoute('member_user_index');
-    }
-    
-    /**
      * @Route("/{id}/active", requirements = {"id" = "\d+"}, name="member_user_activate")
      * @Method({"ACTIVATE"})
      * @ParamConverter("user", class="AppBundle:User")
@@ -114,6 +100,20 @@ class UserController extends Controller
     public function activateAction(User $user)
     {
         $user->setIsActive(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        return $this->redirectToRoute('member_user_index');
+    }
+    
+    /**
+     * @Route("/{id}/inactive", requirements = {"id" = "\d+"}, name="member_user_inactivate")
+     * @Method({"INACTIVATE"})
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function inactivateAction(User $user)
+    {
+        $user->setIsActive(false);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         

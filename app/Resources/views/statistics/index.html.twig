@@ -1,0 +1,48 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Statistics | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Statistics
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row sub-header">
+        <div class="col-sm-5">
+            <h2 class="">Registration status</h2>
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="table">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Students</th>
+                        <th>Teachers</th>
+                        <th>Deputies</th>
+                        <th>Director</th>
+                        <th>JOCV</th>
+                        <th>The others</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for organization in organizations %}
+                    <tr>
+                        <td><a href="{{ path("member_organization_show", {"id": organization.id}) }}">{{ organization.name }}</a></td>
+                        <td>{{ organization.students.count() }}</td>
+                        <td>{{ organization.teachers.count() }}</td>
+                        <td>{{ organization.deputies.count() }}</td>
+                        <td>{{ organization.directors.count() }}</td>
+                        <td>{{ organization.JOCVs.count() }}</td>
+                        <td>{{ organization.theOthers.count() }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- /.table -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

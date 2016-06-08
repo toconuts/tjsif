@@ -25,17 +25,17 @@ Profile <small>- {{ user.getFullname }}</small>
         {% if user.isUser(app.user) %}
         <div class="col-sm-4">
             <div class="btn-group" role="group" aria-label="...">
-                <a class="btn btn-primary" href="{{ app.request.headers.get('referer') }}">Back</a>
+                <a class="btn btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
 <!--//TODO: Change password-->
-                <a class="btn btn-default" href="{{ path("member_user_edit", {"id": user.id}) }}">Change password</a>
-                <a type="button" class="btn btn-default" href="{{ path("member_user_edit", {"id": user.id}) }}">Edit</a>
+                <a class="btn btn-warning" href="{{ path("member_user_edit", {"id": user.id}) }}">Change password</a>
+                <a type="button" class="btn btn-primary" href="{{ path("member_user_edit", {"id": user.id}) }}">Edit</a>
             </div>
         </div>
         {% endif %}
     </div><!-- /.row -->
     
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-sm-10">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             {{ form_widget(form) }}
             {{ form_end(form) }}
@@ -43,7 +43,7 @@ Profile <small>- {{ user.getFullname }}</small>
     </div><!-- /.row -->
    
     <div class="row">
-        <div class="col-sm-offset-3 col-sm-2">
+        <div class="col-sm-offset-2 col-sm-2">
             {% if is_granted('ROLE_SUPER_ADMIN') and not user.isUser(app.user) %}
             <form action="{{ path('member_user_delete', {id: user.id}) }}" method="POST">
                 <input type="hidden" name="_method" value="DELETE"/>
@@ -54,23 +54,23 @@ Profile <small>- {{ user.getFullname }}</small>
         
         {% if is_granted('ROLE_ADMIN') and not user.isUser(app.user) %}
         {% if user.isActive %}
-        <div class="col-sm-2">
+        <div class="col-sm-offset-3 col-sm-3">
             <form action="{{ path('member_user_inactivate', {id: user.id}) }}" method="POST">
                 <input type="hidden" name="_method" value="INACTIVATE"/>
-                <input type="submit" value="Inactivate" class="btn btn-warning"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" value="Inactivate" class="btn btn-warning">Inactivate</button>
+                    <button class="btn btn-warning" disabled>Activate</button>
+                </div>
             </form>
         </div>
-        <div class="col-sm-2">
-            <button class="btn btn-warning" disabled>Activate</button>
-        </div>
         {% else %}
-        <div class="col-sm-2">
-            <button class="btn btn-warning" disabled>Inactive</button>
-        </div>
-        <div class="col-sm-2">
+        <div class="col-sm-offset-3 col-sm-3">
             <form action="{{ path('member_user_activate', {id: user.id}) }}" method="POST">
                 <input type="hidden" name="_method" value="ACTIVATE"/>
-                <input type="submit" value="Activate" class="btn btn-warning"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-warning" disabled>Inactive</button>
+                    <button type="submit" value="Activate" class="btn btn-warning">Activate</button>
+                </div>
             </form>
         </div>
         {% endif %}

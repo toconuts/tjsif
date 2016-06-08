@@ -14,21 +14,18 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of AccountType
+ * Description of Gender
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class AccountType extends AbstractChoiceLoader
+class Topic extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'Participant'       => '1',
-        'Operation staff'   => '2',
-        'Observer'          => '3',
+        'Software'                  => '1',
+        'Hardware'                  => '2',
+        'Application'               => '3',
+        'Internet of Thing (IoT)'   => '4',
+        'Robotics'                  => '5',
     ];
-    
-    public function getChoices()
-    {
-        return $choices;
-    }
 }
