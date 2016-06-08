@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AppBundle\Entity\Organization;
 use AppBundle\Form\OrganizationType;
 
@@ -71,9 +72,9 @@ class OrganizationController extends Controller
     public function newAction(Request $request)
     {
         $organization = new Organization();
-        $organization->setOrganization($this->getUser()->getOrganization());
-        
         $form = $this->createForm(OrganizationType::class, $organization);
+        $form->add('id', IntegerType::class);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,7 +82,9 @@ class OrganizationController extends Controller
             $em->persist($organization);
             $em->flush();
 
-            return $this->redirectToRoute('member_organization_index');
+            return $this->redirectToRoute('member_organization_show',
+                array('id' => $organization->getId()));
+
         }
         
         return $this->render(
@@ -105,7 +108,8 @@ class OrganizationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('member_organization_index');
+        return $this->redirectToRoute('member_organization_show',
+                array('id' => $organization->getId()));
         }
         
         return $this->render(

@@ -49,9 +49,36 @@ class Organization
     private $projects;
     
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $address;
+    private $address1;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $address2;
+    
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $city;
+    
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $province;
+    
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Country()
+     */
+    private $country;
+    
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
+     */
+    private $zip;
     
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
@@ -212,30 +239,6 @@ class Organization
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Organization
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
     }
 
     /**
@@ -469,5 +472,149 @@ class Organization
     public function getTheOthers()
     {
         return $this->getUserList(6);
+    }
+
+    /**
+     * Set address1
+     *
+     * @param string $address1
+     *
+     * @return Organization
+     */
+    public function setAddress1($address1)
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Get address1
+     *
+     * @return string
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     *
+     * @return Organization
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Organization
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set province
+     *
+     * @param string $province
+     *
+     * @return Organization
+     */
+    public function setProvince($province)
+    {
+        $this->province = $province;
+
+        return $this;
+    }
+
+    /**
+     * Get province
+     *
+     * @return string
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Organization
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set zip
+     *
+     * @param string $zip
+     *
+     * @return Organization
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    /**
+     * Get zip
+     *
+     * @return string
+     */
+    public function getZip()
+    {
+        return $this->zip;
     }
 }

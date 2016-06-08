@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use AppBundle\Entity\Organization;
 
 /**
@@ -30,7 +31,14 @@ class OrganizationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('address', TextType::class)
+            ->add('address1', TextType::class)
+            ->add('address2', TextType::class)
+            ->add('city', TextType::class)
+            ->add('province', TextType::class)
+            ->add('country', CountryType::class, array(
+                'placeholder' => 'Choose your ocuntry'
+            ))
+            ->add('zip', TextType::class)
             ->add('tel', TextType::class)
             ->add('fax', TextType::class)
             ->add('email', EmailType::class)

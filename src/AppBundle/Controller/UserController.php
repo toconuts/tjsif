@@ -83,7 +83,8 @@ class UserController extends Controller
             $em->flush();
 
 //TODO: Add Flash Message
-            return $this->redirectToRoute('member_user_index');
+            return $this->redirectToRoute('member_user_show',
+                array('id' => $user->getId()));
         }
         
         return $this->render(

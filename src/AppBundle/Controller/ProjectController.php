@@ -83,7 +83,8 @@ class ProjectController extends Controller
             $em->persist($project);
             $em->flush();
 
-            return $this->redirectToRoute('member_project_show');
+            return $this->redirectToRoute('member_project_show',
+                array('id' => $project->getId()));
         }
         
         return $this->render(
@@ -107,7 +108,8 @@ class ProjectController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('member_project_show');
+            return $this->redirectToRoute('member_project_show',
+                array('id' => $project->getId()));
         }
         
         return $this->render(
