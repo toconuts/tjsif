@@ -45,9 +45,13 @@ class UserType extends AbstractType
             ->add('title', ChoiceType::class, array(
                 'choice_loader' => new Title()
             ))
-            ->add('firstname', TextType::class, ['label' => 'Firstname*'])
+            ->add('firstname', TextType::class, array(
+                'label' => 'Firstname*',
+            ))
             ->add('middlename', TextType::class)
-            ->add('lastname', TextType::class, ['label' => 'Lastname*'])
+            ->add('lastname', TextType::class, array(
+                'label' => 'Lastname*',
+            ))
             ->add('gender', ChoiceType::class, array(
                 'choice_loader' => new Gender(),
                 'expanded' => true,
@@ -57,6 +61,16 @@ class UserType extends AbstractType
                 'label' => 'Email*',
             ))
             ->add('tel', TextType::class)
+            ->add('address1', TextType::class)
+            ->add('address2', TextType::class)
+            ->add('city', TextType::class)
+            ->add('province', TextType::class)
+            ->add('country', CountryType::class, array(
+            ))
+            ->add('zip', TextType::class)
+            ->add('homepage', UrlType::class)
+            ->add('blog', UrlType::class)
+            ->add('allergies', TextareaType::class)
             ->add('type', ChoiceType::class, array(
                 'choice_loader' => new AccountType(),
             ))
@@ -64,6 +78,7 @@ class UserType extends AbstractType
                 'class' => 'AppBundle:Job',
                 'disabled' => true,
                 'choice_label' => 'name',
+                'placeholder' => 'Choose your job',
             ))
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
@@ -71,18 +86,9 @@ class UserType extends AbstractType
                 'choice_label' => 'name',
             ))
             ->add('position', TextType::class)
-            ->add('address1', TextType::class)
-            ->add('address2', TextType::class)
-            ->add('city', TextType::class)
-            ->add('province', TextType::class)
-            ->add('country', CountryType::class, array(
-                'placeholder' => 'Choose your ocuntry'
+            ->add('about_me', TextareaType::class, array(
+                'label' => 'About me (less than 255)',
             ))
-            ->add('zip', TextType::class)
-            ->add('homepage', UrlType::class)
-            ->add('blog', UrlType::class)
-            ->add('allergies', TextareaType::class)
-            ->add('about_me', TextareaType::class, ['label' => 'About me (less than 255)'])
         ;
     }
     

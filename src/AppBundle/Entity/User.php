@@ -39,8 +39,8 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Email(groups={"registration"})
      */
     private $email;
 
@@ -67,13 +67,14 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $title;
     
     /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank()
+     * @Assert\NotNull(groups={"registration"})
      */
     private $firstname;
 
@@ -85,11 +86,12 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank()
+     * @Assert\NotNull(groups={"registration"})
      */
     private $lastname;
     
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $gender;
 
@@ -102,17 +104,19 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
      * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     * @Assert\NotNull(groups={"registration"})
      */
     private $job;
 
     /**
      * @ORM\ManyToOne(targetEntity="Organization", inversedBy="users")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     * @Assert\NotNull(groups={"registration"})
      */
     private $organization;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Project", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="users")
      */
     private $projects;
     
@@ -123,6 +127,7 @@ class User implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull(groups={"registration"})
      */
     private $type;
     
@@ -159,6 +164,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Country()
+     * @Assert\NotNull()
      */
     private $country;
     
@@ -217,6 +223,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->attendances = new ArrayCollection();
+        $this->allergies = 'None';
  //       $this->picture = new ProfilePicture();
     }
 
@@ -1157,5 +1164,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function getAttendances()
     {
         return $this->attendances;
+    }
+    
+    /**
+     * Get fullname with job name (except student)
+     * 
+     * @return type
+     */
+    public function getFullnamewithJob()
+    {
+        return ($this->job->getId() == 1) ?
+            $this->getFullname() :
+            $this->getFullname() . ' - ' . $this->job->getName();
     }
 }

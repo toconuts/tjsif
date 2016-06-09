@@ -17,8 +17,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectType;
+//use AppBundle\Entity\User;
+//use AppBundle\Entity\Job;
 
 /**
  * Description of ProjectController
@@ -47,20 +50,20 @@ class ProjectController extends Controller
      */
     public function showAction(Project $project)
     {
-        dump($project);
-        dump($project->getUsers()->count());
-        dump($this->getUser());
-        $form = $this->createForm(
-            ProjectType::class,
-            $project,
-            array(
-                'disabled' => true
-            )
-        );
+        $form = $this->createForm(ProjectType::class, $project, array(
+            'disabled' => true
+        ));
+        
+        $form->add('organization', EntityType::class, array(
+            'class' => 'AppBundle:Organization',
+            'choice_label' => 'name',
+            'placeholder' => 'Choose your school',
+        ));
         
         return $this->render(
             'project/show.html.twig',
-            array('project' => $project,
+            array(
+                'project' => $project,
                 'form' => $form->createView()
             )
         );
@@ -75,10 +78,27 @@ class ProjectController extends Controller
         $project = new Project();
         $project->setOrganization($this->getUser()->getOrganization());
         
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        
         $form = $this->createForm(ProjectType::class, $project);
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            $form->add('organization', EntityType::class, array(
+                'class' => 'AppBundle:Organization',
+                'choice_label' => 'name',
+                'placeholder' => 'Choose your school',
+            ));
+        } else {
+            $form->add('organization', EntityType::class, array(
+                'class' => 'AppBundle:Organization',
+                'choice_label' => 'name',
+                'placeholder' => 'Choose your school',
+                'disabled' => true,
+            ));
+        }
+        
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($project->getUsers());
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);
             $em->flush();
@@ -89,7 +109,10 @@ class ProjectController extends Controller
         
         return $this->render(
             'project/new.html.twig',
-            array('form' => $form->createView())
+            array(
+                'organizations' => $organizations,
+                'form' => $form->createView()
+            )
         );
     }
     
@@ -101,11 +124,23 @@ class ProjectController extends Controller
     public function editAction(Request $request, Project $project)
     {
         dump($project);
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
+//TODO: {% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and app.user.id == project.organization.id) %}
 
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->add('organization', EntityType::class, array(
+            'class' => 'AppBundle:Organization',
+            'disabled' => true,
+            'choice_label' => 'name',
+            'placeholder' => 'Choose your school',
+        ));
+        
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($project->getOrganization());
             $em = $this->getDoctrine()->getManager();
+            //$em->persist($project);
             $em->flush();
 
             return $this->redirectToRoute('member_project_show',
@@ -114,7 +149,10 @@ class ProjectController extends Controller
         
         return $this->render(
             'project/edit.html.twig',
-            array('form' => $form->createView())
+            array(
+                'project' => $project,
+                'organizations' => $organizations,
+                'form' => $form->createView())
         );
     }
     
@@ -147,5 +185,17 @@ class ProjectController extends Controller
         $em->flush();
         
         return $this->redirectToRoute('member_project_index');
+    }
+    
+    /**
+     * @Route("/test")
+     */
+    public function testAction()
+    {
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        return $this->render(
+            'project/choice_member.html.twig',
+            array('organizations' => $organizations,)
+        );
     }
 }

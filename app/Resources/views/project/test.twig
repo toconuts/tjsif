@@ -1,0 +1,258 @@
+<form name="project" method="post" novalidate="novalidate" class="form-horizontal">
+<div id="project">
+{# ... #}
+<div class="form-group">
+    <label class="col-sm-2 control-label required">Users</label>
+    <div class="col-sm-10">
+        <div id="project_users">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="project_users_3" name="project[users][]" disabled="disabled" value="3" /> Fadmin Ladmin
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="project_users_4" name="project[users][]" disabled="disabled" value="4" checked="checked" /> Fuser Luser
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<input type="hidden" id="project__token" name="project[_token]" value="pZao7pJrV3nVUa6LOw7zP9WdS-VXS9IeAeUA7GXYfHA" />
+</form>
+
+{# all #}
+<form name="project" method="post" novalidate="novalidate" class="form-horizontal">
+<div id="project">
+{# ... #}
+<div class="form-group">
+    <label class="col-sm-2 control-label required">Users</label>
+    <div class="col-sm-10">
+        <div id="project_users">
+            <div class="checkbox">
+                <label class="">
+                    <input type="checkbox" id="project_users_3" name="project[users][]" disabled="disabled" value="3" /> Fadmin Ladmin
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="">
+                    <input type="checkbox" id="project_users_4" name="project[users][]" disabled="disabled" value="4" checked="checked" /> Fuser Luser
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="project__token" name="project[_token]" value="pZao7pJrV3nVUa6LOw7zP9WdS-VXS9IeAeUA7GXYfHA" />
+</div><!-- project -->
+</form>
+
+{# use row - almost same as all without div id="project" #}
+<form name="project" method="post" novalidate="novalidate" class="form-horizontal">
+{# ... #}   
+<div class="form-group">
+    <label class="col-sm-2 control-label required">Users</label>
+    <div class="col-sm-10">
+        <div id="project_users">
+            <div class="checkbox">
+                <label class="">
+                    <input type="checkbox" id="project_users_3" name="project[users][]" disabled="disabled" value="3" /> Fadmin Ladmin
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="">
+                    <input type="checkbox" id="project_users_4" name="project[users][]" disabled="disabled" value="4" checked="checked" /> Fuser Luser
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="project__token" name="project[_token]" value="pZao7pJrV3nVUa6LOw7zP9WdS-VXS9IeAeUA7GXYfHA" />
+</form>
+
+{# indivisual #}
+<form name="project" method="post" novalidate="novalidate" class="form-horizontal">
+{# ... #}
+{# no div class="form-group"> #>
+<label class="col-sm-2 control-label required">Users</label>
+{# no </div class="col-sm-10"> #}
+    <div id="project_users">
+        <div class="checkbox">
+            <label class="">
+                <input type="checkbox" id="project_users_3" name="project[users][]" disabled="disabled" value="3" /> Fadmin Ladmin
+            </label>
+        </div>
+        <div class="checkbox">
+            <label class="">
+                <input type="checkbox" id="project_users_4" name="project[users][]" disabled="disabled" value="4" checked="checked" /> Fuser Luser
+            </label>
+        </div>
+    </div>
+<input type="hidden" id="project__token" name="project[_token]" value="pZao7pJrV3nVUa6LOw7zP9WdS-VXS9IeAeUA7GXYfHA" />
+</form>
+
+{# indivisual every #}
+{# ... #}
+<div class="form-group">
+    <label class="col-sm-2 control-label required">Users</label>
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label class="expanded" for ="project_users_3">
+                <div class="checkbox">
+                    <label><input type="checkbox" id="project_users_3" name="project[users][]" disabled="disabled" value="3" /> Fadmin Ladmin
+                    </label>
+                </div>                                                            </label>
+            </div>
+            <div class="checkbox">
+                <label class="expanded" for ="project_users_4">
+                <div class="checkbox">
+                    <label><input type="checkbox" id="project_users_4" name="project[users][]" disabled="disabled" value="4" checked="checked" /> Fuser Luser
+                    </label>
+                </div>
+            </label>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="project__token" name="project[_token]" value="pZao7pJrV3nVUa6LOw7zP9WdS-VXS9IeAeUA7GXYfHA" /></form>
+
+
+
+old
+<div class="row">
+        <div class="col-sm-10">
+            <div id="Student">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div id="project_users">
+                        {% for child in form.users.children %}
+                            {#{{ dump(child) }}#}
+                            {#<div class="checkbox">#}
+                                {#<label class="expanded" for ="{{ child.vars.id }}">#}
+                                    {{ form_widget(child) }}
+                                    {#{ child.vars.label }#}
+                                {#</label>#}
+                            {#</div>#}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+    {#            {{ form_label(form.users) }}
+                <div class="col-sm-10">
+                {{ form_errors(form.users) }}
+                {{ form_widget(form.users) }}
+                </div>#}
+    {#            {{ form_widget(form) }} #}
+            </div>
+                {{ form_end(form) }}
+                {#{{ dump(form.users) }}#}
+        </div>
+    </div><!-- /.row -->
+    
+    
+    
+{# OK #}
+<div class="container">
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#1" aria-controls="profile" role="tab" data-toggle="tab">Princess Churabhorn Science High School</a></li>
+            <li role="presentation"><a href="#2" aria-controls="profile" role="tab" data-toggle="tab">Ichikawa Gakuen High School</a></li>
+            <li role="presentation"><a href="#3" aria-controls="profile" role="tab" data-toggle="tab">Princess Chulabhorn Science High School Chiang Ray</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="1">Organization 1</div>        
+            <div role="tabpanel" class="tab-pane fade" id="2">Organization 1</div>
+            <div role="tabpanel" class="tab-pane fade" id="3">Organization 1</div>        
+        </div>
+    </div>
+<!-- Tab panes -->
+</div><!-- /.container -->
+
+
+{# NG #}
+<div class="container">                                 
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#1" aria-controls="profile" role="tab" data-toggle="tab">Princess Churabhorn Science High School</a></li>
+            <li role="presentation"><a href="#2" aria-controls="profile" role="tab" data-toggle="tab">Ichikawa Gakuen High School</a></li>
+            <li role="presentation"><a href="#3" aria-controls="profile" role="tab" data-toggle="tab">Princess Chulabhorn Science High School Chiang Ray</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="project_users">
+                <div role="tabpanel" class="tab-pane fade in active" id="1">Organization 1</div>
+                <div role="tabpanel" class="tab-pane fade" id="2">Organization 1</div>
+                <div role="tabpanel" class="tab-pane fade" id="3">Organization 1</div>
+            </div>
+        </div>
+</div>
+<!-- Tab panes -->
+   
+</div><!-- /.container -->
+
+<div class="form-group">
+        <div id="students">
+            <div class="row sub-header">
+                <div class="col-sm-offset-1 col-sm-5">
+                    <h2 class="">Students</h2>
+                </div>
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <ul class="nav nav-tabs" role="tablist">
+                        {% for organization in organizations %}
+                            <li role="presentation"{% if organization.id == app.user.organization.id %} class="active"{% endif %}>
+                                <a href="#student_{{ organization.id }}" aria-controls="profile" role="tab" data-toggle="tab">{{ organization.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="tab-content">
+                        {% for organization in organizations %}
+                            <div role="tabpanel" class="tab-pane fade{% if organization.id == app.user.organization.id %} in active{% endif %}" id="student_{{ organization.id }}">
+                                {% for child in form.users.children %}
+                                {% set index = child.vars.value %}{# get array index #}
+                                {% set entity = form.users.vars.choices[index].data %}{# get entity object #}
+                                {% if entity.job.id == 1 and entity.organization.id == organization.id %}
+                                {{ form_widget(child) }}
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /students -->
+        
+        <div id="teachers">
+            <div class="row sub-header">
+                <div class="col-sm-offset-1 col-sm-5">
+                    <h2 class="">Teachers</h2>
+                </div>
+            </div><!-- /.row -->
+            
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <ul class="nav nav-tabs" role="tablist">
+                        {% for organization in organizations %}
+                            <li role="presentation"{% if organization.id == app.user.organization.id %} class="active"{% endif %}>
+                                <a href="#teacher_{{ organization.id }}" aria-controls="profile" role="tab" data-toggle="tab">{{ organization.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="tab-content">
+                        {% for organization in organizations %}
+                            <div role="tabpanel" class="tab-pane fade{% if organization.id == app.user.organization.id %} in active{% endif %}" id="teacher_{{ organization.id }}">
+                                {% for child in form.users.children %}
+                                {% set index = child.vars.value %}{# get array index #}
+                                {% set entity = form.users.vars.choices[index].data %}{# get entity object #}
+                                {% if entity.job.id != 1 and entity.organization.id == organization.id %}
+                                {{ form_widget(child) }}
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /teachers -->
+    </div><!-- /.form-group -->

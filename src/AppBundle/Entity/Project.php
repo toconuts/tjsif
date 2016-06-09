@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -25,6 +26,7 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -40,12 +42,14 @@ class Project
     
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
+     * @Assert\NotNull()
      */
     private $topic;
     
     /**
      * @ORM\ManyToOne(targetEntity="Organization", inversedBy="projects")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     private $organization;
     
@@ -65,7 +69,7 @@ class Project
     private $updatedAt;
     
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="projects")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="projects")
      */
     private $users;
 

@@ -22,7 +22,7 @@ class Gender extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'Not specified' => 0,
+        'Not specified' => null,
         'Male'          => 1,
         'Female'        => 2,
     ];

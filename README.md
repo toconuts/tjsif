@@ -91,6 +91,14 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* add placeholder to all form type
+* Check validation all entities
+* Change checkbox to list on Project show students and teachers
+* Add hostedBy for host or sister school to Organization
+* Add type school cooperation and so on to Organization
+* Change autofill to organization.id
+* Add short name to organization
+* ?Add teachers and students, and documents to Project
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
 * Assign role from job

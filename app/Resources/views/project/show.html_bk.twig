@@ -22,43 +22,12 @@ Project <small>- {{ project.name }}</small>
         </div>
         {% endif %}
     </div><!-- /.row -->
-
-{# //TODO: change list from arraycollection #}    
+    
     <div class="row">
         <div class="col-sm-10">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-            <div id="project">
-                {{ form_row(form.name) }}
-                {{ form_row(form.concept) }}
-                {{ form_row(form.objective) }}
-                {{ form_row(form.topic) }}
-                {{ form_row(form.organization) }}
-                {#{{ form_row(form.users) }}#}
-
-                <div class="form-group">
-                    {{ form_label(form.users) }}
-                    <div class="col-sm-10">
-                        <div id="project_users">
-                        {% for child in form.users.children %}
-                            {#<div class="checkbox">#}
-                                {#<label class="expanded" for ="{{ child.vars.id }}">#}
-                                    {{ form_widget(child) }}
-                                    {#{ child.vars.label }#}
-                                {#</label>#}
-                            {#</div>#}
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-    {#            {{ form_label(form.users) }}
-                <div class="col-sm-10">
-                {{ form_errors(form.users) }}
-                {{ form_widget(form.users) }}
-                </div>#}
-    {#            {{ form_widget(form) }} #}
-            </div>
-                {{ form_end(form) }}
-    {#            {{ dump(form.users) }} #}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
         </div>
     </div><!-- /.row -->
    

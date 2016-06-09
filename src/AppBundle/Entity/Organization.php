@@ -13,6 +13,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Utils\ChoiceList\AccountType;
 
@@ -24,17 +25,20 @@ use AppBundle\Utils\ChoiceList\AccountType;
  * @ORM\Table(name="organization")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields="id", message="id already taken")
  */
 class Organization
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
+     * @Assert\NotBlank()
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -70,6 +74,7 @@ class Organization
     
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\NotNull()
      * @Assert\Country()
      */
     private $country;

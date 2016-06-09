@@ -25,6 +25,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Project;
 use AppBundle\Utils\ChoiceList\Topic;
 
+use Doctrine\ORM\EntityRepository;
+
+
 /**
  * Description of ProjectType
  *
@@ -39,25 +42,34 @@ class ProjectType extends AbstractType
             ->add('concept', TextareaType::class)
             ->add('objective', TextareaType::class)
             ->add('topic', ChoiceType::class, array(
-                'choice_loader' => new Topic()
+                'choice_loader' => new Topic(),
+                'placeholder' => 'Choose topic of project',
             ))
-            ->add('organization', EntityType::class, array(
+/*            ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
                 'disabled' => true,
                 'choice_label' => 'name',
+                'placeholder' => 'Choose your school',
+            ))*/
+            ->add('users', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choice_label' => 'fullnamewithJob',
+                'multiple' => true,
+                'expanded' => true,
+                'label' => false,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        //->where('User u, AppBundle:Job j, AppBundle:Organization o')
+                        //->orderBy('o.id', 'ASC');
+                        //->where('u.job = 1')
+                        ->orderBy('u.organization', 'ASC');
+                        //->add('orderBy', 's.sort_order ASC');
+                },
+            /*    'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.organization.id', 'ASC');
+                },*/
             ))
-//TODO: add and delete students and teachers
-            ->add('users', CollectionType::class, array(
-                'entry_type' => UserType::class,
-                'allow_add'     => true,
-                'allow_delete'  => true,
-                'prototype' => true,
-                'prototype_name' => '__EntityId__',
-                'entry_options'  => ['required'  => false],
-                ))
-            //    'by_reference'  => false,
-             //   'prototype_data' => 'select user',
-            //))
         ;
     }
     

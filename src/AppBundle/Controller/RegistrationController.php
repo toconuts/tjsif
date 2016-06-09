@@ -47,7 +47,7 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-
+            dump($user);
             $rm->registerUser($user, $invitation);
 
             if ($rm->isChangedEmail($user, $invitation)) {

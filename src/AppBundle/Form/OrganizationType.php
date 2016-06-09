@@ -36,7 +36,7 @@ class OrganizationType extends AbstractType
             ->add('city', TextType::class)
             ->add('province', TextType::class)
             ->add('country', CountryType::class, array(
-                'placeholder' => 'Choose your ocuntry'
+                'placeholder' => 'Choose your country'
             ))
             ->add('zip', TextType::class)
             ->add('tel', TextType::class)

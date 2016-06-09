@@ -47,7 +47,6 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {   
-        
         $form = $this->createForm(
             UserType::class,
             $user,

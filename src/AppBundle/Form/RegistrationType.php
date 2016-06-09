@@ -43,84 +43,67 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /*->add('title', ChoiceType::class, array(
-                'choices' => [
-                    'Mr. '  => 1,
-                    'Ms.'   => 2,
-                    'Mrs.'  => 3,
-                    'Miss.' => 4,
-                    'Dr.'   => 5,
-                ]
-            ))*/
             ->add('title', ChoiceType::class, array(
-                'choice_loader' => new Title()
+                'choice_loader' => new Title(),
+                'placeholder' => 'Choose your title',
             ))
-            ->add('firstname', TextType::class, ['label' => 'Firstname*'])
+            ->add('firstname', TextType::class, array(
+                'label' => 'Firstname *',
+            ))
             ->add('middlename', TextType::class)
-            ->add('lastname', TextType::class, ['label' => 'Lastname*'])
+            ->add('lastname', TextType::class, array(
+                'label' => 'Lastname *',
+            ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password*'),
-                'second_options' => array('label' => 'Repeat Password*'),
-                )        
-            )
-            /*->add('gender', ChoiceType::class, array(
-                'choices' => [
-                    'Not Specified' => 0,
-                    'Male' => 1,
-                    'Female' => 2,
-                ],
-                'expanded' => true,
-            ))*/
+                'first_options'  => array('label' => 'Password *'),
+                'second_options' => array('label' => 'Repeat Password *'),
+            ))
             ->add('gender', ChoiceType::class, array(
                 'choice_loader' => new Gender(),
                 'expanded' => true,
             ))
-            ->add('email', EmailType::class, ['label' => 'Email*'])
+            ->add('email', EmailType::class, array(
+                'label' => 'Email *',
+            ))
             ->add('tel', TextType::class)
-
-            /*->add('type', ChoiceType::class, array(
-                'choices' => [
-                    'Participant'  => 1,
-                    'Observer'      => 2,
-                ]
-            ))*/
-            ->add('type', ChoiceType::class, array(
-                'choice_loader' => new AccountType(),
-            ))
-            ->add('job', EntityType::class, array(
-                'class' => 'AppBundle:Job',
-                'choice_label' => 'name',
-            ))
-            ->add('organization', EntityType::class, array(
-                'class' => 'AppBundle:Organization',
-                'choice_label' => 'name',
-            ))
-            ->add('position', TextType::class)
             ->add('address1', TextType::class)
             ->add('address2', TextType::class)
             ->add('city', TextType::class)
             ->add('province', TextType::class)
-            /*->add('country', ChoiceType::class, array(
-                'choices' => [
-                    'Thailand'  => 1,
-                    'Japan'     => 2,
-                    'The other' => 3,
-                ]
-            ))*/
             ->add('country', CountryType::class, array(
-                'placeholder' => 'Choose your ocuntry'
+                'placeholder' => 'Choose your ocuntry',
+                'label' => 'Country *',
             ))
             ->add('zip', TextType::class)
             ->add('homepage', UrlType::class)
             ->add('blog', UrlType::class)
             ->add('allergies', TextareaType::class)
-            ->add('about_me', TextareaType::class, ['label' => 'About me (less than 255)'])
+            ->add('type', ChoiceType::class, array(
+                'choice_loader' => new AccountType(),
+                'placeholder' => 'Choose your account type. Student and ICT Teachers are should be Participant.',
+                'label' => 'Account type *',
+            ))
+            ->add('job', EntityType::class, array(
+                'class' => 'AppBundle:Job',
+                'choice_label' => 'name',
+                'placeholder' => 'Choose your job',
+                'label' => 'Job *',
+            ))
+            ->add('organization', EntityType::class, array(
+                'class' => 'AppBundle:Organization',
+                'choice_label' => 'name',
+                'placeholder' => 'Choose your school, company or organization',
+                'label' => 'Organization *',
+            ))
+            ->add('position', TextType::class)
+            ->add('about_me', TextareaType::class, array(
+                'label' => 'About me (less than 255)',
+            ))
             ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
-                )
-            )
+            ))
         ;
     }
     
