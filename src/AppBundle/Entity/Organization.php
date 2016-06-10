@@ -32,7 +32,7 @@ class Organization
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
-     * @Assert\NotBlank()
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -42,6 +42,12 @@ class Organization
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=25)
+     * @Assert\NotBlank() 
+     */
+    private $shortname;
+    
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="organization")
      */
@@ -114,11 +120,31 @@ class Organization
      * @Assert\Url
      */
     private $blog;
+    
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull()
+     */
+    private $type;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Organization", mappedBy="sisters")
+     */
+    private $sistersWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Organization", inversedBy="sistersWithMe")
+     * @ORM\JoinTable(name="sisters",
+     *      joinColumns={@ORM\JoinColumn(name="organization_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="sister_organization_id", referencedColumnName="id")}
+     *      )
+     */
+    private $sisters;
     
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -134,6 +160,8 @@ class Organization
     {
         $this->users = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->sisters = new ArrayCollection();
+        $this->sistersWithMe = new ArrayCollection();
         $this->isActive = true;
     }
 
@@ -367,20 +395,6 @@ class Organization
     }
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Organization
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Add project
      *
      * @param \AppBundle\Entity\Project $project
@@ -438,47 +452,6 @@ class Organization
         return $this->isActive;
     }
     
-    protected function getUserList($id)
-    {
-        $list = new ArrayCollection();
-        foreach ($this->users as $user) {
-            if ($id == $user->getJob()->getId()) {
-                $list[] = $user;
-            }
-        }
-        return $list;
-    }
-
-    public function getStudents()
-    {
-        return $this->getUserList(1);
-    }
-    
-    public function getTeachers()
-    {
-        return $this->getUserList(2);
-    }
-    
-    public function getDeputies()
-    {
-        return $this->getUserList(3);
-    }
-    
-    public function getDirectors()
-    {
-        return $this->getUserList(4);
-    }
-    
-    public function getJOCVs()
-    {
-        return $this->getUserList(5);
-    }
-    
-    public function getTheOthers()
-    {
-        return $this->getUserList(6);
-    }
-
     /**
      * Set address1
      *
@@ -621,5 +594,122 @@ class Organization
     public function getZip()
     {
         return $this->zip;
+    }
+
+    /**
+     * Set shortname
+     *
+     * @param string $shortname
+     *
+     * @return Organization
+     */
+    public function setShortname($shortname)
+    {
+        $this->shortname = $shortname;
+
+        return $this;
+    }
+
+    /**
+     * Get shortname
+     *
+     * @return string
+     */
+    public function getShortname()
+    {
+        return $this->shortname;
+    }
+
+
+    /**
+     * Add sistersWithMe
+     *
+     * @param \AppBundle\Entity\Organization $sistersWithMe
+     *
+     * @return Organization
+     */
+    public function addSistersWithMe(\AppBundle\Entity\Organization $sistersWithMe)
+    {
+        $this->sistersWithMe[] = $sistersWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove sistersWithMe
+     *
+     * @param \AppBundle\Entity\Organization $sistersWithMe
+     */
+    public function removeSistersWithMe(\AppBundle\Entity\Organization $sistersWithMe)
+    {
+        $this->sistersWithMe->removeElement($sistersWithMe);
+    }
+
+    /**
+     * Get sistersWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSistersWithMe()
+    {
+        return $this->sistersWithMe;
+    }
+
+    /**
+     * Add sister
+     *
+     * @param \AppBundle\Entity\Organization $sister
+     *
+     * @return Organization
+     */
+    public function addSister(\AppBundle\Entity\Organization $sister)
+    {
+        $this->sisters[] = $sister;
+
+        return $this;
+    }
+
+    /**
+     * Remove sister
+     *
+     * @param \AppBundle\Entity\Organization $sister
+     */
+    public function removeSister(\AppBundle\Entity\Organization $sister)
+    {
+        $this->sisters->removeElement($sister);
+    }
+
+    /**
+     * Get sisters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSisters()
+    {
+        return $this->sisters;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Organization
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

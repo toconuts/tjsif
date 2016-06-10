@@ -12,15 +12,14 @@ Organization <small>- {{ organization.name }}</small>
         <div class="col-sm-offset-1 col-sm-5">
             <h2 class="">Organization information</h2>
         </div>
-        {% if is_granted('ROLE_SUPER_ADMIN') or 
-             (is_granted('ROLE_ADMIN') and app.user.id == project.organization.id) %}
         <div class="col-sm-offset-2 col-sm-2">
             <div class="btn-group" role="group" aria-label="...">
                 <a class="btn btn-default" href="{{ path("member_organization_index") }}">Back</a>
+                {% if is_granted('ROLE_ADMIN') and app.user.organization.id == organization.id %}
                 <a type="button" class="btn btn-primary" href="{{ path("member_organization_edit", {"id": organization.id}) }}">Edit</a>
+                {% endif %}
             </div>
         </div>
-        {% endif %}
     </div><!-- /.row -->
 
     <div class="row">

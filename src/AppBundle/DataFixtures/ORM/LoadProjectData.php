@@ -30,12 +30,15 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         
-        
         /* Project 1 */
         $project1 = $this->createProject(
             'Project name 1',
             true,
-            $this->getReference('JP_Ichikawa')
+            $this->getReference('jp-ichikawa'),
+            [
+                'user-user',
+                'user-admin',
+            ]
         );
         $manager->persist($project1);
         
@@ -43,22 +46,28 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project2 = $this->createProject(
             'Project name 2',
             true,
-            $this->getReference('JP_Ichikawa')
+            $this->getReference('jp-ichikawa'),
+            [
+                'user-user',
+            ]
         );
         $manager->persist($project2);
         
         $manager->flush();
         
-        $this->addReference('Project_1', $project1);
-        $this->addReference('Project_2', $project2);
+        $this->addReference('project-1', $project1);
+        $this->addReference('project-2', $project2);
     }
     
-    protected function createProject($name, $isActive, $organization)
+    protected function createProject($name, $isActive, $organization, $users)
     {
         $project = new Project;
         $project->setName($name);
         $project->setIsActive($isActive);
         $project->setOrganization($organization);
+        foreach ($users as $user) {
+            $project->addUser($this->getReference($user));
+        }
 
         return $project;
     }
@@ -66,6 +75,6 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 9;
+        return 20;
     }
 }

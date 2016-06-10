@@ -36,15 +36,15 @@ class Attendance
     private $user;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Program", inversedBy="attendances")
-     * @ORM\JoinColumn(name="program_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="attendances")
+     * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
      */
-    private $program;
+    private $activity;
     
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isAttend;
+    private $status;
     
     /**
      * @ORM\Column(name="created_at", type="datetime")
@@ -58,7 +58,7 @@ class Attendance
     
     public function __construct()
     {
-        $isAttend = true;
+
     }
 
 
@@ -162,26 +162,50 @@ class Attendance
     }
 
     /**
-     * Set program
+     * Set status
      *
-     * @param \AppBundle\Entity\Program $program
+     * @param boolean $status
      *
      * @return Attendance
      */
-    public function setProgram(\AppBundle\Entity\Program $program = null)
+    public function setStatus($status)
     {
-        $this->program = $program;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get program
+     * Get status
      *
-     * @return \AppBundle\Entity\Program
+     * @return boolean
      */
-    public function getProgram()
+    public function getStatus()
     {
-        return $this->program;
+        return $this->status;
+    }
+
+    /**
+     * Set activity
+     *
+     * @param \AppBundle\Entity\Activity $activity
+     *
+     * @return Attendance
+     */
+    public function setActivity(\AppBundle\Entity\Activity $activity = null)
+    {
+        $this->activity = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Get activity
+     *
+     * @return \AppBundle\Entity\Activity
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 }

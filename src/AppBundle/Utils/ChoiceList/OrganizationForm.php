@@ -14,22 +14,18 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of Target
+ * Description of OrganizationForm
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class Target extends AbstractChoiceLoader
+class OrganizationForm extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'All'                   => '0',
-        'Student'               => '1',
-        'Teacher'               => '2',
-        'Principals'            => '3',
-        'JOCV'                  => '5',
-        'The other'             => '6',
-        'Student & Teacher'     => '12',
-        'Teacher & Principal'   => '13',
+        'School'        => '1',
+        'Government'    => '2',
+        'Company'       => '3',
+        'The other'     => '4',
     ];
     
     public function getChoices()

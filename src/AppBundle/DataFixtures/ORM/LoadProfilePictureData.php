@@ -32,23 +32,23 @@ class LoadProfilePictureData extends AbstractFixture implements OrderedFixtureIn
         
         $picture1 = new ProfilePicture();
         $picture1->setImageName('initial_user.png');
-        $picture1->setUser($this->getReference('USER_ADMIN'));
+        $picture1->setUser($this->getReference('user-super-admin'));
         $manager->persist($picture1);
         
         $picture2 = new ProfilePicture();
         $picture2->setImageName('initial_user.png');
-        $picture2->setUser($this->getReference('USER_USER'));
+        $picture2->setUser($this->getReference('user-user'));
         $manager->persist($picture2);
         
         $manager->flush();
         
-        $this->addReference('Picture1', $picture1);
-        $this->addReference('Picture2', $picture2);
+        $this->addReference('profile-picture-1', $picture1);
+        $this->addReference('profile-picture-2', $picture2);
         
     }
     
     public function getOrder()
     {
-        return 15;
+        return 11;
     }
 }

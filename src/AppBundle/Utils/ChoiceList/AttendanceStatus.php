@@ -14,17 +14,17 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of AccountType
+ * Description of AttendanceType
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class AccountType extends AbstractChoiceLoader
+class AttendanceStatus extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'Participant'       => '1',
-        'Operation staff'   => '2',
-        'Observer'          => '3',
+        'Yes' => true,
+        'No' => false,
+        'Maybe' => null,
     ];
     
     public function getChoices()

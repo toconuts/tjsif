@@ -24,10 +24,16 @@ Setup Composer
 In your working directory.
     git clone https://github.com/toconuts/tjsif.git
 
+### Install curl
+    sudo apt-get install php5-curl
+    sudo apache2ctl restart
+
 ### Install Composer
 
     curl -sS https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
+
+or to see composer [official website][1]
 
 ### Checking out a versioned applications
     composer install
@@ -36,7 +42,7 @@ Running server and check configuration
 ----------------------------------
 ### Running server
     cd my_project_name/
-    php bin/console server:stop
+    php bin/console server:start
 or
     php bin/console server:run
 Then, open your browser and access the [http://localhost:8000/][1]
@@ -91,14 +97,14 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* remove organization itself from the sister list using query builder
+* change the place of edit and create button to the bottom
+* change list of member of project in show. edit and create have almost done.
+* same as above sister of organization in show.
+* make two list of user. one of student and one of teachers without operation staff.
+* add documents and profile picture to project
 * add placeholder to all form type
 * Check validation all entities
-* Change checkbox to list on Project show students and teachers
-* Add hostedBy for host or sister school to Organization
-* Add type school cooperation and so on to Organization
-* Change autofill to organization.id
-* Add short name to organization
-* ?Add teachers and students, and documents to Project
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
 * Assign role from job
@@ -114,8 +120,9 @@ $kernel = new AppKernel('prod', false);
 * Change password
 * Error page 404
 
-#Gide line#
+#Guide line#
 Carousel Image Size: 1024 x 576 (16:9 PALt)
 
-[1]:  http://localhost:8000/
-[2]:  http://localhost:8000/config.php
+[1]:  https://getcomposer.org/doc/00-intro.md
+[2]:  http://localhost:8000/
+[3]:  http://localhost:8000/config.php

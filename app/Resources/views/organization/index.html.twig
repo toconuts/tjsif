@@ -8,7 +8,7 @@ Organization list
 
 {% block content %}
 <div class="container">
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="row">
         <div class="col-sm-offset-11 col-sm-1">
             <a type="button" class="btn btn-default" href="{{ path("member_organization_new") }}">New</a>
@@ -25,8 +25,8 @@ Organization list
                         <th>City</th>
                         <th>Province</th>
                         <th>Country</th>
-                        <th>Homepage</th>
-                        <th>Email</th>
+                        <th>Sister / Hosted by</th>
+                        <th>Systers with me</th>
                         <th>Active</th>
                         <th>Updated at</th>
                     </tr>
@@ -38,8 +38,16 @@ Organization list
                         <td>{{ organization.city }}</td>
                         <td>{{ organization.province }}</td>
                         <td>{{ organization.country }}</td>
-                        <td>{{ organization.homepage }}</td>
-                        <td>{{ organization.email }}</td>
+                        <td>
+                            {% for sister in organization.sisters %}
+                                <p><a href="{{ path("member_organization_show", {"id": sister.id}) }}">{{ sister.name }}</a></p>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for sisterwm in organization.sistersWithMe %}
+                                <p><a href="{{ path("member_organization_show", {"id": sisterwm.id}) }}">{{ sisterwm.name }}</a></p>
+                            {% endfor %}
+                        </td>
                         <td>{{ organization.isActive }}</td>    
                         <td>{{ organization.updatedAt|date("Y-m-d H:i")}}</td>
                     </tr>

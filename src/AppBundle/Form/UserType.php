@@ -82,7 +82,6 @@ class UserType extends AbstractType
             ))
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
-                'disabled' => true,
                 'choice_label' => 'name',
             ))
             ->add('position', TextType::class)

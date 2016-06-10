@@ -31,20 +31,20 @@ class LoadAttendanceData extends AbstractFixture implements OrderedFixtureInterf
     {
         /* Attendance for user admin */
         $attendance1 = $this->createAttendance(
-            $this->getReference('USER_ADMIN'),
-            $this->getReference('Program_1'),
+            $this->getReference('user-super-admin'),
+            $this->getReference('activity-1'),
             true);
         $manager->persist($attendance1);
         
         $attendance2 = $this->createAttendance(
-            $this->getReference('USER_ADMIN'),
-            $this->getReference('Program_2'),
+            $this->getReference('user-super-admin'),
+            $this->getReference('activity-2'),
             true);
         $manager->persist($attendance2);
         
         $attendance3 = $this->createAttendance(
-            $this->getReference('USER_ADMIN'),
-            $this->getReference('Program_3'),
+            $this->getReference('user-super-admin'),
+            $this->getReference('activity-3'),
             true);
         $manager->persist($attendance3);
         
@@ -52,11 +52,11 @@ class LoadAttendanceData extends AbstractFixture implements OrderedFixtureInterf
         $manager->flush();
     }
     
-    protected function createAttendance($user, $program, $isAttend)
+    protected function createAttendance($user, $activity, $isAttend)
     {
         $attendance = new Attendance();
         $attendance->setUser($user);
-        $attendance->setProgram($program);
+        $attendance->setActivity($activity);
         $attendance->setIsAttend($isAttend);
         return $attendance;
     }
@@ -64,6 +64,6 @@ class LoadAttendanceData extends AbstractFixture implements OrderedFixtureInterf
 
     public function getOrder()
     {
-        return 11;
+        return 31;
     }
 }

@@ -18,7 +18,10 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Organization;
+use AppBundle\Utils\ChoiceList\OrganizationForm;
 
 /**
  * Description of OrganizationType
@@ -31,6 +34,9 @@ class OrganizationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('shortname', TextType::class, array(
+                'label' => 'shortname (<=25)'
+            ))
             ->add('address1', TextType::class)
             ->add('address2', TextType::class)
             ->add('city', TextType::class)
@@ -44,6 +50,9 @@ class OrganizationType extends AbstractType
             ->add('email', EmailType::class)
             ->add('homepage', UrlType::class)
             ->add('blog', UrlType::class)
+            ->add('type', ChoiceType::class, array(
+                'choice_loader' => new OrganizationForm(),
+            ))
         ;
     }
     

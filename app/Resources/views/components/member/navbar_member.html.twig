@@ -18,12 +18,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informations<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path("member_project_index") }}">Projects</a></li>
+                        <li><a href="#">Activities</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="{{ path("member_user_index") }}">Members</a></li>
                         <li><a href="{{ path("member_organization_index") }}">Organization</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ path("member_statistics_index") }}">Statistics</a></li>
                         <li><a href="#">Notifications</a></li>
-                        <li><a href="#">Activities</a></li>
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Admin tools</li>

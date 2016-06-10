@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Organization;
 use AppBundle\Form\OrganizationType;
 
@@ -67,13 +67,19 @@ class OrganizationController extends Controller
     
     /**
      * @Route("/new", name="member_organization_new")
-     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
         $organization = new Organization();
         $form = $this->createForm(OrganizationType::class, $organization);
-        $form->add('id', IntegerType::class);
+        $form->add('sisters', EntityType::class, array(
+                'class' => 'AppBundle:Organization',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'placeholder' => 'No sister school',
+        )); // no need query because new organization has not stored yet.
         
         $form->handleRequest($request);
 
@@ -102,6 +108,15 @@ class OrganizationController extends Controller
     {
         
         $form = $this->createForm(OrganizationType::class, $organization);
+        $form->add('sisters', EntityType::class, array(
+                'class' => 'AppBundle:Organization',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'placeholder' => 'No sister school',
+        ));
+//TODO: Query except organization itself from the choices list.
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

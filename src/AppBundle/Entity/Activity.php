@@ -19,20 +19,21 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @ORM\Table(name="program")
+ * @ORM\Table(name="activity")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Program
+class Activity
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=250)
      */
     private $name;
     
@@ -52,7 +53,22 @@ class Program
     private $description;
     
     /**
-     * @ORM\OneToMany(targetEntity="Attendance", mappedBy="program")
+     * @ORM\Column(type="string", length=10)
+     */
+    private $target;
+    
+    /**
+     * @ORM\Column(name="is_confirm", type="boolean")
+     */
+    private $isConfirm;
+    
+    /**
+     * @ORM\Column(name="is_official", type="boolean")
+     */
+    private $isOfficial;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Attendance", mappedBy="activity")
      */
     private $attendances;
     
@@ -267,5 +283,77 @@ class Program
     public function getAttendances()
     {
         return $this->attendances;
+    }
+
+    /**
+     * Set target
+     *
+     * @param string $target
+     *
+     * @return Activity
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * Set isConfirm
+     *
+     * @param boolean $isConfirm
+     *
+     * @return Activity
+     */
+    public function setIsConfirm($isConfirm)
+    {
+        $this->isConfirm = $isConfirm;
+
+        return $this;
+    }
+
+    /**
+     * Get isConfirm
+     *
+     * @return boolean
+     */
+    public function getIsConfirm()
+    {
+        return $this->isConfirm;
+    }
+
+    /**
+     * Set isOfficial
+     *
+     * @param boolean $isOfficial
+     *
+     * @return Activity
+     */
+    public function setIsOfficial($isOfficial)
+    {
+        $this->isOfficial = $isOfficial;
+
+        return $this;
+    }
+
+    /**
+     * Get isOfficial
+     *
+     * @return boolean
+     */
+    public function getIsOfficial()
+    {
+        return $this->isOfficial;
     }
 }

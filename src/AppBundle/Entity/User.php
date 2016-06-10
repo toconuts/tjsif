@@ -111,7 +111,6 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\ManyToOne(targetEntity="Organization", inversedBy="users")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
-     * @Assert\NotNull(groups={"registration"})
      */
     private $organization;
 
