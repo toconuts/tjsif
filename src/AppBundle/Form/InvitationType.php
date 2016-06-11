@@ -26,7 +26,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
  */
 class InvitationType extends AbstractType
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

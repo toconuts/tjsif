@@ -39,7 +39,9 @@ use AppBundle\Utils\ChoiceList\AccountType;
  */
 class RegistrationType extends AbstractType
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

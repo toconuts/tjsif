@@ -34,6 +34,7 @@ class Activity
     
     /**
      * @ORM\Column(type="string", length=250)
+     * @Assert\NotBlank()
      */
     private $name;
     
@@ -43,9 +44,16 @@ class Activity
     private $venue;
     
     /**
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull()
      */
-    private $date;
+    private $starttime;
+    
+    /**
+     * @ORM\Column(type="time")
+     * @Assert\NotNull()
+     */
+    private $endtime;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -54,6 +62,7 @@ class Activity
     
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull()
      */
     private $target;
     
@@ -66,6 +75,11 @@ class Activity
      * @ORM\Column(name="is_official", type="boolean")
      */
     private $isOfficial;
+    
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
     
     /**
      * @ORM\OneToMany(targetEntity="Attendance", mappedBy="activity")
@@ -92,7 +106,7 @@ class Activity
     public function setId($id)
     {
         $this->id = $id;
-
+        
         return $this;
     }
 
@@ -152,30 +166,6 @@ class Activity
     public function getVenue()
     {
         return $this->venue;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Program
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -248,6 +238,9 @@ class Activity
      */
     public function __construct()
     {
+        $this->isConfirm = false;
+        $this->isOfficial = false;
+        $this->isActive = true;
         $this->attendances = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -355,5 +348,77 @@ class Activity
     public function getIsOfficial()
     {
         return $this->isOfficial;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return Activity
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set starttime
+     *
+     * @param \DateTime $starttime
+     *
+     * @return Activity
+     */
+    public function setStarttime($starttime)
+    {
+        $this->starttime = $starttime;
+
+        return $this;
+    }
+
+    /**
+     * Get starttime
+     *
+     * @return \DateTime
+     */
+    public function getStarttime()
+    {
+        return $this->starttime;
+    }
+
+    /**
+     * Set endtime
+     *
+     * @param \DateTime $endtime
+     *
+     * @return Activity
+     */
+    public function setEndtime($endtime)
+    {
+        $this->endtime = $endtime;
+
+        return $this;
+    }
+
+    /**
+     * Get endtime
+     *
+     * @return \DateTime
+     */
+    public function getEndtime()
+    {
+        return $this->endtime;
     }
 }

@@ -35,6 +35,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProjectType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -45,12 +48,12 @@ class ProjectType extends AbstractType
                 'choice_loader' => new Topic(),
                 'placeholder' => 'Choose topic of project',
             ))
-/*            ->add('organization', EntityType::class, array(
+            ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
-                'disabled' => true,
                 'choice_label' => 'name',
                 'placeholder' => 'Choose your school',
-            ))*/
+                'disabled' => $options['organization_disabled'],
+            ))
             ->add('users', EntityType::class, array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'fullnamewithJob',
@@ -80,6 +83,7 @@ class ProjectType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Project',
+            'organization_disabled' => true,
         ));
     }
 }

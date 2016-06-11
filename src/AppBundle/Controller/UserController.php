@@ -54,7 +54,6 @@ class UserController extends Controller
                 'disabled' => true
             )
         );
-        dump($user);
         
         return $this->render(
             'user/show.html.twig',

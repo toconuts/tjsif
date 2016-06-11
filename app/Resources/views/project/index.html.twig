@@ -8,11 +8,14 @@ Project list
 
 {% block content %}
 <div class="container">
+    {% if is_granted('ROLE_SUPER_ADMIN') or 
+        (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
     <div class="row">
         <div class="col-sm-offset-11 col-sm-1">
             <a type="button" class="btn btn-default" href="{{ path("member_project_new") }}">New</a>
         </div>
     </div><!-- /.row -->
+    {% endif %}
     
     <div class="row">
         <div class="table-responsive">

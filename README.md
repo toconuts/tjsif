@@ -97,6 +97,9 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* Activity.edit: Enable activate and inactivate to creator too
+* Activity.edit: Change grant ADMIN -> Sadmin and creator
+* Flash message when user into attendance and new activities with confirm is added
 * remove organization itself from the sister list using query builder
 * change the place of edit and create button to the bottom
 * change list of member of project in show. edit and create have almost done.

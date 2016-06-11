@@ -12,15 +12,15 @@ Project <small>- {{ project.name }}</small>
         <div class="col-sm-offset-1 col-sm-5">
             <h2 class="">Project information</h2>
         </div>
-        {% if is_granted('ROLE_SUPER_ADMIN') or 
-             (is_granted('ROLE_ADMIN') and app.user.id == project.organization.id) %}
         <div class="col-sm-offset-2 col-sm-2">
             <div class="btn-group" role="group" aria-label="...">
                 <a class="btn btn-default" href="{{ path("member_project_index") }}">Back</a>
+                {% if is_granted('ROLE_SUPER_ADMIN') or 
+                    (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
                 <a type="button" class="btn btn-primary" href="{{ path("member_project_edit", {"id": project.id}) }}">Edit</a>
+                {% endif %}
             </div>
         </div>
-        {% endif %}
     </div><!-- /.row -->
 
 {# //TODO: change list from arraycollection #}    
@@ -64,7 +64,7 @@ Project <small>- {{ project.name }}</small>
    
     <div class="row">
         {% if is_granted('ROLE_SUPER_ADMIN') or 
-             (is_granted('ROLE_ADMIN') and user.id == project.organization.id) %}
+             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
         {% if project.isActive %}
         <div class="col-sm-offset-7 col-sm-3">
             <form action="{{ path('member_project_inactivate', {id: project.id}) }}" method="POST">

@@ -1,6 +1,6 @@
 {% extends "layout_member.html.twig" %}
 
-{% block title %}Organization | {{ parent() }}{% endblock %}
+{% block title %}Organizations | {{ parent() }}{% endblock %}
 
 {% block pageheader %}
 Organization list
@@ -26,7 +26,6 @@ Organization list
                         <th>Province</th>
                         <th>Country</th>
                         <th>Sister / Hosted by</th>
-                        <th>Systers with me</th>
                         <th>Active</th>
                         <th>Updated at</th>
                     </tr>
@@ -41,11 +40,6 @@ Organization list
                         <td>
                             {% for sister in organization.sisters %}
                                 <p><a href="{{ path("member_organization_show", {"id": sister.id}) }}">{{ sister.name }}</a></p>
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for sisterwm in organization.sistersWithMe %}
-                                <p><a href="{{ path("member_organization_show", {"id": sisterwm.id}) }}">{{ sisterwm.name }}</a></p>
                             {% endfor %}
                         </td>
                         <td>{{ organization.isActive }}</td>    

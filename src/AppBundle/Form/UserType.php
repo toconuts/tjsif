@@ -38,7 +38,9 @@ use AppBundle\Utils\ChoiceList\AccountType;
  */
 class UserType extends AbstractType
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

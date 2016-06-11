@@ -54,12 +54,6 @@ class ProjectController extends Controller
             'disabled' => true
         ));
         
-        $form->add('organization', EntityType::class, array(
-            'class' => 'AppBundle:Organization',
-            'choice_label' => 'name',
-            'placeholder' => 'Choose your school',
-        ));
-        
         return $this->render(
             'project/show.html.twig',
             array(
@@ -80,21 +74,12 @@ class ProjectController extends Controller
         
         $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
         
-        $form = $this->createForm(ProjectType::class, $project);
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            $form->add('organization', EntityType::class, array(
-                'class' => 'AppBundle:Organization',
-                'choice_label' => 'name',
-                'placeholder' => 'Choose your school',
-            ));
-        } else {
-            $form->add('organization', EntityType::class, array(
-                'class' => 'AppBundle:Organization',
-                'choice_label' => 'name',
-                'placeholder' => 'Choose your school',
-                'disabled' => true,
-            ));
-        }
+        $disabled = ($this->get('security.authorization_checker')
+                ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
+        
+        $form = $this->createForm(ProjectType::class, $project, array(
+            'organization_disabled' => $disabled,
+        ));
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,17 +108,15 @@ class ProjectController extends Controller
      */
     public function editAction(Request $request, Project $project)
     {
-        dump($project);
-//TODO: {% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and app.user.id == project.organization.id) %}
 
+//TODO: {% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and app.user.id == project.organization.id) %}
+        $disabled = ($this->get('security.authorization_checker')
+            ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
+        
         $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
         
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->add('organization', EntityType::class, array(
-            'class' => 'AppBundle:Organization',
-            'disabled' => true,
-            'choice_label' => 'name',
-            'placeholder' => 'Choose your school',
+        $form = $this->createForm(ProjectType::class, $project, array(
+            'organization_disabled' => $disabled,
         ));
         
         $form->handleRequest($request);

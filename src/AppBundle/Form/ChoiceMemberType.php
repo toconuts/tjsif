@@ -25,7 +25,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class ChoiceMemberType extends AbstractType
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

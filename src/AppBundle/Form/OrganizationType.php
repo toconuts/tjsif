@@ -30,6 +30,9 @@ use AppBundle\Utils\ChoiceList\OrganizationForm;
  */
 class OrganizationType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

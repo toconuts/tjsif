@@ -33,6 +33,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
     $activity1 = $this->createActivity(
             'Activity number 1', 
             new \DateTime('2016-12-21 13:00:00'),
+            new \DateTime('15:00:00'),
             1, //Student
             true,
             true
@@ -43,6 +44,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
         $activity2 = $this->createActivity(
             'Activity number 2 - **************************************', 
             new \DateTime('2016-12-21 15:00:00'),
+            new \DateTime('17:00:00'),
             12, //Student and teacher
             false,
             false
@@ -53,6 +55,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
         $activity3 = $this->createActivity(
             'Activity number 3 - Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.', 
             new \DateTime('2016-12-21 17:00:00'),
+            new \DateTime('20:00:00'),
             2, //principals
             true,
             false
@@ -67,11 +70,12 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
 
     }
     
-    protected function createActivity($name, $date, $target, $isConfirm, $isOfficial)
+    protected function createActivity($name, $satrttime, $endtime, $target, $isConfirm, $isOfficial)
     {
         $activity = new Activity();
         $activity->setName($name);
-        $activity->setDate($date);
+        $activity->setStarttime($satrttime);
+        $activity->setEndtime($endtime);
         $activity->setTarget($target);
         $activity->setIsConfirm($isConfirm);
         $activity->setIsOfficial($isOfficial);
