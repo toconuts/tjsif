@@ -81,11 +81,6 @@ class RegistrationManager
         return $userRepository->loadUserByUsername($email);
     }
     
-    public function updateUser(User $user)
-    {
-        
-    }
-    
     public function sendInvitation(Invitation $invitation)
     {
         $ticket = $this->issueActivationKey();

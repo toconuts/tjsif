@@ -54,7 +54,7 @@ class Invitation
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="invitations")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="invited_by", referencedColumnName="id")
      */
     private $invitedBy;
     
