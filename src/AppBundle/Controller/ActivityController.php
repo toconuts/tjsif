@@ -116,8 +116,7 @@ class ActivityController extends Controller
             $em->flush();
 
 //TODO: Add Flash Message
-            return $this->redirectToRoute('member_activity_show',
-                array('id' => $activity->getId()));
+            return $this->redirectToRoute('member_activity_index');
         }
         
         return $this->render(

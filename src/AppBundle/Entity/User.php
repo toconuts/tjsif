@@ -17,6 +17,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\ProfilePicture;
+use AppBundle\Entity\Attendance;
+use AppBundle\Entity\Activity;
 
 /**
  * Description of User
@@ -1175,5 +1177,16 @@ class User implements AdvancedUserInterface, \Serializable
         return ($this->job->getId() == 1) ?
             $this->getFullname() :
             $this->getFullname() . ' - ' . $this->job->getName();
+    }
+    
+    public function getAttendanceOfActivities($isOfficial)
+    {
+        $attendances = new ArrayCollection();
+        foreach ($this->attendances as $attendance) {
+            if ($isOfficial == $attendance->getActivity()->getIsOfficial()) {
+                $attendances[] = $attendance;
+            }
+        }
+        return $attendances;
     }
 }

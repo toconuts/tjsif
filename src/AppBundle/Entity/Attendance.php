@@ -10,6 +10,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Activity;
 
 /**
  * Description of Attendance
@@ -42,7 +44,7 @@ class Attendance
     private $activity;
     
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", length=10)
      */
     private $status;
     
@@ -56,9 +58,11 @@ class Attendance
      */
     private $updatedAt;
     
-    public function __construct()
+    public function __construct(User $user = null, Activity $activity = null)
     {
-
+        $this->user = $user;
+        $this->activity = $activity;
+        $this->status = '0';
     }
 
 

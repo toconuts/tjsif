@@ -14,7 +14,7 @@ Actiity <small>- {{ activity.name }}</small>
         </div>
         <div class="col-sm-offset-2 col-sm-2">
             <div class="btn-group" role="group" aria-label="...">
-                <a class="btn btn-default" href="{{ path("member_activity_index") }}">Back</a>
+                <a class="btn btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
                 {% if is_granted('ROLE_ADMIN') %}
 {#TODO {% if is_granted('ROLE_SUPER_ADMIN') and app.user.id == activity.creator.id %}#}
                 <a type="button" class="btn btn-primary" href="{{ path("member_activity_edit", {"id": activity.id}) }}">Edit</a>

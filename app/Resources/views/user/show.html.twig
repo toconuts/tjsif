@@ -9,10 +9,16 @@ Profile <small>- {{ user.getFullname }}</small>
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-sm-offset-1 col-sm-6 col-md-4">
+        <div class="col-sm-offset-1 col-sm-4">
         {% if app.user.id == user.id %}
             {% include "components/member/profile_completeness.html.twig" %}
         {% endif %}
+        </div>
+        <div class="col-sm-offset-1 col-sm-4">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ path("member_user_index") }}">Member list</a>
+                <a class="btn btn-default" href="{{ path("member_attendance_show", {"id": user.id}) }}" role="button">View attendance &raquo;</a>
+            </div>
         </div>
     </div>
 </div>
