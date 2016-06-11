@@ -89,3 +89,9 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+
+# Stof Doctrine Extensions Configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            blameable: true
