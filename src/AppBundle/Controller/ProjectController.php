@@ -17,11 +17,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Project;
+use AppBundle\Form\ProjectBaseType;
 use AppBundle\Form\ProjectType;
-//use AppBundle\Entity\User;
-//use AppBundle\Entity\Job;
 
 /**
  * Description of ProjectController
@@ -50,17 +48,16 @@ class ProjectController extends Controller
      */
     public function showAction(Project $project)
     {
-        $form = $this->createForm(ProjectType::class, $project, array(
+        $form = $this->createForm(ProjectBaseType::class, $project, array(
             'disabled' => true
         ));
         
-        return $this->render(
-            'project/show.html.twig',
-            array(
+        return $this->render('project/show.html.twig', array(
                 'project' => $project,
-                'form' => $form->createView()
-            )
-        );
+                'form' => $form->createView(),
+                'students' => $project->getProjectMember(true),
+                'teachers' => $project->getProjectMember(false),
+        ));
     }
     
     /**
@@ -109,7 +106,15 @@ class ProjectController extends Controller
     public function editAction(Request $request, Project $project)
     {
 
-//TODO: {% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and app.user.id == project.organization.id) %}
+        if (!$this->get('security.authorization_checker')
+                ->isGranted('ROLE_SUPER_ADMIN')) {
+            if (!($this->get('security.authorization_checker')
+                    ->isGranted('ROLE_ADMIN') && 
+                $this->getUser()->getOrganization()->getId() == 
+                            $project->getOrganization()->getId())) {
+                $this->createAccessDeniedException();
+            }
+        }
         $disabled = ($this->get('security.authorization_checker')
             ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
         
@@ -169,16 +174,5 @@ class ProjectController extends Controller
         
         return $this->redirectToRoute('member_project_index');
     }
-    
-    /**
-     * @Route("/test")
-     */
-    public function testAction()
-    {
-        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
-        return $this->render(
-            'project/choice_member.html.twig',
-            array('organizations' => $organizations,)
-        );
-    }
+
 }

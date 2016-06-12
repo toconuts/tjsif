@@ -26,6 +26,7 @@ use AppBundle\Utils\ChoiceList\AccountType;
  * @ORM\Table(name="organization")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\OrganizationRepository")
  * @UniqueEntity(fields="id", message="id already taken")
  */
 class Organization

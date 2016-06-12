@@ -376,4 +376,17 @@ class Project
 
         return $this;
     }
+    
+    public function getProjectMember($isStudent)
+    {
+        $members = new ArrayCollection();
+        foreach ($this->users as $member) {
+            if ($isStudent && $member->getJob()->getId() == 1) {
+                $members[] = $member;
+            } else if (!$isStudent && $member->getJob()->getId() != 1){
+                $members[] = $member;
+            }
+        }
+        return $members;
+    }
 }

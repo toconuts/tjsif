@@ -35,17 +35,6 @@ class InvitationRepository extends EntityRepository
             ->setParameter('email', $email)
             ->getQuery()
             ->getResult();
-        
-        /*
-        $em = $this->getEntityManager();
-        $query = $em->createQuery(
-            'SELECT p
-            FROM AppBundle:Product p
-            WHERE p.email > :email'
-        )->setParameter('email', $email);
-        $products = $query->getResult();
-        */
-
     }
     
     public function createInvitation(Invitation $invitation)

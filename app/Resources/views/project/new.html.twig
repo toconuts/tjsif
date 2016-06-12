@@ -30,11 +30,7 @@ Create Project
                 {{ form_row(form.concept) }}
                 {{ form_row(form.objective) }}
                 {{ form_row(form.topic) }}
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
                 {{ form_row(form.organization) }}
-                {% else %}
-                {{ form_row(form.organization, { 'attr':{'disabled':'disabled'} }) }}
-                {% endif %}
             </div>
         </div>
     </div><!-- /.row -->

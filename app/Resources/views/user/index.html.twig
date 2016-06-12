@@ -24,9 +24,13 @@ Search members
             <tbody>
                 {% for user in users %}
                 <tr>
-                    {% if user.picture != null %}
-                    <td><img class="profile-picture-xs img-circle" src="{{ vich_uploader_asset(user.picture, 'imageFile') }}" alt="{{ user.picture.imageName }}" /></td>
-                    {% else %}No Profile Picture{% endif %}
+                    <td>
+                        {% if user.picture != null %}
+                        <img class="profile-picture-xs img-circle" src="{{ vich_uploader_asset(user.picture, 'imageFile') }}" alt="{{ user.picture.imageName }}" />
+                        {% else %}
+                        <img class="profile-picture-xs img-circle" src="{{ asset('template/user/initial_user.png') }}">
+                        {% endif %}
+                    </td>
                     <td><a href="{{ path("member_user_show", {"id": user.id}) }}">{{ user.fullName }}</a></td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.job.name }}</td>

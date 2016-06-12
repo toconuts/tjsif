@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Organization;
 use AppBundle\Form\OrganizationType;
 
@@ -48,9 +49,7 @@ class OrganizationController extends Controller
      */
     public function showAction(Organization $organization)
     {   
-        $form = $this->createForm(
-            OrganizationType::class,
-            $organization,
+        $form = $this->createForm(OrganizationType::class, $organization,
             array(
                 'disabled' => true
             )
@@ -74,11 +73,11 @@ class OrganizationController extends Controller
         $organization = new Organization();
         $form = $this->createForm(OrganizationType::class, $organization);
         $form->add('sisters', EntityType::class, array(
-                'class' => 'AppBundle:Organization',
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-                'placeholder' => 'No sister school',
+            'class' => 'AppBundle:Organization',
+            'choice_label' => 'name',
+            'multiple' => true,
+            'expanded' => true,
+            'placeholder' => 'No sister school',
         )); // no need query because new organization has not stored yet.
         
         $form->handleRequest($request);
@@ -109,13 +108,18 @@ class OrganizationController extends Controller
         
         $form = $this->createForm(OrganizationType::class, $organization);
         $form->add('sisters', EntityType::class, array(
-                'class' => 'AppBundle:Organization',
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-                'placeholder' => 'No sister school',
+            'class' => 'AppBundle:Organization',
+            'choice_label' => 'name',
+            'multiple' => true,
+            'expanded' => true,
+            'placeholder' => 'No sister school',
+            'query_builder' => function (EntityRepository $er) use ($organization) {
+                return $er->createQueryBuilder('o')
+                    ->where('o.id != :id')
+                    ->orderBy('o.type', 'ASC')
+                    ->setParameter('id', $organization->getId());
+            }, 
         ));
-//TODO: Query except organization itself from the choices list.
         
         $form->handleRequest($request);
 

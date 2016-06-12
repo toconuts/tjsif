@@ -11,69 +11,37 @@
 
 namespace AppBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Entity\Project;
-use AppBundle\Utils\ChoiceList\Topic;
-
 use Doctrine\ORM\EntityRepository;
-
+Use AppBundle\Form\ProjectBaseType;
 
 /**
  * Description of ProjectType
  *
- * @author toconuts
+ * @author toconuts <toconuts@gmail.com>
  */
-class ProjectType extends AbstractType
+class ProjectType extends ProjectBaseType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name', TextType::class)
-            ->add('concept', TextareaType::class)
-            ->add('objective', TextareaType::class)
-            ->add('topic', ChoiceType::class, array(
-                'choice_loader' => new Topic(),
-                'placeholder' => 'Choose topic of project',
-            ))
-            ->add('organization', EntityType::class, array(
-                'class' => 'AppBundle:Organization',
-                'choice_label' => 'name',
-                'placeholder' => 'Choose your school',
-                'disabled' => $options['organization_disabled'],
-            ))
-            ->add('users', EntityType::class, array(
-                'class' => 'AppBundle:User',
-                'choice_label' => 'fullnamewithJob',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => false,
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        //->where('User u, AppBundle:Job j, AppBundle:Organization o')
-                        //->orderBy('o.id', 'ASC');
-                        //->where('u.job = 1')
-                        ->orderBy('u.organization', 'ASC');
-                        //->add('orderBy', 's.sort_order ASC');
-                },
-            /*    'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.organization.id', 'ASC');
-                },*/
-            ))
-        ;
+        parent::buildForm($builder, $options);
+        $builder->add('users', EntityType::class, array(
+            'class' => 'AppBundle:User',
+            'choice_label' => 'fullnamewithJob',
+            'multiple' => true,
+            'expanded' => true,
+            'label' => false,
+            'query_builder' => function(EntityRepository $er) use ($options) {
+                return $er->createQueryBuilder('u')
+                    ->where('u.type = 1')
+                    ->orderBy('u.organization', 'ASC');
+            },
+        ));
     }
     
     /**
