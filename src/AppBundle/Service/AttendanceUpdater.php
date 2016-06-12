@@ -58,6 +58,7 @@ class AttendanceUpdater
         $attendance = $user->findAttendance($activity);
         if ($attendance && !$activity->getIsConfirm()) {
             $user->removeAttendance($attendance);
+            $this->entityManager->remove($attendance);
         } else if ($activity->getIsConfirm() && 
                    $this->isTarget($user, $activity)) {
             $attendance = new Attendance($user, $activity);

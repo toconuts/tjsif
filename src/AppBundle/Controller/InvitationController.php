@@ -12,27 +12,24 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Form\InvitationType;
 use AppBundle\Entity\Invitation;
-use AppBundle\Entity\User;
-
-use AppBundle\Form\UserType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 /**
  * Description of InvitationController
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @Route("/admin")
+ * @Route("/member")
  */
 class InvitationController extends Controller
 {    
     /**
-     * @Route("/invitation", name="admin_invitation")
+     * @Route("/invitation", name="member_invitation")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function inviteAction(Request $request)
     {

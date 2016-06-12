@@ -61,7 +61,9 @@ class RegistrationManager
         $password = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);
         
-//TODO: set role;
+        $user->addRole($this->entityManager->getRepository('AppBundle:Role')
+                            ->find($user->getJob()->getRole()->getId()));
+
 //TODO: set initial profile picture
 
         if ($this->isChangedEmail($user, $invitation)) {

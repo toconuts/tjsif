@@ -35,8 +35,8 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <li><a href="{{ path("admin_invitation") }}">Invitation</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path("member_invitation") }}">Invitation</a></li>
                 {% endif %}
                 {% if app.user %}
                 <li><a href="{{ path("logout") }}" class="btn btn-default">Sign out</a></li>
