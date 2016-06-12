@@ -31,42 +31,42 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
     {
         /* Student */
         $student = new Job();
-        $student->setId(1);
+        $student->setId(0b00000001); // 1 
         $student->setName('Student');
         $student->setRole($this->getReference('role-user'));
         $manager->persist($student);
         
         /* Teacher */
         $teacher = new Job();
-        $teacher->setId(2);
+        $teacher->setId(0b00000010); // 2
         $teacher->setName('Teacher');
         $teacher->setRole($this->getReference('role-admin'));
         $manager->persist($teacher);
         
         /* Deputy */
         $duputy = new Job();
-        $duputy->setId(3);
+        $duputy->setId(0b00000100); // 4
         $duputy->setName('Deputy / Vice principal');
         $duputy->setRole($this->getReference('role-user'));
         $manager->persist($duputy);
         
         /* Director */
         $director = new Job();
-        $director->setId(4);
+        $director->setId(0b00001000); // 8
         $director->setName('Director / Principal');
         $director->setRole($this->getReference('role-user'));
         $manager->persist($director);
         
         /* JOCV */
         $jocv = new Job();
-        $jocv->setId(5);
+        $jocv->setId(0b00010000);   // 16
         $jocv->setName('JOCV');
         $jocv->setRole($this->getReference('role-admin'));
         $manager->persist($jocv);
         
         /* The other */
         $other = new Job();
-        $other->setId(6);
+        $other->setId(0b00100000);  // 32
         $other->setName('The other');
         $other->setRole($this->getReference('role-user'));
         $manager->persist($other);

@@ -30,24 +30,43 @@ class LoadAttendanceData extends AbstractFixture implements OrderedFixtureInterf
     public function load(ObjectManager $manager)
     {
         /* Attendance for user admin */
-        $attendance1 = $this->createAttendance(
+        // Activity 1
+        $attendance_1_1 = $this->createAttendance(
             $this->getReference('user-super-admin'),
             $this->getReference('activity-1'),
             true);
-        $manager->persist($attendance1);
+        $manager->persist($attendance_1_1);
         
-        $attendance2 = $this->createAttendance(
-            $this->getReference('user-super-admin'),
-            $this->getReference('activity-2'),
+        $attendance_1_2 = $this->createAttendance(
+            $this->getReference('user-admin'),
+            $this->getReference('activity-1'),
             true);
-        $manager->persist($attendance2);
+        $manager->persist($attendance_1_2);
         
-        $attendance3 = $this->createAttendance(
+        $attendance_1_3 = $this->createAttendance(
+            $this->getReference('user-user'),
+            $this->getReference('activity-1'),
+            true);
+        $manager->persist($attendance_1_3);
+        
+        // Activity 3
+        $attendance_2_1 = $this->createAttendance(
             $this->getReference('user-super-admin'),
             $this->getReference('activity-3'),
             true);
-        $manager->persist($attendance3);
+        $manager->persist($attendance_2_1);
         
+        $attendance_2_2 = $this->createAttendance(
+            $this->getReference('user-admin'),
+            $this->getReference('activity-3'),
+            true);
+        $manager->persist($attendance_2_2);
+        
+        $attendance_2_3 = $this->createAttendance(
+            $this->getReference('user-user'),
+            $this->getReference('activity-3'),
+            true);
+        $manager->persist($attendance_2_3);
         
         $manager->flush();
     }

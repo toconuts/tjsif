@@ -85,8 +85,10 @@ class ActivityController extends Controller
             $em->persist($activity);
             $em->flush();
 
-            return $this->redirectToRoute('member_activity_show',
-                array('id' => $activity->getId()));
+            $ap = $this->get('app.attendance_updater');
+            $ap->updateAll($activity);
+            
+            return $this->redirectToRoute('member_activity_index');
 
         }
         
@@ -114,6 +116,9 @@ class ActivityController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            
+            $ap = $this->get('app.attendance_updater');
+            $ap->updateAll($activity);
 
 //TODO: Add Flash Message
             return $this->redirectToRoute('member_activity_index');

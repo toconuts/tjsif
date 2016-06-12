@@ -22,14 +22,14 @@ class Target extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'All'                   => '0',
-        'Student'               => '1',
-        'Teacher'               => '2',
-        'Principals'            => '3',
-        'JOCV'                  => '5',
-        'The other'             => '6',
-        'Student & Teacher'     => '12',
-        'Teacher & Principal'   => '13',
+        'All'                   => '63', //0b00111111
+        'Student'               =>  '1', //0b00000001
+        'Teacher'               =>  '2', //0b00000010
+        'Principals'            => '12', //0b00001100
+        'JOCV'                  => '16', //0b00010000
+        'The other'             => '32', //0b00100000
+        'Student & Teacher'     =>  '3', //0b00000011
+        'Teacher & Principals'  => '14', //0b00001110
     ];
     
     public function getChoices()

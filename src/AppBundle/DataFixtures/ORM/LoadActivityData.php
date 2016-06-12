@@ -30,11 +30,11 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
         /* Activity 1 */
-    $activity1 = $this->createActivity(
+        $activity1 = $this->createActivity(
             'Activity number 1', 
             new \DateTime('2016-12-21 13:00:00'),
             new \DateTime('15:00:00'),
-            1, //Student
+            0b00111111, //ALL
             true,
             true
         );
@@ -45,7 +45,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
             'Activity number 2 - **************************************', 
             new \DateTime('2016-12-21 15:00:00'),
             new \DateTime('17:00:00'),
-            12, //Student and teacher
+            0b00000011, //Student and teacher
             false,
             false
         );
@@ -53,10 +53,10 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
         
         /* Activity 3 */
         $activity3 = $this->createActivity(
-            'Activity number 3 - Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.', 
+            'Activity number 3 - Duis mollis, est non commodo luctus, nisi erat',
             new \DateTime('2016-12-21 17:00:00'),
             new \DateTime('20:00:00'),
-            2, //principals
+            0b00000011, //Student and teacher
             true,
             false
         );

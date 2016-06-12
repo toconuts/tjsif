@@ -62,7 +62,7 @@ class Activity
     private $description;
     
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="integer")
      * @Assert\NotNull()
      */
     private $target;

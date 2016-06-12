@@ -1187,6 +1187,27 @@ class User implements AdvancedUserInterface, \Serializable
                 $attendances[] = $attendance;
             }
         }
-        return $attendances;
+        dump($attendances);
+        return $this->sortAttendancesByDate($attendances);
+    }
+    
+    public function findAttendance(Activity $activity)
+    {
+        foreach ($this->attendances as $attendance) {
+            if ($attendance->getActivity()->getId() == $activity->getId()) {
+                return $attendance;
+            }
+        }
+        return null;
+    }
+    
+    public function sortAttendancesByDate(ArrayCollection $attendances)
+    {
+        $iterator = $attendances->getIterator();
+        $iterator->uasort(function ($first, $second) {
+            return $first->getActivity()->getStarttime() < 
+                   $second->getActivity()->getStarttime() ? -1 : 1;
+        });
+        return new ArrayCollection(iterator_to_array($iterator));
     }
 }

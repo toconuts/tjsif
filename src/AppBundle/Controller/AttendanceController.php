@@ -34,31 +34,7 @@ class AttendanceController extends Controller
      */
     public function showAction(User $user)
     {
-        /*$form = $this->createForm(
-            UserType::class,
-            $user,
-            array(
-                'disabled' => true
-            )
-        );*/
-        
-        /*$activities = $this->getDoctrine()
-                            ->getRepository('AppBundle:Activity')
-                            ->findall(); // order date asc time asc
-        
-        dump($activities);
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        foreach ($activities as $activity) {
-            $attendance = new \AppBundle\Entity\Attendance($user, $activity);
-            $user->addAttendance($attendance);
-            $em->persist($attendance);
-        }
-        
-        $em->flush();
-        */
-        
+        dump($user);
         $attendances = array(
             0 => $user->getAttendanceOfActivities(true),
             1 => $user->getAttendanceOfActivities(false),
