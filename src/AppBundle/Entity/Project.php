@@ -42,10 +42,16 @@ class Project
     private $objective;
     
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
+     * @ORM\Column(type="string", length=10)
      * @Assert\NotNull()
      */
     private $topic;
+    
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull
+     */
+    private $style;
     
     /**
      * @ORM\ManyToOne(targetEntity="Organization", inversedBy="projects")
@@ -388,5 +394,29 @@ class Project
             }
         }
         return $members;
+    }
+
+    /**
+     * Set style
+     *
+     * @param string $style
+     *
+     * @return Project
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
+     * Get style
+     *
+     * @return string
+     */
+    public function getStyle()
+    {
+        return $this->style;
     }
 }

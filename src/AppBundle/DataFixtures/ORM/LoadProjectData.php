@@ -34,6 +34,8 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project1 = $this->createProject(
             'Project name 1',
             true,
+            1,
+            1,
             $this->getReference('jp-ichikawa'),
             [
                 'user-user',
@@ -46,6 +48,8 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project2 = $this->createProject(
             'Project name 2',
             true,
+            2,
+            2,
             $this->getReference('jp-ichikawa'),
             [
                 'user-user',
@@ -59,11 +63,13 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('project-2', $project2);
     }
     
-    protected function createProject($name, $isActive, $organization, $users)
+    protected function createProject($name, $isActive, $topic, $style, $organization, $users)
     {
         $project = new Project;
         $project->setName($name);
         $project->setIsActive($isActive);
+        $project->setTopic($topic);
+        $project->setStyle($style);
         $project->setOrganization($organization);
         foreach ($users as $user) {
             $project->addUser($this->getReference($user));
