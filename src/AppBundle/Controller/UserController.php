@@ -33,11 +33,14 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        //$users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')
+                    ->findUserSortedByOrganization();
         dump($users);
         return $this->render(
             'user/index.html.twig',
-            array('users' => $users)
+            //array('users' => $users)
+            array('memberlist' => $users)
         );
     }
     

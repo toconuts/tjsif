@@ -31,9 +31,4 @@ class Target extends AbstractChoiceLoader
         'Student & Teacher'     =>  '3', //0b00000011
         'Teacher & Principals'  => '14', //0b00001110
     ];
-    
-    public function getChoices()
-    {
-        return $choices;
-    }
 }

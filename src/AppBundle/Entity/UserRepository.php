@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /*
@@ -27,5 +28,24 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+    
+    public function findUserSortedByOrganization()
+    {
+        $list = array();
+        $organizations = $this->getEntityManager()->getRepository('AppBundle:Organization')->findAll();
+        
+        foreach ($organizations as $organization) {
+            $list[$organization->getShortname()] = $this->getEntityManager()
+                ->createQuery(
+                    'SELECT u FROM AppBundle:User u
+                    INNER JOIN u.organization o
+                    INNER JOIN u.job j 
+                    WHERE o.id = :id
+                    ORDER BY j.id ASC'
+                )->setParameter('id', $organization->getId())
+                ->getResult();
+        }
+        return $list;
     }
 }

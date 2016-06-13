@@ -97,14 +97,16 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Flash message when user into attendance and new activities with confirm is added
-* change the place of edit and create button to the bottom
-* change list of member of project in show. edit and create have almost done.
+* Project: Add presentation style and modify type
+* All: Flash message when user into attendance and new activities with confirm is added
+* All: change the place of edit and create button to the bottom
+* ALL: in edit page, display updated at and updated by
+* Member: change list of member of project in show. edit and create have almost done.
 * same as above sister of organization in show.
 * make two list of user. one of student and one of teachers without operation staff.
-* add documents and profile picture to project
+* Project: add documents and profile picture to project
 * add placeholder to all form type
-* Check validation all entities
+* All: Check validation all entities
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
 * Assign role from job

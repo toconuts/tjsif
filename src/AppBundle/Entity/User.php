@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\ProfilePicture;
 use AppBundle\Entity\Attendance;
 use AppBundle\Entity\Activity;
+use AppBundle\Utils\ChoiceList\Title;
 
 /**
  * Description of User
@@ -243,7 +244,8 @@ class User implements AdvancedUserInterface, \Serializable
     
     public function getFullnamewithTitle()
     {
-        return $this->title . " " . $this->firstname . " " . $this->lastname;
+        $choices = (new Title())->getChoicesFliped();
+        return $choices[$this->getTitle()] . " " . $this->firstname . " " . $this->lastname;
     }
     
     /**

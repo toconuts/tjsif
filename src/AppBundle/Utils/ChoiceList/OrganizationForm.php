@@ -27,9 +27,4 @@ class OrganizationForm extends AbstractChoiceLoader
         'Company'       => '3',
         'The other'     => '4',
     ];
-    
-    public function getChoices()
-    {
-        return $choices;
-    }
 }

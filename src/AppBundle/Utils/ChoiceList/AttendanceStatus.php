@@ -26,9 +26,4 @@ class AttendanceStatus extends AbstractChoiceLoader
         'No' => false,
         'Maybe' => null,
     ];
-    
-    public function getChoices()
-    {
-        return $choices;
-    }
 }

@@ -26,9 +26,4 @@ class AccountType extends AbstractChoiceLoader
         'Operation staff'   => '2',
         'Observer'          => '3',
     ];
-    
-    public function getChoices()
-    {
-        return $choices;
-    }
 }
