@@ -13,7 +13,7 @@ Invitation
         <div class="col-sm-offset-1 col-sm-5">
             <h2 class="">Send invitation to...</h2>
         </div>
-        <div class="col-sm-offset-1 col-sm-3">
+        <div class="col-sm-offset-2 col-sm-3">
             <div class="btn-group" role="group" aria-label="...">
                 <a class="btn btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
                 <input type="submit" value="Send invitation" class="btn btn-success" />
@@ -22,7 +22,7 @@ Invitation
     </div><!-- /.row -->
     
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-11">
             {{ form_widget(form) }}
             {{ form_end(form) }}
         </div>
