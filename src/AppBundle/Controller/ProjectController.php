@@ -18,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Project;
+use AppBundle\Form\ProjectBaseType;
+use AppBundle\Form\ProjectType;
 
 /**
  * Description of ProjectController
@@ -26,77 +28,152 @@ use AppBundle\Entity\Project;
  * 
  * @Route("/member/project")
  */
-class UserController extends Controller
+class ProjectController extends Controller
 {
     /**
-     * @Route("", name="project_index")
+     * @Route("", name="member_project_index")
      */
     public function indexAction()
     {
         $projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
         return $this->render(
-            'user/list.html.twig',
-            array('projects' => $peojects)
+            'project/index.html.twig',
+            array('projects' => $projects)
         );
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="project_show")
+     * @Route("/{id}", requirements = {"id" = "\d+"}, name="member_project_show")
      * @ParamConverter("project", class="AppBundle:Project")
      */
     public function showAction(Project $project)
-    {   
+    {
+        $form = $this->createForm(ProjectBaseType::class, $project, array(
+            'disabled' => true
+        ));
+        
+        return $this->render('project/show.html.twig', array(
+                'project' => $project,
+                'form' => $form->createView(),
+                'students' => $project->getProjectMember(true),
+                'teachers' => $project->getProjectMember(false),
+        ));
+    }
+    
+    /**
+     * @Route("/new", name="member_project_new")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function newAction(Request $request)
+    {
+        $project = new Project();
+        $project->setOrganization($this->getUser()->getOrganization());
+        
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        
+        $disabled = ($this->get('security.authorization_checker')
+                ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
+        
+        $form = $this->createForm(ProjectType::class, $project, array(
+            'organization_disabled' => $disabled,
+        ));
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($project->getUsers());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
+
+            return $this->redirectToRoute('member_project_show',
+                array('id' => $project->getId()));
+        }
+        
         return $this->render(
-            'user/show.html.twig',
-            array('project' => $project)
+            'project/new.html.twig',
+            array(
+                'organizations' => $organizations,
+                'form' => $form->createView()
+            )
         );
     }
     
     /**
-     * @Route("/new", name="project_new")
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function newAction()
-    {
-        // ...
-    }
-    
-    /**
-     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="project_edit")
+     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="member_project_edit")
      * @ParamConverter("project", class="AppBundle:Project")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Request $request, Project $project)
     {
-        
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
 
+        if (!$this->get('security.authorization_checker')
+                ->isGranted('ROLE_SUPER_ADMIN')) {
+            if (!($this->get('security.authorization_checker')
+                    ->isGranted('ROLE_ADMIN') && 
+                $this->getUser()->getOrganization()->getId() == 
+                            $project->getOrganization()->getId())) {
+                $this->createAccessDeniedException();
+            }
+        }
+        
+        $disabled = ($this->get('security.authorization_checker')
+            ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
+        
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        
+        $form = $this->createForm(ProjectType::class, $project, array(
+            'organization_disabled' => $disabled,
+        ));
+        
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($project->getOrganization());
             $em = $this->getDoctrine()->getManager();
+            //$em->persist($project);
             $em->flush();
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('member_project_show',
+                array('id' => $project->getId()));
         }
         
         return $this->render(
-            'user/edit.html.twig',
-            array('form' => $form->createView())
+            'project/edit.html.twig',
+            array(
+                'project' => $project,
+                'organizations' => $organizations,
+                'form' => $form->createView())
         );
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="project_delete")
-     * @Method({"DELETE"})
+     * @Route("/{id}/active", requirements = {"id" = "\d+"}, name="member_project_activate")
+     * @Method({"ACTIVATE"})
      * @ParamConverter("project", class="AppBundle:Project")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function unactiveAction(Project $project)
+    public function activateAction(Project $project)
     {
-        $project->setIsActive(false);
+        $project->setIsActive(true);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('member_project_index');
     }
+    
+    /**
+     * @Route("/{id}/inactivate", requirements = {"id" = "\d+"}, name="member_project_inactivate")
+     * @Method({"INACTIVATE"})
+     * @ParamConverter("project", class="AppBundle:Project")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function inactiveAction(Project $project)
+    {
+        $project->setIsActive(false);
+        dump($project);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        return $this->redirectToRoute('member_project_index');
+    }
+
 }

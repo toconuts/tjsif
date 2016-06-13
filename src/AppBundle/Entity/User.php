@@ -17,6 +17,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\ProfilePicture;
+use AppBundle\Entity\Attendance;
+use AppBundle\Entity\Activity;
+use AppBundle\Utils\ChoiceList\Title;
 
 /**
  * Description of User
@@ -39,8 +42,8 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Email(groups={"registration"})
      */
     private $email;
 
@@ -67,13 +70,14 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $title;
     
     /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank()
+     * @Assert\NotNull(groups={"registration"})
      */
     private $firstname;
 
@@ -85,11 +89,12 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank()
+     * @Assert\NotNull(groups={"registration"})
      */
     private $lastname;
     
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $gender;
 
@@ -102,6 +107,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
      * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     * @Assert\NotNull(groups={"registration"})
      */
     private $job;
 
@@ -112,12 +118,18 @@ class User implements AdvancedUserInterface, \Serializable
     private $organization;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Project", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="users")
      */
     private $projects;
     
     /**
+     * @ORM\OneToMany(targetEntity="Attendance", mappedBy="user")
+     */
+    private $attendances;
+    
+    /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull(groups={"registration"})
      */
     private $type;
     
@@ -153,6 +165,8 @@ class User implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Country()
+     * @Assert\NotNull()
      */
     private $country;
     
@@ -210,6 +224,8 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->attendances = new ArrayCollection();
+        $this->allergies = 'None';
  //       $this->picture = new ProfilePicture();
     }
 
@@ -223,7 +239,13 @@ class User implements AdvancedUserInterface, \Serializable
     
     public function getFullname()
     {
-        return $this->title . " " . $this->firstname . " " . $this->lastname;
+        return $this->firstname . " " . $this->lastname;
+    }
+    
+    public function getFullnamewithTitle()
+    {
+        $choices = (new Title())->getChoicesFliped();
+        return $choices[$this->getTitle()] . " " . $this->firstname . " " . $this->lastname;
     }
     
     /**
@@ -1100,5 +1122,94 @@ class User implements AdvancedUserInterface, \Serializable
     public function getProjects()
     {
         return $this->projects;
+    }
+    
+    /**
+     * Get profile completeness
+     * 
+     * @return int
+     */
+    public function getProfileCompleteness()
+    {
+//TODO: calc profile completeness
+        return 50;
+    }
+
+    /**
+     * Add attendance
+     *
+     * @param \AppBundle\Entity\Attendance $attendance
+     *
+     * @return User
+     */
+    public function addAttendance(\AppBundle\Entity\Attendance $attendance)
+    {
+        $this->attendances[] = $attendance;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendance
+     *
+     * @param \AppBundle\Entity\Attendance $attendance
+     */
+    public function removeAttendance(\AppBundle\Entity\Attendance $attendance)
+    {
+        $this->attendances->removeElement($attendance);
+    }
+
+    /**
+     * Get attendances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendances()
+    {
+        return $this->attendances;
+    }
+    
+    /**
+     * Get fullname with job name (except student)
+     * 
+     * @return type
+     */
+    public function getFullnamewithJob()
+    {
+        return ($this->job->getId() == 1) ?
+            $this->getFullname() :
+            $this->getFullname() . ' - ' . $this->job->getName();
+    }
+    
+    public function getAttendanceOfActivities($isOfficial)
+    {
+        $attendances = new ArrayCollection();
+        foreach ($this->attendances as $attendance) {
+            if ($isOfficial == $attendance->getActivity()->getIsOfficial()) {
+                $attendances[] = $attendance;
+            }
+        }
+        dump($attendances);
+        return $this->sortAttendancesByDate($attendances);
+    }
+    
+    public function findAttendance(Activity $activity)
+    {
+        foreach ($this->attendances as $attendance) {
+            if ($attendance->getActivity()->getId() == $activity->getId()) {
+                return $attendance;
+            }
+        }
+        return null;
+    }
+    
+    public function sortAttendancesByDate(ArrayCollection $attendances)
+    {
+        $iterator = $attendances->getIterator();
+        $iterator->uasort(function ($first, $second) {
+            return $first->getActivity()->getStarttime() < 
+                   $second->getActivity()->getStarttime() ? -1 : 1;
+        });
+        return new ArrayCollection(iterator_to_array($iterator));
     }
 }

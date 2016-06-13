@@ -26,10 +26,13 @@ services:
           - "@security.password_encoder"
           - "@doctrine.orm.entity_manager"
           - "@app.mailer"
-          #- "@app.user_repository"
-          #- "@app.invitation_repository"
     
-    app.directory_namer.user_picture:
+    app.directory_namer.profile_picture:
         class:          AppBundle\Service\ProfilePictureDirectoryNamer
         arguments:
           - "@security.token_storage"
+
+    app.attendance_updater:
+        class:          AppBundle\Service\AttendanceUpdater
+        arguments:
+          - "@doctrine.orm.entity_manager"

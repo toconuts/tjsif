@@ -1,0 +1,16 @@
+<h2 class="sub-header">Don’t be a stranger</h2>
+<div class="pofile-picture">
+   <a href="{{ path("member_user_show", {"id": app.user.id}) }}">
+    {% if app.user.picture %}
+    <img class="profile-picture-md img-circle" src="{{ vich_uploader_asset(app.user.picture, 'imageFile') }}" alt="{{ app.user.picture.imageName }}" />
+    {% else %}
+    <img class="profile-picture-md img-circle" src="{{ asset('/template/user/initial_user.png') }}" alt="User profile picture" />
+    {% endif %}
+  </a>
+</div>
+<p>Profile completeness<p>
+<div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {{ app.user.profileCompleteness }}%">{{ app.user.profileCompleteness }}%
+        <span class="sr-only">{{ app.user.profileCompleteness }}% Complete</span>
+    </div>
+</div>

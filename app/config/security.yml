@@ -13,7 +13,7 @@ security:
                 # property: email
 
     access_control:
-        - { path: ^/admin/users, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/member, roles: ROLE_USER }
 
@@ -35,7 +35,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: app_default_member
+                default_target_path: member_index
                 csrf_token_generator: security.csrf.token_manager
 
             logout:

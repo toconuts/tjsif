@@ -1,0 +1,31 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Edit organization | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Edit organization <small>- {{ organization.name }}</small>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Organization information</h2>
+        </div>
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ path("member_organization_show", {"id": organization.id}) }}">Cancel</a>
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <div class="row">
+        <div class="col-sm-11">
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

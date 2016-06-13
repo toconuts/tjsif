@@ -47,9 +47,12 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-
+            dump($user);
             $rm->registerUser($user, $invitation);
 
+            $ap = $this->get('app.attendance_updater');
+            $ap->createAttendance($user);
+            
             if ($rm->isChangedEmail($user, $invitation)) {
                 $session = $request->getSession();
                 $session->set('registration/user', $user);

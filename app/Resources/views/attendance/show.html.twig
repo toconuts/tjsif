@@ -1,0 +1,76 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Attendance | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Attendance  <small>- {{ user.getFullname }}</small>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-10 col-sm-2">
+            <a class="btn btn-default" href="{{ path("member_user_show", {"id": user.id}) }}" role="button">View profile &raquo;</a>
+        </div>
+    </div>
+
+    {% for i in 0..1 %}
+    <div class="row sub-header">
+        <div class="col-sm-5">
+            <h2 class="">{% if i == 0 %}Official Activities{% else %}Private Activities{% endif %}</h2>
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Name</th>
+                        <th>Attendance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendance in attendances[i] %}
+                    <tr>
+                        <td>{{ attendance.activity.starttime|date("m-d")}}</td>
+                        <td>{{ attendance.activity.starttime|date("H:i")}}</td>
+                        <td>{{ attendance.activity.endtime|date("H:i")}}</td>
+                        <td><a href="{{ path("member_activity_show", {"id": attendance.activity.id}) }}">{{ attendance.activity.name }}</a></td>
+                        <td>{% if attendance.status == 1 %}
+                            <form action="{{ path('member_attendance_status', {id: attendance.id}) }}" method="POST">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <input type="submit" name="Attendance_no" class="btn btn-default" value="No" {% if app.user.id != user.id %}disabled{% endif %} />
+                                    <input type="submit" name="Attendance_yes" class="btn btn-primary" value="Yes" disabled />
+                                </div>
+                            </form>
+                            {% elseif attendance.status == 2 %}
+                            <form action="{{ path('member_attendance_status', {id: attendance.id}) }}" method="POST" disabled>
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <input type="submit" name="Attendance_no" class="btn btn-primary" value="No" disabled/>
+                                    <input type="submit" name="Attendance_yes" class="btn btn-default" value="Yes" {% if app.user.id != user.id %}disabled{% endif %} />
+                                </div>
+                            </form>
+                            {% else %}
+                            <form action="{{ path('member_attendance_status', {id: attendance.id}) }}" method="POST">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <input type="submit" name="" class="btn btn-warning" value="Answer" disabled />
+                                    <input type="submit" name="Attendance_no" class="btn btn-default" value="No" {% if app.user.id != user.id %}disabled{% endif %} />
+                                    <input type="submit" name="Attendance_yes" class="btn btn-default" value="Yes" {% if app.user.id != user.id %}disabled{% endif %} />
+                                </div>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- /.table -->
+    </div><!-- /.row -->
+    {% endfor %}
+</div><!-- /.container -->
+{% endblock %}

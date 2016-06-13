@@ -24,10 +24,16 @@ Setup Composer
 In your working directory.
     git clone https://github.com/toconuts/tjsif.git
 
+### Install curl
+    sudo apt-get install php5-curl
+    sudo apache2ctl restart
+
 ### Install Composer
 
     curl -sS https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
+
+or to see composer [official website][1]
 
 ### Checking out a versioned applications
     composer install
@@ -36,7 +42,7 @@ Running server and check configuration
 ----------------------------------
 ### Running server
     cd my_project_name/
-    php bin/console server:stop
+    php bin/console server:start
 or
     php bin/console server:run
 Then, open your browser and access the [http://localhost:8000/][1]
@@ -83,19 +89,6 @@ To generate the missing getter and setter methods:
 ### Load fixtures
     php bin/console doctrine:fixtures:load
 
-Node.js and npm
-----------------------------------
-    sudo apt-get update
-    sudo apt-get install nodejs
-    sudo apt-get install npm
-
-Bower
-----------------------------------
-Install (Global)
-    sudo npm install -g bower
-
-    bower install
-
 Deploy
 ----------------------------------
 `web/app.php`
@@ -104,14 +97,34 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* Project: Add presentation style and modify type
+* All: Flash message when user into attendance and new activities with confirm is added
+* All: change the place of edit and create button to the bottom
+* ALL: in edit page, display updated at and updated by
+* Member: change list of member of project in show. edit and create have almost done.
+* same as above sister of organization in show.
+* make two list of user. one of student and one of teachers without operation staff.
+* Project: add documents and profile picture to project
+* add placeholder to all form type
+* All: Check validation all entities
+* Calc Profile completeness
+* Place vertically center Sign in button in the navbar.
+* Assign role from job
 * Install Pagenator
 * Implement Profile Picture and delete User Image
 * Implement BBS
-* Implement What's new
-* Implement History
+* Implement What's new -> notification
+* Implement History -> activities
 * Implement Log
 * Create tests
 * Add more comments in the code
+* Uploader Form validation message
+* Change password
+* Error page 404
 
-[1]:  http://localhost:8000/
-[2]:  http://localhost:8000/config.php
+#Guide line#
+Carousel Image Size: 1024 x 576 (16:9 PALt)
+
+[1]:  https://getcomposer.org/doc/00-intro.md
+[2]:  http://localhost:8000/
+[3]:  http://localhost:8000/config.php

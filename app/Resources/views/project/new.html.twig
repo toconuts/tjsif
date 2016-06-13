@@ -1,0 +1,42 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Project | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Create Project
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Project information</h2>
+        </div>
+        <div class="col-sm-offset-2 col-sm-3">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ path("member_project_index") }}">Cancel</a>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <div class="row">
+        <div class="col-sm-11">
+            <div id="project information">
+                {{ form_errors(form) }}
+
+                {{ form_row(form.name) }}
+                {{ form_row(form.concept) }}
+                {{ form_row(form.objective) }}
+                {{ form_row(form.topic) }}
+                {{ form_row(form.style) }}
+                {{ form_row(form.organization) }}
+            </div>
+        </div>
+    </div><!-- /.row -->
+    
+    {% include "components/member/project_members.html.twig" %}
+    {{ form_end(form) }}
+</div><!-- /.container -->
+{% endblock %}

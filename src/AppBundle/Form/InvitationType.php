@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of InvitationType
@@ -26,7 +26,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class InvitationType extends AbstractType
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -36,10 +38,10 @@ class InvitationType extends AbstractType
                 'first_options'  => array('label' => 'Email'),
                 'second_options' => array('label' => 'Repeat Email'),
                 )        
-            )
-            ->add('invite', SubmitType::class, [
+            );
+/*            ->add('invite', SubmitType::class, [
                 'label' => 'INVITE!',
-            ]);
+            ]);*/
         
     }
 

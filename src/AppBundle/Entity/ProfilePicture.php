@@ -12,6 +12,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -71,18 +72,34 @@ class ProfilePicture
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+    
+    /**
+     * @var User $createdBy
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     */
+    private $createdBy;
+
+    /**
+     * @var User $updatedBy
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="updated_by",referencedColumnName="id")
+     */
+    private $updatedBy;
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="picture")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
- 
-//TODO: in constructor to set default user image.
     
     public function __construct()
     {
-        $this->imageName = 'initial_user.png';
+        
     }
     
     /**
@@ -213,5 +230,53 @@ class ProfilePicture
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * Get createdBy
+     * 
+     * @return User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
 
+    /**
+     * Get updatedBy
+     * 
+     * @return User
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+
+    /**
+     * Set createdBy
+     *
+     * @param \AppBundle\Entity\User $createdBy
+     *
+     * @return ProfilePicture
+     */
+    public function setCreatedBy(\AppBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param \AppBundle\Entity\User $updatedBy
+     *
+     * @return ProfilePicture
+     */
+    public function setUpdatedBy(\AppBundle\Entity\User $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
 }

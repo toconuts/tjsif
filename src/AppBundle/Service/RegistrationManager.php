@@ -61,7 +61,9 @@ class RegistrationManager
         $password = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);
         
-//TODO: set role;
+        $user->addRole($this->entityManager->getRepository('AppBundle:Role')
+                            ->find($user->getJob()->getRole()->getId()));
+
 //TODO: set initial profile picture
 
         if ($this->isChangedEmail($user, $invitation)) {
@@ -79,11 +81,6 @@ class RegistrationManager
     {
         $userRepository = $this->entityManager->getRepository('AppBundle:User');
         return $userRepository->loadUserByUsername($email);
-    }
-    
-    public function updateUser(User $user)
-    {
-        
     }
     
     public function sendInvitation(Invitation $invitation)

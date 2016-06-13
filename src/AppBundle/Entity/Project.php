@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -25,6 +27,7 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -39,13 +42,21 @@ class Project
     private $objective;
     
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull()
      */
     private $topic;
     
     /**
+     * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull
+     */
+    private $style;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Organization", inversedBy="projects")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     private $organization;
     
@@ -65,13 +76,32 @@ class Project
     private $updatedAt;
     
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="projects")
+     * @var User $createdBy
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     */
+    private $createdBy;
+
+    /**
+     * @var User $updatedBy
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="updated_by",referencedColumnName="id")
+     */
+    private $updatedBy;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="projects")
      */
     private $users;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->isActive = true;
     }
     
     /**
@@ -117,6 +147,7 @@ class Project
      */
     public function addUser(\AppBundle\Entity\User $user)
     {
+        $user->addProject($this);
         $this->users[] = $user;
 
         return $this;
@@ -129,6 +160,7 @@ class Project
      */
     public function removeUser(\AppBundle\Entity\User $user)
     {
+        $user->removeProject($this);
         $this->users->removeElement($user);
     }
 
@@ -301,5 +333,90 @@ class Project
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    
+    /**
+     * Get createdBy
+     * 
+     * @return User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Get updatedBy
+     * 
+     * @return User
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \AppBundle\Entity\User $createdBy
+     *
+     * @return Project
+     */
+    public function setCreatedBy(\AppBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param \AppBundle\Entity\User $updatedBy
+     *
+     * @return Project
+     */
+    public function setUpdatedBy(\AppBundle\Entity\User $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+    
+    public function getProjectMember($isStudent)
+    {
+        $members = new ArrayCollection();
+        foreach ($this->users as $member) {
+            if ($isStudent && $member->getJob()->getId() == 1) {
+                $members[] = $member;
+            } else if (!$isStudent && $member->getJob()->getId() != 1){
+                $members[] = $member;
+            }
+        }
+        return $members;
+    }
+
+    /**
+     * Set style
+     *
+     * @param string $style
+     *
+     * @return Project
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
+     * Get style
+     *
+     * @return string
+     */
+    public function getStyle()
+    {
+        return $this->style;
     }
 }

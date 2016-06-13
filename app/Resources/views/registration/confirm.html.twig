@@ -1,12 +1,15 @@
-{% extends "base.html.twig" %}
+{% extends "layout_member.html.twig" %}
 
-{% block body %}
-<div>
+{% block content %}
+<div class="container">
+    <div class="row">
     <p>An account registration request has been sent to {{ user.email }}</p>
     
     <p>Click the link in the message to activate your account.</p>
-</div>
-<div>
-    Question? Contact tjsif2016@gmail.com
+    </div>
+
+    <div class="row">
+        Question? Contact tjsif2016@gmail.com
+    </div>
 </div>
 {% endblock %}

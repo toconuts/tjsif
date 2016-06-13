@@ -43,36 +43,53 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function load(ObjectManager $manager)
     {
+        $sadmin = $this->createUser(
+            '1',    // 'Mr.'
+            'Marvin',
+            'Knox',
+            'sadmin@example.com',
+            'sadmin', 
+            true,
+            [
+                'role-admin',
+                'role-super-admin',
+            ],
+            'pcshs-chonburi',
+            'job-teacher',
+            '1',  //Male
+            '1'  //Participant
+        );
+        $manager->persist($sadmin);
+        
         $admin = $this->createUser(
             '1',    // 'Mr.'
-            'Fadmin',
-            'Ladmin',
+            'Dexter',
+            'Blackwell',
             'admin@example.com',
             'admin', 
             true,
             [
-                'ROLE_ADMIN',
-                'ROLE_SUPER_ADMIN',
+                'role-admin',
             ],
-            'PCSHS_Chonburi',
-            'Teacher',
-            '1',  //Male
+            'jp-ichikawa',
+            'job-teacher',
+            '2',  //Female
             '1'  //Participant
         );
         $manager->persist($admin);
         
         $user = $this->createUser(
             '2',  // 'Ms.'
-            'Fuser',
-            'Luser',
+            'Theodore',
+            'Frederick',
             'user@example.com', 
             'user',
             true,
             [
-                'ROLE_USER',
+                'role-user',
             ],
-            'JP_Ichikawa',
-            'Student',
+            'jp-ichikawa',
+            'job-student',
             '2',   //Female
             '1'   //Participant
         );
@@ -80,8 +97,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         
         $manager->flush();
         
-        $this->addReference('USER_ADMIN', $admin);
-        $this->addReference('USER_USER', $user);
+        $this->addReference('user-super-admin', $sadmin);
+        $this->addReference('user-admin', $admin);
+        $this->addReference('user-user', $user);
     }
     
     protected function createUser(
@@ -107,19 +125,20 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $user->setIsActive($isActive);
-        foreach ($roles as $rolaname) {
-            $role = $this->getReference($rolaname);
+        foreach ($roles as $rolename) {
+            $role = $this->getReference($rolename);
             $user->addRole($role);
         }
         $user->setOrganization($this->getReference($organization));
         $user->setJob($this->getReference($job));
         $user->setGender($gender);
         $user->setType($type);
+        
         return $user;
     }
     
     public function getOrder()
     {
-        return 5;
+        return 10;
     }
 }

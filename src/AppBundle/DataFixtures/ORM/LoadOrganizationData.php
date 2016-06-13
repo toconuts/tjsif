@@ -30,20 +30,43 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
     public function load(ObjectManager $manager)
     {
         /* Chulabhorn Science High School Chonburi */
-        $pcshs_chonburi = new Organization();
-        $pcshs_chonburi->setName('Princess Churabhorn Science High School');
+        $pcshs_chonburi = $this->createOrganization(
+            'Princess Churabhorn Science High School Chonburi',
+            'PCSHS Chonburi',
+            'TH',
+            '1', // School
+            array()
+        );
         $manager->persist($pcshs_chonburi);
+        $this->addReference('pcshs-chonburi', $pcshs_chonburi);
         
         /* Ichikawa Gakuen */
-        $jp_ichikawa = new Organization();
-        $jp_ichikawa->setName('Ichikawa Gakuen High School');
+        $jp_ichikawa = $this->createOrganization(
+            'Ichikawa Gakuen High School',
+            'Ichigaku',
+            'JP',
+            '1', // School
+            array (
+                'pcshs-chonburi',
+            )
+        );
         $manager->persist($jp_ichikawa);
+        $this->addReference('jp-ichikawa', $jp_ichikawa);
         
         $manager->flush();
-        
-        $this->addReference('PCSHS_Chonburi', $pcshs_chonburi);
-        $this->addReference('JP_Ichikawa', $jp_ichikawa);
-
+    }
+    
+    public function createOrganization($name, $shortname, $country, $type, array $sisters)
+    {
+        $organization = new Organization();
+        $organization->setName($name);
+        $organization->setShortname($shortname);
+        $organization->setCountry($country);
+        $organization->setType($type);
+        foreach ($sisters as $sister) {
+            $organization->addSister($this->getReference($sister));
+        }
+        return $organization;
     }
     
     public function getOrder()

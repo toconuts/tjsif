@@ -1,0 +1,54 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Organizations | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Organization list
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row">
+        <div class="col-sm-offset-11 col-sm-1">
+            <a type="button" class="btn btn-default" href="{{ path("member_organization_new") }}">New</a>
+        </div>
+    </div><!-- /.row -->
+    {% endif %}
+    
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>Province</th>
+                        <th>Country</th>
+                        <th>Sister / Hosted by</th>
+                        <th>Active</th>
+                        <th>Updated at</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for organization in organizations %}
+                    <tr>
+                        <td><a href="{{ path("member_organization_show", {"id": organization.id}) }}">{{ organization.name }}</a></td>
+                        <td>{{ organization.city }}</td>
+                        <td>{{ organization.province }}</td>
+                        <td>{{ organization.country }}</td>
+                        <td>
+                            {% for sister in organization.sisters %}
+                                <p><a href="{{ path("member_organization_show", {"id": sister.id}) }}">{{ sister.name }}</a></p>
+                            {% endfor %}
+                        </td>
+                        <td>{{ organization.isActive }}</td>    
+                        <td>{{ organization.updatedAt|date("Y-m-d H:i")}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- /.table -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

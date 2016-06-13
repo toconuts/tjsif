@@ -13,9 +13,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-//use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-//use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
@@ -25,13 +23,13 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  *
  * @ORM\Table(name="role")
  * @ORM\Entity
+ * @UniqueEntity(fields="role", message="Role already exist")
  */
 class Role implements RoleInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -45,7 +43,7 @@ class Role implements RoleInterface, \Serializable
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
     private $users;
-
+    
     /** @see \Serializable::serialize() */
     public function serialize()
     {
@@ -76,6 +74,20 @@ class Role implements RoleInterface, \Serializable
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Role
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+    
     /**
      * Get id
      *

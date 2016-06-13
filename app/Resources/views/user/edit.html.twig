@@ -1,12 +1,31 @@
 {% extends "layout_member.html.twig" %}
 
-{% block title %}Login{% endblock %}
-{% block body %}
+{% block title %}Edit profile | {{ parent() }}{% endblock %}
 
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-{{ form_widget(form) }}
-<input type="submit" value="UPDATE"
-       class="btn btn-default pull-right" />
-{{ form_end(form) }}
-    
+{% block pageheader %}
+Edit profile <small>- {{ app.user.getFullname }}</small>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Personal information</h2>
+        </div>
+        <div class="col-sm-offset-2 col-sm-3">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ path("member_user_show", {"id": app.user.id}) }}">Cancel</a>
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <div row>
+        <div class="col-sm-11">
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
 {% endblock %}

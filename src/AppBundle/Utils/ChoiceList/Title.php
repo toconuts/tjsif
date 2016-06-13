@@ -22,10 +22,10 @@ class Title extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'Mr. '  => 1,
-        'Ms.'   => 2,
-        'Mrs.'  => 3,
-        'Miss.' => 4,
-        'Dr.'   => 5,
+        'Mr. '  => '1',
+        'Ms.'   => '2',
+        'Mrs.'  => '3',
+        'Miss.' => '4',
+        'Dr.'   => '5',
     ];
 }

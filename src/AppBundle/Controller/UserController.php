@@ -29,39 +29,51 @@ use AppBundle\Form\UserType;
 class UserController extends Controller
 {
     /**
-     * @Route("/", name="user_index")
+     * @Route("", name="member_user_index")
      */
     public function indexAction()
     {
-        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        //$users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')
+                    ->findUserSortedByOrganization();
         dump($users);
         return $this->render(
             'user/index.html.twig',
-            array('users' => $users)
+            //array('users' => $users)
+            array('memberlist' => $users)
         );
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="user_show")
+     * @Route("/{id}", requirements = {"id" = "\d+"}, name="member_user_show")
      * @ParamConverter("user", class="AppBundle:User")
      */
     public function showAction(User $user)
     {   
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            array(
+                'disabled' => true
+            )
+        );
+        
         return $this->render(
             'user/show.html.twig',
-            array('user' => $user)
+            array('user' => $user,
+                'form' => $form->createView()
+            )
         );
     }
     
     /**
-     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="user_edit")
+     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="member_user_edit")
      * @ParamConverter("user", class="AppBundle:User")
      */
     public function editAction(Request $request, User $user)
     {
         if (!$user->isUser($this->getUser())) {
             throw $this->denyAccessUnlessGranted('edit', $user);
-            //throw $this->createAccessDeniedException();
         }
         
         $form = $this->createForm(UserType::class, $user);
@@ -72,7 +84,8 @@ class UserController extends Controller
             $em->flush();
 
 //TODO: Add Flash Message
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('member_user_show',
+                array('id' => $user->getId()));
         }
         
         return $this->render(
@@ -82,16 +95,45 @@ class UserController extends Controller
     }
     
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name="user_delete")
-     * @Method({"DELETE"})
+     * @Route("/{id}/active", requirements = {"id" = "\d+"}, name="member_user_activate")
+     * @Method({"ACTIVATE"})
      * @ParamConverter("user", class="AppBundle:User")
      */
-    public function unactiveAction(User $user)
+    public function activateAction(User $user)
+    {
+        $user->setIsActive(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        return $this->redirectToRoute('member_user_index');
+    }
+    
+    /**
+     * @Route("/{id}/inactive", requirements = {"id" = "\d+"}, name="member_user_inactivate")
+     * @Method({"INACTIVATE"})
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function inactivateAction(User $user)
     {
         $user->setIsActive(false);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('member_user_index');
+    }
+    
+    /**
+     * @Route("/{id}/delete", requirements = {"id" = "\d+"}, name="member_user_delete")
+     * @Method({"DELETE"})
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function deleteAction(User $user)
+    {
+        dump($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+        
+        return $this->redirectToRoute('member_user_index');
     }
 }

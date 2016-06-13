@@ -56,4 +56,15 @@ abstract class AbstractChoiceLoader implements ChoiceLoaderInterface
 
         return $result;
     }
+    
+    public function getChoices()
+    {
+        return $this->choices;
+    }
+    
+    public function getChoicesFliped()
+    {
+        $choices_fliped = array_flip($this->choices);
+        return $choices_fliped;
+    }
 }

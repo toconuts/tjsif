@@ -1,14 +1,87 @@
-{% extends "base.html.twig" %}
+{% extends "layout_member.html.twig" %}
 
-{% block title %}Login{% endblock %}
-{% block body %}
+{% block title %}Profile | {{ parent() }}{% endblock %}
 
-test in show
-{% if user.isUser(app.user) %}
-    <a class="btn btn-primary" href="{{ path("user_edit", {"id": user.id}) }}">Edit</a>
-{% endif %}
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="...">Delete</a>
-{% endif %}
+{% block pageheader %}
+Profile <small>- {{ user.getFullname }}</small>
+{% endblock %}
 
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-4">
+        {% if app.user.id == user.id %}
+            {% include "components/member/profile_completeness.html.twig" %}
+        {% endif %}
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ path("member_user_index") }}">Member list</a>
+                <a class="btn btn-default" href="{{ path("member_attendance_show", {"id": user.id}) }}" role="button">View attendance &raquo;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Personal information</h2>
+        </div>
+        {% if user.isUser(app.user) %}
+        <div class="col-sm-offset-1 col-sm-4">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
+<!--//TODO: Change password-->
+                <a class="btn btn-warning" href="{{ path("member_user_edit", {"id": user.id}) }}">Change password</a>
+                <a type="button" class="btn btn-primary" href="{{ path("member_user_edit", {"id": user.id}) }}">Edit</a>
+            </div>
+        </div>
+        {% endif %}
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-11">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div><!-- /.row -->
+   
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            {% if is_granted('ROLE_SUPER_ADMIN') and not user.isUser(app.user) %}
+            <form action="{{ path('member_user_delete', {id: user.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <input type="submit" value="Delete" class="btn btn-danger"/>
+            </form>
+            {% endif %}
+        </div>
+        
+        {% if is_granted('ROLE_ADMIN') and not user.isUser(app.user) %}
+        {% if user.isActive %}
+        <div class="col-sm-offset-3 col-sm-3">
+            <form action="{{ path('member_user_inactivate', {id: user.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="INACTIVATE"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" value="Inactivate" class="btn btn-warning">Inactivate</button>
+                    <button class="btn btn-warning" disabled>Activate</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <div class="col-sm-offset-3 col-sm-3">
+            <form action="{{ path('member_user_activate', {id: user.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="ACTIVATE"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-warning" disabled>Inactive</button>
+                    <button type="submit" value="Activate" class="btn btn-warning">Activate</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
 {% endblock %}

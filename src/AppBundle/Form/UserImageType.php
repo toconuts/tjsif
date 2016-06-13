@@ -24,6 +24,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class UserImageType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

@@ -1,0 +1,60 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Activity | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Actiity <small>- {{ activity.name }}</small>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Activity information</h2>
+        </div>
+        <div class="col-sm-offset-2 col-sm-2">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
+                {% if is_granted('ROLE_SUPER_ADMIN') or activity.createdby.id == app.user.id %}
+                <a type="button" class="btn btn-primary" href="{{ path("member_activity_edit", {"id": activity.id}) }}">Edit</a>
+                {% endif %}
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <div class="row">
+        <div class="col-sm-11">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div><!-- /.row -->
+
+    {% if is_granted('ROLE_SUPER_ADMIN') or activity.createdby.id == app.user.id %}
+    <div class="row">
+        {% if activity.isActive %}
+        <div class="col-sm-offset-7 col-sm-3">
+            <form action="{{ path('member_activity_inactivate', {id: activity.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="INACTIVATE"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" value="Inactivate" class="btn btn-warning"/>Inactivate</button>
+                    <button class="btn btn-warning" disabled>Activate</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <div class="col-sm-offset-7 col-sm-3">
+            <form action="{{ path('member_activity_activate', {id: activity.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="ACTIVATE"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-warning" disabled>Inactibate</button>
+                    <button type="submit" value="Activate" class="btn btn-warning"/>Activate</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div><!-- /.row -->
+    {% endif %}
+    
+</div><!-- /.container -->
+{% endblock %}

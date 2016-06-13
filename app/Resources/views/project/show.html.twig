@@ -1,0 +1,132 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Project | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Project <small>- {{ project.name }}</small>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Project information</h2>
+        </div>
+        <div class="col-sm-offset-3 col-sm-2">
+            <div class="btn-group" role="group" aria-label="...">
+                <a class="btn btn-default" href="{{ path("member_project_index") }}">Back</a>
+                {% if is_granted('ROLE_SUPER_ADMIN') or 
+                    (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+                <a type="button" class="btn btn-primary" href="{{ path("member_project_edit", {"id": project.id}) }}">Edit</a>
+                {% endif %}
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+{# //TODO: change list from arraycollection #}    
+    <div class="row">
+        <div class="col-sm-11">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div id="project">
+                {{ form_row(form.name) }}
+                {{ form_row(form.concept) }}
+                {{ form_row(form.objective) }}
+                {{ form_row(form.topic) }}
+                {{ form_row(form.style) }}
+                {{ form_row(form.organization) }}            
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Students</h2>
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>
+                                    {% if student.picture %}
+                                    <img class="profile-picture-xs img-circle" src="{{ vich_uploader_asset(student.picture, 'imageFile') }}" alt="{{ student.picture.imageName }}" />
+                                    {% else %}
+                                    <img class="profile-picture-xs img-circle" src="{{ asset('template/user/initial_user.png') }}">
+                                    {% endif %}
+                                </td>
+                                <td><a href="{{ path("member_user_show", {"id": student.id}) }}">{{ student.fullName }}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+            </div><!-- /.col-sm-offset-2 -->
+        </div><!-- /.col-sm-10 -->
+    </div><!-- /.row -->
+    
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Teachers</h2>
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            {% for teacher in teachers %}
+                            <tr>
+                                <td>
+                                    {% if teacher.picture %}
+                                    <img class="profile-picture-xs img-circle" src="{{ vich_uploader_asset(teacher.picture, 'imageFile') }}" alt="{{ teacher.picture.imageName }}" />
+                                    {% else %}
+                                    <img class="profile-picture-xs img-circle" src="{{ asset('template/user/initial_user.png') }}">
+                                    {% endif %}
+                                </td>
+                                <td><a href="{{ path("member_user_show", {"id": teacher.id}) }}">{{ teacher.fullName }}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+            </div><!-- /.col-sm-offset-2 -->
+        </div><!-- /.col-sm-10 -->
+    </div><!-- /.row -->
+    
+    <div class="row">
+        {% if is_granted('ROLE_SUPER_ADMIN') or 
+             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+        {% if project.isActive %}
+        <div class="col-sm-offset-8 col-sm-3">
+            <form action="{{ path('member_project_inactivate', {id: project.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="INACTIVATE"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" value="Inactivate" class="btn btn-warning"/>Inactivate</button>
+                    <button class="btn btn-warning" disabled>Activate</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <div class="col-sm-offset-8 col-sm-3">
+            <form action="{{ path('member_project_activate', {id: project.id}) }}" method="POST">
+                <input type="hidden" name="_method" value="ACTIVATE"/>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-warning" disabled>Inactibate</button>
+                    <button type="submit" value="Activate" class="btn btn-warning"/>Activate</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+{% endblock %}
