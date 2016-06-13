@@ -27,7 +27,7 @@ services:
           - "@doctrine.orm.entity_manager"
           - "@app.mailer"
     
-    app.directory_namer.user_picture:
+    app.directory_namer.profile_picture:
         class:          AppBundle\Service\ProfilePictureDirectoryNamer
         arguments:
           - "@security.token_storage"

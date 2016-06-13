@@ -96,12 +96,10 @@ class ProfilePicture
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
- 
-//TODO: in constructor to set default user image.
     
     public function __construct()
     {
-        $this->imageName = 'initial_user.png';
+        
     }
     
     /**
