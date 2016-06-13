@@ -36,7 +36,20 @@ class ActivityController extends Controller
     public function indexAction()
     {
 //TODO: Query date > now() && date asc demo iru? iranaikamo
-        $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')->findAll();
+        $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
+                ->findAllOrderedByStartDatetimeAndEndtime();
+        //$activities = $this->getDoctrine()->getRepository('AppBundle:Activity')->findAll();
+        //$activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
+        //    ->findBy(array(
+        //        'starttime' => 'ASC'/*,
+        //        'endtime' => 'ASC'*/));
+        /*$em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT a
+            FROM AppBundle:Activity a
+            ORDER BY a.starttime ASC,
+            a.endtime ASC');
+        $activities = $query->getResult();*/
         dump($activities);
         return $this->render(
             'activity/index.html.twig',

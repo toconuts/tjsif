@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="activity")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ActivityRepository")
  */
 class Activity
 {
