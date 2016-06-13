@@ -22,10 +22,8 @@ class Topic extends AbstractChoiceLoader
 {
     protected $choices =
     [
-        'Software'                  => '1',
-        'Hardware'                  => '2',
-        'Application'               => '3',
-        'Internet of Thing (IoT)'   => '4',
-        'Robotics'                  => '5',
+        'Application / Software'    => '1',
+        'Robotics / Hardware'       => '2',
+        'Internet of Thing (IoT)'   => '3',
     ];
 }
