@@ -35,22 +35,9 @@ class ActivityController extends Controller
      */
     public function indexAction()
     {
-//TODO: Query date > now() && date asc demo iru? iranaikamo
         $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
                 ->findAllOrderedByStartDatetimeAndEndtime();
-        //$activities = $this->getDoctrine()->getRepository('AppBundle:Activity')->findAll();
-        //$activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
-        //    ->findBy(array(
-        //        'starttime' => 'ASC'/*,
-        //        'endtime' => 'ASC'*/));
-        /*$em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
-            'SELECT a
-            FROM AppBundle:Activity a
-            ORDER BY a.starttime ASC,
-            a.endtime ASC');
-        $activities = $query->getResult();*/
-        dump($activities);
+
         return $this->render(
             'activity/index.html.twig',
             array('activities' => $activities)
@@ -117,6 +104,12 @@ class ActivityController extends Controller
      */
     public function editAction(Request $request, Activity $activity)
     {
+        if (!$this->get('security.authorization_checker')
+                ->isGranted('ROLE_SUPER_ADMIN') && 
+            ($this->getUser()->getId() != $activity->getCreatedBy()->getId())) {
+                $this->createAccessDeniedException();
+        }
+        
         $disabled = ($this->get('security.authorization_checker')
                 ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
         

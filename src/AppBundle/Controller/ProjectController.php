@@ -115,6 +115,7 @@ class ProjectController extends Controller
                 $this->createAccessDeniedException();
             }
         }
+        
         $disabled = ($this->get('security.authorization_checker')
             ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
         
