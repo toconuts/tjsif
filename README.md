@@ -97,33 +97,33 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Project: Add presentation style and modify type
+* Project: add documents and profile picture to project
+* Project: query teachers without operation staff.
 * All: Flash message when user into attendance and new activities with confirm is added
 * All: change the place of edit and create button to the bottom
 * ALL: in edit page, display updated at and updated by
 * Member: change list of member of project in show. edit and create have almost done.
 * same as above sister of organization in show.
-* make two list of user. one of student and one of teachers without operation staff.
-* Project: add documents and profile picture to project
 * add placeholder to all form type
 * All: Check validation all entities
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
-* Assign role from job
 * Install Pagenator
-* Implement Profile Picture and delete User Image
 * Implement BBS
 * Implement What's new -> notification
 * Implement History -> activities
 * Implement Log
-* Create tests
-* Add more comments in the code
 * Uploader Form validation message
 * Change password
 * Error page 404
 
+* Add more comments in the code
+* Create tests
+
 #Guide line#
 Carousel Image Size: 1024 x 576 (16:9 PALt)
+
+http://jsfiddle.net/opengl_8080/2ZC24/show/
 
 [1]:  https://getcomposer.org/doc/00-intro.md
 [2]:  http://localhost:8000/

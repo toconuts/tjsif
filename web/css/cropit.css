@@ -1,0 +1,45 @@
+/*
+ * This file is part of the TJ-SIF 2016 project.
+ *
+ * (c) toconuts <toconuts@google.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *//* 
+    Created on : Jun 14, 2016, 3:10:58 PM
+    Author     : toconuts
+*/
+
+.cropit-preview {
+  /* You can specify preview size in CSS */
+  width: 448px;
+  height: 448px;
+}
+
+/* Hide file input */
+input.cropit-image-input {
+  visibility: hidden;
+}
+
+/*
+ * See http://www.htmllion.com/html5-range-input-with-css.html
+ * for styling range input
+ */
+
+/* Translucent background image */
+.cropit-preview-background {
+  opacity: .2;
+}
+
+/*
+ * If the slider or anything else is covered by the background image,
+ * use relative or absolute position on it
+ */
+input.cropit-image-zoom-input {
+  position: relative;
+}
+
+/* Limit the background image by adding overflow: hidden */
+#image-cropper {
+  overflow: hidden;
+}

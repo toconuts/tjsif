@@ -41,15 +41,6 @@ class ProfilePicture
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="profile_picture", fileNameProperty="imageName")
-     *
-     * @Assert\Image(
-     *   maxSize = "1048000",
-     *   maxSizeMessage = "Files must be less than 5 MB",
-     *   mimeTypes = {"image/jpeg", "image/pjpeg", "image/png", "image/x-png"},
-     *   mimeTypesMessage = "Allowed filetypes: jpg, png",
-     *   minWidth = "144",
-     *   minWidthMessage = "File must have width 144 px"
-     * )
      * @Assert\NotBlank()
      * 
      * @var File

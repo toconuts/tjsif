@@ -36,3 +36,12 @@ services:
         class:          AppBundle\Service\AttendanceUpdater
         arguments:
           - "@doctrine.orm.entity_manager"
+
+    # datatransformer before saving to image
+    app.form.type.picture:
+        class: AppBundle\Form\ProfilePictureType
+        arguments: 
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - 
+                name: form.type
