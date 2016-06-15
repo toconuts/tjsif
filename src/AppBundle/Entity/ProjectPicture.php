@@ -13,18 +13,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Project;
 use AppBundle\Entity\BasePicture;
 
 /**
- * Description of ProfilePicture
+ * Description of ProjectPicture
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @ORM\Table(name="profile_picture")
+ * @ORM\Table(name="project_picture")
  * @ORM\Entity
  */
-class ProfilePicture extends BasePicture
+class ProjectPicture extends BasePicture
 {
     /**
      * @ORM\Id
@@ -34,10 +34,10 @@ class ProfilePicture extends BasePicture
     private $id;
     
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="picture")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Project", inversedBy="picture")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
-    private $user;
+    private $project;
     
     /**
      * @return integer
@@ -48,22 +48,26 @@ class ProfilePicture extends BasePicture
     }
     
     /**
-     * @param User $user
+     * Set project
      *
-     * @return UserImage
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return ProjectPicture
      */
-    public function setUser(User $user)
+    public function setProject(\AppBundle\Entity\Project $project = null)
     {
-        $this->user = $user;
+        $this->project = $project;
 
         return $this;
     }
 
     /**
-     * @return User
+     * Get project
+     *
+     * @return \AppBundle\Entity\Project
      */
-    public function getUser()
+    public function getProject()
     {
-        return $this->user;
+        return $this->project;
     }
 }

@@ -19,11 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
- * Description of ProfilePictureType
+ * Description of UploadPictureType
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class ProfilePictureType extends AbstractType
+class UploadPictureType extends AbstractType
 {
     private $manager;
 

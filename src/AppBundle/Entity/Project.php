@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\ProjectPicture;
 
 /**
  * Project
@@ -16,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Project
+class Project 
 {
     /**
      * @ORM\Column(type="integer")
@@ -97,6 +98,11 @@ class Project
      * @ORM\ManyToMany(targetEntity="User", inversedBy="projects")
      */
     private $users;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="ProjectPicture", mappedBy="project")
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -418,5 +424,29 @@ class Project
     public function getStyle()
     {
         return $this->style;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param \AppBundle\Entity\ProfilePicture $picture
+     *
+     * @return Project
+     */
+    public function setPicture(\AppBundle\Entity\ProfilePicture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \AppBundle\Entity\ProfilePicture
+     */
+    public function getPicture()
+    {
+        return $this->picture;
     }
 }

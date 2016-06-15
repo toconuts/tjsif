@@ -15,29 +15,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\ProfilePicture;
+use AppBundle\Entity\OrganizationPicture;
 use AppBundle\Form\UploadPictureType;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Organization;
 
 /**
- * Description of ProfilePictureController
+ * Description of OrganizationPictureController
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @Route("/member/user")
+ * @Route("/member/org")
  */
-class ProfilePictureController extends Controller
+class OrganizationPictureController extends Controller
 {
     /**
-     * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_user_picture_upload")
-     * @ParamConverter("user", class="AppBundle:User")
+     * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_organization_picture_upload")
+     * @ParamConverter("organization", class="AppBundle:Organization")
      */
-    public function uploadAction(Request $request, User $user)
+    public function uploadAction(Request $request, Organization $organization)
     {
-        $picture = $user->getPicture();
+        $picture = $organization->getPicture();
 
         if (null == $picture)
-            $picture = new ProfilePicture();
+            $picture = new OrganizationPicture();
 
         $form = $this->createForm(UploadPictureType::class, $picture);
 
@@ -48,22 +48,24 @@ class ProfilePictureController extends Controller
             
             $em = $this->getDoctrine()->getManager();
         
-            if (null == $user->getPicture()) {
-                //$user->setPicture($picture);
-                $picture->setUser($user);
+            if (null == $organization->getPicture()) {
+                $picture->setOrganization($organization);
                 $em->persist($picture);
             }
             $em->flush();
             
 //TODO: Add Flash
 
-            return $this->redirectToRoute('member_user_show',
-                array('id' => $user->getId()));
+            return $this->redirectToRoute('member_organization_show',
+                array('id' => $organization->getId()));
         }
         
         return $this->render(
-            'user/upload_picture.html.twig',
-            array('form' => $form->createView()))
-        ;
+            'organization/upload_picture.html.twig',
+            array(
+                'form' => $form->createView(),
+                'organization' => $organization
+                )
+            );
     }
 }

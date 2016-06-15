@@ -13,18 +13,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Organization;
 use AppBundle\Entity\BasePicture;
 
 /**
- * Description of ProfilePicture
+ * Description of OrganizationPicture
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @ORM\Table(name="profile_picture")
+ * @ORM\Table(name="organization_picture")
  * @ORM\Entity
  */
-class ProfilePicture extends BasePicture
+class OrganizationPicture extends BasePicture
 {
     /**
      * @ORM\Id
@@ -34,10 +34,10 @@ class ProfilePicture extends BasePicture
     private $id;
     
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="picture")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Organization", inversedBy="picture")
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      */
-    private $user;
+    private $organization;
     
     /**
      * @return integer
@@ -48,22 +48,26 @@ class ProfilePicture extends BasePicture
     }
     
     /**
-     * @param User $user
+     * Set organization
      *
-     * @return UserImage
+     * @param \AppBundle\Entity\Project $organization
+     *
+     * @return OrganizationPicture
      */
-    public function setUser(User $user)
+    public function setOrganization(\AppBundle\Entity\Organization $organization = null)
     {
-        $this->user = $user;
+        $this->organization = $organization;
 
         return $this;
     }
 
     /**
-     * @return User
+     * Get organization
+     *
+     * @return \AppBundle\Entity\Organization
      */
-    public function getUser()
+    public function getOrganization()
     {
-        return $this->user;
+        return $this->organization;
     }
 }

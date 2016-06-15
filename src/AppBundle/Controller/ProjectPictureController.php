@@ -15,29 +15,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\ProfilePicture;
+use AppBundle\Entity\ProjectPicture;
 use AppBundle\Form\UploadPictureType;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Project;
 
 /**
- * Description of ProfilePictureController
+ * Description of ProjectPictureController
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @Route("/member/user")
+ * @Route("/member/project")
  */
-class ProfilePictureController extends Controller
+class ProjectPictureController extends Controller
 {
     /**
-     * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_user_picture_upload")
-     * @ParamConverter("user", class="AppBundle:User")
+     * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_project_picture_upload")
+     * @ParamConverter("project", class="AppBundle:Project")
      */
-    public function uploadAction(Request $request, User $user)
+    public function uploadAction(Request $request, Project $project)
     {
-        $picture = $user->getPicture();
+        $picture = $project->getPicture();
 
         if (null == $picture)
-            $picture = new ProfilePicture();
+            $picture = new ProjectPicture();
 
         $form = $this->createForm(UploadPictureType::class, $picture);
 
@@ -48,22 +48,24 @@ class ProfilePictureController extends Controller
             
             $em = $this->getDoctrine()->getManager();
         
-            if (null == $user->getPicture()) {
-                //$user->setPicture($picture);
-                $picture->setUser($user);
+            if (null == $project->getPicture()) {
+                $picture->setProject($project);
                 $em->persist($picture);
             }
             $em->flush();
             
 //TODO: Add Flash
 
-            return $this->redirectToRoute('member_user_show',
-                array('id' => $user->getId()));
+            return $this->redirectToRoute('member_project_show',
+                array('id' => $project->getId()));
         }
         
         return $this->render(
-            'user/upload_picture.html.twig',
-            array('form' => $form->createView()))
-        ;
+            'project/upload_picture.html.twig',
+            array(
+                'form' => $form->createView(),
+                'project' => $project
+                )
+            );
     }
 }

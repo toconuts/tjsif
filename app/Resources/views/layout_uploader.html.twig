@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets
+    'css/cropit.css'
+    'css/upload.css'
+    filter='cssrewrite' output='css/compiled/app.upload.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+{% javascripts
+    'js/jquery.min.js'
+    'js/bootstrap.min.js'
+    'js/jquery.cropit.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts
+    'js/cropit.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

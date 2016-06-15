@@ -39,7 +39,7 @@ services:
 
     # datatransformer before saving to image
     app.form.type.picture:
-        class: AppBundle\Form\ProfilePictureType
+        class: AppBundle\Form\UploadPictureType
         arguments: 
             entityManager: "@doctrine.orm.entity_manager"
         tags:
