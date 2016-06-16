@@ -30,7 +30,8 @@
         "vich/uploader-bundle": "^1.0",
         "symfony/assetic-bundle": "^2.8",
         "stof/doctrine-extensions-bundle": "^1.2",
-        "liip/imagine-bundle": "^1.5"
+        "liip/imagine-bundle": "^1.5",
+        "knplabs/knp-gaufrette-bundle": "^0.3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
