@@ -11,9 +11,9 @@ Project <small>- {{ project.name }}</small>
     <div class="row">
         <div class="col-sm-offset-1 col-sm-5">
             {% if project.picture %}
-            <img class="profile-picture-md" src="{{ vich_uploader_asset(project.picture, 'imageFile') }}" alt="{{ project.picture.imageName }}" />
+            <img class="img-rounded" src="{{ vich_uploader_asset(project.picture, 'imageFile')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
             {% else %}
-            <img class="profile-picture-md" src="{{ asset('/template/user/initial_user.png') }}" alt="User profile picture" />
+            <img class="img-rounded" src="{{ asset('/template/project/initial_project.png')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
             {% endif %}
         </div>
         <div class="col-sm-offset-4 col-sm-1">
@@ -21,6 +21,7 @@ Project <small>- {{ project.name }}</small>
                 <a class="btn btn-lg btn-default" href="{{ path("member_project_index") }}">Back</a>
                 {% if is_granted('ROLE_SUPER_ADMIN') or 
                     (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+                <a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_picture_upload", {"id": project.id}) }}">Change Picture</a>
                 <a type="button" class="btn btn-lg btn-primary" href="{{ path("member_project_edit", {"id": project.id}) }}">Edit</a>
                 {% endif %}
             </div>

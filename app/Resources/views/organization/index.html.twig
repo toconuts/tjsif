@@ -21,6 +21,7 @@ Organization list
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>City</th>
                         <th>Province</th>
@@ -33,6 +34,13 @@ Organization list
                 <tbody>
                     {% for organization in organizations %}
                     <tr>
+                        <td>
+                            {% if organization.picture %}
+                            <img class="img-thumbnail" src="{{ vich_uploader_asset(organization.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Organization picture" />
+                            {% else %}
+                            <img class="img-thumbnail" src="{{ asset('/template/organization/initial_organization.png')|imagine_filter('thumbnail_xs') }}" alt="Organization picture" />
+                            {% endif %}
+                        </td>
                         <td><a href="{{ path("member_organization_show", {"id": organization.id}) }}">{{ organization.name }}</a></td>
                         <td>{{ organization.city }}</td>
                         <td>{{ organization.province }}</td>

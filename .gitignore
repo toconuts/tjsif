@@ -15,4 +15,5 @@
 /vendor/
 /web/bundles/
 /nbproject
-/web/images/user/*
+/web/media/*
+/web/uploads/*

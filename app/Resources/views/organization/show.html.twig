@@ -11,9 +11,9 @@ Organization <small>- {{ organization.name }}</small>
     <div class="row">
         <div class="col-sm-offset-1 col-sm-5">
             {% if organization.picture %}
-            <img class="profile-picture-md" src="{{ vich_uploader_asset(organization.picture, 'imageFile') }}" alt="{{ organization.picture.imageName }}" />
+            <img class="img-thumbnail" src="{{ vich_uploader_asset(organization.picture, 'imageFile')|imagine_filter('thumbnail_sm') }}" alt="Organization picture" />
             {% else %}
-            <img class="profile-picture-md" src="{{ asset('/template/user/initial_user.png') }}" alt="User profile picture" />
+            <img class="img-thumbnail" src="{{ asset('/template/organization/initial_organization.png')|imagine_filter('thumbnail_sm') }}" alt="Organization picture" />
             {% endif %}
         </div>
         <div class="col-sm-offset-4 col-sm-1">

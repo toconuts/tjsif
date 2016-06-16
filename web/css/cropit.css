@@ -12,8 +12,8 @@
 
 .cropit-preview {
   /* You can specify preview size in CSS */
-  width: 448px;
-  height: 448px;
+  width: 500px;
+  height: 500px;
 }
 
 /* Hide file input */
