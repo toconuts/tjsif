@@ -4,7 +4,7 @@
 {{ parent() }}
 {% stylesheets
     'css/cropit.css'
-    'css/upload.css'
+    'css/upload_document.css'
     filter='cssrewrite' output='css/compiled/app.upload.css' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
@@ -18,12 +18,8 @@
 {% javascripts
     'js/jquery.min.js'
     'js/bootstrap.min.js'
-    'js/jquery.cropit.js'
-    output='js/compiled/app.js' %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% javascripts
-    'js/cropit.js'
+    'js/bootstrap.file-input.js'
+    'js/uploade.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

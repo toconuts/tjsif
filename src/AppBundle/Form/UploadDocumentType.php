@@ -14,17 +14,16 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+//use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
- * Description of InvitationType
+ * Description of UploadDocumentType
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class InvitationType extends AbstractType
+class UploadDocumentType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -32,22 +31,24 @@ class InvitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('email', RepeatedType::class, array(
-                'type' => EmailType::class,
-                'first_options'  => array('label' => 'Email'),
-                'second_options' => array('label' => 'Repeat Email'),
-            )        
-        );
+            ->add('file', FileType::class, array(
+                'label' => false,
+                'attr' => [
+                    'class' => 'btn btn-lg btn-success',
+                    'title' => 'Choose file',
+                    'data-filename-placement' => "inside",
+                ]
+            ))
+        ;
     }
-
+    
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Invitation',
+            'data_class' => 'AppBundle\Entity\Document',
         ));
     }
 }

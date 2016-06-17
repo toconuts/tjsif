@@ -209,6 +209,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $activationKey;
     
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $counter;
+    
+    /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -226,7 +231,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->projects = new ArrayCollection();
         $this->attendances = new ArrayCollection();
         $this->allergies = 'None';
- //       $this->picture = new ProfilePicture();
+        $this->counter = 0;
     }
 
     /**
@@ -1211,5 +1216,43 @@ class User implements AdvancedUserInterface, \Serializable
                    $second->getActivity()->getStarttime() ? -1 : 1;
         });
         return new ArrayCollection(iterator_to_array($iterator));
+    }
+
+    /**
+     * Set counter
+     *
+     * @param integer $counter
+     *
+     * @return User
+     */
+    public function setCounter($counter)
+    {
+        $this->counter = $counter;
+
+        return $this;
+    }
+
+    /**
+     * Get counter
+     *
+     * @return integer
+     */
+    public function getCounter()
+    {
+        return $this->counter;
+    }
+    
+    /**
+     * Increment counter
+     * 
+     * @return \AppBundle\Entity\User
+     */
+    public function incrementCounter()
+    {
+        if ($this->counter < 2147483647) {
+            $this->counter++;
+        }
+        
+        return $this;
     }
 }

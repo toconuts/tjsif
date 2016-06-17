@@ -10,19 +10,10 @@
 //$('#image-cropper').cropit();
 $('#image-cropper').cropit({
     imageBackground: true,
-//    imageState: {
-//        src: 'http://localhost:8000/images/user/3/initial_user.png'
-//    }
     imageBackgroundBorderWidth: 100
 });
 
-//$('#image-cropper').cropit('imageSrc', 'http://localhost:8000/images/user/3/initial_user.png');
 $('#image-cropper').cropit('imageSrc', $("#current-imagefile").attr('src'));
-//$('#image-cropper').cropit({ imageState: { src: { imageSrc } } });
-
-/*$('.preview-wrapper').cropit({
-    imageBackground: true
-});*/
 
 // Exporting cropped image
 $('.download-btn').click(function() {

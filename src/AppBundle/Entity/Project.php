@@ -103,10 +103,22 @@ class Project
      * @ORM\OneToOne(targetEntity="ProjectPicture", mappedBy="project")
      */
     private $picture;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="project")
+     * @ORM\OrderBy({"type" = "ASC"})
+     */
+    private $documents;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $counter;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->documents = new ArrayCollection();
         $this->isActive = true;
     }
     
@@ -448,5 +460,86 @@ class Project
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AppBundle\Entity\Document $document
+     *
+     * @return Project
+     */
+    public function addDocument(\AppBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AppBundle\Entity\Document $document
+     */
+    public function removeDocument(\AppBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Set counter
+     *
+     * @param integer $counter
+     *
+     * @return Project
+     */
+    public function setCounter($counter)
+    {
+        $this->counter = $counter;
+
+        return $this;
+    }
+
+    /**
+     * Get counter
+     *
+     * @return integer
+     */
+    public function getCounter()
+    {
+        return $this->counter;
+    }
+    
+    /**
+     * Increment counter
+     * 
+     * @return \AppBundle\Entity\User
+     */
+    public function incrementCounter()
+    {
+        if ($this->counter < 2147483647) {
+            $this->counter++;
+        }
+        
+        return $this;
+    }
+    
+    public function getDocumentsByType($type)
+    {
+        foreach ($this->documents as $document) {
+            if ($type == $document->getType())
+                return $document;
+        }
+        return null;
     }
 }

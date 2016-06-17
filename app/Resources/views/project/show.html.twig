@@ -111,6 +111,67 @@ Project <small>- {{ project.name }}</small>
         </div><!-- /.col-sm-10 -->
     </div><!-- /.row -->
     
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Documents</h2>
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-9">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Last update</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for type, name in documentTypes %}
+                    {% set find = false %}
+                    {% for document in project.documents %}
+                    {% if not find and document.type == type %}
+                    {% set find = true %}
+                    <tr>
+                        <td>{{ name }}</td>
+                        <td>{{ document.updatedAt|date("Y-m-d H:i") }}</td>
+                        <td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ (name|split(' ')|first) ~ '_' ~ (project.organization.shortname) ~ '.' ~ (document.filename|split('.')|last) }}">Download</a></td>
+                        {% if is_granted('ROLE_SUPER_ADMIN') or 
+                             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></div>
+                        {% else %}
+                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></div>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% if not find %}
+                    {% if type == 1 or type == 2 %} {# Delete in application period -> all danger #}
+                    <tr class="danger">
+                    {% else %}
+                    <tr class="active">
+                    {% endif %}
+                        <td>{{ name }}</td>
+                        <td>Not updated yet</td>
+                        <td><a href="#" class="btn btn-lg btn-default pull-right disabled">Download</a></td>
+                        {% if is_granted('ROLE_SUPER_ADMIN') or 
+                             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></div>
+                        {% else %}
+                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></div>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div><!-- /.row -->
+    
     <div class="row">
         {% if is_granted('ROLE_SUPER_ADMIN') or 
              (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
@@ -120,10 +181,10 @@ Project <small>- {{ project.name }}</small>
                 <input type="hidden" name="_method" value="INACTIVATE"/>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button type="submit" value="Inactivate" class="btn btn-lg btn-warning"/>Inactivate</button>
+                        <button type="submit" value="Inactivate" class="btn btn-lg btn-danger"/>Inactivate</button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button class="btn btn-lg btn-warning" disabled>Activate</button>
+                        <button class="btn btn-lg btn-danger" disabled>Activate</button>
                     </div>
                 </div>
             </form>
@@ -134,10 +195,10 @@ Project <small>- {{ project.name }}</small>
                 <input type="hidden" name="_method" value="ACTIVATE"/>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button class="btn btn-lg btn-warning" disabled>Inactibate</button>
+                        <button class="btn btn-lg btn-danger" disabled>Inactibate</button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button type="submit" value="Activate" class="btn btn-lg btn-warning"/>Activate</button>
+                        <button type="submit" value="Activate" class="btn btn-lg btn-danger"/>Activate</button>
                     </div>
                 </div>
             </form>

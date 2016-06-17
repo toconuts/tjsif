@@ -1,4 +1,4 @@
-{% extends "layout_uploader.html.twig" %}
+{% extends "layout_uploade_picture.html.twig" %}
 
 {% block title %}Upload profile picture | {{ parent() }}{% endblock %}
 
@@ -7,8 +7,8 @@
     <h2 class="text-center">Upload your picture</h2>
  
 {{ form_start(form, {'multipart': true, 'attr': {'class': 'form-upload', 'role': 'form'} }) }}
+    {{ form_errors(form.imagedata) }}
     <div id="image-cropper">
-
         <div class="cropit-preview"></div>
         <input type="range" class="cropit-image-zoom-input" />        
 

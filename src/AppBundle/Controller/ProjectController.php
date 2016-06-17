@@ -20,6 +20,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectBaseType;
 use AppBundle\Form\ProjectType;
+use AppBundle\Entity\Document;
+use AppBundle\Form\UploadDocumentType;
+use AppBundle\Utils\ChoiceList\DocumentType;
 
 /**
  * Description of ProjectController
@@ -51,12 +54,13 @@ class ProjectController extends Controller
         $form = $this->createForm(ProjectBaseType::class, $project, array(
             'disabled' => true
         ));
-        
+        $documentTypes = (new DocumentType())->getChoicesFliped();
         return $this->render('project/show.html.twig', array(
                 'project' => $project,
                 'form' => $form->createView(),
                 'students' => $project->getProjectMember(true),
                 'teachers' => $project->getProjectMember(false),
+                'documentTypes' =>$documentTypes,
         ));
     }
     
@@ -175,5 +179,40 @@ class ProjectController extends Controller
         
         return $this->redirectToRoute('member_project_index');
     }
-
+    
+    /**
+     * @Route("/{id}/doc/{type}/upload", requirements = {"id" = "\d+", "type" = "\d+"}, name="member_project_document_upload")
+     * @ParamConverter("project", class="AppBundle:Project")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function uploadDocumentAction(Request $request, Project $project, $type)
+    {
+        $document = $project->getDocumentsByType($type);
+        if (!$document) {
+            $document = new Document();
+            $document->setProject($project);
+            $document->setType($type);
+        }
+        dump($document);
+        
+        $form = $this->createForm(UploadDocumentType::class, $document);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($document);
+            $em->flush();
+            dump($document);
+            return $this->redirectToRoute('member_project_show',
+                array('id' => $project->getId()));
+        }
+        
+        $documentTypeName = (new DocumentType())->getChoicesFliped()[$type];
+        return $this->render(
+            'project/upload_document.html.twig', array(
+                'form' => $form->createView(),
+                'project' => $project,
+                'documentTypeName' => $documentTypeName,
+        ));
+    }
 }
