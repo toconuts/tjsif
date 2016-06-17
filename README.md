@@ -76,14 +76,17 @@ Doctrine commands
 ----------------------------------
 ### Create and delete database 
 Use for only to create development environment
+
     php bin/console doctrine:database:drop --force
     php bin/console doctrine:database:create
 
 ### Create Entity or Update getter/setter
 To generate the missing getter and setter methods:
+
     php bin/console doctrine:generate:entities AppBundle/Entity/entity_name
 
 ### Update Database Schema
+
     php bin/console doctrine:schema:update --force
 
 ### Load fixtures
@@ -97,10 +100,9 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Project: add documents and profile picture to project
+
 * Project: query teachers without operation staff.
 * All: Flash message when user into attendance and new activities with confirm is added
-* All: change the place of edit and create button to the bottom
 * ALL: in edit page, display updated at and updated by
 * Member: change list of member of project in show. edit and create have almost done.
 * same as above sister of organization in show.
@@ -113,7 +115,6 @@ $kernel = new AppKernel('prod', false);
 * Implement What's new -> notification
 * Implement History -> activities
 * Implement Log
-* Uploader Form validation message
 * Change password
 * Error page 404
 
