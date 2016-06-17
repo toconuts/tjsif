@@ -63,6 +63,7 @@ Setting up the Database to be UTF8
 ----------------------------------
 ### Add a few lines to `my.conf`.
 Version 5.5.3 introduced utf8mb4, which is recommended
+
     sudo gedit /etc/mysql/my.cnf
 
     [mysqld]
