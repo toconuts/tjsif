@@ -43,7 +43,7 @@ Running server and check configuration
 ### Running server
     cd my_project_name/
     php bin/console server:start
-or
+### or
     php bin/console server:run
 Then, open your browser and access the [http://localhost:8000/][1]
 
@@ -75,15 +75,15 @@ Version 5.5.3 introduced utf8mb4, which is recommended
 Doctrine commands
 ----------------------------------
 ### Create and delete database 
-Use for only to create development environment
-
     php bin/console doctrine:database:drop --force
     php bin/console doctrine:database:create
+Use for only to create development environment
+
 
 ### Create Entity or Update getter/setter
+    php bin/console doctrine:generate:entities AppBundle/Entity/entity_name
 To generate the missing getter and setter methods:
 
-    php bin/console doctrine:generate:entities AppBundle/Entity/entity_name
 
 ### Update Database Schema
 
