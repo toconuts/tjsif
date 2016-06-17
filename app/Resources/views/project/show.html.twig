@@ -7,23 +7,33 @@ Project <small>- {{ project.name }}</small>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row sub-header">
+<div class="container-fluid">
+    <div class="row">
         <div class="col-sm-offset-1 col-sm-5">
-            <h2 class="">Project information</h2>
+            {% if project.picture %}
+            <img class="img-rounded" src="{{ vich_uploader_asset(project.picture, 'imageFile')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
+            {% else %}
+            <img class="img-rounded" src="{{ asset('/template/project/initial_project.png')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
+            {% endif %}
         </div>
-        <div class="col-sm-offset-3 col-sm-2">
-            <div class="btn-group" role="group" aria-label="...">
-                <a class="btn btn-default" href="{{ path("member_project_index") }}">Back</a>
+        <div class="col-sm-offset-4 col-sm-1">
+            <div class="btn-group-vertical pull-right" role="group" aria-label="...">
+                <a class="btn btn-lg btn-default" href="{{ path("member_project_index") }}">Back</a>
                 {% if is_granted('ROLE_SUPER_ADMIN') or 
                     (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
-                <a type="button" class="btn btn-primary" href="{{ path("member_project_edit", {"id": project.id}) }}">Edit</a>
+                <a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_picture_upload", {"id": project.id}) }}">Change Picture</a>
+                <a type="button" class="btn btn-lg btn-primary" href="{{ path("member_project_edit", {"id": project.id}) }}">Edit</a>
                 {% endif %}
             </div>
         </div>
+    </div>
+    
+    <div class="row sub-header">
+        <div class="col-sm-offset-1">
+            <h2 class="">Project information</h2>
+        </div>
     </div><!-- /.row -->
 
-{# //TODO: change list from arraycollection #}    
     <div class="row">
         <div class="col-sm-11">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
@@ -101,26 +111,95 @@ Project <small>- {{ project.name }}</small>
         </div><!-- /.col-sm-10 -->
     </div><!-- /.row -->
     
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-5">
+            <h2 class="">Documents</h2>
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-9">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Last update</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for type, name in documentTypes %}
+                    {% set find = false %}
+                    {% for document in project.documents %}
+                    {% if not find and document.type == type %}
+                    {% set find = true %}
+                    <tr>
+                        <td>{{ name }}</td>
+                        <td>{{ document.updatedAt|date("Y-m-d H:i") }}</td>
+                        <td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ (name|split(' ')|first) ~ '_' ~ (project.organization.shortname) ~ '.' ~ (document.filename|split('.')|last) }}">Download</a></td>
+                        {% if is_granted('ROLE_SUPER_ADMIN') or 
+                             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></div>
+                        {% else %}
+                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></div>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% if not find %}
+                    {% if type == 1 or type == 2 %} {# Delete in application period -> all danger #}
+                    <tr class="danger">
+                    {% else %}
+                    <tr class="active">
+                    {% endif %}
+                        <td>{{ name }}</td>
+                        <td>Not updated yet</td>
+                        <td><a href="#" class="btn btn-lg btn-default pull-right disabled">Download</a></td>
+                        {% if is_granted('ROLE_SUPER_ADMIN') or 
+                             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></div>
+                        {% else %}
+                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></div>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div><!-- /.row -->
+    
     <div class="row">
         {% if is_granted('ROLE_SUPER_ADMIN') or 
              (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
         {% if project.isActive %}
-        <div class="col-sm-offset-8 col-sm-3">
+        <div class="col-sm-offset-1 col-sm-10">
             <form action="{{ path('member_project_inactivate', {id: project.id}) }}" method="POST">
                 <input type="hidden" name="_method" value="INACTIVATE"/>
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="submit" value="Inactivate" class="btn btn-warning"/>Inactivate</button>
-                    <button class="btn btn-warning" disabled>Activate</button>
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="submit" value="Inactivate" class="btn btn-lg btn-danger"/>Inactivate</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-lg btn-danger" disabled>Activate</button>
+                    </div>
                 </div>
             </form>
         </div>
         {% else %}
-        <div class="col-sm-offset-8 col-sm-3">
+        <div class="col-sm-offset-1 col-sm-10">
             <form action="{{ path('member_project_activate', {id: project.id}) }}" method="POST">
                 <input type="hidden" name="_method" value="ACTIVATE"/>
-                <div class="btn-group" role="group" aria-label="...">
-                    <button class="btn btn-warning" disabled>Inactibate</button>
-                    <button type="submit" value="Activate" class="btn btn-warning"/>Activate</button>
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-lg btn-danger" disabled>Inactibate</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="submit" value="Activate" class="btn btn-lg btn-danger"/>Activate</button>
+                    </div>
                 </div>
             </form>
         </div>

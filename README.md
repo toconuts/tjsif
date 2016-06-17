@@ -43,7 +43,7 @@ Running server and check configuration
 ### Running server
     cd my_project_name/
     php bin/console server:start
-or
+### or
     php bin/console server:run
 Then, open your browser and access the [http://localhost:8000/][1]
 
@@ -63,6 +63,7 @@ Setting up the Database to be UTF8
 ----------------------------------
 ### Add a few lines to `my.conf`.
 Version 5.5.3 introduced utf8mb4, which is recommended
+
     sudo gedit /etc/mysql/my.cnf
 
     [mysqld]
@@ -75,15 +76,18 @@ Version 5.5.3 introduced utf8mb4, which is recommended
 Doctrine commands
 ----------------------------------
 ### Create and delete database 
-Use for only to create development environment
     php bin/console doctrine:database:drop --force
     php bin/console doctrine:database:create
+Use for only to create development environment
+
 
 ### Create Entity or Update getter/setter
-To generate the missing getter and setter methods:
     php bin/console doctrine:generate:entities AppBundle/Entity/entity_name
+To generate the missing getter and setter methods:
+
 
 ### Update Database Schema
+
     php bin/console doctrine:schema:update --force
 
 ### Load fixtures
@@ -97,33 +101,31 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Project: Add presentation style and modify type
+
+* Project: query teachers without operation staff.
 * All: Flash message when user into attendance and new activities with confirm is added
-* All: change the place of edit and create button to the bottom
 * ALL: in edit page, display updated at and updated by
 * Member: change list of member of project in show. edit and create have almost done.
 * same as above sister of organization in show.
-* make two list of user. one of student and one of teachers without operation staff.
-* Project: add documents and profile picture to project
 * add placeholder to all form type
 * All: Check validation all entities
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
-* Assign role from job
 * Install Pagenator
-* Implement Profile Picture and delete User Image
 * Implement BBS
 * Implement What's new -> notification
 * Implement History -> activities
 * Implement Log
-* Create tests
-* Add more comments in the code
-* Uploader Form validation message
 * Change password
 * Error page 404
 
+* Add more comments in the code
+* Create tests
+
 #Guide line#
 Carousel Image Size: 1024 x 576 (16:9 PALt)
+
+http://jsfiddle.net/opengl_8080/2ZC24/show/
 
 [1]:  https://getcomposer.org/doc/00-intro.md
 [2]:  http://localhost:8000/

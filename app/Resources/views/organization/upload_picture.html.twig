@@ -1,0 +1,29 @@
+{% extends "layout_uploade_picture.html.twig" %}
+
+{% block title %}Upload orgnization picture | {{ parent() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Upload orgnanization picture</h2>
+ 
+{{ form_start(form, {'multipart': true, 'attr': {'class': 'form-upload', 'role': 'form'} }) }}
+    <div id="image-cropper">
+
+        <div class="cropit-preview"></div>
+        <input type="range" class="cropit-image-zoom-input" />        
+
+        {{ form_widget(form.imagedata) }}
+        {% if organization.picture %}
+        <img src="{{ vich_uploader_asset(organization.picture, 'imageFile') }}" id="current-imagefile" class="hide" />
+        {% endif %}
+        {{ form_rest(form) }}
+    </div> <!-- /image-cropper -->
+    
+    <div class="btn-group" role="group" aria-label="...">
+        <a class="btn btn-lg btn-default" href="{{ path("member_organization_show", {"id": organization.id}) }}">Cancel</a>
+        <div class="btn btn-lg btn-success select-image-btn">Select new image</div>
+        <button class="btn btn-lg btn-warning" type="submit">Upload</button>
+    </div>
+{{ form_end(form) }}
+</div>
+{% endblock %}

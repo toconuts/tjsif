@@ -9,9 +9,9 @@
     
 {% block stylesheets %}
     {% stylesheets
-        'bootstrap/css/bootstrap.min.css'
-        'fontawesome/css/font-awesome.min.css'
-        'assets/css/ie10-viewport-bug-workaround.css'
+        'css/bootstrap.min.css'
+        'css/font-awesome.min.css'
+        'css/ie10-viewport-bug-workaround.css'
         filter='cssrewrite' output='css/compiled/app.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -27,13 +27,13 @@
     
     {% block javascripts %}
     {% javascripts
-        'jquery/jquery.min.js'
-        'bootstrap/js/bootstrap.min.js'
-        'assets/js/ie10-viewport-bug-workaround.js'
-        'js/my.js'
+        'js/jquery.min.js'
+        'js/bootstrap.min.js'
+        'js/ie10-viewport-bug-workaround.js'
+        'js/jquery.custom.js'
         output='js/compiled/app.js' %}
         <script src="{{ asset_url }}"></script>
-        <script>window.jQuery || document.write('<script src="jquery/jquery.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
     {% endjavascripts %}
     {% endblock %}
 </body>

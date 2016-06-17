@@ -75,13 +75,45 @@ swiftmailer:
 # VichUploader Configuration
 vich_uploader:
     db_driver: orm
+    #storage:   gaufrette
     
     mappings:
         profile_picture:
-            uri_prefix:         /images/user
-            upload_destination: %kernel.root_dir%/../web/images/user
+            uri_prefix:         /uploads/pictures/user
+            upload_destination: %kernel.root_dir%/../web/uploads/pictures/user
             namer:              vich_uploader.namer_uniqid
-            directory_namer:    app.directory_namer.profile_picture
+
+        organization_picture:
+            uri_prefix:         /uploads/pictures/organization
+            upload_destination: %kernel.root_dir%/../web/uploads/pictures/organization
+            namer:              vich_uploader.namer_uniqid
+
+        project_picture:
+            uri_prefix:         /uploads/pictures/project
+            upload_destination: %kernel.root_dir%/../web/uploads/pictures/project
+            namer:              vich_uploader.namer_uniqid
+
+        project_file:
+            uri_prefix:         /uploads/document/project
+            upload_destination: %kernel.root_dir%/../web/uploads/document/project
+            namer:              vich_uploader.namer_uniqid
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        thumbnail_xs:
+            quality: 75
+            filters:
+                thumbnail: { size: [40, 40], mode: outbound }
+        
+        thumbnail_sm:
+            quality: 75
+            filters:
+                thumbnail: { size: [280, 280], mode: outbound }
 
 # Assetic Configuration
 assetic:

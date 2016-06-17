@@ -30,7 +30,7 @@ class LoadProfilePictureData extends AbstractFixture implements OrderedFixtureIn
     public function load(ObjectManager $manager)
     {
         
-        $picture1 = new ProfilePicture();
+/*        $picture1 = new ProfilePicture();
         $picture1->setImageName('initial_user.png');
         $picture1->setUser($this->getReference('user-super-admin'));
         $manager->persist($picture1);
@@ -43,7 +43,7 @@ class LoadProfilePictureData extends AbstractFixture implements OrderedFixtureIn
         $manager->flush();
         
         $this->addReference('profile-picture-1', $picture1);
-        $this->addReference('profile-picture-2', $picture2);
+        $this->addReference('profile-picture-2', $picture2);*/
         
     }
     

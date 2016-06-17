@@ -10,8 +10,8 @@ Attendance  <small>- {{ user.getFullname }}</small>
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-sm-offset-10 col-sm-2">
-            <a class="btn btn-default" href="{{ path("member_user_show", {"id": user.id}) }}" role="button">View profile &raquo;</a>
+        <div class="col-sm-offset-11 col-sm-1">
+            <a class="btn btn-default pull-right" href="{{ path("member_user_show", {"id": user.id}) }}" role="button">View profile &raquo;</a>
         </div>
     </div>
 

@@ -175,6 +175,11 @@ class Organization
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="OrganizationPicture", mappedBy="organization")
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -779,5 +784,29 @@ class Organization
         $this->updatedBy = $updatedBy;
 
         return $this;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param \AppBundle\Entity\OrganizationPicture $picture
+     *
+     * @return Organization
+     */
+    public function setPicture(\AppBundle\Entity\OrganizationPicture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \AppBundle\Entity\OrganizationPicture
+     */
+    public function getPicture()
+    {
+        return $this->picture;
     }
 }

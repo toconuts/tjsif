@@ -2,18 +2,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.user_repository:
-        class:          AppBundle\Entity\UserRepository
-        factory:        ["@doctrine.orm.entity_manager", getRepository]
-        arguments:
-          - AppBundle\Entity\User
-
-    app.invitation_repository:
-        class:          AppBundle\Entity\Invantionrepository
-        factory:        ["@doctrine.orm.entity_manager", getRepository]
-        arguments:
-          - AppBundle\Entity\User
-
     app.mailer:
         class:          AppBundle\Service\Mailer
         arguments:
@@ -27,12 +15,16 @@ services:
           - "@doctrine.orm.entity_manager"
           - "@app.mailer"
     
-    app.directory_namer.profile_picture:
-        class:          AppBundle\Service\ProfilePictureDirectoryNamer
-        arguments:
-          - "@security.token_storage"
-
     app.attendance_updater:
         class:          AppBundle\Service\AttendanceUpdater
         arguments:
           - "@doctrine.orm.entity_manager"
+
+    # datatransformer before saving to image
+    app.form.type.picture:
+        class: AppBundle\Form\UploadPictureType
+        arguments: 
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - 
+                name: form.type

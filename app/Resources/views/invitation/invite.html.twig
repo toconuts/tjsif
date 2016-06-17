@@ -10,22 +10,29 @@ Invitation
 <div class="container">
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row sub-header">
-        <div class="col-sm-offset-1 col-sm-5">
+        <div class="col-sm-offset-1">
             <h2 class="">Send invitation to...</h2>
-        </div>
-        <div class="col-sm-offset-2 col-sm-3">
-            <div class="btn-group" role="group" aria-label="...">
-                <a class="btn btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
-                <input type="submit" value="Send invitation" class="btn btn-success" />
-            </div>
         </div>
     </div><!-- /.row -->
     
     <div class="row">
         <div class="col-sm-11">
             {{ form_widget(form) }}
-            {{ form_end(form) }}
         </div>
     </div><!-- /.row -->
+    
+    <div class="ros">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <input type="submit" value="Send invitation" class="btn btn-lg btn-success" />
+                </div>
+            </div>
+        </div>
+    </div><!-- /.row -->
+    {{ form_end(form) }}
 </div><!-- /.container -->
 {% endblock %}

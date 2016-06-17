@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\ProjectPicture;
 
 /**
  * Project
@@ -16,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Project
+class Project 
 {
     /**
      * @ORM\Column(type="integer")
@@ -97,10 +98,27 @@ class Project
      * @ORM\ManyToMany(targetEntity="User", inversedBy="projects")
      */
     private $users;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="ProjectPicture", mappedBy="project")
+     */
+    private $picture;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="project")
+     * @ORM\OrderBy({"type" = "ASC"})
+     */
+    private $documents;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $counter;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->documents = new ArrayCollection();
         $this->isActive = true;
     }
     
@@ -418,5 +436,110 @@ class Project
     public function getStyle()
     {
         return $this->style;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param \AppBundle\Entity\ProfilePicture $picture
+     *
+     * @return Project
+     */
+    public function setPicture(\AppBundle\Entity\ProfilePicture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \AppBundle\Entity\ProfilePicture
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AppBundle\Entity\Document $document
+     *
+     * @return Project
+     */
+    public function addDocument(\AppBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AppBundle\Entity\Document $document
+     */
+    public function removeDocument(\AppBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Set counter
+     *
+     * @param integer $counter
+     *
+     * @return Project
+     */
+    public function setCounter($counter)
+    {
+        $this->counter = $counter;
+
+        return $this;
+    }
+
+    /**
+     * Get counter
+     *
+     * @return integer
+     */
+    public function getCounter()
+    {
+        return $this->counter;
+    }
+    
+    /**
+     * Increment counter
+     * 
+     * @return \AppBundle\Entity\User
+     */
+    public function incrementCounter()
+    {
+        if ($this->counter < 2147483647) {
+            $this->counter++;
+        }
+        
+        return $this;
+    }
+    
+    public function getDocumentsByType($type)
+    {
+        foreach ($this->documents as $document) {
+            if ($type == $document->getType())
+                return $document;
+        }
+        return null;
     }
 }

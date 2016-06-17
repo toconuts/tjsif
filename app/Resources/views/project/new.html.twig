@@ -7,17 +7,11 @@ Create Project
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row sub-header">
-        <div class="col-sm-offset-1 col-sm-5">
+        <div class="col-sm-offset-1">
             <h2 class="">Project information</h2>
-        </div>
-        <div class="col-sm-offset-2 col-sm-3">
-            <div class="btn-group" role="group" aria-label="...">
-                <a class="btn btn-default" href="{{ path("member_project_index") }}">Cancel</a>
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
         </div>
     </div><!-- /.row -->
 
@@ -36,7 +30,20 @@ Create Project
         </div>
     </div><!-- /.row -->
     
-    {% include "components/member/project_members.html.twig" %}
+    {% include "components/member/project_members_new.html.twig" %}
+    
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-lg btn-default" href="{{ path("member_project_index") }}">Cancel</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <input type="submit" value="Create" class="btn btn-lg btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
     {{ form_end(form) }}
 </div><!-- /.container -->
 {% endblock %}
