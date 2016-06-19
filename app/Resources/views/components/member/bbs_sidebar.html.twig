@@ -1,0 +1,33 @@
+<div class="bbs-sidebar sidebar">
+    <div class="bbs-sidebar-header">
+        <h3>Tag Cloud</h3>
+    </div>
+    <p class="tags">
+        {% for tag, weight in tags %}
+            <span class="weight-{{ weight }}">{{ tag }}</span>
+        {% else %}
+            There are no tags
+        {% endfor %}
+    </p>
+</div>
+
+<div class="bbs-sidebar sidebar">
+    <div class="bbs-sidebar-header">
+        <h3>Latest Comments</h3>
+    </div>
+    {% for comment in latestComments %}
+        <div class="comment">
+            <div class="header">
+                <p><span class="highlight">{{ comment.user.fullname }}</span> commented on
+                    <a href="{{ path('member_bbs_show', { 'id': comment.post.id }) }}#comment-{{ comment.id }}">
+                        {{ comment.post.title }}
+                    </a>
+                    [<em><time datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|created_ago }}</time></em>]
+                </p>
+            </div>
+            <p>{{ comment.content }}</p>
+        </div>
+    {% else %}
+        <p>There are no recent comments</p>
+    {% endfor %}
+</div>

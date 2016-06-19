@@ -180,6 +180,11 @@ class Organization
      * @ORM\OneToOne(targetEntity="OrganizationPicture", mappedBy="organization")
      */
     private $picture;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $counter;
 
     public function __construct()
     {
@@ -188,6 +193,7 @@ class Organization
         $this->sisters = new ArrayCollection();
         $this->sistersWithMe = new ArrayCollection();
         $this->isActive = true;
+        $this->counter = 0;
     }
 
     /**
@@ -808,5 +814,43 @@ class Organization
     public function getPicture()
     {
         return $this->picture;
+    }
+    
+    /**
+     * Set counter
+     *
+     * @param integer $counter
+     *
+     * @return Project
+     */
+    public function setCounter($counter)
+    {
+        $this->counter = $counter;
+
+        return $this;
+    }
+
+    /**
+     * Get counter
+     *
+     * @return integer
+     */
+    public function getCounter()
+    {
+        return $this->counter;
+    }
+    
+    /**
+     * Increment counter
+     * 
+     * @return \AppBundle\Entity\User
+     */
+    public function incrementCounter()
+    {
+        if ($this->counter < 2147483647) {
+            $this->counter++;
+        }
+        
+        return $this;
     }
 }

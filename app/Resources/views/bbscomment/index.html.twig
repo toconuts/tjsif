@@ -1,0 +1,22 @@
+{% for comment in comments %}
+<div class="panel panel-default" id="comment-{{ comment.id }}">
+    <div class="panel-heading">
+        <p>
+        {% if comment.user.picture %}
+        <img class="img-circle" src="{{ vich_uploader_asset(comment.user.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+        {% else %}
+        <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
+        {% endif %}
+        <span class="highlight"><a href="{{ path('member_user_show', { 'id': comment.user.id }) }}"> {{ comment.user.fullname }}</a> </span>commented <time datetime="{{ comment.createdAt|date('c') }}">{{ post.createdAt|created_ago }}</time>
+        </p>
+    </div>
+    <div class="panel-body">
+        {{ comment.content }}
+        {% if comment.imageName %}
+            <img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(comment, 'imageFile') }}" alt="Comment picture" />
+        {% endif %}
+    </div>
+</div>
+{% else %}
+    <p>There are no comments for this post. Be the first to comment...</p>
+{% endfor %}

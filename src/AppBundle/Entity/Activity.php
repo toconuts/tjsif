@@ -21,9 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author toconuts <toconuts@gmail.com>
  * 
  * @ORM\Table(name="activity")
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ActivityRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Activity
 {
@@ -99,8 +98,6 @@ class Activity
     private $updatedAt;
     
     /**
-     * @var User $createdBy
-     *
      * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id")

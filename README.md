@@ -101,7 +101,8 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-
+* ALL: Review query
+* Role: Redesign how to give the role
 * Project: query teachers without operation staff.
 * All: Flash message when user into attendance and new activities with confirm is added
 * ALL: in edit page, display updated at and updated by
