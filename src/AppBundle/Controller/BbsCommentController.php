@@ -34,7 +34,7 @@ class BbsCommentController extends Controller
     /**
      * @Route("/{id}/comment/new", requirements = {"id" = "\d+"}, name="member_bbs_comment_new")
      * @ParamConverter("post", class="AppBundle:BbsPost")
-     * @Method("GET")
+     * @Method({"GET"})
      */
     public function newAction(Request $request, BbsPost $post)
     {
@@ -60,12 +60,13 @@ class BbsCommentController extends Controller
         $comment = new BbsComment($post);   
         $form = $this->createForm(BbsCommentType::class, $comment);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
-
+            
             return $this->redirect($this->generateUrl('member_bbs_show', array(
                 'id' => $post->getId())) .
                 '#comment-' . $comment->getId()

@@ -7,6 +7,10 @@ BBS <small>- for free talk</small>
 {% endblock %}
 
 {% block bbs_main %}
+<div class="add-post">
+    {{ render(controller('AppBundle:BbsPost:new')) }}
+</div>
+<hr class="bbs-divider">
 {% for post in posts %}
 <div class="col-xs-12">
     <div class="date">{{ post.createdAt|date('F j, Y') }} at {{ post.createdAt|date('h:ia') }}</div>
@@ -26,15 +30,13 @@ BBS <small>- for free talk</small>
     </h2>
 </div>
 
-{% if not post.imageName %}
+{% if post.imageName %}
 <div class="col-md-7 snippet">
     <p class="lead">{{ post.content(250) }}</p>
     <p class="continue"><a href="{{ path('member_bbs_show', { 'id': post.id }) }}">Continue reading...</a></p>
 </div>
 <div class="col-md-5">
-{#//TODO: For test#}
-    {#<img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(post.imageName, 'imageFile')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />#}            
-    <img class="bbs-image img-responsive center-block" src="{{ asset('/template/project/initial_project.png')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
+    <img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="Post picture" />
 </div>
 {% else %}
 <div class="snippet">
@@ -43,13 +45,14 @@ BBS <small>- for free talk</small>
 </div>
 {% endif %}
 
-<div class="bbs-footer">
-    <div class="meta">
-        <p>Comments: <a href="{{ path('member_bbs_show', { 'id': post.id }) }}#comments">{{ post.comments|length }}</a></p>
-        <p>Tags: <span class="highlight">{{ post.tags }}</span></p>
+<div class="col-xs-12">
+    <div class="bbs-footer">
+        <div class="meta">
+            <p>Comments: <a href="{{ path('member_bbs_show', { 'id': post.id }) }}#comments">{{ post.comments|length }}</a></p>
+            <p>Tags: <span class="highlight">{{ post.tags }}</span></p>
+        </div>
     </div>
 </div>
-
 <hr class="bbs-divider">
 {% endfor %}
 {% endblock %}

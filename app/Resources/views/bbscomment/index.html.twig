@@ -12,6 +12,9 @@
     </div>
     <div class="panel-body">
         {{ comment.content }}
+        {% if comment.imageName %}
+            <img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(comment, 'imageFile') }}" alt="Comment picture" />
+        {% endif %}
     </div>
 </div>
 {% else %}

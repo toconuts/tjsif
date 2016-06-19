@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row bbs">
-        <div class="col-sm-9 bbs bbs-main">
+        <div class="col-sm-9 bbs-main">
         {% block bbs_main %}{% endblock %}
         </div>
         
@@ -14,4 +14,15 @@
         </div>
     </div><!-- /.row -->
 </div><!-- /.container -->
+{% endblock %}
+
+{% block javascripts %}
+{% javascripts
+    'js/jquery.min.js'
+    'js/bootstrap.min.js'
+    'js/bootstrap.file-input.js'
+    'js/uploade.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

@@ -30,12 +30,7 @@ BBS <small>- for free talk</small>
 
 {% if post.imageName %}
 <div class="bbs-image">
-    <img class="img-responsive center-block" src="{{ vich_uploader_asset(post.imageName, 'imageFile') }}" alt="Project picture" />
-</div>
-{# //TODO: for test -> just delete following two row #}
-{% else %}
-<div>
-    <img class="bbs-image img-responsive center-block" src="{{ asset('/template/project/initial_project.png') }}" alt="Project picture" />
+    <img class="img-responsive center-block" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="Project picture" />
 </div>
 {% endif %}
 
@@ -51,51 +46,10 @@ BBS <small>- for free talk</small>
         </div>
     </div>
 </div>
-{% endblock %}
 
-{#{% block content %}
-<div class="container">
-    <div class="bbs">
-        <div class="row">
-            <div class="date">{{ post.createdAt|date('l, F j, Y') }}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-7">
-                <h2 class="bbs-heading">
-                    {{ post.title }}
-                    <div>
-                        {% if post.user.picture != null %}
-                        <img class="img-circle" src="{{ vich_uploader_asset(user.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
-                        {% else %}
-                        <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
-                        {% endif %}
-                        <span class="text-muted">{{ post.user.fullname }}</span>
-                    </div>
-                </h2>
-                <p>{{ post.content }}</p>
-            </div>
-            <div class="col-md-5">
-                {% if post.imageName %}
-                <img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(post.imageName, 'imageFile') }}" alt="Project picture" />
-                {% else %}
-                <img class="bbs-image img-responsive center-block" src="{{ asset('/template/project/initial_project.png') }}" alt="Project picture" />
-                {% endif %}
-            </div>
-
-            <div class="col-md-7">
-                <div class="comments" id="comments">
-                    <div class="previous-comments">
-                        <h3>Comments</h3>
-                        {% include 'bbscomment/index.html.twig' with { 'comments': post.comments } %}
-                    </div>
-                    <div class="add-comment">
-                        <h3>Add Comment</h3>
-                        {{ render(controller('AppBundle:BbsComment:new', { 'id': post.id })) }}
-                    </div>
-                </div>
-            </div><!-- /.col-md-7 -->
-        </div><!-- /.row -->
+<div class="col-xs12">
+    <div class="text-center">
+        <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
     </div>
-</div><!-- /.container -->
-{% endblock %}#}
+</div>
+{% endblock %}

@@ -160,6 +160,14 @@ body {
   color: #F48A00;
 }
 
+.bbs .panel-body a {
+  color: #FFF
+}
+
+.bbs .btn-default {
+  color: #333
+}
+
 /* BBS sidebar
 -------------------------- */
 

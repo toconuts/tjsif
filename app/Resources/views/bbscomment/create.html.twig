@@ -6,7 +6,7 @@
 BBS <small>- for free talk</small>
 {% endblock %}
 
-{% block body %}
+{% block bbs_main %}
     <h1>Add comment for blog post "{{ comment.post.title }}"</h1>
     {% include 'bbscomment/new.html.twig' with { 'form': form } %}
 {% endblock %}

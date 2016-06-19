@@ -5,10 +5,11 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class BbsCommentType extends AbstractType
+class BbsPostType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,10 +18,15 @@ class BbsCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('title', TextType::class)
             ->add('content', TextareaType::class, array(
-                'label' => 'Write a comment...',
                 'attr' => [
                     'rows' => '5',
+                ]
+            ))
+            ->add('tags', TextareaType::class, array(
+                'attr' => [
+                    'rows' => '1',
                 ]
             ))
             ->add('imageFile', FileType::class, array(
@@ -41,7 +47,7 @@ class BbsCommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\BbsComment'
+            'data_class' => 'AppBundle\Entity\BbsPost'
         ));
     }
 }

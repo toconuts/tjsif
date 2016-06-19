@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use AppBundle\Entity\BbsComment;
 use AppBundle\Entity\BbsPost;
+use AppBundle\Form\BbsPostType;
 
 /**
  * Description of BbsPostController
@@ -55,35 +56,44 @@ class BbsPostController extends Controller
     
     /**
      * @Route("/new", name="member_bbs_new")
+     * @Method({"GET"})
      */
-    public function newAction(Request $request)
+    public function newAction()
     {
-        $disabled = ($this->get('security.authorization_checker')
-                ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
+        $post = new BbsPost();
         
-        $activity = new Activity();
-        $form = $this->createForm(ActivityType::class, $activity, array(
-            'official_disabled' => $disabled,
+        $form = $this->createForm(BbsPostType::class, $post, array(
+            'action' => $this->generateUrl('member_bbs_create'),
+            'method' => 'POST',
         ));
         
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($activity);
-            $em->flush();
-
-            $ap = $this->get('app.attendance_updater');
-            $ap->updateAll($activity);
-            
-            return $this->redirectToRoute('member_bbs_index');
-
-        }
+        return $this->render('bbspost/new.html.twig', array(
+                'form' => $form->createView(),
+        ));
+    }
+    
+    /**
+     * @Route("/new", name="member_bbs_create")
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request)
+    {
+        $post = new BbsPost();   
+        $form = $this->createForm(BbsPostType::class, $post);
         
-        return $this->render(
-            'bbspost/new.html.twig',
-            array('form' => $form->createView())
-        );
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('member_bbs_index'));
+        }
+
+        return $this->render('bbspost/create.html.twig', array(
+            'form'    => $form->createView(),
+        ));
     }
     
     /**
