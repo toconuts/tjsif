@@ -10,23 +10,22 @@ Invitation
 <div class="container">
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row sub-header">
-        <div class="col-sm-offset-1">
+        <div class="col-sm-offset-2 col-sm-8">
             <h2 class="">Send invitation to...</h2>
+            <p class="small">Before send the invitation, please confirm that the organization your invitee belongs to already exist.</p>
+            <p class="small">If not, you have to create it at the <a href="{{ path("member_organization_index") }}"> organization page</a> first.</p>
         </div>
     </div><!-- /.row -->
     
     <div class="row">
-        <div class="col-sm-11">
+        <div class="col-sm-offset-2 col-sm-8">
             {{ form_widget(form) }}
         </div>
     </div><!-- /.row -->
     
     <div class="ros">
-        <div class="col-sm-offset-1 col-sm-10">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
-                </div>
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="btn-group pull-right" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                     <input type="submit" value="Send invitation" class="btn btn-lg btn-success" />
                 </div>

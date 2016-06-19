@@ -47,7 +47,7 @@ class InvitationController extends Controller
                     'error',
                     'The invitation has already been sent to' . $invitation->getEmail()
                 );
-                $this->redirect('admin_invitation');
+                $this->redirect('member_invitation');
             }
 
             $rm->sendInvitation($invitation);
@@ -57,7 +57,7 @@ class InvitationController extends Controller
                 'Sent the invitation to ' . $invitation->getEmail()
             );
 
-            $this->redirect('admin_invitation');
+            $this->redirect('member_invitation');
         }
         
         return $this->render('invitation/invite.html.twig',
