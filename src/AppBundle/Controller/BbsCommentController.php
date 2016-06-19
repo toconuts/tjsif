@@ -63,6 +63,7 @@ class BbsCommentController extends Controller
 
         if ($form->isValid()) {
             
+            $comment->getPost()->setUpdatedAt();
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();

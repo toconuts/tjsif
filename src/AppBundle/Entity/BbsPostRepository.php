@@ -17,7 +17,7 @@ class BbsPostRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('b')
                    ->select('b, c')
                    ->leftJoin('b.comments', 'c')
-                   ->addOrderBy('b.createdAt', 'DESC');
+                   ->addOrderBy('b.updatedAt', 'DESC');
 
         if (false === is_null($limit))
             $qb->setMaxResults($limit);

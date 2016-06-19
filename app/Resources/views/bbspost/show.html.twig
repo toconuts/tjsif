@@ -49,7 +49,7 @@ BBS <small>- for free talk</small>
 
 <div class="col-xs12">
     <div class="text-center">
-        <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
+        <a class="btn btn-lg btn-default" href="{{ path('member_bbs_index')}}#post-{{ post.id }}">Back</a>
     </div>
 </div>
 {% endblock %}

@@ -12,7 +12,7 @@ BBS <small>- for free talk</small>
 </div>
 <hr class="bbs-divider">
 {% for post in posts %}
-<div class="col-xs-12">
+<div class="col-xs-12" id="post-{{ post.id }}">
     <div class="date">{{ post.createdAt|date('F j, Y') }} at {{ post.createdAt|date('h:ia') }}</div>
 </div>
 
