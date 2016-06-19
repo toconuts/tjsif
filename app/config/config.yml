@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    bbs.comments.latest_comment_limit: 20
 
 framework:
     #esi:             ~

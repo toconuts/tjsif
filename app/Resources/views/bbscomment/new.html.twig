@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p>
+        {% if app.user.picture %}
+        <img class="img-circle" src="{{ vich_uploader_asset(comment.user.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+        {% else %}
+        <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
+        {% endif %}
+        <span class="highlight"> {{ app.user.fullname }}
+        </p>
+    </div>
+    <div class="panel-body">
+        {{ form_start(form, {'novalidate': 'novalidate'}) }}
+        {{ form_widget(form) }}
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <input type="submit" value="Submit" class="btn btn-lg btn-primary" />
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

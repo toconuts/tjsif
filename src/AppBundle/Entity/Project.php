@@ -120,6 +120,7 @@ class Project
         $this->users = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->isActive = true;
+        $this->counter = 0;
     }
     
     /**

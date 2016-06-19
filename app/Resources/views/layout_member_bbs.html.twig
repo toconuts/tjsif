@@ -1,0 +1,17 @@
+{% extends "layout_member.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <div class="row bbs">
+        <div class="col-sm-9 bbs bbs-main">
+        {% block bbs_main %}{% endblock %}
+        </div>
+        
+        <div class="col-sm-3 blog-sidebar">
+        {% block bbs_sidebar %}
+            {{ render(controller('AppBundle:BbsPost:sidebar')) }}
+        {% endblock %}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}
