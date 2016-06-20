@@ -139,11 +139,12 @@ Project <small>- {{ project.name }}</small>
                         <td>{{ name }}</td>
                         <td>{{ document.updatedAt|date("Y-m-d H:i") }}</td>
                         <td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ (name|split(' ')|first) ~ '_' ~ (project.organization.shortname) ~ '.' ~ (document.filename|split('.')|last) }}">Download</a></td>
+                        {#<td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ document.originalFilename }}">Download</a></td>#}
                         {% if is_granted('ROLE_SUPER_ADMIN') or 
                              (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
-                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></div>
+                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></td>
                         {% else %}
-                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></div>
+                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></td>
                         {% endif %}
                     </tr>
                     {% endif %}
