@@ -13,7 +13,16 @@
     <div class="panel-body">
         {{ comment.content }}
         {% if comment.imageName %}
+        <div class="bbs-image">
             <img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(comment, 'imageFile') }}" alt="Comment picture" />
+        </div>
+        {% endif %}
+        {% if comment.filename %}
+        <div class="bbs-file">
+            <hr class="bbs-divider">
+            <p>{{ comment.originalFilename }}</p>
+            <a href="{{ vich_uploader_asset(comment, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ post.originalFilename }}" alt="Project picture">Download available</a>
+        </div>
         {% endif %}
     </div>
 </div>

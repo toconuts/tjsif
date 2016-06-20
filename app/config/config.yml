@@ -104,6 +104,11 @@ vich_uploader:
             upload_destination: %kernel.root_dir%/../web/uploads/bbs/image
             namer:              vich_uploader.namer_uniqid
 
+        bbs_document:
+            uri_prefix:         /uploads/bbs/image
+            upload_destination: %kernel.root_dir%/../web/uploads/bbs/image
+            namer:              vich_uploader.namer_origname
+
 liip_imagine:
     resolvers:
        default:

@@ -88,7 +88,7 @@ class BbsPostController extends Controller
             $em->persist($post);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('member_bbs_index'));
+            return $this->redirect($this->generateUrl('member_bbs_index'). '#post-' . $post->getId());
         }
 
         return $this->render('bbspost/create.html.twig', array(

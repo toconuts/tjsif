@@ -13,9 +13,11 @@
         {{ form_start(form, {'novalidate': 'novalidate'}) }}
             {{ form_errors(form) }}
             {{ form_row(form.content) }}
+            {{ form_errors(form.file) }}
             {{ form_errors(form.imageFile) }}
             <div class="btn-group-wrap">
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    {{ form_widget(form.file) }}
                     {{ form_widget(form.imageFile) }}
                     <div class="btn-group" role="group">
                         <input type="submit" value="Submit" class="btn btn-lg btn-warning" />

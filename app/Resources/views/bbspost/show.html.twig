@@ -34,6 +34,14 @@ BBS <small>- for free talk</small>
 </div>
 {% endif %}
 
+{% if post.filename %}
+<div class="col-xs-12 bbs-file">
+    <hr class="bbs-divider">
+    <p>{{ post.originalFilename }}</p>
+    <a href="{{ vich_uploader_asset(post, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ post.originalFilename }}" alt="Project picture">Download available</a>
+</div>
+{% endif %}
+
 <div class="col-xs-12">
     <div class="comments" id="comments">
         <div class="previous-comments">
@@ -46,10 +54,10 @@ BBS <small>- for free talk</small>
         </div>
     </div>
 </div>
-
 <div class="col-xs12">
     <div class="text-center">
         <a class="btn btn-lg btn-default" href="{{ path('member_bbs_index')}}#post-{{ post.id }}">Back</a>
     </div>
 </div>
+
 {% endblock %}

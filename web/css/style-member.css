@@ -164,6 +164,10 @@ body {
   color: #FFF
 }
 
+.bbs .panel-body .btn-default {
+  color: #333
+}
+
 .bbs .btn-default {
   color: #333
 }
