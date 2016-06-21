@@ -60,7 +60,8 @@ class RegistrationManager
         $invitation->setTicket(null);
         $password = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);
-        
+
+//TODO: RoleManager services        
         $user->addRole($this->entityManager->getRepository('AppBundle:Role')
                             ->find($user->getJob()->getRole()->getId()));
 

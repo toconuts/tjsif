@@ -18,7 +18,8 @@ security:
         - { path: ^/member, roles: ROLE_USER }
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_POWER_USER:  ROLE_USER
+        ROLE_ADMIN:       ROLE_POWER_USER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:

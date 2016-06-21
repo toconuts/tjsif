@@ -22,7 +22,7 @@ use AppBundle\Form\ProjectBaseType;
 use AppBundle\Form\ProjectType;
 use AppBundle\Entity\Document;
 use AppBundle\Form\UploadDocumentType;
-use AppBundle\Utils\ChoiceList\DocumentType;
+use AppBundle\Utils\ChoiceList\DocumentChoiceLoader;
 
 /**
  * Description of ProjectController
@@ -54,13 +54,15 @@ class ProjectController extends Controller
         $form = $this->createForm(ProjectBaseType::class, $project, array(
             'disabled' => true
         ));
-        $documentTypes = (new DocumentType())->getChoicesFliped();
+        
+        $documentChoices = (new DocumentChoiceLoader())->getChoicesFliped();
+        
         return $this->render('project/show.html.twig', array(
                 'project' => $project,
                 'form' => $form->createView(),
                 'students' => $project->getProjectMember(true),
                 'teachers' => $project->getProjectMember(false),
-                'documentTypes' =>$documentTypes,
+                'documentChoices' =>$documentChoices,
         ));
     }
     
@@ -207,12 +209,12 @@ class ProjectController extends Controller
                 array('id' => $project->getId()));
         }
         
-        $documentTypeName = (new DocumentType())->getChoicesFliped()[$type];
+        $documentChoice = (new DocumentChoiceLoader())->getChoicesFliped()[$type];
         return $this->render(
             'project/upload_document.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
-                'documentTypeName' => $documentTypeName,
+                'documentChoice' => $documentChoice,
         ));
     }
 }

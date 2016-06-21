@@ -27,10 +27,10 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\User;
-use AppBundle\Utils\ChoiceList\Gender;
-use AppBundle\Utils\ChoiceList\Title;
-use AppBundle\Utils\ChoiceList\AccountType;
-
+use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
+use AppBundle\Utils\ChoiceList\TitleChoiceLoader;
+use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 
 /**
  * Description of RegistrationType
@@ -46,7 +46,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('title', ChoiceType::class, array(
-                'choice_loader' => new Title(),
+                'choice_loader' => new TitleChoiceLoader(),
                 'placeholder' => 'Choose your title',
             ))
             ->add('firstname', TextType::class, array(
@@ -62,7 +62,7 @@ class RegistrationType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password *'),
             ))
             ->add('gender', ChoiceType::class, array(
-                'choice_loader' => new Gender(),
+                'choice_loader' => new GenderChoiceLoader(),
                 'expanded' => true,
             ))
             ->add('email', EmailType::class, array(
@@ -82,16 +82,22 @@ class RegistrationType extends AbstractType
             ->add('blog', UrlType::class)
             ->add('allergies', TextareaType::class)
             ->add('type', ChoiceType::class, array(
-                'choice_loader' => new AccountType(),
-                'placeholder' => 'Choose your account type. Student and ICT Teachers are should be Participant.',
+                'choice_loader' => new AccountChoiceLoader(),
+                'placeholder' => 'Choose your account type. Student and ICT Teachers are should be Participant',
                 'label' => 'Account type *',
             ))
-            ->add('job', EntityType::class, array(
+            ->add('occupation', ChoiceType::class, array(
+                'choice_loader' => new OccupationChoiceLoader(),
+                'expanded' => false,
+                'placeholder' => 'Choose your occupation',
+                'label' => 'Occupation *',
+            ))
+            /*->add('job', EntityType::class, array(
                 'class' => 'AppBundle:Job',
                 'choice_label' => 'name',
                 'placeholder' => 'Choose your job',
                 'label' => 'Job *',
-            ))
+            ))*/
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
                 'choice_label' => 'name',

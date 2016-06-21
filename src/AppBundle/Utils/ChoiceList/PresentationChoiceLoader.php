@@ -14,19 +14,21 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of DocumentType
+ * Description of PresentationChoiceLoader
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class DocumentType extends AbstractChoiceLoader
+class PresentationChoiceLoader extends AbstractChoiceLoader
 {
+    const PRESENTATION_ORAL     = 'Oral';
+    const PRESENTATION_POSTER   = 'Poster';
+    
+    const PRESENTATION_ORAL_ID      = '1';
+    const PRESENTATION_POSTER_ID    = '2';
+    
     protected $choices =
     [
-        'Abstract (.docx)'      => '1',
-        'Abstract (.pdf)'       => '2',
-        'Full paper(.docx)'     => '3',
-        'Full Paper(.pdf)'     => '4',
+        'Oral'          => '1',
+        'Poster'        => '2',
     ];
-    
-    
 }

@@ -38,6 +38,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
             true,
             true
         );
+        $activity1->setCreatedBy($this->getReference('user-super-admin'));
         $manager->persist($activity1);
         
         /* Activity 2 */
@@ -49,6 +50,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
             false,
             false
         );
+        $activity2->setCreatedBy($this->getReference('user-user'));
         $manager->persist($activity2);
         
         /* Activity 3 */
@@ -60,6 +62,7 @@ class LoadActivityData extends AbstractFixture implements OrderedFixtureInterfac
             true,
             false
         );
+        $activity3->setCreatedBy($this->getReference('user-admin'));
         $manager->persist($activity3);
         
         $manager->flush();

@@ -130,7 +130,7 @@ Project <small>- {{ project.name }}</small>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for type, name in documentTypes %}
+                    {% for type, name in documentChoices %}
                     {% set find = false %}
                     {% for document in project.documents %}
                     {% if not find and document.type == type %}

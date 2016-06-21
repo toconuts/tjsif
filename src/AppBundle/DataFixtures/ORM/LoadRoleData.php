@@ -35,22 +35,29 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         $roleUser->setRole('ROLE_USER');        
         $manager->persist($roleUser);
         
+        /* ROLE_POWER_USER */
+        $rolePUser = new Role();
+        $rolePUser->setId(2);
+        $rolePUser->setRole('ROLE_POWER_USER');        
+        $manager->persist($rolePUser);
+        
         /* ROLE_ADMIN */
         $roleAdmin = new Role();
-        $roleAdmin->setId(2);
+        $roleAdmin->setId(3);
         $roleAdmin->setRole('ROLE_ADMIN');
         $manager->persist($roleAdmin);
         
         /* ROLE_SUPER_ADMIN */
         $roleSAdmin = new Role();
-        $roleSAdmin->setId(3);
+        $roleSAdmin->setId(4);
         $roleSAdmin->setRole('ROLE_SUPER_ADMIN');        
         $manager->persist($roleSAdmin);
         
         $manager->flush();
         
-        $this->addReference('role-user', $roleUser);
-        $this->addReference('role-admin', $roleAdmin);
+        $this->addReference('role-user',        $roleUser);
+        $this->addReference('role-power-user',  $rolePUser);
+        $this->addReference('role-admin',       $roleAdmin);
         $this->addReference('role-super-admin', $roleSAdmin);
 
     }

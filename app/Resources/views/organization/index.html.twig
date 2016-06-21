@@ -60,7 +60,7 @@ Organization list
                         <td>{{ organization.city }}</td>
                         <td>{{ organization.province }}</td>
                         <td>{{ organization.country }}</td>
-                        <td>{{ orgType[organization.type] }}</td>
+                        <td>{{ organizationChoices[organization.type] }}</td>
                         <td>
                             {% for sister in organization.sisters %}
                             <p><a href="{{ path("member_organization_show", {"id": sister.id}) }}">{{ sister.name }}</a></p>

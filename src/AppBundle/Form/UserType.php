@@ -27,9 +27,10 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\User;
-use AppBundle\Utils\ChoiceList\Gender;
-use AppBundle\Utils\ChoiceList\Title;
-use AppBundle\Utils\ChoiceList\AccountType;
+use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
+use AppBundle\Utils\ChoiceList\TitleChoiceLoader;
+use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 
 /**
  * Description of UserType
@@ -45,7 +46,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('title', ChoiceType::class, array(
-                'choice_loader' => new Title()
+                'choice_loader' => new TitleChoiceLoader()
             ))
             ->add('firstname', TextType::class, array(
                 'label' => 'Firstname*',
@@ -55,7 +56,7 @@ class UserType extends AbstractType
                 'label' => 'Lastname*',
             ))
             ->add('gender', ChoiceType::class, array(
-                'choice_loader' => new Gender(),
+                'choice_loader' => new GenderChoiceLoader(),
                 'expanded' => true,
             ))
             ->add('email', EmailType::class, array(
@@ -74,14 +75,20 @@ class UserType extends AbstractType
             ->add('blog', UrlType::class)
             ->add('allergies', TextareaType::class)
             ->add('type', ChoiceType::class, array(
-                'choice_loader' => new AccountType(),
+                'choice_loader' => new AccountChoiceLoader(),
             ))
-            ->add('job', EntityType::class, array(
+            ->add('occupation', ChoiceType::class, array(
+                'choice_loader' => new OccupationChoiceLoader(),
+                'expanded' => false,
+                'placeholder' => 'Choose your occupation',
+                'label' => 'Occupation *',
+            ))
+            /*->add('job', EntityType::class, array(
                 'class' => 'AppBundle:Job',
                 'disabled' => true,
                 'choice_label' => 'name',
                 'placeholder' => 'Choose your job',
-            ))
+            ))*/
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
                 'choice_label' => 'name',
@@ -89,6 +96,9 @@ class UserType extends AbstractType
             ->add('position', TextType::class)
             ->add('about_me', TextareaType::class, array(
                 'label' => 'About me (less than 255)',
+                'attr' => [
+                    'rows' => '10',
+                ]
             ))
         ;
     }

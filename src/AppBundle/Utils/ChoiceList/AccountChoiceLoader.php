@@ -14,12 +14,20 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of AccountType
+ * Description of AccountChoiceLoader
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class AccountType extends AbstractChoiceLoader
+class AccountChoiceLoader extends AbstractChoiceLoader
 {
+    const ACCOUNT_PARTICIPANT  = 'Participant';
+    const ACCOUNT_STAFF        = 'Operation staff';
+    const ACCOUNT_OBSERVER     = 'Observer';
+
+    const ACCOUNT_PARTICIPANT_ID  = '1';
+    const ACCOUNT_STAFF_ID        = '2';
+    const ACCOUNT_OBSERVER_ID     = '3';
+    
     protected $choices =
     [
         'Participant'       => '1',

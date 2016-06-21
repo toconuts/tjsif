@@ -18,8 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Utils\ChoiceList\Topic;
-use AppBundle\Utils\ChoiceList\PresentationStyle;
+use AppBundle\Utils\ChoiceList\TopicChoiceLoader;
+use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
 
 /**
  * Description of ProjectType
@@ -35,14 +35,18 @@ class ProjectBaseType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('concept', TextareaType::class)
+            ->add('concept', TextareaType::class, array(
+                'attr' => [
+                    'rows' => '15',
+                ]
+            ))
             ->add('objective', TextareaType::class)
             ->add('topic', ChoiceType::class, array(
-                'choice_loader' => new Topic(),
+                'choice_loader' => new TopicChoiceLoader(),
                 'placeholder' => 'Choose topic of project',
             ))
             ->add('style', CHoiceType::class, array(
-                'choice_loader' => new PresentationStyle(),
+                'choice_loader' => new PresentationChoiceLoader(),
                 'placeholder' => 'choose your presentation style'
             ))
             ->add('organization', EntityType::class, array(

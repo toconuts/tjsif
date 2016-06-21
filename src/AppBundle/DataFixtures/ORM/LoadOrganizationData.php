@@ -16,7 +16,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Organization;
 
-use AppBundle\Utils\ChoiceList\OrganizationForm;
+use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
 
 /**
  * Description of LoadOrganizationData
@@ -40,7 +40,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
      */
     public function load(ObjectManager $manager)
     {
-        $orgForms = (new OrganizationForm())->getChoices();
+        //$orgForms = (new OrganizationChoiceLoader())->getChoices();
 
         /*--- THAI PCSHS ---*/
         $org1 = new Organization();
@@ -49,7 +49,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org1->setCity('Chiang Rai');
         $org1->setProvince('Chiang Rai');
         $org1->setCountry(self::TH);
-        $org1->setType($orgForms[self::SCHOOL]);
+        $org1->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org1 = $this->setSysters($org1, array());
         $manager->persist($org1);
         $this->addReference('org-1', $org1);
@@ -60,7 +60,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org2->setCity('Phitsanulok');
         $org2->setProvince('Phitsanulok');
         $org2->setCountry(self::TH);
-        $org2->setType($orgForms[self::SCHOOL]);
+        $org2->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org2 = $this->setSysters($org2, array());
         $manager->persist($org2);
         $this->addReference('org-2', $org2);
@@ -71,7 +71,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org3->setCity('Lopburi');
         $org3->setProvince('Lopburi');
         $org3->setCountry(self::TH);
-        $org3->setType($orgForms[self::SCHOOL]);
+        $org3->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org3 = $this->setSysters($org3, array());
         $manager->persist($org3);
         $this->addReference('org-3', $org3);
@@ -82,7 +82,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org4->setCity('Loei');
         $org4->setProvince('Loei');
         $org4->setCountry(self::TH);
-        $org4->setType($orgForms[self::SCHOOL]);
+        $org4->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org4 = $this->setSysters($org4, array());
         $manager->persist($org4);
         $this->addReference('org-4', $org4);
@@ -93,7 +93,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org5->setCity('Burirum');
         $org5->setProvince('Burirum');
         $org5->setCountry(self::TH);
-        $org5->setType($orgForms[self::SCHOOL]);
+        $org5->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org5 = $this->setSysters($org5, array());
         $manager->persist($org5);
         $this->addReference('org-5', $org5);
@@ -104,7 +104,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org6->setCity('Mukdahan');
         $org6->setProvince('Mukdahan');
         $org6->setCountry(self::TH);
-        $org6->setType($orgForms[self::SCHOOL]);
+        $org6->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org6 = $this->setSysters($org6, array());
         $manager->persist($org6);
         $this->addReference('org-6', $org6);
@@ -115,7 +115,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org7->setCity('Phathum thani');
         $org7->setProvince('Phathum thani');
         $org7->setCountry(self::TH);
-        $org7->setType($orgForms[self::SCHOOL]);
+        $org7->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org7 = $this->setSysters($org7, array());
         $manager->persist($org7);
         $this->addReference('org-7', $org7);
@@ -126,7 +126,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org8->setCity('Chonburi');
         $org8->setProvince('Chonburi');
         $org8->setCountry(self::TH);
-        $org8->setType($orgForms[self::SCHOOL]);
+        $org8->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org8 = $this->setSysters($org8, array());
         $manager->persist($org8);
         $this->addReference('org-8', $org8);
@@ -137,7 +137,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org9->setCity('Phetchaburi');
         $org9->setProvince('Phetchaburi');
         $org9->setCountry(self::TH);
-        $org9->setType($orgForms[self::SCHOOL]);
+        $org9->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org9 = $this->setSysters($org9, array());
         $manager->persist($org9);
         $this->addReference('org-9', $org9);
@@ -148,7 +148,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org10->setCity('Nakhon Si Thammarat');
         $org10->setProvince('Nakhon Si Thammarat');
         $org10->setCountry(self::TH);
-        $org10->setType($orgForms[self::SCHOOL]);
+        $org10->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org10 = $this->setSysters($org10, array());
         $manager->persist($org10);
         $this->addReference('org-10', $org10);
@@ -159,7 +159,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org11->setCity('Trang');
         $org11->setProvince('Trang');
         $org11->setCountry(self::TH);
-        $org11->setType($orgForms[self::SCHOOL]);
+        $org11->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org11 = $this->setSysters($org11, array());
         $manager->persist($org11);
         $this->addReference('org-11', $org11);
@@ -170,7 +170,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org12->setCity('Satun');
         $org12->setProvince('Satun');
         $org12->setCountry(self::TH);
-        $org12->setType($orgForms[self::SCHOOL]);
+        $org12->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org12 = $this->setSysters($org12, array());
         $manager->persist($org12);
         $this->addReference('org-12', $org12);
@@ -182,7 +182,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org13->setCity('Gakugei');
         $org13->setProvince('Tokyo');
         $org13->setCountry(self::JP);
-        $org13->setType($orgForms[self::SCHOOL]);
+        $org13->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org13 = $this->setSysters($org13, array('org-1'));
         $manager->persist($org13);
         $this->addReference('org-13', $org13);
@@ -193,7 +193,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org14->setCity('Sapporo');
         $org14->setProvince('Hokkaido');
         $org14->setCountry(self::JP);
-        $org14->setType($orgForms[self::SCHOOL]);
+        $org14->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org14 = $this->setSysters($org14, array('org-2'));
         $manager->persist($org14);
         $this->addReference('org-14', $org14);
@@ -204,7 +204,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org15->setCity('Maizuru');
         $org15->setProvince('Oita');
         $org15->setCountry(self::JP);
-        $org15->setType($orgForms[self::SCHOOL]);
+        $org15->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org15 = $this->setSysters($org15, array('org-3'));
         $manager->persist($org15);
         $this->addReference('org-15', $org15);
@@ -215,7 +215,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org16->setCity('Jyoto');
         $org16->setProvince('Fukuoka');
         $org16->setCountry(self::JP);
-        $org16->setType($orgForms[self::SCHOOL]);
+        $org16->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org16 = $this->setSysters($org16, array('org-4'));
         $manager->persist($org16);
         $this->addReference('org-16', $org16);
@@ -226,7 +226,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org17->setCity('Tokyo');
         $org17->setProvince('Tokyo');
         $org17->setCountry(self::JP);
-        $org17->setType($orgForms[self::SCHOOL]);
+        $org17->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org17 = $this->setSysters($org17, array('org-5'));
         $manager->persist($org17);
         $this->addReference('org-17', $org17);
@@ -237,7 +237,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org18->setCity('Hiroshima');
         $org18->setProvince('LopHiroshimaburi');
         $org18->setCountry(self::JP);
-        $org18->setType($orgForms[self::SCHOOL]);
+        $org18->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org18 = $this->setSysters($org18, array('org-6'));
         $manager->persist($org18);
         $this->addReference('org-18', $org18);
@@ -248,7 +248,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org19->setCity('Tennoji');
         $org19->setProvince('Osaka');
         $org19->setCountry(self::JP);
-        $org19->setType($orgForms[self::SCHOOL]);
+        $org19->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org19 = $this->setSysters($org19, array('org-7'));
         $manager->persist($org19);
         $this->addReference('org-19', $org19);
@@ -259,7 +259,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org20->setCity('Ichikawa');
         $org20->setProvince('Chiba');
         $org20->setCountry(self::JP);
-        $org20->setType($orgForms[self::SCHOOL]);
+        $org20->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org20 = $this->setSysters($org20, array('org-8'));
         $manager->persist($org20);
         $this->addReference('org-20', $org20);
@@ -270,7 +270,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org21->setCity('Tokyo');
         $org21->setProvince('Tokyo');
         $org21->setCountry(self::JP);
-        $org21->setType($orgForms[self::SCHOOL]);
+        $org21->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org21 = $this->setSysters($org21, array('org-9'));
         $manager->persist($org21);
         $this->addReference('org-21', $org21);
@@ -281,7 +281,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org22->setCity('Nara');
         $org22->setProvince('Nara');
         $org22->setCountry(self::JP);
-        $org22->setType($orgForms[self::SCHOOL]);
+        $org22->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org22 = $this->setSysters($org22, array('org-10'));
         $manager->persist($org22);
         $this->addReference('org-22', $org22);
@@ -292,7 +292,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org23->setCity('Nagoya');
         $org23->setProvince('Aichi');
         $org23->setCountry(self::JP);
-        $org23->setType($orgForms[self::SCHOOL]);
+        $org23->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org23 = $this->setSysters($org23, array('org-11'));
         $manager->persist($org23);
         $this->addReference('org-23', $org23);
@@ -303,7 +303,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org24->setCity('Osaki');
         $org24->setProvince('Miyagi');
         $org24->setCountry(self::JP);
-        $org24->setType($orgForms[self::SCHOOL]);
+        $org24->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID);
         $org24 = $this->setSysters($org24, array('org-12'));
         $manager->persist($org24);
         $this->addReference('org-24', $org24);
@@ -343,7 +343,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         return $organization;
     }
     
-    public function createOrganization($name, $shortname, $country, $type, array $sisters)
+    /*public function createOrganization($name, $shortname, $country, $type, array $sisters)
     {
         $organization = new Organization();
         $organization->setName($name);
@@ -354,7 +354,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
             $organization->addSister($this->getReference($sister));
         }
         return $organization;
-    }
+    }*/
     
     public function getOrder()
     {

@@ -138,7 +138,7 @@ class Project
      *
      * @param string $name
      *
-     * @return Job
+     * @return project
      */
     public function setName($name)
     {
@@ -162,7 +162,7 @@ class Project
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return Job
+     * @return project
      */
     public function addUser(\AppBundle\Entity\User $user)
     {
@@ -406,9 +406,9 @@ class Project
     {
         $members = new ArrayCollection();
         foreach ($this->users as $member) {
-            if ($isStudent && $member->getJob()->getId() == 1) {
+            if ($isStudent && $member->getOccupation() == 1) {
                 $members[] = $member;
-            } else if (!$isStudent && $member->getJob()->getId() != 1){
+            } else if (!$isStudent && $member->getOccupation() != 1){
                 $members[] = $member;
             }
         }

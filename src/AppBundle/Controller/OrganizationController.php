@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use AppBundle\Entity\Organization;
 use AppBundle\Form\OrganizationType;
-use AppBundle\Utils\ChoiceList\OrganizationForm;
+use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
 
 /**
  * Description of OrganizationController
@@ -55,7 +55,7 @@ class OrganizationController extends Controller
         
         return $this->render('organization/index.html.twig', array(
             'pagination' => $pagination,
-            'orgType'    => (new OrganizationForm())->getChoicesFliped(),
+            'organizationChoices'    => (new OrganizationChoiceLoader())->getChoicesFliped(),
         ));
         
         /*

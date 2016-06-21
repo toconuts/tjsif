@@ -14,15 +14,24 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of Gender
+ * Description of AttendanceChoiceLoader
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class PresentationStyle extends AbstractChoiceLoader
+class AttendanceChoiceLoader extends AbstractChoiceLoader
 {
+    const ATTENDANCE_YES    = 'Yes';
+    const ATTENDANCE_NO     = 'No';
+    const ATTENDANCE_MAYBE  = 'Maybe';
+    
+    const ATTENDANCE_YES_VALUE    = true;
+    const ATTENDANCE_NO_VALUE     = false;
+    const ATTENDANCE_MAYBE_VALUE  = null;
+    
     protected $choices =
     [
-        'Oral'          => '1',
-        'Poster'        => '2',
+        'Yes' => true,
+        'No' => false,
+        'Maybe' => null,
     ];
 }

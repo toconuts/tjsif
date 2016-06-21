@@ -40,9 +40,8 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
                 ->createQuery(
                     'SELECT u FROM AppBundle:User u
                     INNER JOIN u.organization o
-                    INNER JOIN u.job j 
                     WHERE o.id = :id
-                    ORDER BY j.id ASC'
+                    ORDER BY u.occupation ASC'
                 )->setParameter('id', $organization->getId())
                 ->getResult();
         }

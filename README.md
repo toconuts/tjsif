@@ -101,6 +101,8 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* User: Create roll management service
+* User: Use max integer value from parameter
 * Derault: Introduction page and select method
 * ALL: Review query
 * Role: Redesign how to give the role

@@ -25,7 +25,7 @@ Members
                             <th></th>
                             <th></th>
                             <th>Name</th>
-                            <th>Job</th>
+                            <th>Occupation</th>
                             <th>Type</th>
                             <th>Active</th>
                         </tr>
@@ -42,7 +42,7 @@ Members
                                 {% endif %}
                             </td>
                             <td><a href="{{ path("member_user_show", {"id": user.id}) }}">{{ user.getFullnamewithTitle() }}</a></td>
-                            <td>{{ user.job.name }}</td>
+                            <td>{{ user.occupation }}</td>
                             <td>{{ user.type }}</td>
                             <td>{{ user.isActive }}</td>
                         </tr>
