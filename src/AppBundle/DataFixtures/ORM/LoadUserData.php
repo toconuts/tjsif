@@ -54,7 +54,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                 'role-admin',
                 'role-super-admin',
             ],
-            'pcshs-chonburi',
+            'org-8',
             'job-teacher',
             '1',  //Male
             '1'  //Participant
@@ -71,7 +71,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             [
                 'role-admin',
             ],
-            'jp-ichikawa',
+            'org-20',
             'job-teacher',
             '2',  //Female
             '1'  //Participant
@@ -88,7 +88,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             [
                 'role-user',
             ],
-            'jp-ichikawa',
+            'org-20',
             'job-student',
             '2',   //Female
             '1'   //Participant

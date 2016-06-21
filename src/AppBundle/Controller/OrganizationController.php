@@ -19,8 +19,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use AppBundle\Entity\Organization;
 use AppBundle\Form\OrganizationType;
+use AppBundle\Utils\ChoiceList\OrganizationForm;
 
 /**
  * Description of OrganizationController
@@ -34,13 +36,34 @@ class OrganizationController extends Controller
     /**
      * @Route("", name="member_organization_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $dql   = "SELECT o FROM AppBundle:Organization o";
+        
+        $em    = $this->getDoctrine()->getManager();
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10/*limit per page*/
+        );
+        
+        dump($query->getHydrationMode());
+        dump($pagination->getItems());
+        
+        return $this->render('organization/index.html.twig', array(
+            'pagination' => $pagination,
+            'orgType'    => (new OrganizationForm())->getChoicesFliped(),
+        ));
+        
+        /*
         $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
         return $this->render(
             'organization/index.html.twig',
             array('organizations' => $organizations)
-        );
+        );*/
     }
     
     /**

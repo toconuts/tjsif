@@ -22,41 +22,65 @@ Organization list
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>Province</th>
-                        <th>Country</th>
+                        <th {% if pagination.isSorted('o.name') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Name', 'o.name') }}
+                        </th>
+                        <th {% if pagination.isSorted('o.city') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'City', 'o.city') }}
+                        </th>
+                        <th {% if pagination.isSorted('o.province') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Province', 'o.province') }}
+                        </th>
+                        <th {% if pagination.isSorted('o.country') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Country', 'o.country') }}
+                        </th>
+                        <th {% if pagination.isSorted('o.type') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Type', 'o.type') }}
+                        </th>
                         <th>Sister / Hosted by</th>
-                        <th>Active</th>
-                        <th>Updated at</th>
+                        <th {% if pagination.isSorted('o.isActive') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Is active', 'o.isActive') }}
+                        </th>
+                        <th {% if pagination.isSorted('o.updatedAt') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Last update', 'o.updatedAt') }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for organization in organizations %}
+                    {% for organization in pagination %}
                     <tr>
-                        <td>
-                            {% if organization.picture %}
-                            <img class="img-thumbnail" src="{{ vich_uploader_asset(organization.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Organization picture" />
-                            {% else %}
-                            <img class="img-thumbnail" src="{{ asset('/template/organization/initial_organization.png')|imagine_filter('thumbnail_xs') }}" alt="Organization picture" />
-                            {% endif %}
-                        </td>
+                        <td><a href="{{ path("member_organization_show", {"id": organization.id}) }}">
+                                {% if organization.picture %}
+                                <img class="img-thumbnail" src="{{ vich_uploader_asset(organization.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Organization picture" />
+                                {% else %}
+                                <img class="img-thumbnail" src="{{ asset('/template/organization/initial_organization.png')|imagine_filter('thumbnail_xs') }}" alt="Organization picture" />
+                                {% endif %}
+                        </a></td>
                         <td><a href="{{ path("member_organization_show", {"id": organization.id}) }}">{{ organization.name }}</a></td>
                         <td>{{ organization.city }}</td>
                         <td>{{ organization.province }}</td>
                         <td>{{ organization.country }}</td>
+                        <td>{{ orgType[organization.type] }}</td>
                         <td>
                             {% for sister in organization.sisters %}
-                                <p><a href="{{ path("member_organization_show", {"id": sister.id}) }}">{{ sister.name }}</a></p>
+                            <p><a href="{{ path("member_organization_show", {"id": sister.id}) }}">{{ sister.name }}</a></p>
                             {% endfor %}
                         </td>
-                        <td>{{ organization.isActive }}</td>    
-                        <td>{{ organization.updatedAt|date("Y-m-d H:i")}}</td>
+                        <td>{% if organization.isActive %}
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            {% endif %}
+                        </td>    
+                        <td><time datetime="{{ organization.updatedAt|date('c') }}">{{ organization.updatedAt|date('F j, Y') }}</time></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div><!-- /.table -->
+        <div class="text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div><!-- /.row -->
 </div><!-- /.container -->
 {% endblock %}
