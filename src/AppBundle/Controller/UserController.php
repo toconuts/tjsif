@@ -80,6 +80,9 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+dump($user);
+            $this->get('app.role_manager')->updateRoles($user);
+dump($user);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 

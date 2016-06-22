@@ -10,13 +10,15 @@
  */
 
 namespace AppBundle\Service;
+
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Invitation;
 use AppBundle\Service\Mailer;
 use AppBundle\Service\KeyGenerator;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use AppBundle\Service\RoleManager;
 
 /**
  * Model for Registration
@@ -46,13 +48,22 @@ class RegistrationManager
      */
     private $entityManager;
     
+    /**
+     * Role Manager
+     * 
+     * @var type 
+     */
+    private $roleManager;
+    
     public function __construct(UserPasswordEncoderInterface $encoder,
                                 EntityManager $entityManager,
-                                Mailer $mailer)
+                                Mailer $mailer,
+                                RoleManager $roleManager)
     {
         $this->encoder = $encoder;
         $this->entityManager = $entityManager;
         $this->mailer = $mailer;
+        $this->roleManager = $roleManager;
     }
     
     public function registerUser(User $user, Invitation $invitation)
@@ -61,11 +72,7 @@ class RegistrationManager
         $password = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);
 
-//TODO: RoleManager services        
-        $user->addRole($this->entityManager->getRepository('AppBundle:Role')
-                            ->find($user->getJob()->getRole()->getId()));
-
-//TODO: set initial profile picture
+        $user = $this->roleManager->updateRoles($user);
 
         if ($this->isChangedEmail($user, $invitation)) {
             $user->setActivationKey($this->issueActivationKey());

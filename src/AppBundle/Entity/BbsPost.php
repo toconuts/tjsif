@@ -32,6 +32,8 @@ use AppBundle\Entity\BbsComment;
  */
 class BbsPost
 {
+    const NUM_ITEMS = 10;
+            
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

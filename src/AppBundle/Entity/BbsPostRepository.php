@@ -12,7 +12,7 @@ use AppBundle\Entity\BbsPost;
  */
 class BbsPostRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getLatestPost($limit = null)
+    public function getLatestPost($limit = BbsPost::NUM_ITEMS)
     {
         $qb = $this->createQueryBuilder('b')
                    ->select('b, c')
