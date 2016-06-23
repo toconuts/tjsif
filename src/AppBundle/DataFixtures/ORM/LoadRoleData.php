@@ -64,8 +64,6 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
     
     public function getOrder()
     {
-        // the order in which fixtures will be loaded
-        // the lower the number, the sooner that this fixture is loaded
         return 1;
     }
 }

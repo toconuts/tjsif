@@ -28,6 +28,7 @@ Members
                             <th>Occupation</th>
                             <th>Type</th>
                             <th>Active</th>
+                            <th>Last update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,9 +43,15 @@ Members
                                 {% endif %}
                             </td>
                             <td><a href="{{ path("member_user_show", {"id": user.id}) }}">{{ user.getFullnamewithTitle() }}</a></td>
-                            <td>{{ user.occupation }}</td>
-                            <td>{{ user.type }}</td>
-                            <td>{{ user.isActive }}</td>
+                            <td>{{ occupationChoices[user.occupation] }}</td>
+                            <td>{{ accountChoices[user.type] }}</td>
+                            <td>{% if user.isActive %}
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                {% else %}
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                {% endif %}
+                            </td>
+                            <td><time datetime="{{ user.updatedAt|date('c') }}">{{ user.updatedAt|date('F j, Y') }}</time></td>
                         </tr>
                     {% endfor %}
                     </tbody>

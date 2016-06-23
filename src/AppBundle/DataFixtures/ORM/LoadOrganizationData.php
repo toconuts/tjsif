@@ -29,12 +29,6 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
     const TH = 'TH';
     const JP = 'JP';
    
-    /* Type */
-    const SCHOOL = 'School';
-    const OPERATION_STAFF = 'Government';
-    const COMPANY = 'Company';
-    const THE_OTHER = 'The other';
-
     /**
      * {@inheritDoc}
      */
@@ -308,31 +302,56 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $manager->persist($org24);
         $this->addReference('org-24', $org24);
         
+        /*--- University ---*/
+        $org25 = new Organization();
+        $org25->setName('King Mongkut\'s Institute of Technology Ladkrabang');
+        $org25->setShortname('KMITL');
+        $org25->setCity('Lat Krabang');
+        $org25->setProvince('Bangkok');
+        $org25->setCountry(self::TH);
+        $org25->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_UNIVERSITY_ID);
+        $org25 = $this->setSysters($org25, array());
+        $manager->persist($org25);
+        $this->addReference('org-25', $org25);
+        
+        /*--- Government ---*/
+        $org26 = new Organization();
+        $org26->setName('Japan International Cooperation Agency Thailand Office');
+        $org26->setShortname('JICA Thai');
+        $org26->setCity('Klongtoey');
+        $org26->setProvince('Bangkok');
+        $org26->setCountry(self::TH);
+        $org26->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_GOVERNMENT_ID);
+        $org26 = $this->setSysters($org26, array());
+        $manager->persist($org26);
+        $this->addReference('org-26', $org26);
+        
+        /*--- Company ---*/
+        $org27 = new Organization();
+        $org27->setName('SAKURA INTERNET CO., LTD.');
+        $org27->setShortname('Sakura');
+        $org27->setCity('Amata Nakorn');
+        $org27->setProvince('Chonburi');
+        $org27->setCountry(self::TH);
+        $org27->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_COMPANY_ID);
+        $org27 = $this->setSysters($org27, array());
+        $manager->persist($org27);
+        $this->addReference('org-27', $org27);
+        
+        /*--- The other ---*/
+        $org28 = new Organization();
+        $org28->setName('The Asia Foundation');
+        $org28->setShortname('The Asia Foundation');
+        $org28->setCity('Klongtoey');
+        $org28->setProvince('Bangkok');
+        $org28->setCountry(self::TH);
+        $org28->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_THEOTHER_ID);
+        $org28 = $this->setSysters($org28, array());
+        $manager->persist($org28);
+        $this->addReference('org-28', $org28);
+        
         $manager->flush();
         
-        /* Chulabhorn Science High School Chonburi
-        $pcshs_chonburi = $this->createOrganization(
-            'Princess Churabhorn Science High School Chonburi',
-            'PCSHS Chonburi',
-            'TH',
-            '1', // School
-            array()
-        );
-        $manager->persist($pcshs_chonburi);
-        $this->addReference('pcshs-chonburi', $pcshs_chonburi);*/
-        
-        /* Ichikawa Gakuen
-        $jp_ichikawa = $this->createOrganization(
-            'Ichikawa Gakuen High School',
-            'Ichigaku',
-            'JP',
-            '1', // School
-            array (
-                'pcshs-chonburi',
-            )
-        );
-        $manager->persist($jp_ichikawa);
-        $this->addReference('jp-ichikawa', $jp_ichikawa);*/
     }
     
     protected function setSysters(Organization $organization, $sisters)
@@ -342,20 +361,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         }
         return $organization;
     }
-    
-    /*public function createOrganization($name, $shortname, $country, $type, array $sisters)
-    {
-        $organization = new Organization();
-        $organization->setName($name);
-        $organization->setShortname($shortname);
-        $organization->setCountry($country);
-        $organization->setType($type);
-        foreach ($sisters as $sister) {
-            $organization->addSister($this->getReference($sister));
-        }
-        return $organization;
-    }*/
-    
+        
     public function getOrder()
     {
         return 2;

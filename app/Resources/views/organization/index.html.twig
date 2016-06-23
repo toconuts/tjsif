@@ -39,7 +39,7 @@ Organization list
                         </th>
                         <th>Sister / Hosted by</th>
                         <th {% if pagination.isSorted('o.isActive') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Is active', 'o.isActive') }}
+                            {{ knp_pagination_sortable(pagination, 'Active', 'o.isActive') }}
                         </th>
                         <th {% if pagination.isSorted('o.updatedAt') %} class="sorted" {% endif %}>
                             {{ knp_pagination_sortable(pagination, 'Last update', 'o.updatedAt') }}

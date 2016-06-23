@@ -47,7 +47,7 @@ class OrganizationController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10/*limit per page*/
+            Organization::NUM_ITEMS // limit per page
         );
         
         dump($query->getHydrationMode());

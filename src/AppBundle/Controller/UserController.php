@@ -18,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
+use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 
 /**
  * Description of UserController
@@ -36,12 +38,12 @@ class UserController extends Controller
         //$users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $users = $this->getDoctrine()->getRepository('AppBundle:User')
                     ->findUserSortedByOrganization();
-        dump($users);
-        return $this->render(
-            'user/index.html.twig',
-            //array('users' => $users)
-            array('memberlist' => $users)
-        );
+
+        return $this->render('user/index.html.twig', array(
+            'memberlist' => $users,
+            'occupationChoices'    => (new OccupationChoiceLoader())->getChoicesFliped(),
+            'accountChoices'    => (new AccountChoiceLoader())->getChoicesFliped(),
+        ));
     }
     
     /**
@@ -80,9 +82,7 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-dump($user);
             $this->get('app.role_manager')->updateRoles($user);
-dump($user);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
