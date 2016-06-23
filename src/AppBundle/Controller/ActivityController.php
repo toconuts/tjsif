@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Utils\ChoiceList\TargetChoiceLoader;
 
 use AppBundle\Entity\Activity;
 use AppBundle\Form\ActivityType;
@@ -33,15 +34,27 @@ class ActivityController extends Controller
     /**
      * @Route("", name="member_activity_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
-                ->findAllOrderedByStartDatetimeAndEndtime();
+        /*$activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
+                ->findAllOrderedByStartDatetimeAndEndtime();*/
+        
+        $dql   = 'SELECT a FROM AppBundle:Activity a ORDER BY a.starttime ASC, a.endtime ASC';
+        
+        $em    = $this->getDoctrine()->getManager();
+        $query = $em->createQuery($dql);
 
-        return $this->render(
-            'activity/index.html.twig',
-            array('activities' => $activities)
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            Activity::NUM_ITEMS // limit per page
         );
+
+        return $this->render('activity/index.html.twig', array(
+            'pagination' => $pagination,
+            'targetChoices'    => (new TargetChoiceLoader())->getChoicesFliped(),
+        ));
     }
     
     /**

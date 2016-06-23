@@ -49,10 +49,7 @@ class OrganizationController extends Controller
             $request->query->getInt('page', 1),
             Organization::NUM_ITEMS // limit per page
         );
-        
-        dump($query->getHydrationMode());
-        dump($pagination->getItems());
-        
+                
         return $this->render('organization/index.html.twig', array(
             'pagination' => $pagination,
             'organizationChoices'    => (new OrganizationChoiceLoader())->getChoicesFliped(),

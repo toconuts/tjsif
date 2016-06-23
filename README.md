@@ -101,6 +101,7 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* Organization: Check Fax validation
 * Invitation: Add label "username is just used in the invitation mail” 
 * User: Use max integer value from parameter
 * Default: Introduction page and select method
