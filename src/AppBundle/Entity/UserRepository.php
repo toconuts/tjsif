@@ -36,31 +36,6 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
         $organizations = $this->getEntityManager()->getRepository('AppBundle:Organization')->findAll();
         
         foreach ($organizations as $organization) {
-            /*//$list[$organization->getShortname()]
-            //        = $this->createQueryBuilder('u, CAST(u.occupation AS SIGNED) AS occupation_id')
-            $query = $this->createQueryBuilder('u CAST(u.occupation AS SIGNED) AS occupation_id')
-            //$query = $this->createQueryBuilder('u')        
-                    ->innerJoin('u.organization', 'o')
-                    ->where('o.id = :id')
-                    ->orderBy('u.isActive', 'ASC')
-                    ->orderBy('u.type', 'ASC')
-                    ->orderBy('u.occupation', 'ASC')
-                    ->setParameter('id', $organization->getId())
-                    ->getQuery();
-//                    ->getMaxResults();
-            $list[$organization->getShortname()] = $query->getResult();*/
-/*            $list[$organization->getShortname()] = $this->getEntityManager()
-                ->createQuery(
-                    'SELECT u FROM AppBundle:User u
-                    INNER JOIN u.organization o
-                    WHERE o.id = :id
-                    ORDER BY u.isActive DESC,
-                             u.occupation ASC,
-                             u.type ASC'
-                )->setParameter('id', $organization->getId())
-                ->getResult();*/
-            
-//TODO: add order by occupation field 
             $list[$organization->getShortname()] = $this->getEntityManager()
                 ->createQuery(
                     'SELECT u FROM AppBundle:User u

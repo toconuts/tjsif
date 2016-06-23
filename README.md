@@ -101,22 +101,14 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* User: Create roll management service
+* Invitation: Add label "username is just used in the invitation mail” 
 * User: Use max integer value from parameter
-* Derault: Introduction page and select method
-* ALL: Review query
-* Role: Redesign how to give the role
-* Project: query teachers without operation staff.
+* Default: Introduction page and select method
 * All: Flash message when user into attendance and new activities with confirm is added
 * ALL: in edit page, display updated at and updated by
-* Member: change list of member of project in show. edit and create have almost done.
-* same as above sister of organization in show.
 * add placeholder to all form type
-* All: Check validation all entities
 * Calc Profile completeness
 * Place vertically center Sign in button in the navbar.
-* Install Pagenator
-* Implement BBS
 * Implement What's new -> notification
 * Implement History -> activities
 * Implement Log

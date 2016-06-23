@@ -19,6 +19,8 @@ use AppBundle\Entity\ProjectPicture;
  */
 class Project 
 {
+    const NUM_ITEMS = 100;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

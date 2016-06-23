@@ -22,15 +22,28 @@ Project list
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Name</th>
-                        <th>Topic</th>
-                        <th>School</th>
-                        <th>Active</th>
-                        <th>Updated at</th>
+                        <th {% if pagination.isSorted('p.name') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Name', 'p.name') }}
+                        </th>
+                        <th {% if pagination.isSorted('p.topic') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Topic', 'p.topic') }}
+                        </th>
+                        <th {% if pagination.isSorted('p.style') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Style', 'p.style') }}
+                        </th>
+                        <th {% if pagination.isSorted('o.name') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'School', 'o.name') }}
+                        </th>
+                        <th {% if pagination.isSorted('p.isActive') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Active', 'p.isActive') }}
+                        </th>
+                        <th {% if pagination.isSorted('p.updatedAt') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Last update', 'p.updatedAt') }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for project in projects %}
+                    {% for project in pagination %}
                     <tr>
                         <td>
                             {% if project.picture %}
@@ -40,15 +53,24 @@ Project list
                             {% endif %}
                         </td>
                         <td><a href="{{ path("member_project_show", {"id": project.id}) }}">{{ project.name }}</a></td>
-                        <td>{{ project.topic }}</td>
+                        <td>{{ topicChoices[project.topic] }}</td>
+                        <td>{{ presentationChoices[project.style] }}</td>
                         <td>{{ project.organization.name }}</td>
-                        <td>{{ project.isActive }}</td>
-                        <td>{{ project.updatedAt|date("Y-m-d H:i") }}</td>
+                        <td>{% if project.isActive %}
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            {% endif %}
+                        </td>
+                        <td><time datetime="{{ project.updatedAt|date('c') }}">{{ project.updatedAt|date('F j, Y') }}</time></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div><!-- /.table -->
+        <div class="text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div><!-- /.row -->
 </div><!-- /.container -->
 {% endblock %}

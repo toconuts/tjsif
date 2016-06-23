@@ -23,6 +23,8 @@ use AppBundle\Form\ProjectType;
 use AppBundle\Entity\Document;
 use AppBundle\Form\UploadDocumentType;
 use AppBundle\Utils\ChoiceList\DocumentChoiceLoader;
+use AppBundle\Utils\ChoiceList\TopicChoiceLoader;
+use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
 
 /**
  * Description of ProjectController
@@ -36,13 +38,25 @@ class ProjectController extends Controller
     /**
      * @Route("", name="member_project_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
-        return $this->render(
-            'project/index.html.twig',
-            array('projects' => $projects)
+        $dql   = "SELECT p FROM AppBundle:Project p INNER JOIN p.organization o ORDER BY p.updatedAt DESC";
+        
+        $em    = $this->getDoctrine()->getManager();
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            Project::NUM_ITEMS // limit per page
         );
+        
+        return $this->render('project/index.html.twig', array(
+            'pagination' => $pagination,
+            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+            'presentationChoices' => (new PresentationChoiceLoader())->getChoicesFliped(),
+        ));
     }
     
     /**

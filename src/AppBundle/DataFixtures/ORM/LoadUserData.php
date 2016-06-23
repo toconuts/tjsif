@@ -126,7 +126,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user5->setEmail('user01@example.com');
         $user5->setIsActive(true);
         $user5 = $this->setRoles($user5, array('role-user'));
-        $user5->setOrganization($this->getReference('org-8'));
+        $user5->setOrganization($this->getReference('org-1'));
         $user5->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user5->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user5->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -141,7 +141,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user6->setEmail('user02@example.com');
         $user6->setIsActive(true);
         $user6 = $this->setRoles($user6, array('role-admin'));
-        $user6->setOrganization($this->getReference('org-8'));
+        $user6->setOrganization($this->getReference('org-1'));
         $user6->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
         $user6->setGender(GenderChoiceLoader::GENDER_NS_ID);
         $user6->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -156,7 +156,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user7->setEmail('user03@example.com');
         $user7->setIsActive(true);
         $user7 = $this->setRoles($user7, array('role-user'));
-        $user7->setOrganization($this->getReference('org-8'));
+        $user7->setOrganization($this->getReference('org-1'));
         $user7->setOccupation(OccupationChoiceLoader::OCCUPATION_DEPUTY_ID);
         $user7->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user7->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -171,7 +171,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user8->setEmail('user04@example.com');
         $user8->setIsActive(true);
         $user8 = $this->setRoles($user8, array('role-user'));
-        $user8->setOrganization($this->getReference('org-8'));
+        $user8->setOrganization($this->getReference('org-1'));
         $user8->setOccupation(OccupationChoiceLoader::OCCUPATION_DIRECTOR_ID);
         $user8->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user8->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -186,7 +186,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user9->setEmail('user05@example.com');
         $user9->setIsActive(true);
         $user9 = $this->setRoles($user9, array('role-admin'));
-        $user9->setOrganization($this->getReference('org-8'));
+        $user9->setOrganization($this->getReference('org-1'));
         $user9->setOccupation(OccupationChoiceLoader::OCCUPATION_JOCV_ID);
         $user9->setGender(GenderChoiceLoader::GENDER_NS_ID);
         $user9->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -201,7 +201,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user10->setEmail('user06@example.com');
         $user10->setIsActive(true);
         $user10 = $this->setRoles($user10, array('role-user'));
-        $user10->setOrganization($this->getReference('org-8'));
+        $user10->setOrganization($this->getReference('org-1'));
         $user10->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
         $user10->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user10->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -217,7 +217,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user11->setEmail('user11@example.com');
         $user11->setIsActive(true);
         $user11 = $this->setRoles($user11, array('role-user'));
-        $user11->setOrganization($this->getReference('org-8'));
+        $user11->setOrganization($this->getReference('org-9'));
         $user11->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user11->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user11->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -351,6 +351,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('user-admin',       $user2);
         $this->addReference('user-power-user',  $user3);
         $this->addReference('user-user',        $user4);
+        
+        $this->addReference('user-student',     $user5);
+        $this->addReference('user-teacher',     $user6);
+        $this->addReference('user-deputy',      $user7);
+        $this->addReference('user-director',    $user8);
+        $this->addReference('user-jocv',        $user9);
+        $this->addReference('user-theother',    $user10);
     }
     
     protected function setRoles(User $user, array $roles)
