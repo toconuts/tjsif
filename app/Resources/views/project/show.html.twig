@@ -137,7 +137,7 @@ Project <small>- {{ project.name }}</small>
                     {% set find = true %}
                     <tr>
                         <td>{{ name }}</td>
-                        <td>{{ document.updatedAt|date("Y-m-d H:i") }}</td>
+                        <td><time datetime="{{ document.updatedAt|date('c') }}">{{ document.updatedAt|date("M j") }}</time></td>
                         <td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ (name|split(' ')|first) ~ '_' ~ (project.organization.shortname) ~ '.' ~ (document.filename|split('.')|last) }}">Download</a></td>
                         {#<td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ document.originalFilename }}">Download</a></td>#}
                         {% if is_granted('ROLE_SUPER_ADMIN') or 

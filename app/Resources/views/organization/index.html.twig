@@ -72,7 +72,7 @@ Organization list
                             <i class="fa fa-ban" aria-hidden="true"></i>
                             {% endif %}
                         </td> 
-                        <td><time datetime="{{ organization.updatedAt|date('c') }}">{{ organization.updatedAt|date('F j, Y') }}</time></td>
+                        <td><time datetime="{{ organization.updatedAt|date('c') }}">{{ organization.updatedAt|date('M j') }}</time></td>
                     </tr>
                     {% endfor %}
                 </tbody>

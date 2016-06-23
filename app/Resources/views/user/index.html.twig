@@ -51,7 +51,7 @@ Members
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                                 {% endif %}
                             </td>
-                            <td><time datetime="{{ user.updatedAt|date('c') }}">{{ user.updatedAt|date('F j, Y') }}</time></td>
+                            <td><time datetime="{{ user.updatedAt|date('c') }}">{{ user.updatedAt|date('M j') }}</time></td>
                         </tr>
                     {% endfor %}
                     </tbody>

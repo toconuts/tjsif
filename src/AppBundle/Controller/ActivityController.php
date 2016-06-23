@@ -36,9 +36,47 @@ class ActivityController extends Controller
      */
     public function indexAction(Request $request)
     {
-        /*$activities = $this->getDoctrine()->getRepository('AppBundle:Activity')
-                ->findAllOrderedByStartDatetimeAndEndtime();*/
+        $dql   = 'SELECT a FROM AppBundle:Activity a WHERE a.isOfficial = :official ORDER BY a.starttime ASC, a.endtime ASC';
+        $em    = $this->getDoctrine()->getManager();
         
+        // Official
+        $queryOfficial = $em->createQuery($dql)->setParameter('official', true);
+
+        $paginator  = $this->get('knp_paginator');
+        $paginationOfficial = $paginator->paginate(
+            $queryOfficial,
+            $request->query->getInt('pageOfficial', 1),
+            Activity::NUM_ITEMS,
+            array(
+                'pageParameterName' => 'pageOfficial',
+                'sortFieldParameterName' => 'sortOfficial',
+                'sortDirectionParameterName' => 'directionOfficial',
+            )
+        );
+        
+        // Official
+        $queryUnofficial = $em->createQuery($dql)->setParameter('official', false);
+
+        $paginator  = $this->get('knp_paginator');
+        $paginationUnofficial = $paginator->paginate(
+            $queryUnofficial,
+            $request->query->getInt('pageUnofficial', 1),
+            Activity::NUM_ITEMS,
+            array(
+                'pageParameterName' => 'pageUnofficial',
+                'sortFieldParameterName' => 'sortUnofficial',
+                'sortDirectionParameterName' => 'directionUnofficial',
+            )
+        );
+
+        return $this->render('activity/index.html.twig', array(
+            'paginationOfficial' => $paginationOfficial,
+            'paginationUnofficial' => $paginationUnofficial,
+            'targetChoices'    => (new TargetChoiceLoader())->getChoicesFliped(),
+        ));
+        
+        
+        /*
         $dql   = 'SELECT a FROM AppBundle:Activity a ORDER BY a.starttime ASC, a.endtime ASC';
         
         $em    = $this->getDoctrine()->getManager();
@@ -54,7 +92,7 @@ class ActivityController extends Controller
         return $this->render('activity/index.html.twig', array(
             'pagination' => $pagination,
             'targetChoices'    => (new TargetChoiceLoader())->getChoicesFliped(),
-        ));
+        ));*/
     }
     
     /**

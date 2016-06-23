@@ -62,7 +62,7 @@ Project list
                             <i class="fa fa-ban" aria-hidden="true"></i>
                             {% endif %}
                         </td>
-                        <td><time datetime="{{ project.updatedAt|date('c') }}">{{ project.updatedAt|date('F j, Y') }}</time></td>
+                        <td><time datetime="{{ project.updatedAt|date('c') }}">{{ project.updatedAt|date('M j') }}</time></td>
                     </tr>
                     {% endfor %}
                 </tbody>

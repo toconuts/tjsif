@@ -14,69 +14,9 @@ Activity list
         </div>
     </div><!-- /.row -->
     
-    <div class="row sub-header">
-        <div class="col-xs-12">
-            <h2 class="">Official Activities</h2>
-        </div>
-    </div><!-- /.row -->
+    {% include 'components/member/activity_list.html.twig' with { 'pagination': paginationOfficial, 'activity_type': 'Official' } %}
     
-    <div class="row">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th {% if pagination.isSorted('a.starttime') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Date', ['a.starttime', 'a.endtime']) }}
-                        </th>
-                        <th {% if pagination.isSorted('a.starttime') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Start', ['a.starttime', 'a.endtime']) }}
-                        </th>
-                        <th {% if pagination.isSorted('a.endtime') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'End', ['a.endtime', 'a.starttime']) }}
-                        </th>
-                        <th {% if pagination.isSorted('a.name') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}
-                        </th>
-                        <th {% if pagination.isSorted('a.venue') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Venue', 'a.venue') }}
-                        </th>
-                        <th {% if pagination.isSorted('a.target') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Target', 'a.target') }}
-                        </th>
-{#<th>Official</th>#}
-                        <th {% if pagination.isSorted('a.isActive') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Active', 'a.isActive') }}
-                        </th>
-                        <th {% if pagination.isSorted('a.updatedAt') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Last update', 'a.updatedAt') }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for activity in pagination %}
-                    <tr>
-                        <td><time datetime="{{ activity.starttime|date('c') }}">{{ activity.starttime|date('F j, Y') }}</time></td>
-                        <td><time datetime="{{ activity.starttime|date('c') }}">{{ activity.starttime|date("H:i")}}</time></td>
-                        <td><time datetime="{{ activity.endtime|date('c') }}">{{ activity.endtime|date("H:i")}}</time></td>
-                        <td><a href="{{ path("member_activity_show", {"id": activity.id}) }}">{{ activity.name }}</a></td>
-                        <td>{{ activity.venue }}</td>
-                        <td>{{ targetChoices[activity.target] }}</td>
-{#<td>{{ activity.isOfficial }}</td>#}
-                        <td>{% if activity.isActive %}
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            {% else %}
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                            {% endif %}
-                        </td>
-                        <td><time datetime="{{ activity.updatedAt|date('c') }}">{{ activity.updatedAt|date('F j, Y') }}</time></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div><!-- /.table -->
-        <div class="text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    </div><!-- /.row -->
+    {% include 'components/member/activity_list.html.twig' with { 'pagination': paginationUnofficial, 'activity_type': 'Unofficial' } %}
+    
 </div><!-- /.container -->
 {% endblock %}
