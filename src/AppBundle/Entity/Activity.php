@@ -16,7 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of Program
+ * Description of Activity
  *
  * @author toconuts <toconuts@gmail.com>
  * 
@@ -64,10 +64,10 @@ class Activity
     private $description;
     
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotNull()
+     * @ORM\Column(type="simple_array")
+     * @Assert\NotBlank()
      */
-    private $target;
+    private $targets;
     
     /**
      * @ORM\Column(name="is_confirm", type="boolean")
@@ -261,6 +261,7 @@ class Activity
         $this->isOfficial = false;
         $this->isActive = true;
         $this->attendances = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->targets = array();
     }
 
     /**
@@ -295,30 +296,6 @@ class Activity
     public function getAttendances()
     {
         return $this->attendances;
-    }
-
-    /**
-     * Set target
-     *
-     * @param string $target
-     *
-     * @return Activity
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-
-        return $this;
-    }
-
-    /**
-     * Get target
-     *
-     * @return string
-     */
-    public function getTarget()
-    {
-        return $this->target;
     }
 
     /**
@@ -487,5 +464,29 @@ class Activity
         $this->updatedBy = $updatedBy;
 
         return $this;
+    }
+
+    /**
+     * Set target
+     *
+     * @param array $target
+     *
+     * @return Activity
+     */
+    public function setTargets($targets)
+    {
+        $this->targets = $targets;
+
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return array
+     */
+    public function getTargets()
+    {
+        return $this->targets;
     }
 }

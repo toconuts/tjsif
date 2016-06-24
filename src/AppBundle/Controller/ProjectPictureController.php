@@ -11,10 +11,11 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\ProjectPicture;
 use AppBundle\Form\UploadPictureType;
 use AppBundle\Entity\Project;
@@ -26,7 +27,7 @@ use AppBundle\Entity\Project;
  * 
  * @Route("/member/project")
  */
-class ProjectPictureController extends Controller
+class ProjectPictureController extends AbstractAppController
 {
     /**
      * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_project_picture_upload")
@@ -54,18 +55,16 @@ class ProjectPictureController extends Controller
             }
             $em->flush();
             
-//TODO: Add Flash
+            $this->log('Updated project picture.', Logger::INFO);
 
-            return $this->redirectToRoute('member_project_show',
-                array('id' => $project->getId()));
+            return $this->redirectToRoute('member_project_show', array(
+                'id' => $project->getId()
+            ));
         }
         
-        return $this->render(
-            'project/upload_picture.html.twig',
-            array(
-                'form' => $form->createView(),
-                'project' => $project
-                )
-            );
+        return $this->render('project/upload_picture.html.twig', array(
+            'form' => $form->createView(),
+            'project' => $project
+        ));
     }
 }

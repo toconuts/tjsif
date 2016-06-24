@@ -69,6 +69,7 @@ class AttendanceUpdater
     
     protected function isTarget(User $user, Activity $activity)
     {
-        return ($user->getOccupation() & $activity->getTarget());
+        dump($activity->getTargets());
+        return in_array($user->getOccupation(), $activity->getTargets());
     }
 }

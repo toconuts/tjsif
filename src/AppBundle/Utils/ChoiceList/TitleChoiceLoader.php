@@ -32,12 +32,20 @@ class TitleChoiceLoader extends AbstractChoiceLoader
     const TITLE_MISS_ID = '4';
     const TITLE_DR_ID   = '5';
     
-    protected $choices =
+    protected $choices = array(
+        self::TITLE_MR      => self::TITLE_MR_ID,
+        self::TITLE_MS      => self::TITLE_MS_ID,
+        self::TITLE_MRS     => self::TITLE_MRS_ID,
+        self::TITLE_MISS    => self::TITLE_MISS_ID,
+        self::TITLE_DR      => self::TITLE_DR_ID,
+    );
+    
+    /*protected $choices =
     [
         'Mr.'   => '1',
         'Ms.'   => '2',
         'Mrs.'  => '3',
         'Miss.' => '4',
         'Dr.'   => '5',
-    ];
+    ];*/
 }

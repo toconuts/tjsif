@@ -11,13 +11,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\BbsComment;
 use AppBundle\Entity\BbsPost;
 use AppBundle\Form\BbsPostType;
@@ -29,7 +29,7 @@ use AppBundle\Form\BbsPostType;
  * 
  * @Route("/member/bbs")
  */
-class BbsPostController extends Controller
+class BbsPostController extends AbstractAppController
 {
     /**
      * @Route("", name="member_bbs_index")
@@ -88,44 +88,16 @@ class BbsPostController extends Controller
             $em->persist($post);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('member_bbs_index'). '#post-' . $post->getId());
+            $url = $this->generateUrl('member_bbs_index'). '#post-' . $post->getId();
+            
+            $this->log('posted new article. - ' . $post->getTitle(), Logger::NOTICE, $url);
+            
+            return $this->redirect($url);
         }
 
         return $this->render('bbspost/create.html.twig', array(
             'form'    => $form->createView(),
         ));
-    }
-    
-    /**
-     * @Route("/{id}/edit", requirements = {"id" = "\d+"}, name="member_bbs_edit")
-     * @ParamConverter("post", class="AppBundle:BbsPost")
-     */
-    public function editAction(Request $request, BbsPost $post)
-    {        
-        $form = $this->createForm(ActivityType::class, $activity, array(
-            'official_disabled' => $disabled,
-        ));
-        
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            
-            $ap = $this->get('app.attendance_updater');
-            $ap->updateAll($activity);
-
-//TODO: Add Flash Message
-            return $this->redirectToRoute('member_bbs_index');
-        }
-        
-        return $this->render(
-            'bbspost/edit.html.twig',
-            array(
-                'form' => $form->createView(),
-                'activity' => $activity
-            )
-        );
     }
     
     /**

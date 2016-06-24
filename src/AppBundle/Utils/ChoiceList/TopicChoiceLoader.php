@@ -28,10 +28,16 @@ class TopicChoiceLoader extends AbstractChoiceLoader
     const TITLE_ROBOTICS_ID     = '2';
     const TITLE_IOT_ID          = '3';
     
-    protected $choices =
+    protected $choices = array(
+        self::TITLE_APPLICATION => self::TITLE_APPLICATION_ID,
+        self::TITLE_ROBOTICS    => self::TITLE_ROBOTICS_ID,
+        self::TITLE_IOT         => self::TITLE_IOT_ID,
+    );
+
+    /*protected $choices =
     [
         'Application / Software'    => '1',
         'Robotics / Hardware'       => '2',
         'Internet of Thing (IoT)'   => '3',
-    ];
+    ];*/
 }

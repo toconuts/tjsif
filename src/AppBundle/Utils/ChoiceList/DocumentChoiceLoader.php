@@ -30,11 +30,18 @@ class DocumentChoiceLoader extends AbstractChoiceLoader
     const DOCUMENT_FULLPAPER_DOCX_ID   = '3';
     const DOCUMENT_FULLPAPER_PDF_ID    = '4';
     
-    protected $choices =
+    protected $choices = array(
+        self::DOCUMENT_ABSTRACT_DOCX    => self::DOCUMENT_ABSTRACT_DOCX_ID,
+        self::DOCUMENT_ABSTRACT_PDF     => self::DOCUMENT_ABSTRACT_PDF_ID,
+        self::DOCUMENT_FULLPAPER_DOCX   => self::DOCUMENT_FULLPAPER_DOCX_ID,
+        self::DOCUMENT_FULLPAPER_PDF    => self::DOCUMENT_FULLPAPER_PDF_ID,
+    );
+    
+    /*protected $choices =
     [
         'Abstract (.docx)'  => '1',
         'Abstract (.pdf)'   => '2',
         'Full paper(.docx)' => '3',
         'Full Paper(.pdf)'  => '4',
-    ];
+    ];*/
 }

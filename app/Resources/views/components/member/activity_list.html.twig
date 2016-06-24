@@ -24,8 +24,8 @@
                     <th {% if pagination.isSorted('a.venue') %} class="sorted" {% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Venue', 'a.venue') }}
                     </th>
-                    <th {% if pagination.isSorted('a.target') %} class="sorted" {% endif %}>
-                        {{ knp_pagination_sortable(pagination, 'Target', 'a.target') }}
+                    <th {% if pagination.isSorted('a.targets') %} class="sorted" {% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Target', 'a.targets') }}
                     </th>
                     <th {% if pagination.isSorted('a.isActive') %} class="sorted" {% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Active', 'a.isActive') }}
@@ -43,7 +43,11 @@
                     <td><time datetime="{{ activity.endtime|date('c') }}">{{ activity.endtime|date("H:i")}}</time></td>
                     <td><a href="{{ path("member_activity_show", {"id": activity.id}) }}">{{ activity.name }}</a></td>
                     <td>{{ activity.venue }}</td>
-                    <td>{{ targetChoices[activity.target] }}</td>
+                    <td>
+                    {% for target in activity.targets %}
+                    {{ occupationChoices[target] }}
+                    {% endfor %}
+                    </td>
                     <td>{% if activity.isActive %}
                         <i class="fa fa-check" aria-hidden="true"></i>
                         {% else %}

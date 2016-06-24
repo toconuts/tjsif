@@ -28,10 +28,17 @@ class AttendanceChoiceLoader extends AbstractChoiceLoader
     const ATTENDANCE_NO_VALUE     = false;
     const ATTENDANCE_MAYBE_VALUE  = null;
     
+    protected $choices = array(
+        self::ATTENDANCE_YES    => self::ATTENDANCE_YES_VALUE,
+        self::ATTENDANCE_NO     => self::ATTENDANCE_NO_VALUE,
+        self::ATTENDANCE_MAYBE  => self::ATTENDANCE_MAYBE_VALUE,
+    );
+    
+    /*
     protected $choices =
     [
         'Yes' => true,
         'No' => false,
         'Maybe' => null,
-    ];
+    ];*/
 }

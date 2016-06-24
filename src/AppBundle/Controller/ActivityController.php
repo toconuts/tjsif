@@ -11,14 +11,15 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use AppBundle\Utils\ChoiceList\TargetChoiceLoader;
-
+use Monolog\Logger;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\Activity;
 use AppBundle\Form\ActivityType;
 
@@ -29,7 +30,7 @@ use AppBundle\Form\ActivityType;
  * 
  * @Route("/member/activity")
  */
-class ActivityController extends Controller
+class ActivityController extends AbstractAppController
 {
     /**
      * @Route("", name="member_activity_index")
@@ -54,7 +55,7 @@ class ActivityController extends Controller
             )
         );
         
-        // Official
+        // Unofficial
         $queryUnofficial = $em->createQuery($dql)->setParameter('official', false);
 
         $paginator  = $this->get('knp_paginator');
@@ -72,27 +73,8 @@ class ActivityController extends Controller
         return $this->render('activity/index.html.twig', array(
             'paginationOfficial' => $paginationOfficial,
             'paginationUnofficial' => $paginationUnofficial,
-            'targetChoices'    => (new TargetChoiceLoader())->getChoicesFliped(),
+            'occupationChoices'    => (new OccupationChoiceLoader())->getChoicesFliped(),
         ));
-        
-        
-        /*
-        $dql   = 'SELECT a FROM AppBundle:Activity a ORDER BY a.starttime ASC, a.endtime ASC';
-        
-        $em    = $this->getDoctrine()->getManager();
-        $query = $em->createQuery($dql);
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            Activity::NUM_ITEMS // limit per page
-        );
-
-        return $this->render('activity/index.html.twig', array(
-            'pagination' => $pagination,
-            'targetChoices'    => (new TargetChoiceLoader())->getChoicesFliped(),
-        ));*/
     }
     
     /**
@@ -107,7 +89,7 @@ class ActivityController extends Controller
             array(
                 'disabled' => true
         ));
-        
+        dump($activity);
         return $this->render(
             'activity/show.html.twig',
             array('activity' => $activity,
@@ -138,6 +120,9 @@ class ActivityController extends Controller
 
             $ap = $this->get('app.attendance_updater');
             $ap->updateAll($activity);
+            
+            $this->log('created activity - ' . $activity->getName() . '.', Logger::NOTICE, 
+                    $this->generateUrl('member_activity_index', array('id' => $activity->getId())));
             
             return $this->redirectToRoute('member_activity_index');
 
@@ -177,7 +162,9 @@ class ActivityController extends Controller
             $ap = $this->get('app.attendance_updater');
             $ap->updateAll($activity);
 
-//TODO: Add Flash Message
+            $this->log('updated activity - ' . $activity->getName() . '.', Logger::NOTICE, 
+                    $this->generateUrl('member_activity_index', array('id' => $activity->getId())));
+            
             return $this->redirectToRoute('member_activity_index');
         }
         
@@ -201,6 +188,12 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
+        $ap = $this->get('app.attendance_updater');
+        $ap->updateAll($activity);
+        
+        $this->log('activate activity - ' . $activity->getName() . '.', Logger::NOTICE, 
+                $this->generateUrl('member_activity_show', array('id' => $activity->getId())));
+        
         return $this->redirectToRoute('member_activity_index');
     }
     
@@ -215,6 +208,9 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
+        $this->log('inactivate activity - ' . $activity->getName() . '.', Logger::NOTICE, 
+                $this->generateUrl('member_activity_show', array('id' => $activity->getId())));
+        
         return $this->redirectToRoute('member_activity_index');
     }
     
@@ -222,12 +218,16 @@ class ActivityController extends Controller
      * @Route("/{id}/delete", requirements = {"id" = "\d+"}, name="member_activity_delete")
      * @Method({"DELETE"})
      * @ParamConverter("activity", class="AppBundle:Activity")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
      */
     public function deleteAction(Activity $activity)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($activity);
         $em->flush();
+        
+        $this->log('delete activity - ' . $activity->getName() . '.', Logger::NOTICE, 
+                $this->generateUrl('member_activity_index'));
         
         return $this->redirectToRoute('member_activity_index');
     }

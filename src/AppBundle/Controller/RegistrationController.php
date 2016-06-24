@@ -11,9 +11,10 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Form\RegistrationType;
 use AppBundle\Entity\User;
 
@@ -22,7 +23,7 @@ use AppBundle\Entity\User;
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class RegistrationController extends Controller
+class RegistrationController extends AbstractAppController
 {
     /**
      * @Route("/register", name="user_registration")
@@ -47,7 +48,7 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($user);
+
             $rm->registerUser($user, $invitation);
 
             $ap = $this->get('app.attendance_updater');
@@ -59,11 +60,8 @@ class RegistrationController extends Controller
                 return $this->redirectToRoute('user_confirm');
             }
 
-            $this->addFlash(
-                'success',
-                'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
-            );
-
+            $this->log('Conglats! After login, you can access TJ-SIF 2016 member\'s site.', Logger::INFO);
+            
             return $this->redirectToRoute('login');
             
         }
@@ -103,13 +101,9 @@ class RegistrationController extends Controller
             throw $this->createNotFoundException(
                 'Invalid Access because the invitation is not correct or might be expired.'
             );
-
         }
 
-        $this->addFlash(
-            'success',
-            'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
-        );
+        $this->log('Conglats! After login, you can access TJ-SIF 2016 member\'s site.', Logger::INFO);
 
         return $this->redirect('login');
     }

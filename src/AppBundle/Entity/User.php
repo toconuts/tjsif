@@ -21,6 +21,7 @@ use AppBundle\Entity\Attendance;
 use AppBundle\Entity\Activity;
 use AppBundle\Utils\ChoiceList\TitleChoiceLoader;
 use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
+use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
 
 /**
  * Description of User
@@ -209,11 +210,6 @@ class User implements AdvancedUserInterface, \Serializable
     private $activationKey;
     
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $counter;
-    
-    /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -231,7 +227,6 @@ class User implements AdvancedUserInterface, \Serializable
         $this->projects = new ArrayCollection();
         $this->attendances = new ArrayCollection();
         $this->allergies = 'None';
-        $this->counter = 0;
     }
 
     /**
@@ -1183,44 +1178,6 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set counter
-     *
-     * @param integer $counter
-     *
-     * @return User
-     */
-    public function setCounter($counter)
-    {
-        $this->counter = $counter;
-
-        return $this;
-    }
-
-    /**
-     * Get counter
-     *
-     * @return integer
-     */
-    public function getCounter()
-    {
-        return $this->counter;
-    }
-    
-    /**
-     * Increment counter
-     * 
-     * @return \AppBundle\Entity\User
-     */
-    public function incrementCounter()
-    {
-        if ($this->counter < 2147483647) {
-            $this->counter++;
-        }
-        
-        return $this;
-    }
-
-    /**
      * Set occupation
      *
      * @param string $occupation
@@ -1255,5 +1212,17 @@ class User implements AdvancedUserInterface, \Serializable
         return ($this->occupation == 1) ?
             $this->getFullname() :
             $this->getFullname() . ' - ' . $choices[$this->occupation];
+    }
+    
+    public function getPossessivePronoun()
+    {
+        $possesive = 'his/her';
+        if ($this->gender == GenderChoiceLoader::GENDER_MALE_ID) {
+            $possesive = 'his';
+        } else if ($this->gender == GenderChoiceLoader::GENDER_FEMALE_ID) {
+            $possesive = 'her';
+        }
+        
+        return $possesive;
     }
 }

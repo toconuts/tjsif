@@ -28,10 +28,9 @@ class AccountChoiceLoader extends AbstractChoiceLoader
     const ACCOUNT_STAFF_ID        = '2';
     const ACCOUNT_OBSERVER_ID     = '3';
     
-    protected $choices =
-    [
-        'Participant'       => '1',
-        'Operation staff'   => '2',
-        'Observer'          => '3',
-    ];
+    protected $choices = array(
+        self::ACCOUNT_PARTICIPANT => self::ACCOUNT_PARTICIPANT_ID,
+        self::ACCOUNT_STAFF => self::ACCOUNT_STAFF_ID,
+        self::ACCOUNT_OBSERVER => self::ACCOUNT_OBSERVER_ID,
+    );
 }

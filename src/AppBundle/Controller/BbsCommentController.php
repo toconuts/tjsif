@@ -11,16 +11,18 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\BbsComment;
 use AppBundle\Entity\BbsPost;
 use AppBundle\Form\BbsCommentType;
+use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
+use AppBundle\Entity\User;
 
 /**
  * Description of BbsCommentController
@@ -29,7 +31,7 @@ use AppBundle\Form\BbsCommentType;
  * 
  * @Route("/member/bbs")
  */
-class BbsCommentController extends Controller
+class BbsCommentController extends AbstractAppController
 {
     /**
      * @Route("/{id}/comment/new", requirements = {"id" = "\d+"}, name="member_bbs_comment_new")
@@ -68,10 +70,12 @@ class BbsCommentController extends Controller
             $em->persist($comment);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('member_bbs_show', array(
-                'id' => $post->getId())) .
-                '#comment-' . $comment->getId()
-            );
+            $url = $this->generateUrl('member_bbs_show', array('id' => $post->getId())) . '#comment-' . $comment->getId();
+            
+            $where = $this->createWhere($post->getUser(), $this->getUser());
+            $this->log('commented on ' . $where, Logger::NOTICE, $url); 
+            
+            return $this->redirect($url);
         }
 
         return $this->render('bbscomment/create.html.twig', array(
@@ -80,28 +84,16 @@ class BbsCommentController extends Controller
         ));
     }
     
-    /**
-     * @Route("/{id}/comment/edit", requirements = {"id" = "\d+"}, name="member_bbs_comment_edit")
-     * @ParamConverter("comment", class="AppBundle:BbsComment")
-     */
-    public function editAction(Request $request, BbsComment $comment)
+    protected function createWhere(User $postUser, User $appUser)
     {
-        $form = $this->createForm(BbsCommentType::class, $comment);
-        
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            
-            return $this->redirectToRoute('member_bbs_show', array(
-                'id' => $comment->getPost()->getId(),
-            ));
+        $where = '';
+        if ($postUser->getId() == $appUser->getId()) {
+            $where = $appUser->getPossessivePronoun() . ' own post.';
+        } else {
+            $where = $postUser->getFullname() . '\'s post.';
         }
         
-        return $this->render('bbs/edit.html.twig', array(
-                'form' => $form->createView(),
-        ));
+        return $where;
     }
     
     /**

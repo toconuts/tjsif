@@ -26,9 +26,15 @@ class PresentationChoiceLoader extends AbstractChoiceLoader
     const PRESENTATION_ORAL_ID      = '1';
     const PRESENTATION_POSTER_ID    = '2';
     
+    protected $choices = array(
+        self::PRESENTATION_ORAL     => self::PRESENTATION_ORAL_ID,
+        self::PRESENTATION_POSTER   => self::PRESENTATION_POSTER_ID,
+    );
+    
+    /*
     protected $choices =
     [
         'Oral'          => '1',
         'Poster'        => '2',
-    ];
+    ];*/
 }

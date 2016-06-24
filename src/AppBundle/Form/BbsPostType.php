@@ -25,6 +25,7 @@ class BbsPostType extends AbstractType
                 ]
             ))
             ->add('tags', TextareaType::class, array(
+                'required' => false,
                 'attr' => [
                     'rows' => '1',
                 ]

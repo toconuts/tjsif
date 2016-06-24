@@ -112,17 +112,11 @@ class Project
      */
     private $documents;
     
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $counter;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->isActive = true;
-        $this->counter = 0;
     }
     
     /**
@@ -499,44 +493,6 @@ class Project
         return $this->documents;
     }
 
-    /**
-     * Set counter
-     *
-     * @param integer $counter
-     *
-     * @return Project
-     */
-    public function setCounter($counter)
-    {
-        $this->counter = $counter;
-
-        return $this;
-    }
-
-    /**
-     * Get counter
-     *
-     * @return integer
-     */
-    public function getCounter()
-    {
-        return $this->counter;
-    }
-    
-    /**
-     * Increment counter
-     * 
-     * @return \AppBundle\Entity\User
-     */
-    public function incrementCounter()
-    {
-        if ($this->counter < 2147483647) {
-            $this->counter++;
-        }
-        
-        return $this;
-    }
-    
     public function getDocumentsByType($type)
     {
         foreach ($this->documents as $document) {

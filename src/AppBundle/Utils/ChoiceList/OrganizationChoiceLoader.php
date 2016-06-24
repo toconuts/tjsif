@@ -32,6 +32,15 @@ class OrganizationChoiceLoader extends AbstractChoiceLoader
     const ORGANIZATION_FORM_COMPANY_ID      = '4';
     const ORGANIZATION_FORM_THEOTHER_ID     = '5';
 
+    protected $choices = array(
+        self::ORGANIZATION_FORM_HIGH_SCHOOL => self::ORGANIZATION_FORM_HIGH_SCHOOL_ID,
+        self::ORGANIZATION_FORM_UNIVERSITY  => self::ORGANIZATION_FORM_UNIVERSITY_ID,
+        self::ORGANIZATION_FORM_GOVERNMENT  => self::ORGANIZATION_FORM_GOVERNMENT_ID,
+        self::ORGANIZATION_FORM_COMPANY     => self::ORGANIZATION_FORM_COMPANY_ID,
+        self::ORGANIZATION_FORM_THEOTHER    => self::ORGANIZATION_FORM_THEOTHER_ID,
+    );
+    
+    /*
     protected $choices =
     [
         'High School'   => '1',
@@ -39,5 +48,5 @@ class OrganizationChoiceLoader extends AbstractChoiceLoader
         'Government'    => '3',
         'Company'       => '4',
         'The other'     => '5',
-    ];
+    ];*/
 }

@@ -28,12 +28,19 @@ class GenderChoiceLoader extends AbstractChoiceLoader
     const GENDER_MALE_ID    = '1';
     const GENDER_FEMALE_ID  = '2';
     
+    protected $choices = array(
+        self::GENDER_NS     => self::GENDER_NS_ID,
+        self::GENDER_MALE   => self::GENDER_MALE_ID,
+        self::GENDER_FEMALE => self::GENDER_FEMALE_ID,
+    );
+    
+    /*
     protected $choices =
     [
         'Not specified' => null,
         'Male'          => '1',
         'Female'        => '2',
-    ];
+    ];*/
     
     
     

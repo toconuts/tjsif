@@ -11,7 +11,6 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\Organization;
 use AppBundle\Form\OrganizationType;
 use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
@@ -31,7 +32,7 @@ use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
  * 
  * @Route("/member/org")
  */
-class OrganizationController extends Controller
+class OrganizationController extends AbstractAppController
 {
     /**
      * @Route("", name="member_organization_index")
@@ -54,13 +55,6 @@ class OrganizationController extends Controller
             'pagination' => $pagination,
             'organizationChoices'    => (new OrganizationChoiceLoader())->getChoicesFliped(),
         ));
-        
-        /*
-        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
-        return $this->render(
-            'organization/index.html.twig',
-            array('organizations' => $organizations)
-        );*/
     }
     
     /**
@@ -107,15 +101,17 @@ class OrganizationController extends Controller
             $em->persist($organization);
             $em->flush();
 
-            return $this->redirectToRoute('member_organization_show',
-                array('id' => $organization->getId()));
+            $url = $this->generateUrl('member_organization_show', array('id' => $organization->getId()));
+            
+            $this->log('created new organization - ' . $organization->getName() . '.', Logger::NOTICE, $url);
+            
+            return $this->redirect($url);
 
         }
         
-        return $this->render(
-            'organization/new.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->render('organization/new.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
     
     /**
@@ -147,17 +143,17 @@ class OrganizationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-        return $this->redirectToRoute('member_organization_show',
-                array('id' => $organization->getId()));
+            $url = $this->generateUrl('member_organization_show', array('id' => $organization->getId()));
+            
+            $this->log('updated organization - ' . $organization->getName() . '.', Logger::NOTICE, $url);
+            
+            return $this->redirect($url);
         }
         
-        return $this->render(
-            'organization/edit.html.twig',
-            array(
+        return $this->render('organization/edit.html.twig', array(
                 'organization' => $organization,
                 'form' => $form->createView()
-            )
-        );
+        ));
     }
     
     /**
@@ -171,6 +167,9 @@ class OrganizationController extends Controller
         $organization->setIsActive(true);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+        
+        $this->log('activate organization - ' . $organization->getName() . '.', Logger::NOTICE,
+                $this->generateUrl('member_organization_show', array('id' => $organization->getId())));
         
         return $this->redirectToRoute('member_organization_index');
     }
@@ -187,6 +186,9 @@ class OrganizationController extends Controller
         dump($organization);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+        
+        $this->log('inactivate organization - ' . $organization->getName() . '.', Logger::NOTICE,
+                $this->generateUrl('member_organization_show', array('id' => $organization->getId())));
         
         return $this->redirectToRoute('member_organization_index');
     }

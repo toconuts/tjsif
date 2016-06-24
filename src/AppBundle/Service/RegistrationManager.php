@@ -96,10 +96,10 @@ class RegistrationManager
         $ticket = $this->issueActivationKey();
         $invitation->setTicket($ticket);
 
-        $invitationRepository = $this->entityManager->getRepository('AppBundle:Invitation');
-           
-        $invitationRepository->createInvitation($invitation);
         $this->mailer->sendInvitationMail($invitation);
+        
+        $invitationRepository = $this->entityManager->getRepository('AppBundle:Invitation');
+        $invitationRepository->createInvitation($invitation);
     }
     
     public function isChangedEmail(User $user, Invitation $invitation)

@@ -11,10 +11,11 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\ProfilePicture;
 use AppBundle\Form\UploadPictureType;
 use AppBundle\Entity\User;
@@ -26,7 +27,7 @@ use AppBundle\Entity\User;
  * 
  * @Route("/member/user")
  */
-class ProfilePictureController extends Controller
+class ProfilePictureController extends AbstractAppController
 {
     /**
      * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_user_picture_upload")
@@ -55,15 +56,15 @@ class ProfilePictureController extends Controller
             }
             $em->flush();
             
-//TODO: Add Flash
+            $this->log('updated profile picture.', Logger::INFO);
 
-            return $this->redirectToRoute('member_user_show',
-                array('id' => $user->getId()));
+            return $this->redirectToRoute('member_user_show', array(
+                'id' => $user->getId()
+            ));
         }
         
-        return $this->render(
-            'user/upload_picture.html.twig',
-            array('form' => $form->createView()))
-        ;
+        return $this->render('user/upload_picture.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

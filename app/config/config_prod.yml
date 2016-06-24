@@ -18,7 +18,26 @@ monolog:
         main:
             type:         fingers_crossed
             action_level: error
-            handler:      nested
+            handler:      grouped
+        grouped:
+            type:    group
+            members: [streamed, deduplicated]
+        streamed:
+            type:  stream
+            path:  '%kernel.logs_dir%/%kernel.environment%.log'
+            level: debug
+        deduplicated:
+            type:    deduplication
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: 'tjsif2016@gmail.com'
+            to_email:   'tjsif2016@gmail.com'
+            subject:    'An Error Occurred! %%message%%'
+            level:      debug
+            formatter:  monolog.formatter.html
+            content_type: text/html
+        
         nested:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
