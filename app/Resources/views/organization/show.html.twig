@@ -18,7 +18,8 @@ Organization <small>- {{ organization.name }}</small>
         </div>
         <div class="col-sm-offset-4 col-sm-1">
             <div class="btn-group-vertical pull-right" role="group" aria-label="...">
-                <a class="btn btn-lg btn-default" href="{{ path("member_organization_index") }}">Back</a>
+                <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
+                <a class="btn btn-lg btn-default" href="{{ path("member_organization_index") }}">View organization list &raquo;</a>
                 {% if is_granted('ROLE_ADMIN') and app.user.organization.id == organization.id %}
                 <a type="button" class="btn btn-lg btn-warning" href="{{ path("member_organization_picture_upload", {"id": organization.id}) }}">Change Picture</a>
                 <a type="button" class="btn btn-lg btn-primary" href="{{ path("member_organization_edit", {"id": organization.id}) }}">Edit Information</a>

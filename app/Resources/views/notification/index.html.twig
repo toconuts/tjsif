@@ -1,0 +1,50 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Notifications | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Notifications
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th {% if pagination.isSorted('u.id') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Member', 'u.id') }}
+                        </th>
+                        <th {% if pagination.isSorted('n.message') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Notification', 'n.message') }}
+                        </th>
+                        <th {% if pagination.isSorted('n.createdAt') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Time', 'n.createdAt') }}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notification in pagination %}
+                    <tr>
+                        <td><a href="{{ path("member_user_show", {"id": notification.createdBy.id}) }}">
+                                {% if notification.createdBy.picture %}
+                                <img class="img-thumbnail" src="{{ vich_uploader_asset(notification.createdBy.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+                                {% else %}
+                                <img class="img-thumbnail" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+                                {% endif %}
+                        </a></td>
+                        <td>{{ notification.createdBy.fullname }}</td>
+                        <td><a href="{{ notification.url }}">{{ notification.message }}</a></td>
+                        <td>[<em><time datetime="{{ notification.createdAt|date('c') }}">{{ notification.createdAt|created_ago }}</time></em>]</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- /.table -->
+        <div class="text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

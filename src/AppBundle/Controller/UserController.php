@@ -90,7 +90,7 @@ class UserController extends AbstractAppController
 
             $url = $this->generateUrl('member_user_show', array('id' => $user->getId()));
             
-            $this->log('Updated own profile.', Logger::NOTICE, $url);
+            $this->log('updated own profile.', Logger::NOTICE, $url);
             
             return $this->redirect($url);
         }

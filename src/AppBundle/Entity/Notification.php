@@ -47,6 +47,7 @@ class Notification
         
     /**
      * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\OrderBy("DESC")
      */
     private $createdAt;
 
