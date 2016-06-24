@@ -25,8 +25,18 @@ class BbsPostType extends AbstractType
                 ]
             ))
             ->add('tags', TextareaType::class, array(
+                'required' => false,
                 'attr' => [
                     'rows' => '1',
+                ]
+            ))
+            ->add('file', FileType::class, array(
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'class' => 'btn btn-lg btn-success',
+                    'title' => 'Add file',
+                    'data-filename-placement' => "inside",
                 ]
             ))
             ->add('imageFile', FileType::class, array(

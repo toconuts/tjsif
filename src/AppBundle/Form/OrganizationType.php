@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Organization;
-use AppBundle\Utils\ChoiceList\OrganizationForm;
+use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
 
 /**
  * Description of OrganizationType
@@ -54,7 +54,7 @@ class OrganizationType extends AbstractType
             ->add('homepage', UrlType::class)
             ->add('blog', UrlType::class)
             ->add('type', ChoiceType::class, array(
-                'choice_loader' => new OrganizationForm(),
+                'choice_loader' => new OrganizationChoiceLoader(),
             ))
         ;
     }

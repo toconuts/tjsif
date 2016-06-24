@@ -11,11 +11,12 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Attendance;
 
@@ -26,7 +27,7 @@ use AppBundle\Entity\Attendance;
  * 
  * @Route("/member/attendance")
  */
-class AttendanceController extends Controller
+class AttendanceController extends AbstractAppController
 {
     /**
      * @Route("/{id}", requirements = {"id" = "\d+"}, name="member_attendance_show")
@@ -34,13 +35,10 @@ class AttendanceController extends Controller
      */
     public function showAction(User $user)
     {
-        dump($user);
         $attendances = array(
             0 => $user->getAttendanceOfActivities(true),
             1 => $user->getAttendanceOfActivities(false),
         );
-        
-        dump($attendances);
         
         return $this->render(
             'attendance/show.html.twig', array(
@@ -66,6 +64,8 @@ class AttendanceController extends Controller
         $attendance->setStatus($status);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+        
+        $this->log('updated attendance status', Logger::INFO);
         
         return $this->redirectToRoute(
             'member_attendance_show', 

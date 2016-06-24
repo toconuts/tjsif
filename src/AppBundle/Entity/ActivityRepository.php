@@ -26,7 +26,7 @@ class ActivityRepository extends EntityRepository
             'SELECT a
             FROM AppBundle:Activity a
             ORDER BY a.starttime ASC,
-            a.endtime ASC');     
+            a.endtime ASC');
         return $query->getResult();
     }
     

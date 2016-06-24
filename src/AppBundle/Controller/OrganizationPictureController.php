@@ -11,10 +11,11 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\OrganizationPicture;
 use AppBundle\Form\UploadPictureType;
 use AppBundle\Entity\Organization;
@@ -26,7 +27,7 @@ use AppBundle\Entity\Organization;
  * 
  * @Route("/member/org")
  */
-class OrganizationPictureController extends Controller
+class OrganizationPictureController extends AbstractAppController
 {
     /**
      * @Route("/{id}/picture/upload", requirements = {"id" = "\d+"}, name="member_organization_picture_upload")
@@ -54,18 +55,16 @@ class OrganizationPictureController extends Controller
             }
             $em->flush();
             
-//TODO: Add Flash
+            $this->log('updated organization picture.', Logger::INFO);
 
-            return $this->redirectToRoute('member_organization_show',
-                array('id' => $organization->getId()));
+            return $this->redirectToRoute('member_organization_show', array(
+                'id' => $organization->getId()
+            ));
         }
         
-        return $this->render(
-            'organization/upload_picture.html.twig',
-            array(
-                'form' => $form->createView(),
-                'organization' => $organization
-                )
-            );
+        return $this->render('organization/upload_picture.html.twig', array(
+            'form' => $form->createView(),
+            'organization' => $organization
+        ));
     }
 }

@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use AppBundle\Utils\ChoiceList\Target;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 
 /**
  * Description of ActivityType
@@ -46,9 +46,15 @@ class ActivityType extends AbstractType
             ->add('endtime', TimeType::class, array(
                 'label' => 'End time *'
             ))
-            ->add('description', TextareaType::class)
-            ->add('target', ChoiceType::class, array(
-                'choice_loader' => new Target()
+            ->add('description', TextareaType::class, array(
+                'attr' => [
+                    'rows' => '5',
+                ]
+            ))
+            ->add('targets', ChoiceType::class, array(
+                'choice_loader' => new OccupationChoiceLoader(),
+                'multiple' => true,
+                'expanded' => true,
             ))
             ->add('isConfirm', ChoiceType::class, array(
                 'choices'  => array(

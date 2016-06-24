@@ -15,8 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Monolog\Logger;
 use AppBundle\Form\InvitationType;
 use AppBundle\Entity\Invitation;
+use AppBundle\Controller\AbstractAppController;
 
 /**
  * Description of InvitationController
@@ -25,7 +27,7 @@ use AppBundle\Entity\Invitation;
  * 
  * @Route("/member")
  */
-class InvitationController extends Controller
+class InvitationController extends AbstractAppController
 {    
     /**
      * @Route("/invitation", name="member_invitation")
@@ -33,35 +35,33 @@ class InvitationController extends Controller
      */
     public function inviteAction(Request $request)
     {
-        
         $invitation = new Invitation($this->getUser());
         
         $form = $this->createForm(InvitationType::class, $invitation);
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            dump('inviteAction isSubmitted');
             $rm = $this->get('app.registration_manager');            
             if ($rm->getUser($invitation->getEmail())) {
-                $this->addFlash(
-                    'error',
-                    'The invitation has already been sent to' . $invitation->getEmail()
-                );
-                $this->redirect('admin_invitation');
+
+                $this->log('This user has already registered', Logger::ERROR);
+                return $this->redirectToRoute('member_invitation');
             }
 
-            $rm->sendInvitation($invitation);
-            
-            $this->addFlash(
-                'success',
-                'Sent the invitation to ' . $invitation->getEmail()
-            );
+            try {
+                
+                $rm->sendInvitation($invitation);
+                $this->log('Sent the invitation to ' . $invitation->getEmail(), Logger::INFO);
+                return $this->redirectToRoute('member_invitation');
 
-            $this->redirect('admin_invitation');
+            } catch (\Exception $e) {
+                $this->log($e->getMessage(), Logger::ERROR);                
+            }
         }
         
-        return $this->render('invitation/invite.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->render('invitation/invite.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }

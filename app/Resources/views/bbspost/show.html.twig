@@ -8,7 +8,7 @@ BBS <small>- for free talk</small>
 
 {% block bbs_main %}
 <div class="col-xs-12">
-    <div class="date">{{ post.createdAt|date('F j, Y') }} at {{ post.createdAt|date('h:ia') }}</div>
+    <div class="date">{{ post.createdAt|date('M j') }} at {{ post.createdAt|date('h:ia') }}</div>
 </div>
 
 <div class="col-xs-12">
@@ -16,7 +16,7 @@ BBS <small>- for free talk</small>
         {{ post.title }}
         <div>
             {% if post.user.picture != null %}
-            <img class="img-circle" src="{{ vich_uploader_asset(user.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+            <img class="img-circle" src="{{ vich_uploader_asset(post.user.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
             {% else %}
             <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
             {% endif %}
@@ -34,6 +34,14 @@ BBS <small>- for free talk</small>
 </div>
 {% endif %}
 
+{% if post.filename %}
+<div class="col-xs-12 bbs-file">
+    <hr class="bbs-divider">
+    <p>{{ post.originalFilename }}</p>
+    <a href="{{ vich_uploader_asset(post, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ post.originalFilename }}" alt="Project picture">Download available</a>
+</div>
+{% endif %}
+
 <div class="col-xs-12">
     <div class="comments" id="comments">
         <div class="previous-comments">
@@ -46,10 +54,10 @@ BBS <small>- for free talk</small>
         </div>
     </div>
 </div>
-
 <div class="col-xs12">
     <div class="text-center">
-        <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
+        <a class="btn btn-lg btn-default" href="{{ path('member_bbs_index')}}#post-{{ post.id }}">Back</a>
     </div>
 </div>
+
 {% endblock %}

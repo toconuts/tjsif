@@ -69,6 +69,22 @@ class BbsComment
     private $imageName;
     
     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="project_file", fileNameProperty="filename")
+     * 
+     * @var File
+     */
+    private $file;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $filename;
+    
+    /**
      * @var BbsPost
      *
      * @ORM\ManyToOne(targetEntity="BbsPost", inversedBy="comments")
@@ -290,5 +306,78 @@ class BbsComment
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+    
+    /**
+     * Set filename
+     *
+     * @param string $filename
+     *
+     * @return Document
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+    
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Product
+     */
+    public function setFile(File $file = null)
+    {
+        $this->file = $file;
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+    
+    /**
+     * Get file
+     * 
+     * @return Project
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+     * Get original filename
+     * 
+     * Restore from filename renamed by namer "vich_uploader.namer_origname'
+     * 
+     * @return type
+     */
+    public function getOriginalFilename() {
+        
+        if (!$this->filename)
+            return null;
+        
+        return explode('_', $this->filename, 2)[1];
     }
 }

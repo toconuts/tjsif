@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     bbs.comments.latest_comment_limit: 20
+    sadmin_mails: [sadmin@example.com, toconuts@gmail.com, tjsif2016@gmail.com]
 
 framework:
     #esi:             ~
@@ -65,6 +66,31 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        dql:
+            datetime_functions:
+                date:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                time:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                timestamp:      Oro\ORM\Query\AST\Functions\SimpleFunction
+                convert_tz:     Oro\ORM\Query\AST\Functions\DateTime\ConvertTz
+            numeric_functions:
+                timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+                dayofyear:      Oro\ORM\Query\AST\Functions\SimpleFunction
+                dayofmonth:     Oro\ORM\Query\AST\Functions\SimpleFunction
+                dayofweek:      Oro\ORM\Query\AST\Functions\SimpleFunction
+                week:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                day:            Oro\ORM\Query\AST\Functions\SimpleFunction
+                hour:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                minute:         Oro\ORM\Query\AST\Functions\SimpleFunction
+                month:          Oro\ORM\Query\AST\Functions\SimpleFunction
+                quarter:        Oro\ORM\Query\AST\Functions\SimpleFunction
+                second:         Oro\ORM\Query\AST\Functions\SimpleFunction
+                year:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                sign:           Oro\ORM\Query\AST\Functions\Numeric\Sign
+                pow:            Oro\ORM\Query\AST\Functions\Numeric\Pow
+            string_functions:
+                group_concat:   Oro\ORM\Query\AST\Functions\String\GroupConcat
+                concat_ws:      Oro\ORM\Query\AST\Functions\String\ConcatWs
+                cast:           Oro\ORM\Query\AST\Functions\Cast
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -97,12 +123,17 @@ vich_uploader:
         project_file:
             uri_prefix:         /uploads/document/project
             upload_destination: %kernel.root_dir%/../web/uploads/document/project
-            namer:              vich_uploader.namer_uniqid
+            namer:              vich_uploader.namer_origname
 
         bbs_image:
             uri_prefix:         /uploads/bbs/image
             upload_destination: %kernel.root_dir%/../web/uploads/bbs/image
             namer:              vich_uploader.namer_uniqid
+
+        bbs_document:
+            uri_prefix:         /uploads/bbs/image
+            upload_destination: %kernel.root_dir%/../web/uploads/bbs/image
+            namer:              vich_uploader.namer_origname
 
 liip_imagine:
     resolvers:
@@ -133,3 +164,8 @@ stof_doctrine_extensions:
     orm:
         default:
             blameable: true
+
+# Knp Pagenator Configuration
+knp_paginator:
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

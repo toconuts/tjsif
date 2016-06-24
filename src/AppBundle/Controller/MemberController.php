@@ -34,10 +34,6 @@ class MemberController extends Controller
     public function indexAction()
     {
 //TODO: paesonary notification
-        /*$this->addFlash(
-                'danger',
-                'Conglats! After login, you can access TJ-SIF 2016 member\'s site.'
-        );*/
         
         return $this->render(
             'member/index.html.twig'

@@ -11,11 +11,7 @@
 
 {% block content %}
 <div class="container">
-{% for flash_message in app.session.flashBag.get('success') %}
-    <div class="flash-success">
-        {{ flash_message }}
-    </div>
-{% endfor %}
+{% include "components/member/flash_messages.html.twig" %}
 
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>

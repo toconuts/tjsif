@@ -19,7 +19,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\ProfilePicture;
 use AppBundle\Entity\Attendance;
 use AppBundle\Entity\Activity;
-use AppBundle\Utils\ChoiceList\Title;
+use AppBundle\Utils\ChoiceList\TitleChoiceLoader;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
+use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
 
 /**
  * Description of User
@@ -105,12 +107,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $tel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Job", inversedBy="users")
-     * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     * @ORM\Column(type="string", length=10)
      * @Assert\NotNull(groups={"registration"})
      */
-    private $job;
-
+    private $occupation;
+    
     /**
      * @ORM\ManyToOne(targetEntity="Organization", inversedBy="users")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
@@ -209,11 +210,6 @@ class User implements AdvancedUserInterface, \Serializable
     private $activationKey;
     
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $counter;
-    
-    /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -231,7 +227,6 @@ class User implements AdvancedUserInterface, \Serializable
         $this->projects = new ArrayCollection();
         $this->attendances = new ArrayCollection();
         $this->allergies = 'None';
-        $this->counter = 0;
     }
 
     /**
@@ -249,7 +244,7 @@ class User implements AdvancedUserInterface, \Serializable
     
     public function getFullnamewithTitle()
     {
-        $choices = (new Title())->getChoicesFliped();
+        $choices = (new TitleChoiceLoader())->getChoicesFliped();
         return $choices[$this->getTitle()] . " " . $this->firstname . " " . $this->lastname;
     }
     
@@ -610,30 +605,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function getOrganization()
     {
         return $this->organization;
-    }
-
-    /**
-     * Set job
-     *
-     * @param \AppBundle\Entity\Job $job
-     *
-     * @return User
-     */
-    public function setJob(\AppBundle\Entity\Job $job = null)
-    {
-        $this->job = $job;
-
-        return $this;
-    }
-
-    /**
-     * Get job
-     *
-     * @return \AppBundle\Entity\Job
-     */
-    public function getJob()
-    {
-        return $this->job;
     }
 
     /**
@@ -1174,18 +1145,6 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->attendances;
     }
     
-    /**
-     * Get fullname with job name (except student)
-     * 
-     * @return type
-     */
-    public function getFullnamewithJob()
-    {
-        return ($this->job->getId() == 1) ?
-            $this->getFullname() :
-            $this->getFullname() . ' - ' . $this->job->getName();
-    }
-    
     public function getAttendanceOfActivities($isOfficial)
     {
         $attendances = new ArrayCollection();
@@ -1219,40 +1178,51 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set counter
+     * Set occupation
      *
-     * @param integer $counter
+     * @param string $occupation
      *
      * @return User
      */
-    public function setCounter($counter)
+    public function setOccupation($occupation)
     {
-        $this->counter = $counter;
+        $this->occupation = $occupation;
 
         return $this;
     }
 
     /**
-     * Get counter
+     * Get occupation
      *
-     * @return integer
+     * @return string
      */
-    public function getCounter()
+    public function getOccupation()
     {
-        return $this->counter;
+        return $this->occupation;
     }
     
     /**
-     * Increment counter
+     * Get fullname with job name (except student)
      * 
-     * @return \AppBundle\Entity\User
+     * @return type
      */
-    public function incrementCounter()
+    public function getFullnamewithJob()
     {
-        if ($this->counter < 2147483647) {
-            $this->counter++;
+        $choices = (new OccupationChoiceLoader())->getChoicesFliped();
+        return ($this->occupation == 1) ?
+            $this->getFullname() :
+            $this->getFullname() . ' - ' . $choices[$this->occupation];
+    }
+    
+    public function getPossessivePronoun()
+    {
+        $possesive = 'his/her';
+        if ($this->gender == GenderChoiceLoader::GENDER_MALE_ID) {
+            $possesive = 'his';
+        } else if ($this->gender == GenderChoiceLoader::GENDER_FEMALE_ID) {
+            $possesive = 'her';
         }
         
-        return $this;
+        return $possesive;
     }
 }

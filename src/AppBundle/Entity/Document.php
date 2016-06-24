@@ -107,10 +107,10 @@ class Document
      */
     public function validate(ExecutionContextInterface $context)
     {
-        dump($this->type);
         if ($this->type == '1' || $this->type == '3') {
             if (!in_array($this->file->getMimeType(), array(
                 'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             ))) {
                 $context
                     ->buildViolation('Wrong file type (docx,doc)')
@@ -342,5 +342,20 @@ class Document
     public function getProject()
     {
         return $this->project;
+    }
+    
+    /**
+     * Get original filename
+     * 
+     * Restore from filename renamed by namer "vich_uploader.namer_origname'
+     * 
+     * @return type
+     */
+    public function getOriginalFilename() {
+        
+        if (!$this->filename)
+            return null;
+        
+        return explode('_', $this->filename, 2)[1];
     }
 }

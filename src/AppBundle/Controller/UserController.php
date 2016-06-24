@@ -11,13 +11,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
+use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 
 /**
  * Description of UserController
@@ -26,7 +30,7 @@ use AppBundle\Form\UserType;
  * 
  * @Route("/member/user")
  */
-class UserController extends Controller
+class UserController extends AbstractAppController
 {
     /**
      * @Route("", name="member_user_index")
@@ -36,12 +40,12 @@ class UserController extends Controller
         //$users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $users = $this->getDoctrine()->getRepository('AppBundle:User')
                     ->findUserSortedByOrganization();
-        dump($users);
-        return $this->render(
-            'user/index.html.twig',
-            //array('users' => $users)
-            array('memberlist' => $users)
-        );
+
+        return $this->render('user/index.html.twig', array(
+            'memberlist' => $users,
+            'occupationChoices'    => (new OccupationChoiceLoader())->getChoicesFliped(),
+            'accountChoices'    => (new AccountChoiceLoader())->getChoicesFliped(),
+        ));
     }
     
     /**
@@ -80,12 +84,15 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.role_manager')->updateRoles($user);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-//TODO: Add Flash Message
-            return $this->redirectToRoute('member_user_show',
-                array('id' => $user->getId()));
+            $url = $this->generateUrl('member_user_show', array('id' => $user->getId()));
+            
+            $this->log('updated own profile.', Logger::NOTICE, $url);
+            
+            return $this->redirect($url);
         }
         
         return $this->render(
@@ -98,12 +105,16 @@ class UserController extends Controller
      * @Route("/{id}/active", requirements = {"id" = "\d+"}, name="member_user_activate")
      * @Method({"ACTIVATE"})
      * @ParamConverter("user", class="AppBundle:User")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function activateAction(User $user)
     {
         $user->setIsActive(true);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+        
+        $this->log('activate user - ' . $user->getFullname() . '.', Logger::NOTICE,
+                $this->generateUrl('member_user_show', array('id' => $user->getId())));
         
         return $this->redirectToRoute('member_user_index');
     }
@@ -112,12 +123,16 @@ class UserController extends Controller
      * @Route("/{id}/inactive", requirements = {"id" = "\d+"}, name="member_user_inactivate")
      * @Method({"INACTIVATE"})
      * @ParamConverter("user", class="AppBundle:User")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function inactivateAction(User $user)
     {
         $user->setIsActive(false);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+        
+        $this->log('inactivate user - ' . $user->getFullname() . '.', Logger::NOTICE,
+                $this->generateUrl('member_user_show', array('id' => $user->getId())));
         
         return $this->redirectToRoute('member_user_index');
     }
@@ -126,6 +141,7 @@ class UserController extends Controller
      * @Route("/{id}/delete", requirements = {"id" = "\d+"}, name="member_user_delete")
      * @Method({"DELETE"})
      * @ParamConverter("user", class="AppBundle:User")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
      */
     public function deleteAction(User $user)
     {

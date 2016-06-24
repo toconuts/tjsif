@@ -96,11 +96,6 @@ body {
   color: #F48A00;
 }
 
-.bbs a {
-  text-decoration: none;
-  color: #F48A00;
-}
-
 .bbs .col-lg-4 p {
   margin-right: 10px;
   margin-left: 10px;
@@ -160,13 +155,18 @@ body {
   color: #F48A00;
 }
 
+/*
 .bbs .panel-body a {
   color: #FFF
 }
 
-.bbs .btn-default {
+.bbs .panel-body .btn-default {
   color: #333
 }
+
+.bbs .btn-default {
+  color: #333
+}*/
 
 /* BBS sidebar
 -------------------------- */

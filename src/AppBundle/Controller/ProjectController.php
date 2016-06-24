@@ -11,18 +11,21 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectBaseType;
 use AppBundle\Form\ProjectType;
 use AppBundle\Entity\Document;
 use AppBundle\Form\UploadDocumentType;
-use AppBundle\Utils\ChoiceList\DocumentType;
+use AppBundle\Utils\ChoiceList\DocumentChoiceLoader;
+use AppBundle\Utils\ChoiceList\TopicChoiceLoader;
+use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
 
 /**
  * Description of ProjectController
@@ -31,18 +34,30 @@ use AppBundle\Utils\ChoiceList\DocumentType;
  * 
  * @Route("/member/project")
  */
-class ProjectController extends Controller
+class ProjectController extends AbstractAppController
 {
     /**
      * @Route("", name="member_project_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
-        return $this->render(
-            'project/index.html.twig',
-            array('projects' => $projects)
+        $dql   = "SELECT p FROM AppBundle:Project p INNER JOIN p.organization o ORDER BY p.updatedAt DESC";
+        
+        $em    = $this->getDoctrine()->getManager();
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            Project::NUM_ITEMS // limit per page
         );
+        
+        return $this->render('project/index.html.twig', array(
+            'pagination' => $pagination,
+            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+            'presentationChoices' => (new PresentationChoiceLoader())->getChoicesFliped(),
+        ));
     }
     
     /**
@@ -54,13 +69,15 @@ class ProjectController extends Controller
         $form = $this->createForm(ProjectBaseType::class, $project, array(
             'disabled' => true
         ));
-        $documentTypes = (new DocumentType())->getChoicesFliped();
+        
+        $documentChoices = (new DocumentChoiceLoader())->getChoicesFliped();
+        
         return $this->render('project/show.html.twig', array(
                 'project' => $project,
                 'form' => $form->createView(),
                 'students' => $project->getProjectMember(true),
                 'teachers' => $project->getProjectMember(false),
-                'documentTypes' =>$documentTypes,
+                'documentChoices' =>$documentChoices,
         ));
     }
     
@@ -84,22 +101,22 @@ class ProjectController extends Controller
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($project->getUsers());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);
             $em->flush();
+            
+            $url = $this->generateUrl('member_project_show', array('id' => $project->getId()));
+            
+            $this->log('created new project - ' . $project->getName() . '.', Logger::NOTICE, $url);
 
-            return $this->redirectToRoute('member_project_show',
-                array('id' => $project->getId()));
+            return $this->redirect($url);
         }
         
-        return $this->render(
-            'project/new.html.twig',
-            array(
-                'organizations' => $organizations,
-                'form' => $form->createView()
-            )
-        );
+        return $this->render('project/new.html.twig', array(
+            'organizations' => $organizations,
+            'form' => $form->createView()
+        ));
     }
     
     /**
@@ -131,22 +148,22 @@ class ProjectController extends Controller
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($project->getOrganization());
+            
             $em = $this->getDoctrine()->getManager();
-            //$em->persist($project);
             $em->flush();
 
-            return $this->redirectToRoute('member_project_show',
-                array('id' => $project->getId()));
+            $url = $this->generateUrl('member_project_show', array('id' => $project->getId()));
+            
+            $this->log('updated project ' . $project->getName() . '.', Logger::NOTICE, $url);
+            
+            return $this->redirect($url);
         }
         
-        return $this->render(
-            'project/edit.html.twig',
-            array(
-                'project' => $project,
-                'organizations' => $organizations,
-                'form' => $form->createView())
-        );
+        return $this->render('project/edit.html.twig', array(
+            'project' => $project,
+            'organizations' => $organizations,
+            'form' => $form->createView()
+        ));
     }
     
     /**
@@ -160,6 +177,9 @@ class ProjectController extends Controller
         $project->setIsActive(true);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+        
+        $this->log('activate project - ' . $project->getName() . '.', Logger::NOTICE,
+                $this->generateUrl('member_project_show', array('id' => $project->getId())));
         
         return $this->redirectToRoute('member_project_index');
     }
@@ -177,6 +197,9 @@ class ProjectController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
+        $this->log('inactivate project - ' . $project->getName() . '.', Logger::NOTICE,
+                $this->generateUrl('member_project_show', array('id' => $project->getId())));
+        
         return $this->redirectToRoute('member_project_index');
     }
     
@@ -193,7 +216,6 @@ class ProjectController extends Controller
             $document->setProject($project);
             $document->setType($type);
         }
-        dump($document);
         
         $form = $this->createForm(UploadDocumentType::class, $document);
         $form->handleRequest($request);
@@ -202,17 +224,18 @@ class ProjectController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
-            dump($document);
+            
+            $this->log('File upload completed.', Logger::INFO);
+            
             return $this->redirectToRoute('member_project_show',
                 array('id' => $project->getId()));
         }
         
-        $documentTypeName = (new DocumentType())->getChoicesFliped()[$type];
-        return $this->render(
-            'project/upload_document.html.twig', array(
-                'form' => $form->createView(),
-                'project' => $project,
-                'documentTypeName' => $documentTypeName,
+        $documentChoice = (new DocumentChoiceLoader())->getChoicesFliped()[$type];
+        return $this->render('project/upload_document.html.twig', array(
+            'form' => $form->createView(),
+            'project' => $project,
+            'documentChoice' => $documentChoice,
         ));
     }
 }

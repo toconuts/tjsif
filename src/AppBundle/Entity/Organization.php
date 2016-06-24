@@ -16,7 +16,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
-use AppBundle\Utils\ChoiceList\AccountType;
 
 /**
  * Organization
@@ -31,6 +30,8 @@ use AppBundle\Utils\ChoiceList\AccountType;
  */
 class Organization
 {
+    const NUM_ITEMS = 12;
+    
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -181,11 +182,6 @@ class Organization
      */
     private $picture;
     
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $counter;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -193,7 +189,6 @@ class Organization
         $this->sisters = new ArrayCollection();
         $this->sistersWithMe = new ArrayCollection();
         $this->isActive = true;
-        $this->counter = 0;
     }
 
     /**
@@ -815,42 +810,5 @@ class Organization
     {
         return $this->picture;
     }
-    
-    /**
-     * Set counter
-     *
-     * @param integer $counter
-     *
-     * @return Project
-     */
-    public function setCounter($counter)
-    {
-        $this->counter = $counter;
 
-        return $this;
-    }
-
-    /**
-     * Get counter
-     *
-     * @return integer
-     */
-    public function getCounter()
-    {
-        return $this->counter;
-    }
-    
-    /**
-     * Increment counter
-     * 
-     * @return \AppBundle\Entity\User
-     */
-    public function incrementCounter()
-    {
-        if ($this->counter < 2147483647) {
-            $this->counter++;
-        }
-        
-        return $this;
-    }
 }

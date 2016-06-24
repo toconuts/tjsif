@@ -130,20 +130,21 @@ Project <small>- {{ project.name }}</small>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for type, name in documentTypes %}
+                    {% for type, name in documentChoices %}
                     {% set find = false %}
                     {% for document in project.documents %}
                     {% if not find and document.type == type %}
                     {% set find = true %}
                     <tr>
                         <td>{{ name }}</td>
-                        <td>{{ document.updatedAt|date("Y-m-d H:i") }}</td>
+                        <td><time datetime="{{ document.updatedAt|date('c') }}">{{ document.updatedAt|date("M j") }}</time></td>
                         <td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ (name|split(' ')|first) ~ '_' ~ (project.organization.shortname) ~ '.' ~ (document.filename|split('.')|last) }}">Download</a></td>
+                        {#<td><a href="{{ vich_uploader_asset(document, 'file') }}" class="btn btn-lg btn-default pull-right" download="{{ document.originalFilename }}">Download</a></td>#}
                         {% if is_granted('ROLE_SUPER_ADMIN') or 
                              (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
-                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></div>
+                        <td><a type="button" class="btn btn-lg btn-warning" href="{{ path("member_project_document_upload", {"id": project.id, "type": type}) }}">Upload file</a></td>
                         {% else %}
-                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></div>
+                        <td><a type="button" class="btn btn-lg btn-warning disabled" href="#">Upload file</a></td>
                         {% endif %}
                     </tr>
                     {% endif %}
