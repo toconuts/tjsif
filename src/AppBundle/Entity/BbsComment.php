@@ -33,6 +33,7 @@ use AppBundle\Entity\User;
  */
 class BbsComment
 {
+    const NUM_LATEST_ITEMS = 20;
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

@@ -1,0 +1,22 @@
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">
+            <div class="featurette-heading-title">Introduce a member!</div>
+            <span class="text-muted">{{ user.fullnameWithTitle }}</span>
+        </h2>
+        {% if user.occupation == 32 %}
+        <p class="lead">{{ user.organization.name }}</p>
+        {% else %}
+        <p class="lead">{{ occupationChoices[user.occupation] }} in {{ user.organization.name }}</p>
+        {% endif %}
+        <p>{{ user.aboutMe }}</p>
+        <p><a class="btn btn-default" href="{{ path('member_user_show', { 'id': user.id }) }}" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-5">
+        {% if user.picture != null %}
+        <img class="featurette-image img-responsive center-block" src="{{ vich_uploader_asset(user.picture, 'imageFile') }}" alt="Profile picture">
+        {% else %}
+        <img class="featurette-image img-responsive center-block" src="{{ asset('template/user/initial_user.png') }}" alt="Profile picture">
+        {% endif %}
+    </div>
+</div>

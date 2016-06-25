@@ -20,6 +20,8 @@ use Monolog\Logger;
 use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Form\ChangePasswordType;
+use AppBundle\Form\Model\ChangePassword;
 use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 
@@ -37,7 +39,6 @@ class UserController extends AbstractAppController
      */
     public function indexAction()
     {
-        //$users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $users = $this->getDoctrine()->getRepository('AppBundle:User')
                     ->findUserSortedByOrganization();
 
@@ -95,9 +96,8 @@ class UserController extends AbstractAppController
             return $this->redirect($url);
         }
         
-        return $this->render(
-            'user/edit.html.twig',
-            array('form' => $form->createView())
+        return $this->render('user/edit.html.twig', array(
+            'form' => $form->createView())
         );
     }
     
@@ -151,5 +151,49 @@ class UserController extends AbstractAppController
         $em->flush();
         
         return $this->redirectToRoute('member_user_index');
+    }
+    
+    /**
+     * @Route("/{id}/changepassword", requirements = {"id" = "\d+"}, name="member_user_changepassword")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function changePasswdAction(Request $request, User $user)
+    {
+        $changePasswordModel = new ChangePassword();
+        $form = $this->createForm(ChangePasswordType::class, $changePasswordModel);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $encoder = $this->get('security.password_encoder');
+            $password = $encoder->encodePassword($user, $changePasswordModel->getNewPassword());
+            $user->setPassword($password);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            
+            $url = $this->generateUrl('member_user_show', array('id' => $user->getId()));
+
+            $this->log('updated your password', Logger::INFO, $url);
+
+            return $this->redirect($url);
+        }
+
+        return $this->render('user/change_password.html.twig', array(
+            'form' => $form->createView())
+        );
+    }
+    
+    public function toppageAction()
+    {
+        $users = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:User')
+                ->findBy(array('isActive' => true));
+
+        return $this->render('components/member/user_toppage.html.twig', array(
+            'user' => $users[mt_rand(0, count($users)-1)],
+            'occupationChoices' => (new OccupationChoiceLoader())->getChoicesFliped(),
+        ));
     }
 }

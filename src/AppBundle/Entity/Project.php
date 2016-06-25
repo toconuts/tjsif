@@ -232,9 +232,13 @@ class Project
      *
      * @return string
      */
-    public function getObjective()
+    public function getObjective($length = null)
     {
-        return $this->objective;
+        if (false === is_null($length) && $length > 0) {
+            return substr($this->objective, 0, $length);
+        } else {
+            return $this->objective;
+        }
     }
 
     /**

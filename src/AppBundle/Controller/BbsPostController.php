@@ -34,12 +34,22 @@ class BbsPostController extends AbstractAppController
     /**
      * @Route("", name="member_bbs_index")
      */
-    public function indexAction()
-    {
-        $posts = $this->getDoctrine()->getManager()->getRepository('AppBundle:BbsPost')->getLatestPost();
+    public function indexAction(Request $request)
+    {   
+        $dql   = "SELECT p FROM AppBundle:BbsPost p ORDER BY p.id DESC";
+        
+        $em    = $this->getDoctrine()->getManager();
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            BbsPost::NUM_ITEMS // limit per page
+        );
         
         return $this->render('bbspost/index.html.twig',array(
-            'posts' => $posts,
+            'pagination' => $pagination,
         ));
     }
     
@@ -125,15 +135,23 @@ class BbsPostController extends AbstractAppController
         $tagWeights = $em->getRepository('AppBundle:BbsPost')
                          ->getTagWeights($tags);
         
-        $commentLimit   = $this->container
-                           ->getParameter('bbs.comments.latest_comment_limit');
-        
         $latestComments = $em->getRepository('AppBundle:BbsComment')
-                         ->getLatestComments($commentLimit);
+                         ->getLatestComments(BbsComment::NUM_LATEST_ITEMS);
 
         return $this->render('components/member/bbs_sidebar.html.twig', array(
             'tags' => $tagWeights,
             'latestComments' => $latestComments,
+        ));
+    }
+    
+    public function toppageAction()
+    {
+        $posts = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:BbsPost')
+                ->getLatestPost(BbsPost::NUM_LATEST_ITEMS);
+
+        return $this->render('components/member/bbspost_toppage.html.twig', array(
+            'posts' => $posts,
         ));
     }
 }

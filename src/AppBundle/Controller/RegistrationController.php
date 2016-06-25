@@ -57,6 +57,9 @@ class RegistrationController extends AbstractAppController
             if ($rm->isChangedEmail($user, $invitation)) {
                 $session = $request->getSession();
                 $session->set('registration/user', $user);
+                
+                $this->log('Please verify your email address. We\'ve sent an email to ' . $user->getEmail(), Logger::INFO);
+                
                 return $this->redirectToRoute('user_confirm');
             }
 

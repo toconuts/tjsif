@@ -238,4 +238,16 @@ class ProjectController extends AbstractAppController
             'documentChoice' => $documentChoice,
         ));
     }
+    
+    public function toppageAction()
+    {
+        $project = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:Project')
+                ->findBy(array('isActive' => true));
+
+        return $this->render('components/member/project_toppage.html.twig', array(
+            'project' => $project[mt_rand(0, count($project)-1)],
+            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+        ));
+    }
 }

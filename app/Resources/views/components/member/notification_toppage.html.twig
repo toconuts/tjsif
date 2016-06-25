@@ -1,0 +1,37 @@
+<div class="list-group">
+    {% for notification in notifications %}
+    <a href="{{ notification.url }}" class="list-group-item">
+        <div class="media">
+            <div class="media-left">
+                {% if notification.createdBy.picture != null %}
+                <img class="img-circle" src="{{ vich_uploader_asset(notification.createdBy.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+                {% else %}
+                <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
+                {% endif %}
+            </div>
+            <div class="media-body">
+                 <h4 class="media-heading">{{ notification.createdBy.fullname }}</h4>
+                 <p class="list-group-item-text">{{ notification.message(100) }}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+    
+{# --- another version ---
+<div class="list-group">
+    {% for notification in notifications %}
+    <a href="{{ notification.url }}" class="list-group-item">
+        <h4 class="list-group-item-heading">
+            {% if notification.createdBy.picture != null %}
+            <img class="img-circle" src="{{ vich_uploader_asset(notification.createdBy.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+            {% else %}
+            <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
+            {% endif %}
+            {{ notification.createdBy.fullname }}
+        </h4>
+        <p class="list-group-item-text">{{ notification.message(100) }}</p>
+    </a>
+    {% endfor %}
+</div>
+#}

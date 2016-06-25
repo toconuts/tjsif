@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use AppBundle\Entity\Organization;
 use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
 
@@ -38,7 +39,7 @@ class OrganizationType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('shortname', TextType::class, array(
-                'label' => 'shortname (<=25)'
+                'label' => 'shortname (less than 25)'
             ))
             ->add('address1', TextType::class)
             ->add('address2', TextType::class)
@@ -55,6 +56,12 @@ class OrganizationType extends AbstractType
             ->add('blog', UrlType::class)
             ->add('type', ChoiceType::class, array(
                 'choice_loader' => new OrganizationChoiceLoader(),
+            ))
+            ->add('about_me', TextareaType::class, array(
+                'label' => 'About (less than 255)',
+                'attr' => [
+                    'rows' => '10',
+                ]
             ))
         ;
     }

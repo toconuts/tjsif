@@ -101,27 +101,22 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* User & Attendance: Calculate profile completeness
+* Nav header: Change Active
+* Nav header: Place vertically center Sign in button
+* ICon: Make good one
+* Organization: FAX Add @Assert\Regex()
 * Activity: Delete. note: delete all attendances from all user
-* Organization: Check Fax validation
-* Invitation: Add label "username is just used in the invitation mail” 
-* User: Use max integer value from parameter
-* Default: Introduction page and select method
-* All: Flash message when user into attendance and new activities with confirm is added
-* ALL: in edit page, display updated at and updated by
-* add placeholder to all form type
-* Calc Profile completeness
-* Place vertically center Sign in button in the navbar.
-* Implement What's new -> notification
-* Implement History -> activities
-* Implement Log
-* Change password
+* FormType: In edit page, display updated at and updated by
+* FormType: Add placeholder to all form type
+* BBSRepository: modify query for order if post has been commented or change to latest post and comment
 * Error page 404
-
 * Add more comments in the code
 * Create tests
 
 #Guide line#
 Carousel Image Size: 1024 x 576 (16:9 PALt)
+Update Picture Size: 500 x 500 (except BBS)
 
 http://jsfiddle.net/opengl_8080/2ZC24/show/
 

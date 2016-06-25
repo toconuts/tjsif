@@ -83,6 +83,10 @@ body {
   letter-spacing: -1px;
 }
 
+.featurette-heading-title {
+  color: #F48A00;
+}
+
 /* BBS
 -------------------------- */
 
@@ -249,9 +253,9 @@ body {
     font-size: 50px
   }
 }
-
+/*
 @media (min-width: 992px) {
   .featurette-heading {
     margin-top: 120px;
   }
-}
+}*/

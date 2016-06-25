@@ -1,0 +1,19 @@
+<div class="row featurette">
+    <div class="col-md-7 col-md-push-5">
+        <h2 class="featurette-heading">
+            <div class="featurette-heading-title">Introduce a project!</div>
+            <span class="text-muted">{{ project.name }}</span>
+        </h2>
+        <p class="lead">{{ project.organization.name }}</p>
+        <P>Topid: {{ topicChoices[project.topic] }}</p>
+        <p>Objective: {{ project.objective(250) }}</p>
+        <p><a class="btn btn-default" href="{{ path('member_project_show', { 'id': project.id }) }}" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-5 col-md-pull-7">
+        {% if project.picture != null %}
+        <img class="featurette-image img-responsive center-block" src="{{ vich_uploader_asset(project.picture, 'imageFile') }}" alt="Project picture">
+        {% else %}
+        <img class="featurette-image img-responsive center-block" src="{{ asset('template/project/initial_project.png') }}" alt="Project picture">
+        {% endif %}
+    </div>
+</div>

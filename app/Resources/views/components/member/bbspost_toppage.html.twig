@@ -1,0 +1,21 @@
+<div class="toppage-post">
+    {% for post in posts %}
+    <a href="">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {% if post.user.picture != null %}
+                <img class="img-circle" src="{{ vich_uploader_asset(post.user.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Profile picture" />
+                {% else %}
+                <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
+                {% endif %}
+                {{ post.user.fullname }}<span class="text-muted"> {{ post.title }}</span>
+            </h3>
+        </div>
+        <div class="panel-body">
+        {{ post.content(250) }}
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+</div>

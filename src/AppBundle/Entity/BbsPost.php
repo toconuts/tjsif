@@ -33,6 +33,8 @@ use AppBundle\Entity\BbsComment;
 class BbsPost
 {
     const NUM_ITEMS = 10;
+    
+    const NUM_LATEST_ITEMS = 5;
             
     /**
      * @ORM\Column(type="integer")

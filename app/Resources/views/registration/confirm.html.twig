@@ -1,15 +1,19 @@
-{% extends "layout_member.html.twig" %}
+{% extends "layout_simple.html.twig" %}
+
+{% block title %}Confirm your mail{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets 'css/signin.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
+<div class="well well-lg">
+    <h2><small>Welcome to</small><br />TJ-SIF 2016 Official Member Site</h2>
     <p>An account registration request has been sent to {{ user.email }}</p>
-    
     <p>Click the link in the message to activate your account.</p>
-    </div>
-
-    <div class="row">
-        Question? Contact tjsif2016@gmail.com
-    </div>
+    <em>Question? Contact tjsif2016@gmail.com</em>
 </div>
 {% endblock %}

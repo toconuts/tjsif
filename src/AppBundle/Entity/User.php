@@ -56,7 +56,11 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @Assert\NotBlank(groups={"registration"})
-     * @Assert\Length(max=4096, groups={"registration"})
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 4096,
+     *      minMessage = "Password should by at least 6 chars long",
+     *      groups={"registration"})
      */
     private $plainPassword;
 
