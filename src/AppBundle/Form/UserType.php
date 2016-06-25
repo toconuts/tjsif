@@ -83,12 +83,6 @@ class UserType extends AbstractType
                 'placeholder' => 'Choose your occupation',
                 'label' => 'Occupation *',
             ))
-            /*->add('job', EntityType::class, array(
-                'class' => 'AppBundle:Job',
-                'disabled' => true,
-                'choice_label' => 'name',
-                'placeholder' => 'Choose your job',
-            ))*/
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
                 'choice_label' => 'name',

@@ -125,6 +125,11 @@ class Organization
     private $blog;
     
     /**
+     * @ORM\Column(name="about_me", type="string", length=255, nullable=true)
+     */
+    private $aboutMe;
+    
+    /**
      * @ORM\Column(type="string", length=10)
      * @Assert\NotNull()
      */
@@ -811,4 +816,28 @@ class Organization
         return $this->picture;
     }
 
+
+    /**
+     * Set aboutMe
+     *
+     * @param string $aboutMe
+     *
+     * @return Organization
+     */
+    public function setAboutMe($aboutMe)
+    {
+        $this->aboutMe = $aboutMe;
+
+        return $this;
+    }
+
+    /**
+     * Get aboutMe
+     *
+     * @return string
+     */
+    public function getAboutMe()
+    {
+        return $this->aboutMe;
+    }
 }

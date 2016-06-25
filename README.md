@@ -101,20 +101,18 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Activity: Delete. note: delete all attendances from all user
-* Organization: Check Fax validation
-* Invitation: Add label "username is just used in the invitation mail” 
-* User: Use max integer value from parameter
+* Notification: Add index method for Default media in Custom content on member top page
+* Thumbnail: Change xs size from 40x40 to 64x64?
+* User: Change password
+* User & Attendance: Calculate profile completeness
 * Default: Introduction page and select method
-* All: Flash message when user into attendance and new activities with confirm is added
-* ALL: in edit page, display updated at and updated by
-* add placeholder to all form type
-* Calc Profile completeness
-* Place vertically center Sign in button in the navbar.
-* Implement What's new -> notification
-* Implement History -> activities
-* Implement Log
-* Change password
+* Organization: Check Fax validation
+* ICon: Make good one
+* Activity: Delete. note: delete all attendances from all user
+* FormType: In edit page, display updated at and updated by
+* FormType: Add placeholder to all form type
+* Place vertically center Sign in button in the navbar
+* Flash: Personal Information when log in
 * Error page 404
 
 * Add more comments in the code
