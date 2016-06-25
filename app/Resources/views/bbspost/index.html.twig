@@ -11,7 +11,8 @@ BBS <small>- for free talk</small>
     {{ render(controller('AppBundle:BbsPost:new')) }}
 </div>
 <hr class="bbs-divider">
-{% for post in posts %}
+
+{% for post in pagination %}
 <div class="col-xs-12" id="post-{{ post.id }}">
     <div class="date">{{ post.createdAt|date('M j') }} at {{ post.createdAt|date('h:ia') }}</div>
 </div>
@@ -55,4 +56,7 @@ BBS <small>- for free talk</small>
 </div>
 <hr class="bbs-divider">
 {% endfor %}
+<div class="text-center">
+    {{ knp_pagination_render(pagination) }}
+</div>
 {% endblock %}

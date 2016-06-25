@@ -101,7 +101,6 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* BBSPost: Add pagination
 * User & Attendance: Calculate profile completeness
 * Nav header: Change Active
 * Nav header: Place vertically center Sign in button
@@ -117,6 +116,7 @@ $kernel = new AppKernel('prod', false);
 
 #Guide line#
 Carousel Image Size: 1024 x 576 (16:9 PALt)
+Update Picture Size: 500 x 500 (except BBS)
 
 http://jsfiddle.net/opengl_8080/2ZC24/show/
 
