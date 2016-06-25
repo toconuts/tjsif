@@ -107,6 +107,7 @@ $kernel = new AppKernel('prod', false);
 * Default: Introduction page and select method
 * Organization: Check Fax validation
 * ICon: Make good one
+* Organization: Add @Assert\Regex()
 * Activity: Delete. note: delete all attendances from all user
 * FormType: In edit page, display updated at and updated by
 * FormType: Add placeholder to all form type

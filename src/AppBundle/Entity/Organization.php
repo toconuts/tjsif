@@ -102,7 +102,6 @@ class Organization
     
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
-     * @Assert\Regex(pattern="/^\d+(-\d+)*$/")
      */
     private $fax;
     
