@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 {% block body %}
+ <div class="container">
     {% include "components/member/flash_messages.html.twig" %}
     {% block content %}{% endblock %}
+</div> <!-- /container -->
 {% endblock %}
