@@ -19,13 +19,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Description of Notification
  *
  * @author toconuts <toconuts@gmail.com>
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\NotificationRepository")
  * @ORM\Table(name="notification")
  * @ORM\HasLifecycleCallbacks()
  */
 class Notification
 {
     const NUM_ITEMS = 50;
+    
+    const NUM_LATEST_ITEMS = 15;
     
     /**
      * @ORM\Column(type="integer")
@@ -179,10 +181,15 @@ class Notification
      *
      * @return string
      */
-    public function getMessage()
+    public function getMessage($length)
     {
-        return $this->message;
+        if (false === is_null($length) && $length > 0) {
+            return substr($this->message, 0, $length);
+        } else {
+            return $this->message;
+        }
     }
+
 
     /**
      * Set url

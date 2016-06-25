@@ -101,6 +101,8 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
+* BBSRepository: modify query for order if post has been commented or change to latest post and comment
+* BBSPost: Add pagination
 * Notification: Add index method for Default media in Custom content on member top page
 * Thumbnail: Change xs size from 40x40 to 64x64?
 * User & Attendance: Calculate profile completeness

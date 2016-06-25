@@ -15,9 +15,8 @@ class BbsPostRepository extends \Doctrine\ORM\EntityRepository
     public function getLatestPost($limit = BbsPost::NUM_ITEMS)
     {
         $qb = $this->createQueryBuilder('b')
-                   ->select('b, c')
-                   ->leftJoin('b.comments', 'c')
-                   ->addOrderBy('b.updatedAt', 'DESC');
+                   ->select('b')
+                   ->addOrderBy('b.id', 'DESC');
 
         if (false === is_null($limit))
             $qb->setMaxResults($limit);

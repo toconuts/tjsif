@@ -52,4 +52,14 @@ class NotificationController extends AbstractAppController
         ));
     }
     
+    public function toppageAction()
+    {
+        $notifications = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:Notification')
+                ->getLatestNotifications(Notification::NUM_LATEST_ITEMS);
+
+        return $this->render('components/member/notification_toppage.html.twig', array(
+            'notifications' => $notifications,
+        ));
+    }
 }

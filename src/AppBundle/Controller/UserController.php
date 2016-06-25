@@ -175,7 +175,7 @@ class UserController extends AbstractAppController
             
             $url = $this->generateUrl('member_user_show', array('id' => $user->getId()));
 
-            $this->log('updated your password', Logger::NOTICE, $url);
+            $this->log('updated your password', Logger::INFO, $url);
 
             return $this->redirect($url);
         }

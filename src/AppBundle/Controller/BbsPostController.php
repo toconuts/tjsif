@@ -37,7 +37,7 @@ class BbsPostController extends AbstractAppController
     public function indexAction()
     {
         $posts = $this->getDoctrine()->getManager()->getRepository('AppBundle:BbsPost')->getLatestPost();
-        
+
         return $this->render('bbspost/index.html.twig',array(
             'posts' => $posts,
         ));
@@ -125,15 +125,23 @@ class BbsPostController extends AbstractAppController
         $tagWeights = $em->getRepository('AppBundle:BbsPost')
                          ->getTagWeights($tags);
         
-        $commentLimit   = $this->container
-                           ->getParameter('bbs.comments.latest_comment_limit');
-        
         $latestComments = $em->getRepository('AppBundle:BbsComment')
-                         ->getLatestComments($commentLimit);
+                         ->getLatestComments(BbsComment::NUM_LATEST_ITEMS);
 
         return $this->render('components/member/bbs_sidebar.html.twig', array(
             'tags' => $tagWeights,
             'latestComments' => $latestComments,
+        ));
+    }
+    
+    public function toppageAction()
+    {
+        $posts = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:BbsPost')
+                ->getLatestPost(BbsPost::NUM_LATEST_ITEMS);
+
+        return $this->render('components/member/bbspost_toppage.html.twig', array(
+            'posts' => $posts,
         ));
     }
 }
