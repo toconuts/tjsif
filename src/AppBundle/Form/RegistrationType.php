@@ -92,12 +92,6 @@ class RegistrationType extends AbstractType
                 'placeholder' => 'Choose your occupation',
                 'label' => 'Occupation *',
             ))
-            /*->add('job', EntityType::class, array(
-                'class' => 'AppBundle:Job',
-                'choice_label' => 'name',
-                'placeholder' => 'Choose your job',
-                'label' => 'Job *',
-            ))*/
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
                 'choice_label' => 'name',
@@ -106,10 +100,9 @@ class RegistrationType extends AbstractType
             ->add('position', TextType::class)
             ->add('about_me', TextareaType::class, array(
                 'label' => 'About me (less than 255)',
-            ))
-            ->add('termsAccepted', CheckboxType::class, array(
-                'mapped' => false,
-                'constraints' => new IsTrue(),
+                'attr' => [
+                    'rows' => '5',
+                ]
             ))
         ;
     }

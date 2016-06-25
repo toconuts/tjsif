@@ -103,7 +103,6 @@ $kernel = new AppKernel('prod', false);
 #TODO LIST#
 * Notification: Add index method for Default media in Custom content on member top page
 * Thumbnail: Change xs size from 40x40 to 64x64?
-* User: Change password
 * User & Attendance: Calculate profile completeness
 * Default: Introduction page and select method
 * Organization: Check Fax validation
@@ -112,7 +111,6 @@ $kernel = new AppKernel('prod', false);
 * FormType: In edit page, display updated at and updated by
 * FormType: Add placeholder to all form type
 * Place vertically center Sign in button in the navbar
-* Flash: Personal Information when log in
 * Error page 404
 
 * Add more comments in the code
