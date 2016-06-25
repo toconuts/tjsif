@@ -101,22 +101,17 @@ $kernel = new AppKernel('prod', false);
     php bin/console cache:clear --env=prod
 
 #TODO LIST#
-* Nav header: Change Active
-* BBSRepository: modify query for order if post has been commented or change to latest post and comment
 * BBSPost: Add pagination
-* Notification: Add index method for Default media in Custom content on member top page
-* Thumbnail: Change xs size from 40x40 to 64x64?
 * User & Attendance: Calculate profile completeness
-* Default: Introduction page and select method
-* Organization: Check Fax validation
+* Nav header: Change Active
+* Nav header: Place vertically center Sign in button
 * ICon: Make good one
-* Organization: Add @Assert\Regex()
+* Organization: FAX Add @Assert\Regex()
 * Activity: Delete. note: delete all attendances from all user
 * FormType: In edit page, display updated at and updated by
 * FormType: Add placeholder to all form type
-* Place vertically center Sign in button in the navbar
+* BBSRepository: modify query for order if post has been commented or change to latest post and comment
 * Error page 404
-
 * Add more comments in the code
 * Create tests
 

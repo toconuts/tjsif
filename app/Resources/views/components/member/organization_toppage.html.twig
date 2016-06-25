@@ -1,0 +1,22 @@
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">
+            <div class="featurette-heading-title">Introduce a school!</div>
+            <span class="text-muted">{{ organization.name }}</span>
+        </h2>
+        {% if organization.type == 5 %}
+        <p class="lead">{{ organization.name }}</p>
+        {% else %}
+        <p class="lead">{{ organization.name }} [{{ organizationChoices[organization.type] }}]</p>
+        {% endif %}
+        <p>{{ organization.aboutMe }}</p>
+        <p><a class="btn btn-default" href="{{ path('member_organization_show', { 'id': organization.id }) }}" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-5">
+        {% if organization.picture != null %}
+        <img class="featurette-image img-responsive center-block" src="{{ vich_uploader_asset(organization.picture, 'imageFile') }}" alt="Profile picture">
+        {% else %}
+        <img class="featurette-image img-responsive center-block" src="{{ asset('template/organization/initial_organization.png') }}" alt="Profile picture">
+        {% endif %}
+    </div>
+</div>
