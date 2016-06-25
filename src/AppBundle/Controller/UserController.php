@@ -184,4 +184,16 @@ class UserController extends AbstractAppController
             'form' => $form->createView())
         );
     }
+    
+    public function toppageAction()
+    {
+        $users = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:User')
+                ->findBy(array('isActive' => true));
+
+        return $this->render('components/member/user_toppage.html.twig', array(
+            'user' => $users[mt_rand(0, count($users)-1)],
+            'occupationChoices' => (new OccupationChoiceLoader())->getChoicesFliped(),
+        ));
+    }
 }
