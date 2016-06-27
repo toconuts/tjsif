@@ -11,7 +11,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ path("member_index") }}">Home</a></li>
+                <li><a href="{{ path("member_index") }}">Home</a></li>
                 <li><a href="{{ path("member_user_show", {"id": app.user.id}) }}">Profile</a></li>
                 <li><a href="{{ path("member_attendance_show", {"id": app.user.id}) }}">Attendance</a></li>
                 <li><a href="{{ path("member_bbs_index") }}">BBS</a></li>
@@ -23,7 +23,7 @@
                         <li><a href="{{ path("member_user_index") }}">Members</a></li>
                         <li><a href="{{ path("member_organization_index") }}">Organization</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{{ path("member_statistics_index") }}">Statistics</a></li>
+                        <li><a href="">Statistics</a></li>
                         <li><a href="{{ path("member_notification_index") }}">Notifications</a></li>
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <li role="separator" class="divider"></li>

@@ -73,7 +73,11 @@ class UserType extends AbstractType
             ->add('zip', TextType::class)
             ->add('homepage', UrlType::class)
             ->add('blog', UrlType::class)
-            ->add('allergies', TextareaType::class)
+            ->add('allergies', TextareaType::class, array(
+                'attr' => [
+                    'placeholder' => 'Please speficy, if any',
+                ]
+            ))
             ->add('type', ChoiceType::class, array(
                 'choice_loader' => new AccountChoiceLoader(),
             ))

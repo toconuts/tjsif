@@ -22,6 +22,7 @@ use AppBundle\Entity\Activity;
 use AppBundle\Utils\ChoiceList\TitleChoiceLoader;
 use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
+use AppBundle\Utils\ChoiceList\AttendanceChoiceLoader;
 
 /**
  * Description of User
@@ -1111,8 +1112,36 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function getProfileCompleteness()
     {
-//TODO: calc profile completeness
-        return 50;
+        return round($this->getCompletenessScoreInAttendance()  * 0.3 +
+                     $this->getCompletenessScoreInUser()        * 0.7);
+    }
+    
+    protected function getCompletenessScoreInUser()
+    {
+        $score = 100;
+        if (!$this->picture)    $score = $score - 30;
+        if (!$this->aboutMe)    $score = $score - 20;
+        if (!$this->city)       $score = $score - 10;
+        if (!$this->province)   $score = $score - 10;
+        if (!$this->country)    $score = $score - 10;
+        if (!$this->zip)        $score = $score - 10;
+        
+        return $score;
+    }
+    
+    protected function getCompletenessScoreInAttendance()
+    {
+        if (0 == count($this->attendances)) {
+            return 100;
+        }
+        
+        $count = 0;
+        foreach ($this->attendances as $attendance) {
+            if (AttendanceChoiceLoader::ATTENDANCE_MAYBE_VALUE !== $attendance->getStatus()) {
+                $count++;
+            }
+        }
+        return round($count / count($this->attendances) * 100);
     }
 
     /**
