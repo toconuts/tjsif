@@ -93,12 +93,28 @@ To generate the missing getter and setter methods:
 ### Load fixtures
     php bin/console doctrine:fixtures:load
 
-Deploy
+Deployment
 ----------------------------------
-`web/app.php`
+
+Post-Deployment Tasks
+----------------------------------
+### Check Requirements
+    php bin/symfony_requirements
+
+### Configure `app/config/parameters.yml`
+
+### Configure `web/app.php`
 $kernel = new AppKernel('prod', false);
 
-    php bin/console cache:clear --env=prod
+### Install/Update Vendors
+    composer install --no-dev --optimize-autoloader
+
+### Clear Symfony Cache
+    php bin/console cache:clear --env=prod --no-debug
+
+### Dump Assetic Assets
+    php bin/console assetic:dump --env=prod --no-debug
+
 
 #TODO LIST#
 Required:
