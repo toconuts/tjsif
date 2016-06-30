@@ -181,7 +181,7 @@ class Notification
      *
      * @return string
      */
-    public function getMessage($length)
+    public function getMessage($length = null)
     {
         if (false === is_null($length) && $length > 0) {
             return substr($this->message, 0, $length);

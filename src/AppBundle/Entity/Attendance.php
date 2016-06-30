@@ -44,7 +44,7 @@ class Attendance
     private $activity;
     
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $status;
     
@@ -62,7 +62,7 @@ class Attendance
     {
         $this->user = $user;
         $this->activity = $activity;
-        $this->status = '0';
+        $this->status = null;
     }
 
 
@@ -74,30 +74,6 @@ class Attendance
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set isAttend
-     *
-     * @param boolean $isAttend
-     *
-     * @return Attendance
-     */
-    public function setIsAttend($isAttend)
-    {
-        $this->isAttend = $isAttend;
-
-        return $this;
-    }
-
-    /**
-     * Get isAttend
-     *
-     * @return boolean
-     */
-    public function getIsAttend()
-    {
-        return $this->isAttend;
     }
 
     /**

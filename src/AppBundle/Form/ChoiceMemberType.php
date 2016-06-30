@@ -39,20 +39,6 @@ class ChoiceMemberType extends AbstractType
                 'expanded'      => true,
                 'multiple'      => true
             ));
-            /*->add('users', EntityType::class, array(
-            //    ->add('users', \Symfony\Component\Form\Extension\Core\Type\CollectionType::class, array(
-                //'class' => 'AppBundle:User',
-                'class' => $options,
-                'choice_label' => 'fullname',
-                'multiple' => true,
-                'expanded' => true,
-            ))*/
-            /*->add('student', ChoiceType::class, array(
-                'choices' => $options,
-                'multiple' => true,
-                'expanded' => true,
-                'choices_as_values' => true,
-            ))*/
         ;
     }
     
@@ -62,8 +48,7 @@ class ChoiceMemberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            //users' => false,
-            //'data_class' => 'AppBundle\Entity\User',
+
         ));
     }
     

@@ -1,4 +1,4 @@
-<h2 class="sub-header">Don’t be a stranger</h2>
+{% if app.user.profileCompleteness != 100 %}<h2 class="sub-header">Don’t be a stranger</h2>{% endif %}
 <div class="pofile-picture">
    <a href="{{ path("member_user_show", {"id": app.user.id}) }}">
     {% if app.user.picture %}

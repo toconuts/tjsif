@@ -93,21 +93,38 @@ To generate the missing getter and setter methods:
 ### Load fixtures
     php bin/console doctrine:fixtures:load
 
-Deploy
+Deployment
 ----------------------------------
-`web/app.php`
+
+Post-Deployment Tasks
+----------------------------------
+### Check Requirements
+    php bin/symfony_requirements
+
+### Configure `app/config/parameters.yml`
+
+### Configure `web/app.php`
 $kernel = new AppKernel('prod', false);
 
-    php bin/console cache:clear --env=prod
+### Install/Update Vendors
+    composer install --no-dev --optimize-autoloader
+
+### Clear Symfony Cache
+    php bin/console cache:clear --env=prod --no-debug
+
+### Dump Assetic Assets
+    php bin/console assetic:dump --env=prod --no-debug
+
 
 #TODO LIST#
-* User & Attendance: Calculate profile completeness
-* Nav header: Change Active
-* Nav header: Place vertically center Sign in button
+Required:
 * ICon: Make good one
+
+
+Possible:
 * Organization: FAX Add @Assert\Regex()
-* Activity: Delete. note: delete all attendances from all user
-* FormType: In edit page, display updated at and updated by
+* Activity: Delete for sadmin. note: delete all attendances from all user
+* FormType: In show page, display updated at and updated by (with change view don't user Formtype version)
 * FormType: Add placeholder to all form type
 * BBSRepository: modify query for order if post has been commented or change to latest post and comment
 * Error page 404
@@ -115,8 +132,8 @@ $kernel = new AppKernel('prod', false);
 * Create tests
 
 #Guide line#
-Carousel Image Size: 1024 x 576 (16:9 PALt)
-Update Picture Size: 500 x 500 (except BBS)
+* Carousel Image Size: 1024 x 576 (16:9 PALt)
+* Update Picture Size: 500 x 500 (except BBS)
 
 http://jsfiddle.net/opengl_8080/2ZC24/show/
 
