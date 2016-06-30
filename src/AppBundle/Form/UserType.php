@@ -45,6 +45,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('about_me', TextareaType::class, array(
+                'label' => 'About me (less than 255)',
+                'attr' => [
+                    'rows' => '5',
+                ]
+            ))
             ->add('title', ChoiceType::class, array(
                 'choice_loader' => new TitleChoiceLoader()
             ))
@@ -55,6 +61,7 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class, array(
                 'label' => 'Lastname*',
             ))
+            ->add('nickname', TextType::class)
             ->add('gender', ChoiceType::class, array(
                 'choice_loader' => new GenderChoiceLoader(),
                 'expanded' => true,
@@ -92,12 +99,6 @@ class UserType extends AbstractType
                 'choice_label' => 'name',
             ))
             ->add('position', TextType::class)
-            ->add('about_me', TextareaType::class, array(
-                'label' => 'About me (less than 255)',
-                'attr' => [
-                    'rows' => '10',
-                ]
-            ))
         ;
     }
     

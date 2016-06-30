@@ -101,6 +101,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $lastname;
     
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $nickname;
+    
+    /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $gender;
@@ -1257,5 +1262,29 @@ class User implements AdvancedUserInterface, \Serializable
         }
         
         return $possesive;
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     *
+     * @return User
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
     }
 }
