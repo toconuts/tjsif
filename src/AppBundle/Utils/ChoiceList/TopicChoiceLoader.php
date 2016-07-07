@@ -20,24 +20,17 @@ use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
  */
 class TopicChoiceLoader extends AbstractChoiceLoader
 {
-    const TITLE_APPLICATION     = 'Application / Software';
-    const TITLE_ROBOTICS        = 'Robotics / Hardware';
-    const TITLE_IOT             = 'Internet of Thing (IoT)';
+    const TOPIC_APPLICATION     = 'Application / Software';
+    const TOPIC_ROBOTICS        = 'Robotics / Hardware';
+    const TOPIC_IOT             = 'Internet of Thing (IoT)';
     
-    const TITLE_APPLICATION_ID  = '1';
-    const TITLE_ROBOTICS_ID     = '2';
-    const TITLE_IOT_ID          = '3';
+    const TOPIC_APPLICATION_ID  = '1';
+    const TOPIC_ROBOTICS_ID     = '2';
+    const TOPIC_IOT_ID          = '3';
     
     protected $choices = array(
-        self::TITLE_APPLICATION => self::TITLE_APPLICATION_ID,
-        self::TITLE_ROBOTICS    => self::TITLE_ROBOTICS_ID,
-        self::TITLE_IOT         => self::TITLE_IOT_ID,
+        self::TOPIC_APPLICATION => self::TOPIC_APPLICATION_ID,
+        self::TOPIC_ROBOTICS    => self::TOPIC_ROBOTICS_ID,
+        self::TOPIC_IOT         => self::TOPIC_IOT_ID,
     );
-
-    /*protected $choices =
-    [
-        'Application / Software'    => '1',
-        'Robotics / Hardware'       => '2',
-        'Internet of Thing (IoT)'   => '3',
-    ];*/
 }

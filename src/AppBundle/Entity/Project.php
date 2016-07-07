@@ -14,7 +14,7 @@ use AppBundle\Entity\ProjectPicture;
  * @author toconuts <toconuts@gmail.com>
  * 
  * @ORM\Table(name="project")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProjectRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Project 
@@ -45,10 +45,14 @@ class Project
     private $objective;
     
     /**
-     * @ORM\Column(type="string", length=10)
-     * @Assert\NotNull()
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $topic;
+    
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $category;
     
     /**
      * @ORM\Column(type="string", length=10)
@@ -504,5 +508,29 @@ class Project
                 return $document;
         }
         return null;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return Project
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

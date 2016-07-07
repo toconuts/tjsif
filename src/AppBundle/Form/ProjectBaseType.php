@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Utils\ChoiceList\TopicChoiceLoader;
+use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
 use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
 
 /**
@@ -41,9 +41,9 @@ class ProjectBaseType extends AbstractType
                 ]
             ))
             ->add('objective', TextareaType::class)
-            ->add('topic', ChoiceType::class, array(
-                'choice_loader' => new TopicChoiceLoader(),
-                'placeholder' => 'Choose topic of project',
+            ->add('category', ChoiceType::class, array(
+                'choice_loader' => new CategoryChoiceLoader(),
+                'placeholder' => 'Choose category of project',
             ))
             ->add('style', CHoiceType::class, array(
                 'choice_loader' => new PresentationChoiceLoader(),

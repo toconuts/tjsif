@@ -25,8 +25,8 @@ Project list
                         <th {% if pagination.isSorted('p.name') %} class="sorted" {% endif %}>
                             {{ knp_pagination_sortable(pagination, 'Name', 'p.name') }}
                         </th>
-                        <th {% if pagination.isSorted('p.topic') %} class="sorted" {% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Topic', 'p.topic') }}
+                        <th {% if pagination.isSorted('p.category') %} class="sorted" {% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Category', 'p.category') }}
                         </th>
                         <th {% if pagination.isSorted('p.style') %} class="sorted" {% endif %}>
                             {{ knp_pagination_sortable(pagination, 'Style', 'p.style') }}
@@ -53,7 +53,7 @@ Project list
                             {% endif %}
                         </td>
                         <td><a href="{{ path("member_project_show", {"id": project.id}) }}">{{ project.name }}</a></td>
-                        <td>{{ topicChoices[project.topic] }}</td>
+                        <td>{{ categoryChoices[project.category] }}</td>
                         <td>{{ presentationChoices[project.style] }}</td>
                         <td>{{ project.organization.name }}</td>
                         <td>{% if project.isActive %}

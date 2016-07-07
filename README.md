@@ -119,7 +119,7 @@ $kernel = new AppKernel('prod', false);
 #TODO LIST#
 Required:
 * ICon: Make good one
-
+* Add static tooltip on form create and edit
 
 Possible:
 * Organization: FAX Add @Assert\Regex()

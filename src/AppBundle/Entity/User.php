@@ -1242,7 +1242,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get fullname with job name (except student)
      * 
-     * @return type
+     * @return string
      */
     public function getFullnamewithJob()
     {
@@ -1250,6 +1250,17 @@ class User implements AdvancedUserInterface, \Serializable
         return ($this->occupation == 1) ?
             $this->getFullname() :
             $this->getFullname() . ' - ' . $choices[$this->occupation];
+    }
+    
+    /**
+     * Get fullname with job name (except student)
+     * 
+     * @return string
+     */
+    public function getFullnameWithTitleAndJob()
+    {
+        $choices = (new TitleChoiceLoader())->getChoicesFliped();
+        return $choices[$this->getTitle()] . " " . $this->getFullnamewithJob();
     }
     
     public function getPossessivePronoun()

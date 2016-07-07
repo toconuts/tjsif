@@ -24,7 +24,7 @@ use AppBundle\Form\ProjectType;
 use AppBundle\Entity\Document;
 use AppBundle\Form\UploadDocumentType;
 use AppBundle\Utils\ChoiceList\DocumentChoiceLoader;
-use AppBundle\Utils\ChoiceList\TopicChoiceLoader;
+use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
 use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
 
 /**
@@ -55,7 +55,7 @@ class ProjectController extends AbstractAppController
         
         return $this->render('project/index.html.twig', array(
             'pagination' => $pagination,
-            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+            'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
             'presentationChoices' => (new PresentationChoiceLoader())->getChoicesFliped(),
         ));
     }
@@ -247,7 +247,22 @@ class ProjectController extends AbstractAppController
 
         return $this->render('components/member/project_toppage.html.twig', array(
             'project' => $project[mt_rand(0, count($project)-1)],
-            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+            'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
+        ));
+    }
+    
+    public function defaultpageAction()
+    {
+        $projects = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:project')
+                ->findAllSortedCategory();
+        
+        dump($projects);
+        
+        // TODO: section project category move to new html.twig like section_project_pickup.html.twig
+        return $this->render('components/section_projects.html.twig', array(
+            'projects' => $projects,
+            'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
         ));
     }
 }
