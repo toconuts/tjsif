@@ -254,12 +254,9 @@ class ProjectController extends AbstractAppController
     public function defaultpageAction()
     {
         $projects = $this->getDoctrine()->getManager()
-                ->getRepository('AppBundle:project')
+                ->getRepository('AppBundle:Project')
                 ->findAllSortedCategory();
         
-        dump($projects);
-        
-        // TODO: section project category move to new html.twig like section_project_pickup.html.twig
         return $this->render('components/section_projects.html.twig', array(
             'projects' => $projects,
             'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
