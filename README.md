@@ -118,6 +118,7 @@ $kernel = new AppKernel('prod', false);
 
 #TODO LIST#
 Required:
+* Add school type i.e. 12PCSHS, sister in type or sister in japan to Project.
 * ICon: Make good one
 * Add static tooltip on form create and edit
 

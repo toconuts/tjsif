@@ -19,14 +19,12 @@
                     {% for project in project_list %}
                     <div class="media">
                         <div class="media-left media-middle">
-                            {#<a href="#">#}
                             <button type="button" data-toggle="modal" data-target="#project_detail_{{ project.id }}">
                                 {% if project.picture %}
                                 <img class="media-object img-rounded" src="{{ vich_uploader_asset(project.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Project picture">
                                 {% else %}
                                 <img class="media-object img-rounded" src="{{ asset('template/project/initial_project.png')|imagine_filter('thumbnail_xs') }}" alt="Project picture">
                                 {% endif %}
-                            {#</a>#}
                             </button>
                         </div>
                         <div class="media-body">
