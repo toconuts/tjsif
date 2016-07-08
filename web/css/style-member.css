@@ -1,16 +1,4 @@
 /*
- * This file is part of the TJ-SIF 2016 project.
- *
- * (c) toconuts <toconuts@google.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *//* 
-    Created on : Jun 5, 2016, 9:33:16 PM
-    Author     : toconuts <toconuts@gmail.com>
-*/
-
-/*
  * Base structure
  */
 body { 
@@ -30,61 +18,6 @@ body {
 .prifile-picture-md {
     width: 100px;
     height: 100px;
-}
-
-/*
- * Footer
- */
-
-.footer {
-  background-color: #222;
-  color: #808080;
-  margin-top: 50px;
-  /*text-align: center;*/
-  /*position: absolute;*/
-  /*bottom: 0;*/
-  /*width: 100%;*/
-  /* Set the fixed height of the footer here */
-  /*height: 100px;*/
-}
-
-.footer h4 {
-  text-transform: uppercase;
-  color: #fff;
-}
-
-/* MARKETING CONTENT
--------------------------------------------------- */
-
-/* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-.marketing h2 {
-  font-weight: normal;
-}
-.marketing .col-lg-4 p {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-/* Featurettes
-------------------------- */
-
-.featurette-divider {
-  margin: 80px 0; /* Space out the Bootstrap <hr> more */
-}
-
-/* Thin out the marketing headings */
-.featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-.featurette-heading-title {
-  color: #F48A00;
 }
 
 /* BBS
@@ -158,19 +91,6 @@ body {
 .bbs span.highlight {
   color: #F48A00;
 }
-
-/*
-.bbs .panel-body a {
-  color: #FFF
-}
-
-.bbs .panel-body .btn-default {
-  color: #333
-}
-
-.bbs .btn-default {
-  color: #333
-}*/
 
 /* BBS sidebar
 -------------------------- */
@@ -253,10 +173,3 @@ body {
     font-size: 50px
   }
 }
-
-/*
-@media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
-}*/
