@@ -60,10 +60,13 @@ class RoleManager
         $user = $this->grantRoleUser($user);        
         
         // ROLE_POWER_USER
-        if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_THEOTHER_ID &&
-            $user->getOrganization()->getType() != OrganizationChoiceLoader::ORGANIZATION_FORM_HIGH_SCHOOL_ID) {
+        if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_THEOTHER_ID) {
+            if ($user->getOrganization()->getType() != OrganizationChoiceLoader::ORGANIZATION_FORM_12_PCSHS_ID &&
+                $user->getOrganization()->getType() != OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID &&
+                $user->getOrganization()->getType() != OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID) {
             
-            $user = $this->grantRolePowerUser($user);
+                $user = $this->grantRolePowerUser($user);
+            }
         }
         
         // ROLE_ADMIN

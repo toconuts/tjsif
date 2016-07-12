@@ -36,7 +36,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project1->setObjective('The standard Lorem Ipsum passage, used since the 1500s');
         $project1->setCategory(CategoryChoiceLoader::CATEGORY_AGRICULTURE_ID);
         $project1->setStyle(PresentationChoiceLoader::PRESENTATION_ORAL_ID);
-        $project1->setOrganization($this->getReference('org-8'));
+        $project1->setOrganization($this->getReference('org-1-08'));
         $project1 = $this->setUsers($project1, array('user-super-admin'));
         $project1->setIsActive(true);
         $manager->persist($project1);
@@ -47,7 +47,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project2->setObjective('Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC');
         $project2->setCategory(CategoryChoiceLoader::CATEGORY_HEALTHCARE_ID);
         $project2->setStyle(PresentationChoiceLoader::PRESENTATION_POSTER_ID);
-        $project2->setOrganization($this->getReference('org-8'));
+        $project2->setOrganization($this->getReference('org-1-08'));
         $project2 = $this->setUsers($project2, array('user-super-admin', 'user-user'));
         $project2->setIsActive(true);
         $manager->persist($project2);
@@ -58,7 +58,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project3->setObjective('Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC');
         $project3->setCategory(CategoryChoiceLoader::CATEGORY_EDUCATION_ID);
         $project3->setStyle(PresentationChoiceLoader::PRESENTATION_ORAL_ID);
-        $project3->setOrganization($this->getReference('org-8'));
+        $project3->setOrganization($this->getReference('org-1-08'));
         $project3 = $this->setUsers($project3, array('user-super-admin', 'user-user'));
         $project3->setIsActive(true);
         $manager->persist($project3);
@@ -69,7 +69,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project4->setObjective('Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC');
         $project4->setCategory(CategoryChoiceLoader::CATEGORY_SERVICES_ID);
         $project4->setStyle(PresentationChoiceLoader::PRESENTATION_POSTER_ID);
-        $project4->setOrganization($this->getReference('org-8'));
+        $project4->setOrganization($this->getReference('org-1-08'));
         $project4 = $this->setUsers($project4, array('user-super-admin', 'user-admin', 'user-user'));
         $project4->setIsActive(false);
         $manager->persist($project4);
@@ -80,7 +80,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project5->setObjective('The standard Lorem Ipsum passage, used since the 1500s');
         $project5->setCategory(CategoryChoiceLoader::CATEGORY_ENTERTAINMENT_AND_GAMES_ID);
         $project5->setStyle(PresentationChoiceLoader::PRESENTATION_ORAL_ID);
-        $project5->setOrganization($this->getReference('org-1'));
+        $project5->setOrganization($this->getReference('org-1-01'));
         $project5 = $this->setUsers($project5, array('user-student'));
         $project5->setIsActive(true);
         $manager->persist($project5);
@@ -91,7 +91,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project6->setObjective('Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC');
         $project6->setCategory(CategoryChoiceLoader::CATEGORY_HOUSEHOLD_ACTIVITIES_ID);
         $project6->setStyle(PresentationChoiceLoader::PRESENTATION_POSTER_ID);
-        $project6->setOrganization($this->getReference('org-1'));
+        $project6->setOrganization($this->getReference('org-1-01'));
         $project6 = $this->setUsers($project6, array('user-student', 'user-teacher'));
         $project6->setIsActive(true);
         $manager->persist($project6);
@@ -102,7 +102,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project7->setObjective('Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC');
         $project7->setCategory(CategoryChoiceLoader::CATEGORY_GENERAL_ACTIVITIES_ID);
         $project7->setStyle(PresentationChoiceLoader::PRESENTATION_ORAL_ID);
-        $project7->setOrganization($this->getReference('org-1'));
+        $project7->setOrganization($this->getReference('org-1-01'));
         $project7 = $this->setUsers($project7, array('user-student', 'user-deputy', 'user-director'));
         $project7->setIsActive(true);
         $manager->persist($project7);
@@ -113,7 +113,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $project8->setObjective('Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC');
         $project8->setCategory(CategoryChoiceLoader::CATEGORY_AGRICULTURE_ID);
         $project8->setStyle(PresentationChoiceLoader::PRESENTATION_POSTER_ID);
-        $project8->setOrganization($this->getReference('org-1'));
+        $project8->setOrganization($this->getReference('org-1-01'));
         $project8 = $this->setUsers($project8, array('user-student', 'user-theother'));
         $project8->setIsActive(false);
         $manager->persist($project8);
