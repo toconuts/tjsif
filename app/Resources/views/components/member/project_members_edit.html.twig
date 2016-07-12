@@ -21,7 +21,7 @@
                             {% for child in form.users.children %}
                             {% set index = child.vars.value %}{# get array index #}
                             {% set entity = form.users.vars.choices[index].data %}{# get entity object #}
-                            {% if entity.occupation == 1 and entity.organization.id == organization.id %}
+                            {% if entity.occupation == constant('AppBundle\\Utils\\ChoiceList\\OccupationChoiceLoader::OCCUPATION_STUDENT_ID') and entity.organization.id == organization.id %}
                             {{ form_widget(child) }}
                             {% endif %}
                             {% endfor %}
@@ -54,7 +54,7 @@
                             {% for child in form.users.children %}
                             {% set index = child.vars.value %}{# get array index #}
                             {% set entity = form.users.vars.choices[index].data %}{# get entity object #}
-                            {% if entity.occupation != 1 and entity.organization.id == organization.id %}
+                            {% if entity.occupation != constant('AppBundle\\Utils\\ChoiceList\\OccupationChoiceLoader::OCCUPATION_STUDENT_ID') and entity.organization.id == organization.id %}
                             {{ form_widget(child) }}
                             {% endif %}
                             {% endfor %}

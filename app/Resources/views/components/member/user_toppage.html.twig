@@ -4,7 +4,7 @@
             <div class="featurette-heading-title">Introduce a member!</div>
             <span class="text-muted">{{ user.fullnameWithTitle }}</span>
         </h2>
-        {% if user.occupation == 32 %}
+        {% if user.occupation == constant('AppBundle\\Utils\\ChoiceList\\OccupationChoiceLoader::OCCUPATION_THEOTHER_ID') %}
         <p class="lead">{{ user.organization.name }}</p>
         {% else %}
         <p class="lead">{{ occupationChoices[user.occupation] }} in {{ user.organization.name }}</p>

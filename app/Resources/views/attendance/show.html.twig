@@ -41,14 +41,14 @@ Attendance  <small>- {{ user.getFullname }}</small>
                         <td>{{ attendance.activity.starttime|date("H:i")}}</td>
                         <td>{{ attendance.activity.endtime|date("H:i")}}</td>
                         <td><a href="{{ path("member_activity_show", {"id": attendance.activity.id}) }}">{{ attendance.activity.name }}</a></td>
-                        <td>{% if attendance.status == 1 %}
+                        <td>{% if attendance.status == constant('AppBundle\\Utils\\ChoiceList\\AttendanceChoiceLoader::ATTENDANCE_YES_VALUE') %}
                             <form action="{{ path('member_attendance_status', {id: attendance.id}) }}" method="POST">
                                 <div class="btn-group" role="group" aria-label="...">
                                     <input type="submit" name="Attendance_no" class="btn btn-default" value="No" {% if app.user.id != user.id %}disabled{% endif %} />
                                     <input type="submit" name="Attendance_yes" class="btn btn-primary" value="Yes" disabled />
                                 </div>
                             </form>
-                            {% elseif attendance.status == 2 %}
+                            {% elseif attendance.status == constant('AppBundle\\Utils\\ChoiceList\\AttendanceChoiceLoader::ATTENDANCE_NO_VALUE') %}
                             <form action="{{ path('member_attendance_status', {id: attendance.id}) }}" method="POST" disabled>
                                 <div class="btn-group" role="group" aria-label="...">
                                     <input type="submit" name="Attendance_no" class="btn btn-primary" value="No" disabled/>

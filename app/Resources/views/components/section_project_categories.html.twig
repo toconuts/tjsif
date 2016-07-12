@@ -46,7 +46,7 @@
                                     <h4>Students' names:</h4>
                                     {% set number = 1 %}
                                     {% for user in project.users %}
-                                        {% if user.occupation == '1' %}
+                                        {% if user.occupation == constant('AppBundle\\Utils\\ChoiceList\\OccupationChoiceLoader::OCCUPATION_STUDENT_ID') %}
                                         <p><span class="text-muted">{{ number }}. {{ user.getFullnameWithTitleAndJob }}</span></p>
                                         {% set number = number + 1 %}
                                         {% endif %}
@@ -54,7 +54,7 @@
                                     <h4>Teachers' names:</h4>
                                     {% set number = 1 %}
                                     {% for user in project.users %}
-                                        {% if user.occupation != '1' %}
+                                        {% if user.occupation != constant('AppBundle\\Utils\\ChoiceList\\OccupationChoiceLoader::OCCUPATION_STUDENT_ID') %}
                                         <p><span class="text-muted">{{ number }}. {{ user.getFullnameWithTitleAndJob }}</span></p>
                                         {% set number = number + 1 %}
                                         {% endif %}
