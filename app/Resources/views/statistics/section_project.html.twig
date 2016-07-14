@@ -2,7 +2,7 @@
     <div class="container">
         <h2>Project status</h2>
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>School</th>
@@ -13,6 +13,7 @@
                         <th>Entertainment and Games</th>
                         <th>Household</th>
                         <th>General Activities</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,7 @@
                         <td>{{ organization[5] }}</td>
                         <td>{{ organization[6] }}</td>
                         <td>{{ organization[7] }}</td>
+                        <td>{{ organization[1] + organization[2] + organization[3] + organization[4] + organization[5] + organization[6] + organization[7]  }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -2,7 +2,7 @@
     <div class="container">
         <h2>Registration status</h2>
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -12,23 +12,24 @@
                         <th>Director</th>
                         <th>JOCV</th>
                         <th>The others</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for organization in registrationList %}
                     <tr>
                         <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
-{#                        <td>{{ organization.students.count() }}</td>
-                        <td>{{ organization.teachers.count() }}</td>
-                        <td>{{ organization.deputies.count() }}</td>
-                        <td>{{ organization.directors.count() }}</td>
-                        <td>{{ organization.JOCVs.count() }}</td>
-                        <td>{{ organization.theOthers.count() }}</td>#}
+                        <td>{{ organization[1] }}</td>
+                        <td>{{ organization[2] }}</td>
+                        <td>{{ organization[3] }}</td>
+                        <td>{{ organization[4] }}</td>
+                        <td>{{ organization[5] }}</td>
+                        <td>{{ organization[6] }}</td>
+                        <td>{{ organization[1] + organization[2] + organization[3] + organization[4] + organization[5] + organization[6]  }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div><!-- /.table -->
-
     </div><!-- /.container -->
 </section>
