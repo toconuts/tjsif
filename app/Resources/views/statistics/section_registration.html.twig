@@ -1,0 +1,34 @@
+<section id="statistics-registration" class="statistics-registration">
+    <div class="container">
+        <h2>Registration status</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Students</th>
+                        <th>Teachers</th>
+                        <th>Deputies</th>
+                        <th>Director</th>
+                        <th>JOCV</th>
+                        <th>The others</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for organization in registrationList %}
+                    <tr>
+                        <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
+{#                        <td>{{ organization.students.count() }}</td>
+                        <td>{{ organization.teachers.count() }}</td>
+                        <td>{{ organization.deputies.count() }}</td>
+                        <td>{{ organization.directors.count() }}</td>
+                        <td>{{ organization.JOCVs.count() }}</td>
+                        <td>{{ organization.theOthers.count() }}</td>#}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- /.table -->
+
+    </div><!-- /.container -->
+</section>

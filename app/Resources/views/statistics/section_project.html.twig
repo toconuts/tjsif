@@ -1,0 +1,35 @@
+<section id="statistics-registration" class="statistics-registration">
+    <div class="container">
+        <h2>Project status</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>School</th>
+                        <th>Agriculture</th>
+                        <th>Healthcare</th>
+                        <th>Education</th>
+                        <th>Services</th>
+                        <th>Entertainment and Games</th>
+                        <th>Household</th>
+                        <th>General Activities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for organization in projectList %}
+                    <tr>
+                        <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
+                        <td>{{ organization[1] }}</td>
+                        <td>{{ organization[2] }}</td>
+                        <td>{{ organization[3] }}</td>
+                        <td>{{ organization[4] }}</td>
+                        <td>{{ organization[5] }}</td>
+                        <td>{{ organization[6] }}</td>
+                        <td>{{ organization[7] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- /.table -->
+    </div><!-- /.container -->
+</section>

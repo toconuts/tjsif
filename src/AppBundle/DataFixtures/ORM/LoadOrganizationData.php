@@ -329,7 +329,7 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org_4_01->setCity('Lat Krabang');
         $org_4_01->setProvince('Bangkok');
         $org_4_01->setCountry(self::TH);
-        $org_4_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
+        $org_4_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_UNIVERSITY_ID);
         $org_4_01 = $this->setSysters($org_4_01, array());
         $manager->persist($org_4_01);
         $this->addReference('org-4-01', $org_4_01);
