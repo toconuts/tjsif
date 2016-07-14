@@ -261,11 +261,9 @@ class ProjectController extends AbstractAppController
         
         $sm = $this->get('app.statistics_manager');
         
-        $projectStatics = $sm->getNumberOfRegisterdProjectGroupByType();
+        $projectStatics = $sm->getNumberOfProjectTypeGroupByOrganizationType();
         
-        dump($projectStatics);
-        
-        return $this->render('components/section_projects.html.twig', array(
+        return $this->render('components/section_project.html.twig', array(
             'projects'              => $projects,
             'projectStatics'        => $projectStatics,
             'categoryChoices'       => (new CategoryChoiceLoader())->getChoicesFliped(),

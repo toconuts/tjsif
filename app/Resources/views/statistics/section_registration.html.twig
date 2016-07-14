@@ -5,27 +5,27 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Students</th>
-                        <th>Teachers</th>
-                        <th>Deputies</th>
-                        <th>Director</th>
-                        <th>JOCV</th>
-                        <th>The others</th>
-                        <th>Total</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Students</th>
+                        <th class="text-center">Teachers</th>
+                        <th class="text-center">Deputies</th>
+                        <th class="text-center">Director</th>
+                        <th class="text-center">JOCV</th>
+                        <th class="text-center">The others</th>
+                        <th class="text-center">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for organization in registrationList %}
                     <tr>
                         <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
-                        <td>{{ organization[1] }}</td>
-                        <td>{{ organization[2] }}</td>
-                        <td>{{ organization[3] }}</td>
-                        <td>{{ organization[4] }}</td>
-                        <td>{{ organization[5] }}</td>
-                        <td>{{ organization[6] }}</td>
-                        <td>{{ organization[1] + organization[2] + organization[3] + organization[4] + organization[5] + organization[6]  }}</td>
+                        <td class="text-center">{{ organization[1] }}</td>
+                        <td class="text-center">{{ organization[2] }}</td>
+                        <td class="text-center">{{ organization[3] }}</td>
+                        <td class="text-center">{{ organization[4] }}</td>
+                        <td class="text-center">{{ organization[5] }}</td>
+                        <td class="text-center">{{ organization[6] }}</td>
+                        <td class="text-center"><strong>{{ organization[7] }}</strong></td>
                     </tr>
                     {% endfor %}
                 </tbody>

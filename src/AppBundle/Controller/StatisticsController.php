@@ -32,11 +32,16 @@ class StatisticsController extends Controller
         $sm = $this->get('app.statistics_manager');
        
         $registrationList = $sm->getRegistrationStatistics();
-        $projectList = $sm->getProjectStatistics();
+        //$projectCategoryList = $sm->getNumberOfProjectCategoryGroupByOrganization();
+        //$projectTypeList = $sm->getNumberOfProjectTypeGroupByOrganization();
+        $projectList = $sm->getNumberOfProjectStatistics();
+        
+        dump($projectList);
         
         return $this->render('statistics/index.html.twig', array(
-            'registrationList' => $registrationList,
-            'projectList' => $projectList,
+            'registrationList'  => $registrationList,
+            'projectList'       => $projectList,
+            //'projectCategoryList' => $projectCategoryList,
         ));
     }
 }

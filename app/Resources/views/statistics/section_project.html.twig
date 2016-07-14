@@ -5,29 +5,56 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>School</th>
-                        <th>Agriculture</th>
-                        <th>Healthcare</th>
-                        <th>Education</th>
-                        <th>Services</th>
-                        <th>Entertainment and Games</th>
-                        <th>Household</th>
-                        <th>General Activities</th>
-                        <th>Total</th>
+                        <th>Categories</th>
+                        <th class="text-center" colspan="3">Agriculture</th>
+                        <th class="text-center" colspan="3">Healthcare</th>
+                        <th class="text-center" colspan="3">Education</th>
+                        <th class="text-center" colspan="3">Services</th>
+                        <th class="text-center" colspan="3">Entertainment and Games</th>
+                        <th class="text-center" colspan="3">Household</th>
+                        <th class="text-center" colspan="3">General Activities</th>
+                        <th class="text-center" colspan="3">Total</th>
+                    </tr>
+                    <tr>
+                        <th>Schools</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
+                        <th class="text-center">O</th><th class="text-center">P</th><th class="text-center">T</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for organization in projectList %}
                     <tr>
                         <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
-                        <td>{{ organization[1] }}</td>
-                        <td>{{ organization[2] }}</td>
-                        <td>{{ organization[3] }}</td>
-                        <td>{{ organization[4] }}</td>
-                        <td>{{ organization[5] }}</td>
-                        <td>{{ organization[6] }}</td>
-                        <td>{{ organization[7] }}</td>
-                        <td>{{ organization[1] + organization[2] + organization[3] + organization[4] + organization[5] + organization[6] + organization[7]  }}</td>
+                        <td class="text-center">{{ organization[1] }}</td>
+                        <td class="text-center">{{ organization[2] }}</td>
+                        <td class="text-center"><strong>{{ organization[3] }}</strong></td>
+                        <td class="text-center">{{ organization[4] }}</td>
+                        <td class="text-center">{{ organization[5] }}</td>
+                        <td class="text-center"><strong>{{ organization[6] }}</strong></td>
+                        <td class="text-center">{{ organization[7] }}</td>
+                        <td class="text-center">{{ organization[8] }}</td>
+                        <td class="text-center"><strong>{{ organization[9] }}</strong></td>
+                        <td class="text-center">{{ organization[10] }}</td>
+                        <td class="text-center">{{ organization[11] }}</td>
+                        <td class="text-center"><strong>{{ organization[12] }}</strong></td>
+                        <td class="text-center">{{ organization[13] }}</td>
+                        <td class="text-center">{{ organization[14] }}</td>
+                        <td class="text-center"><strong>{{ organization[15] }}</strong></td>
+                        <td class="text-center">{{ organization[16] }}</td>
+                        <td class="text-center">{{ organization[17] }}</td>
+                        <td class="text-center"><strong>{{ organization[18] }}</strong></td>
+                        <td class="text-center">{{ organization[19] }}</td>
+                        <td class="text-center">{{ organization[20] }}</td>
+                        <td class="text-center"><strong>{{ organization[21] }}</strong></td>
+                        <td class="text-center">{{ organization[22] }}</td>
+                        <td class="text-center">{{ organization[23] }}</td>
+                        <td class="text-center"><strong>{{ organization[24] }}</strong></td>
                     </tr>
                     {% endfor %}
                 </tbody>

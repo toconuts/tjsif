@@ -40,7 +40,8 @@ class StatisticsManager
                         SUM(CASE WHEN u.occupation=4  AND u.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.occupation=8  AND u.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.occupation=16 AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=32 AND u.isActive=true THEN 1 ELSE 0 END)')
+                        SUM(CASE WHEN u.occupation=32 AND u.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.isActive=true THEN 1 ELSE 0 END)')
             ->from('AppBundle:Organization', 'o')
             ->leftJoin('o.users', 'u')
             ->groupBy('o.id')
@@ -48,7 +49,43 @@ class StatisticsManager
         return $qb->getQuery()->getResult();
     }
     
-    public function getProjectStatistics()
+    public function getNumberOfProjectStatistics()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('o, SUM(CASE WHEN p.category=1 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=1 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=2 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=2 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=3 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=3 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=3 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=4 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=4 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=4 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=5 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=5 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=5 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=6 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=6 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=6 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=7 AND p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=7 AND p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.category=7 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
+            ->from('AppBundle:Organization', 'o')
+            ->leftJoin('o.projects', 'p')
+            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
+            ->groupBy('o.id')
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+    
+    public function getNumberOfProjectCategoryGroupByOrganization()
     {
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select('o, SUM(CASE WHEN p.category=1 AND p.isActive=true THEN 1 ELSE 0 END),
@@ -57,7 +94,22 @@ class StatisticsManager
                         SUM(CASE WHEN p.category=4 AND p.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN p.category=5 AND p.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN p.category=6 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=7 AND p.isActive=true THEN 1 ELSE 0 END)')
+                        SUM(CASE WHEN p.category=7 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
+            ->from('AppBundle:Organization', 'o')
+            ->leftJoin('o.projects', 'p')
+            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
+            ->groupBy('o.id')
+        ;
+        return $qb->getQuery()->getResult();
+    }
+        
+    public function getNumberOfProjectTypeGroupByOrganization()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('o, SUM(CASE WHEN p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
             ->from('AppBundle:Organization', 'o')
             ->leftJoin('o.projects', 'p')
             ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
@@ -66,10 +118,10 @@ class StatisticsManager
         return $qb->getQuery()->getResult();
     }
     
-    public function getNumberOfRegisterdProjectGroupByType()
+    public function getNumberOfProjectTypeGroupByOrganizationType()
     {
         $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('o.type, SUM(CASE WHEN o.isActive=true THEN 1 ELSE 0 END),
+        $qb->select('o.type, COUNT(DISTINCT o.id),
                              SUM(CASE WHEN p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
                              SUM(CASE WHEN p.style=2 AND p.isActive=true THEN 1 ELSE 0 END)')
             ->from('AppBundle:Organization', 'o')
