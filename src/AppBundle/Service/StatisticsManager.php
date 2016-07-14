@@ -65,4 +65,18 @@ class StatisticsManager
         ;
         return $qb->getQuery()->getResult();
     }
+    
+    public function getNumberOfRegisterdProjectGroupByType()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('o.type, SUM(CASE WHEN o.isActive=true THEN 1 ELSE 0 END),
+                             SUM(CASE WHEN p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
+                             SUM(CASE WHEN p.style=2 AND p.isActive=true THEN 1 ELSE 0 END)')
+            ->from('AppBundle:Organization', 'o')
+            ->leftJoin('o.projects', 'p')
+            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
+            ->groupBy('o.type')
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }

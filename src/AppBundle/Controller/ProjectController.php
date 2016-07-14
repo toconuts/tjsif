@@ -26,6 +26,8 @@ use AppBundle\Form\UploadDocumentType;
 use AppBundle\Utils\ChoiceList\DocumentChoiceLoader;
 use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
 use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
+use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
+use AppBundle\Service\StatisticsManager;
 
 /**
  * Description of ProjectController
@@ -257,9 +259,17 @@ class ProjectController extends AbstractAppController
                 ->getRepository('AppBundle:Project')
                 ->findAllSortedCategory();
         
+        $sm = $this->get('app.statistics_manager');
+        
+        $projectStatics = $sm->getNumberOfRegisterdProjectGroupByType();
+        
+        dump($projectStatics);
+        
         return $this->render('components/section_projects.html.twig', array(
-            'projects' => $projects,
-            'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
+            'projects'              => $projects,
+            'projectStatics'        => $projectStatics,
+            'categoryChoices'       => (new CategoryChoiceLoader())->getChoicesFliped(),
+            'organizationChoices'   => (new OrganizationChoiceLoader())->getChoicesFliped(),
         ));
     }
 }
