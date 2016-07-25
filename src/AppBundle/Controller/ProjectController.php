@@ -24,8 +24,10 @@ use AppBundle\Form\ProjectType;
 use AppBundle\Entity\Document;
 use AppBundle\Form\UploadDocumentType;
 use AppBundle\Utils\ChoiceList\DocumentChoiceLoader;
-use AppBundle\Utils\ChoiceList\TopicChoiceLoader;
+use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
 use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
+use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
+use AppBundle\Service\StatisticsManager;
 
 /**
  * Description of ProjectController
@@ -55,7 +57,7 @@ class ProjectController extends AbstractAppController
         
         return $this->render('project/index.html.twig', array(
             'pagination' => $pagination,
-            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+            'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
             'presentationChoices' => (new PresentationChoiceLoader())->getChoicesFliped(),
         ));
     }
@@ -247,7 +249,25 @@ class ProjectController extends AbstractAppController
 
         return $this->render('components/member/project_toppage.html.twig', array(
             'project' => $project[mt_rand(0, count($project)-1)],
-            'topicChoices' => (new TopicChoiceLoader())->getChoicesFliped(),
+            'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
+        ));
+    }
+    
+    public function defaultpageAction()
+    {
+        $projects = $this->getDoctrine()->getManager()
+                ->getRepository('AppBundle:Project')
+                ->findAllSortedCategory();
+        
+        $sm = $this->get('app.statistics_manager');
+        
+        $projectStatics = $sm->getNumberOfProjectTypeGroupByOrganizationType();
+        
+        return $this->render('components/section_project.html.twig', array(
+            'projects'              => $projects,
+            'projectStatics'        => $projectStatics,
+            'categoryChoices'       => (new CategoryChoiceLoader())->getChoicesFliped(),
+            'organizationChoices'   => (new OrganizationChoiceLoader())->getChoicesFliped(),
         ));
     }
 }

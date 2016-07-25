@@ -5,7 +5,7 @@
             <span class="text-muted">{{ project.name }}</span>
         </h2>
         <p class="lead">{{ project.organization.name }}</p>
-        <P>Topid: {{ topicChoices[project.topic] }}</p>
+        <P>Topid: {{ categoryChoices[project.category] }}</p>
         <p>Objective: {{ project.objective(250) }}</p>
         <p><a class="btn btn-default" href="{{ path('member_project_show', { 'id': project.id }) }}" role="button">View details &raquo;</a></p>
     </div>

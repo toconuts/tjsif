@@ -13,6 +13,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Service\StatisticsManager;
 
 /**
  * Description of StatisticsController
@@ -28,10 +29,20 @@ class StatisticsController extends Controller
      */
     public function indexAction()
     {
-        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
-        return $this->render(
-            'statistics/index.html.twig',
-            array('organizations' => $organizations)
-        );
+        $sm = $this->get('app.statistics_manager');
+       
+        $registrationList = $sm->getRegistrationStatistics();
+        //$projectCategoryList = $sm->getNumberOfProjectCategoryGroupByOrganization();
+        //$projectTypeList = $sm->getNumberOfProjectTypeGroupByOrganization();
+        $projectList = $sm->getNumberOfProjectStatistics();
+        
+        dump($projectList);
+        
+        return $this->render('statistics/index.html.twig', array(
+            'registrationList'  => $registrationList,
+            'projectList'       => $projectList,
+            //'projectCategoryList' => $projectCategoryList,
+        ));
     }
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

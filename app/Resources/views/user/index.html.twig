@@ -25,6 +25,7 @@ Members
                             <th></th>
                             <th></th>
                             <th>Name</th>
+                            <th>Nickname</th>
                             <th>Occupation</th>
                             <th>Type</th>
                             <th>Active</th>
@@ -43,6 +44,7 @@ Members
                                 {% endif %}
                             </td>
                             <td><a href="{{ path("member_user_show", {"id": user.id}) }}">{{ user.getFullnamewithTitle() }}</a></td>
+                            <td>{{ user.nickname }}</td>
                             <td>{{ occupationChoices[user.occupation] }}</td>
                             <td>{{ accountChoices[user.type] }}</td>
                             <td>{% if user.isActive %}

@@ -101,6 +101,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $lastname;
     
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $nickname;
+    
+    /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $gender;
@@ -1237,7 +1242,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get fullname with job name (except student)
      * 
-     * @return type
+     * @return string
      */
     public function getFullnamewithJob()
     {
@@ -1245,6 +1250,17 @@ class User implements AdvancedUserInterface, \Serializable
         return ($this->occupation == 1) ?
             $this->getFullname() :
             $this->getFullname() . ' - ' . $choices[$this->occupation];
+    }
+    
+    /**
+     * Get fullname with job name (except student)
+     * 
+     * @return string
+     */
+    public function getFullnameWithTitleAndJob()
+    {
+        $choices = (new TitleChoiceLoader())->getChoicesFliped();
+        return $choices[$this->getTitle()] . " " . $this->getFullnamewithJob();
     }
     
     public function getPossessivePronoun()
@@ -1257,5 +1273,29 @@ class User implements AdvancedUserInterface, \Serializable
         }
         
         return $possesive;
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     *
+     * @return User
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
     }
 }

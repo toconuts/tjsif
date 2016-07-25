@@ -16,6 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; // for test.
 
+use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
+
 /**
  * DefaultController
  * 
@@ -40,4 +42,5 @@ class DefaultController extends Controller
     {
         return new Response('<html><body>Test for Projects Page!</body></html>');
     }
+
 }

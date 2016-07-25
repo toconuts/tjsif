@@ -12,6 +12,7 @@
         'css/bootstrap.min.css'
         'css/font-awesome.min.css'
         'css/ie10-viewport-bug-workaround.css'
+        'css/style-common.css'
         filter='cssrewrite' output='css/compiled/app.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -20,7 +21,7 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
-<body>
+<body data-spy="scroll" data-target="#navbar" data-offset="100">
     {% block layout %}
     {% block body %}{% endblock %}
     {% endblock %}
@@ -30,11 +31,15 @@
         'js/jquery.min.js'
         'js/bootstrap.min.js'
         'js/ie10-viewport-bug-workaround.js'
+        'js/jquery.smooth-scroll.min.js'
         'js/jquery.custom.js'
         output='js/compiled/app.js' %}
         <script src="{{ asset_url }}"></script>
         <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
     {% endjavascripts %}
+    <script>
+        $('a').smoothScroll();
+    </script>
     {% endblock %}
 </body>
 </html>

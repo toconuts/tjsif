@@ -19,13 +19,11 @@ TJ-SIF 2016 <small>for members</small>
                 <div class="col-sm-6">
                     {% include "components/member/whats_new.html.twig" %}
                 </div>
-                <div class="col-sm-6">
-                    <h2>Also see...</h2>
-                    <p>What's acrivities we will have</p>
-                    <p><a class="btn btn-default" href="{{ path("member_activity_index") }}" role="button">View Activities &raquo;</a></p>
-                    <p>Sorry, this page is under construction...</p>
-                    <p><a class="btn btn-default" href="#" role="button">View Statistics &raquo;</a></p>
+                {% if is_granted('ROLE_ADMIN') %}
+                <div class="col-sm-12">
+                    {% include "components/member/how_to_invite.html.twig" %}
                 </div>
+                {% endif %}
                 <div class="col-sm-12">
                     <h2>Latest posts</h2>
                     {{ render(controller('AppBundle:BbsPost:toppage')) }}

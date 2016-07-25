@@ -4,7 +4,7 @@
             <div class="featurette-heading-title">Introduce a school!</div>
             <span class="text-muted">{{ organization.name }}</span>
         </h2>
-        {% if organization.type == 5 %}
+        {% if organization.type == constant('AppBundle\\Utils\\ChoiceList\\OrganizationChoiceLoader::ORGANIZATION_FORM_THEOTHER_ID') %}
         <p class="lead">{{ organization.name }}</p>
         {% else %}
         <p class="lead">{{ organization.name }} [{{ organizationChoices[organization.type] }}]</p>

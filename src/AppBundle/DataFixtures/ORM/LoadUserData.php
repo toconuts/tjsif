@@ -64,7 +64,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user1->setEmail('sadmin@example.com');
         $user1->setIsActive(true);
         $user1 = $this->setRoles($user1, array('role-admin', 'role-super-admin'));
-        $user1->setOrganization($this->getReference('org-8'));
+        $user1->setOrganization($this->getReference('org-1-08'));
         $user1->setOccupation(OccupationChoiceLoader::OCCUPATION_JOCV_ID);
         $user1->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user1->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -79,7 +79,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user2->setEmail('admin@example.com');
         $user2->setIsActive(true);
         $user2 = $this->setRoles($user2, array('role-admin'));
-        $user2->setOrganization($this->getReference('org-8'));
+        $user2->setOrganization($this->getReference('org-1-08'));
         $user2->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
         $user2->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user2->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -94,7 +94,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user3->setEmail('puser@example.com');
         $user3->setIsActive(true);
         $user3 = $this->setRoles($user3, array('role-power-user'));
-        $user3->setOrganization($this->getReference('org-25'));
+        $user3->setOrganization($this->getReference('org-4-01'));
         $user3->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
         $user3->setGender(GenderChoiceLoader::GENDER_NS_ID);
         $user3->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -109,7 +109,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user4->setEmail('user@example.com');
         $user4->setIsActive(true);
         $user4 = $this->setRoles($user4, array('role-user'));
-        $user4->setOrganization($this->getReference('org-8'));
+        $user4->setOrganization($this->getReference('org-1-08'));
         $user4->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user4->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user4->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -126,7 +126,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user5->setEmail('user01@example.com');
         $user5->setIsActive(true);
         $user5 = $this->setRoles($user5, array('role-user'));
-        $user5->setOrganization($this->getReference('org-1'));
+        $user5->setOrganization($this->getReference('org-1-01'));
         $user5->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user5->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user5->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -141,7 +141,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user6->setEmail('user02@example.com');
         $user6->setIsActive(true);
         $user6 = $this->setRoles($user6, array('role-admin'));
-        $user6->setOrganization($this->getReference('org-1'));
+        $user6->setOrganization($this->getReference('org-1-01'));
         $user6->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
         $user6->setGender(GenderChoiceLoader::GENDER_NS_ID);
         $user6->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -156,7 +156,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user7->setEmail('user03@example.com');
         $user7->setIsActive(true);
         $user7 = $this->setRoles($user7, array('role-user'));
-        $user7->setOrganization($this->getReference('org-1'));
+        $user7->setOrganization($this->getReference('org-1-01'));
         $user7->setOccupation(OccupationChoiceLoader::OCCUPATION_DEPUTY_ID);
         $user7->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user7->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -171,7 +171,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user8->setEmail('user04@example.com');
         $user8->setIsActive(true);
         $user8 = $this->setRoles($user8, array('role-user'));
-        $user8->setOrganization($this->getReference('org-1'));
+        $user8->setOrganization($this->getReference('org-1-01'));
         $user8->setOccupation(OccupationChoiceLoader::OCCUPATION_DIRECTOR_ID);
         $user8->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user8->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -186,7 +186,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user9->setEmail('user05@example.com');
         $user9->setIsActive(true);
         $user9 = $this->setRoles($user9, array('role-admin'));
-        $user9->setOrganization($this->getReference('org-1'));
+        $user9->setOrganization($this->getReference('org-1-01'));
         $user9->setOccupation(OccupationChoiceLoader::OCCUPATION_JOCV_ID);
         $user9->setGender(GenderChoiceLoader::GENDER_NS_ID);
         $user9->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -201,149 +201,164 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user10->setEmail('user06@example.com');
         $user10->setIsActive(true);
         $user10 = $this->setRoles($user10, array('role-user'));
-        $user10->setOrganization($this->getReference('org-1'));
+        $user10->setOrganization($this->getReference('org-1-01'));
         $user10->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
         $user10->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user10->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user10);
         
         /*--- Organization ---*/
-        // High school
+        // SSH school
         $user11 = new User();
         $user11->setTitle(TitleChoiceLoader::TITLE_DR_ID);
         $user11->setFirstname('Organization');
-        $user11->setLastname('Highschool');
+        $user11->setLastname('SSH school');
         $user11->setPassword($this->encoder->encodePassword($user11, 'user11'));
         $user11->setEmail('user11@example.com');
         $user11->setIsActive(true);
         $user11 = $this->setRoles($user11, array('role-user'));
-        $user11->setOrganization($this->getReference('org-9'));
+        $user11->setOrganization($this->getReference('org-2-08'));
         $user11->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user11->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user11->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user11);
         
-        // University
+        // Syster school in Thai
         $user12 = new User();
         $user12->setTitle(TitleChoiceLoader::TITLE_DR_ID);
         $user12->setFirstname('Organization');
-        $user12->setLastname('University');
+        $user12->setLastname('Syster school in Thai');
         $user12->setPassword($this->encoder->encodePassword($user12, 'user12'));
         $user12->setEmail('user12@example.com');
         $user12->setIsActive(true);
         $user12 = $this->setRoles($user12, array('role-user'));
-        $user12->setOrganization($this->getReference('org-25'));
+        $user12->setOrganization($this->getReference('org-2-08'));
         $user12->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
-        $user12->setGender(GenderChoiceLoader::GENDER_NS_ID);
+        $user12->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user12->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user12);
         
-        // Government
+        // University
         $user13 = new User();
         $user13->setTitle(TitleChoiceLoader::TITLE_DR_ID);
         $user13->setFirstname('Organization');
-        $user13->setLastname('Government');
+        $user13->setLastname('University');
         $user13->setPassword($this->encoder->encodePassword($user13, 'user13'));
         $user13->setEmail('user13@example.com');
         $user13->setIsActive(true);
         $user13 = $this->setRoles($user13, array('role-user'));
-        $user13->setOrganization($this->getReference('org-26'));
-        $user13->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
-        $user13->setGender(GenderChoiceLoader::GENDER_MALE_ID);
+        $user13->setOrganization($this->getReference('org-4-01'));
+        $user13->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
+        $user13->setGender(GenderChoiceLoader::GENDER_NS_ID);
         $user13->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user13);
         
-        // Company
+        // Government
         $user14 = new User();
         $user14->setTitle(TitleChoiceLoader::TITLE_DR_ID);
         $user14->setFirstname('Organization');
-        $user14->setLastname('Company');
+        $user14->setLastname('Government');
         $user14->setPassword($this->encoder->encodePassword($user14, 'user14'));
         $user14->setEmail('user14@example.com');
         $user14->setIsActive(true);
         $user14 = $this->setRoles($user14, array('role-user'));
-        $user14->setOrganization($this->getReference('org-27'));
+        $user14->setOrganization($this->getReference('org-5-01'));
         $user14->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
-        $user14->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
+        $user14->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user14->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user14);
         
-        // The other
+        // Company
         $user15 = new User();
         $user15->setTitle(TitleChoiceLoader::TITLE_DR_ID);
         $user15->setFirstname('Organization');
-        $user15->setLastname('Theother');
+        $user15->setLastname('Company');
         $user15->setPassword($this->encoder->encodePassword($user15, 'user15'));
         $user15->setEmail('user15@example.com');
         $user15->setIsActive(true);
         $user15 = $this->setRoles($user15, array('role-user'));
-        $user15->setOrganization($this->getReference('org-28'));
+        $user15->setOrganization($this->getReference('org-6-01'));
         $user15->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
-        $user15->setGender(GenderChoiceLoader::GENDER_NS_ID);
+        $user15->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user15->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user15);
         
-        /*-- Account type --*/
-        // Operation staff && teacher
+        // The other
         $user16 = new User();
         $user16->setTitle(TitleChoiceLoader::TITLE_DR_ID);
-        $user16->setFirstname('Account');
-        $user16->setLastname('Operationandteacher');
-        $user16->setPassword($this->encoder->encodePassword($user16, 'user21'));
-        $user16->setEmail('user21@example.com');
+        $user16->setFirstname('Organization');
+        $user16->setLastname('Theother');
+        $user16->setPassword($this->encoder->encodePassword($user16, 'user16'));
+        $user16->setEmail('user16@example.com');
         $user16->setIsActive(true);
         $user16 = $this->setRoles($user16, array('role-user'));
-        $user16->setOrganization($this->getReference('org-8'));
-        $user16->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
-        $user16->setGender(GenderChoiceLoader::GENDER_MALE_ID);
-        $user16->setType(AccountChoiceLoader::ACCOUNT_STAFF_ID);
+        $user16->setOrganization($this->getReference('org-99-01'));
+        $user16->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
+        $user16->setGender(GenderChoiceLoader::GENDER_NS_ID);
+        $user16->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
         $manager->persist($user16);
         
-        // Operation staff && the other
+        /*-- Account type --*/
+        // Operation staff && teacher
         $user17 = new User();
         $user17->setTitle(TitleChoiceLoader::TITLE_DR_ID);
         $user17->setFirstname('Account');
-        $user17->setLastname('Opperationtheother');
-        $user17->setPassword($this->encoder->encodePassword($user17, 'user22'));
-        $user17->setEmail('user22@example.com');
+        $user17->setLastname('Operationandteacher');
+        $user17->setPassword($this->encoder->encodePassword($user17, 'user17'));
+        $user17->setEmail('user17@example.com');
         $user17->setIsActive(true);
         $user17 = $this->setRoles($user17, array('role-user'));
-        $user17->setOrganization($this->getReference('org-8'));
-        $user17->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
-        $user17->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
+        $user17->setOrganization($this->getReference('org-1-08'));
+        $user17->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
+        $user17->setGender(GenderChoiceLoader::GENDER_MALE_ID);
         $user17->setType(AccountChoiceLoader::ACCOUNT_STAFF_ID);
         $manager->persist($user17);
         
-        // Observer
+        // Operation staff && the other
         $user18 = new User();
         $user18->setTitle(TitleChoiceLoader::TITLE_DR_ID);
-        $user18->setFirstname('John');
-        $user18->setLastname('Simons');
-        $user18->setPassword($this->encoder->encodePassword($user18, 'user23'));
-        $user18->setEmail('user23@example.com');
+        $user18->setFirstname('Account');
+        $user18->setLastname('Opperationtheother');
+        $user18->setPassword($this->encoder->encodePassword($user18, 'user18'));
+        $user18->setEmail('user18@example.com');
         $user18->setIsActive(true);
         $user18 = $this->setRoles($user18, array('role-user'));
-        $user18->setOrganization($this->getReference('org-8'));
-        $user18->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
-        $user18->setGender(GenderChoiceLoader::GENDER_NS_ID);
-        $user18->setType(AccountChoiceLoader::ACCOUNT_OBSERVER_ID);
+        $user18->setOrganization($this->getReference('org-1-08'));
+        $user18->setOccupation(OccupationChoiceLoader::OCCUPATION_THEOTHER_ID);
+        $user18->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
+        $user18->setType(AccountChoiceLoader::ACCOUNT_STAFF_ID);
         $manager->persist($user18);
+        
+        // Observer
+        $user19 = new User();
+        $user19->setTitle(TitleChoiceLoader::TITLE_DR_ID);
+        $user19->setFirstname('John');
+        $user19->setLastname('Simons');
+        $user19->setPassword($this->encoder->encodePassword($user19, 'user19'));
+        $user19->setEmail('user19@example.com');
+        $user19->setIsActive(true);
+        $user19 = $this->setRoles($user19, array('role-user'));
+        $user19->setOrganization($this->getReference('org-1-08'));
+        $user19->setOccupation(OccupationChoiceLoader::OCCUPATION_TEACHER_ID);
+        $user19->setGender(GenderChoiceLoader::GENDER_NS_ID);
+        $user19->setType(AccountChoiceLoader::ACCOUNT_OBSERVER_ID);
+        $manager->persist($user19);
         
         /*-- Activate --*/
         // Inactive
-        $user19 = new User();
-        $user19->setTitle(TitleChoiceLoader::TITLE_DR_ID);
-        $user19->setFirstname('Active');
-        $user19->setLastname('Inactive');
-        $user19->setPassword($this->encoder->encodePassword($user19, 'user31'));
-        $user19->setEmail('user31@example.com');
-        $user19->setIsActive(false);
-        $user19 = $this->setRoles($user19, array('role-user'));
-        $user19->setOrganization($this->getReference('org-8'));
-        $user19->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
-        $user19->setGender(GenderChoiceLoader::GENDER_MALE_ID);
-        $user19->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
-        $manager->persist($user19);
+        $user20 = new User();
+        $user20->setTitle(TitleChoiceLoader::TITLE_DR_ID);
+        $user20->setFirstname('Active');
+        $user20->setLastname('Inactive');
+        $user20->setPassword($this->encoder->encodePassword($user20, 'user20'));
+        $user20->setEmail('user20@example.com');
+        $user20->setIsActive(false);
+        $user20 = $this->setRoles($user20, array('role-user'));
+        $user20->setOrganization($this->getReference('org-1-08'));
+        $user20->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
+        $user20->setGender(GenderChoiceLoader::GENDER_MALE_ID);
+        $user20->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
+        $manager->persist($user20);
         
         $manager->flush();
         

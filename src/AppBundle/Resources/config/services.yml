@@ -41,3 +41,8 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "%sadmin_mails%"
+
+    app.statistics_manager:
+        class:          AppBundle\Service\StatisticsManager
+        arguments:
+            - "@doctrine.orm.entity_manager"

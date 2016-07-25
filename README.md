@@ -59,6 +59,10 @@ if intl extension should be available occured.
    > Install and enable the intl extension (used for validators).
     sudo apt-get install php5-intl
 
+   > Check
+    $ php -m | grep intl
+    intl
+
 Setting up the Database to be UTF8
 ----------------------------------
 ### Add a few lines to `my.conf`.
@@ -119,7 +123,7 @@ $kernel = new AppKernel('prod', false);
 #TODO LIST#
 Required:
 * ICon: Make good one
-
+* Add static tooltip on form create and edit
 
 Possible:
 * Organization: FAX Add @Assert\Regex()

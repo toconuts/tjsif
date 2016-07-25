@@ -41,7 +41,7 @@ Project <small>- {{ project.name }}</small>
                 {{ form_row(form.name) }}
                 {{ form_row(form.concept) }}
                 {{ form_row(form.objective) }}
-                {{ form_row(form.topic) }}
+                {{ form_row(form.category) }}
                 {{ form_row(form.style) }}
                 {{ form_row(form.organization) }}            
             </div>
@@ -150,7 +150,7 @@ Project <small>- {{ project.name }}</small>
                     {% endif %}
                     {% endfor %}
                     {% if not find %}
-                    {% if type == 1 or type == 2 %} {# Delete in application period -> all danger #}
+                    {% if type == constant('AppBundle\\Utils\\ChoiceList\\DocumentChoiceLoader::DOCUMENT_ABSTRACT_DOCX_ID') or type == constant('AppBundle\\Utils\\ChoiceList\\DocumentChoiceLoader::DOCUMENT_ABSTRACT_PDF_ID') %} {# Delete in application period -> all danger #}
                     <tr class="danger">
                     {% else %}
                     <tr class="active">
