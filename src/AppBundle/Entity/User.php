@@ -1191,7 +1191,7 @@ class User implements AdvancedUserInterface, \Serializable
                 $attendances[] = $attendance;
             }
         }
-        dump($attendances);
+        
         return $this->sortAttendancesByDate($attendances);
     }
     

@@ -89,7 +89,7 @@ class ActivityController extends AbstractAppController
             array(
                 'disabled' => true
         ));
-        dump($activity);
+        
         return $this->render(
             'activity/show.html.twig',
             array('activity' => $activity,

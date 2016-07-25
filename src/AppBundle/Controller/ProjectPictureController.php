@@ -45,8 +45,6 @@ class ProjectPictureController extends AbstractAppController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            dump($form);
-            
             $em = $this->getDoctrine()->getManager();
         
             if (null == $project->getPicture()) {

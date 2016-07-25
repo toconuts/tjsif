@@ -37,8 +37,6 @@ class NotificationController extends AbstractAppController
         
         $em    = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
-
-        dump($query);
         
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

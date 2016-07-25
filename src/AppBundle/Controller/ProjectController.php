@@ -195,7 +195,7 @@ class ProjectController extends AbstractAppController
     public function inactiveAction(Project $project)
     {
         $project->setIsActive(false);
-        dump($project);
+        
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         

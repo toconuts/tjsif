@@ -52,15 +52,13 @@ class MemberController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            dump($form);
-            dump($document);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
 
             return $this->redirect($this->generateUrl('member_test'));
         }
-        dump($form);
         return $this->render(
             'member/test.html.twig',
             array('form' => $form->createView()))
@@ -78,7 +76,6 @@ class MemberController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            dump($form);
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
             $em->flush();

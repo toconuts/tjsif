@@ -41,7 +41,7 @@ class InvitationController extends AbstractAppController
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump('inviteAction isSubmitted');
+
             $rm = $this->get('app.registration_manager');            
             if ($rm->getUser($invitation->getEmail())) {
 
