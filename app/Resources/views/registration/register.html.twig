@@ -2,13 +2,6 @@
 
 {% block title %}Registration{% endblock %}
 
-{% block stylesheets %}
-{{ parent() }}
-{% stylesheets 'css/signin.css' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
-{% endblock %}
-
 {% block content %}
 <div class="row">
     <div class="col-sm-offset-2 col-sm-8">
