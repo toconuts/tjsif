@@ -2,13 +2,6 @@
 
 {% block title %}Signin for TJ-SIF member site{% endblock %}
 
-{% block stylesheets %}
-{{ parent() }}
-{% stylesheets 'css/signin.css' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
-{% endblock %}
-
 {% block content %}
 <form class="form-signin" action="{{ path('login') }}" method="post">
     <h2 class="form-signin-heading">TJ-SIF 2016</h2>
