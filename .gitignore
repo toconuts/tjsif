@@ -17,3 +17,5 @@
 /nbproject
 /web/media/*
 /web/uploads/*
+/web/css/compiled/
+/web/js/compiled/

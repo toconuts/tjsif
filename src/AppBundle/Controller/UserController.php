@@ -145,7 +145,6 @@ class UserController extends AbstractAppController
      */
     public function deleteAction(User $user)
     {
-        dump($user);
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();

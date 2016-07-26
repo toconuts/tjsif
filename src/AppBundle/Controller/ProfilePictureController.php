@@ -45,8 +45,6 @@ class ProfilePictureController extends AbstractAppController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            dump($form);
-            
             $em = $this->getDoctrine()->getManager();
         
             if (null == $user->getPicture()) {

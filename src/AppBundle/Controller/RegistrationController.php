@@ -34,7 +34,7 @@ class RegistrationController extends AbstractAppController
         
         $ticket = $request->query->get('key');
         $invitation = $rm->getInvitation($ticket);
-        dump($invitation);
+        
         if (!$invitation) {
             throw $this->createNotFoundException(
                 'Invalid Access because the invitation is not correct or might be expired.'

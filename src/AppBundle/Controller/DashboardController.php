@@ -34,7 +34,7 @@ class DashboardController extends Controller
     public function indexAction()
     {
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        dump($users);
+        
         return $this->render(
             'dashboard/index.html.twig',
             array('users' => $users)

@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-{{ parent() }}
-{% stylesheets 'css/style-default.css' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        'css/style-default.css'
+        filter='cssrewrite' output='css/compiled/app.default.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}
 
 {% block body %}

@@ -183,7 +183,6 @@ class OrganizationController extends AbstractAppController
     public function inactiveAction(Organization $organization)
     {
         $organization->setIsActive(false);
-        dump($organization);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         
