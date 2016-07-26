@@ -77,8 +77,11 @@ abstract class AbstractAppController extends Controller
     
     protected function logger($message, $level)
     {
-        $user = $this->getUser();       
-        $message = $message . ' User ID: ' . $user->getId();
+        $user = $this->getUser();
+        if ($user) {
+            $message = $message . ' User ID: ' . $user->getId();
+        }
+        
 
         $logger = $this->get('logger');
         switch ($level) {
