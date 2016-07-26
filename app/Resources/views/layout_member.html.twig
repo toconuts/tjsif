@@ -2,7 +2,9 @@
 
 {% block stylesheets %}
 {{ parent() }}
-{% stylesheets 'css/style-member.css' filter='cssrewrite' %}
+{% stylesheets
+    'css/style-member.css'
+    filter='cssrewrite' output='css/compiled/app.member.css' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
 {% endblock %}

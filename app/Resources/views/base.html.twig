@@ -8,15 +8,15 @@
     <title>{% block title %}TJ-SIF2016{% endblock %}</title>
     
 {% block stylesheets %}
-    {% stylesheets
-        'css/bootstrap.min.css'
-        'css/font-awesome.min.css'
-        'css/ie10-viewport-bug-workaround.css'
-        'css/style-common.css'
-        filter='cssrewrite' output='css/compiled/app.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-    {# <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> #}
+{% stylesheets
+    'css/bootstrap.min.css'
+    'css/font-awesome.min.css'
+    'css/ie10-viewport-bug-workaround.css'
+    'css/style-common.css'
+    filter='cssrewrite' output='css/compiled/app.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{# <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> #}
 {% endblock %}
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
