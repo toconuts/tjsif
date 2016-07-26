@@ -48,6 +48,7 @@ class RegistrationType extends AbstractType
             ->add('title', ChoiceType::class, array(
                 'choice_loader' => new TitleChoiceLoader(),
                 'placeholder' => 'Choose your title',
+                'label' => 'Title *',
             ))
             ->add('firstname', TextType::class, array(
                 'label' => 'Firstname *',
