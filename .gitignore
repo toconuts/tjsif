@@ -16,6 +16,8 @@
 /web/bundles/
 /nbproject
 /web/media/*
+!web/media/.gitkeep
 /web/uploads/*
+!web/uploads/.gitkeep
 /web/css/compiled/
 /web/js/compiled/
