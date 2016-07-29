@@ -93,12 +93,16 @@ class RegistrationManager
     
     public function sendInvitation(Invitation $invitation)
     {
-        $ticket = $this->issueActivationKey();
-        $invitation->setTicket($ticket);
-
+        $invitationRepository = $this->entityManager->getRepository('AppBundle:Invitation');
+        $oldInvitation = $invitationRepository->findValidOneByEmail($invitation->getEmail());
+        if ($oldInvitation) {
+            $invitation->setTicket($oldInvitation->getTicket());
+        } else {
+            $invitation->setTicket($this->issueActivationKey());
+        }
+        
         $this->mailer->sendInvitationMail($invitation);
         
-        $invitationRepository = $this->entityManager->getRepository('AppBundle:Invitation');
         $invitationRepository->createInvitation($invitation);
     }
     

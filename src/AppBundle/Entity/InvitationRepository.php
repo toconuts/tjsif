@@ -37,6 +37,16 @@ class InvitationRepository extends EntityRepository
             ->getResult();
     }
     
+    public function findValidOneByEmail($email)
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.email = :email')
+            ->andWhere('i.ticket IS NOT NULL')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
     public function createInvitation(Invitation $invitation)
     {
         $invitations = $this->findAllByEmail($invitation->getEmail());
