@@ -36,9 +36,8 @@ class RegistrationController extends AbstractAppController
         $invitation = $rm->getInvitation($ticket);
         
         if (!$invitation) {
-            throw $this->createNotFoundException(
-                'Invalid Access because the invitation is not correct or might be expired.'
-            );
+            $this->log('Invalid Access because the invitation is not correct or might be expired, or you already registered.', Logger::WARNING);
+            return $this->redirectToRoute('member_index');
         }
         
         $user = new User();   
