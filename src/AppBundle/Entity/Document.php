@@ -42,7 +42,7 @@ class Document
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="project_file", fileNameProperty="filename")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "Please select a file.")
      * 
      * @var File
      */
@@ -50,7 +50,6 @@ class Document
     
     /**
      * @ORM\Column(type="string", length=255)
-     *
      * @var string
      */
     private $filename;
@@ -107,6 +106,10 @@ class Document
      */
     public function validate(ExecutionContextInterface $context)
     {
+        if (!$this->file) {
+            return;
+        }
+        
         if ($this->type == '1' || $this->type == '3') {
             if (!in_array($this->file->getMimeType(), array(
                 'application/msword',
