@@ -69,9 +69,7 @@ class BbsPostController extends AbstractAppController
      * @Method({"POST"})
      */
     public function newAction(Request $request)
-    {
-//        $request = $this->get('request_stack')->getMasterRequest();
-        
+    {        
         $post = new BbsPost();
         $form = $this->createForm(BbsPostType::class, $post);
         
