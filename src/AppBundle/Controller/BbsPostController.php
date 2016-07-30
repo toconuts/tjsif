@@ -66,33 +66,16 @@ class BbsPostController extends AbstractAppController
     
     /**
      * @Route("/new", name="member_bbs_new")
-     * @Method({"GET"})
-     */
-    public function newAction()
-    {
-        $post = new BbsPost();
-        
-        $form = $this->createForm(BbsPostType::class, $post, array(
-            'action' => $this->generateUrl('member_bbs_create'),
-            'method' => 'POST',
-        ));
-        
-        return $this->render('bbspost/new.html.twig', array(
-                'form' => $form->createView(),
-        ));
-    }
-    
-    /**
-     * @Route("/new", name="member_bbs_create")
      * @Method({"POST"})
      */
-    public function createAction(Request $request)
-    {
-        $post = new BbsPost();   
+    public function newAction(Request $request)
+    {        
+        $post = new BbsPost();
         $form = $this->createForm(BbsPostType::class, $post);
         
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        
+        if ($form->isSubmitted() && $form->isValid()) {
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
@@ -104,9 +87,20 @@ class BbsPostController extends AbstractAppController
             
             return $this->redirect($url);
         }
-
-        return $this->render('bbspost/create.html.twig', array(
+ 
+        return $this->render('bbspost/form_error.html.twig', array(
             'form'    => $form->createView(),
+        ));
+    }
+    
+    public function formAction()
+    {
+        $post = new BbsPost();
+
+        $form = $this->createForm(BbsPostType::class, $post);
+        
+        return $this->render('bbspost/_form.html.twig', array(
+                'form' => $form->createView(),
         ));
     }
     

@@ -1,0 +1,14 @@
+{% extends "layout_member_bbs.html.twig" %}
+
+{% block title %}Add Post | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+BBS <small>- for free talk</small>
+{% endblock %}
+
+{% block bbs_main %}
+    <div class="alert alert-danger" role="alert">There was an error publishing your post</div>
+    <div class="well">
+        {{ include('bbspost/_form.html.twig') }}
+    </div>
+{% endblock %}

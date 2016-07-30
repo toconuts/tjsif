@@ -10,7 +10,7 @@
         </p>
     </div>
     <div class="panel-body">
-        {{ form_start(form, {'novalidate': 'novalidate'}) }}
+        {{ form_start(form, { method: 'POST', action: path('member_bbs_comment_new', { 'id': post.id }) }) }}
             {{ form_errors(form) }}
             {{ form_row(form.content) }}
             {{ form_errors(form.file) }}

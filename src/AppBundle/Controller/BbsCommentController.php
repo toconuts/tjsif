@@ -33,31 +33,13 @@ use AppBundle\Entity\User;
  */
 class BbsCommentController extends AbstractAppController
 {
+    
     /**
      * @Route("/{id}/comment/new", requirements = {"id" = "\d+"}, name="member_bbs_comment_new")
      * @ParamConverter("post", class="AppBundle:BbsPost")
-     * @Method({"GET"})
-     */
-    public function newAction(Request $request, BbsPost $post)
-    {
-        $comment = new BbsComment($post);
-        $form = $this->createForm(BbsCommentType::class, $comment, array(
-            'action' => $this->generateUrl('member_bbs_comment_create', array('id' => $post->getId())),
-            'method' => 'POST',
-        ));
-        
-        return $this->render('bbscomment/new.html.twig', array(
-                'form' => $form->createView(),
-                'comment' => $comment,
-        ));
-    }
-    
-    /**
-     * @Route("/{id}/comment/new", requirements = {"id" = "\d+"}, name="member_bbs_comment_create")
-     * @ParamConverter("post", class="AppBundle:BbsPost")
      * @Method({"POST"})
      */
-    public function createAction(Request $request, BbsPost $post)
+    public function newAction(Request $request, BbsPost $post)
     {
         $comment = new BbsComment($post);   
         $form = $this->createForm(BbsCommentType::class, $comment);
@@ -78,9 +60,23 @@ class BbsCommentController extends AbstractAppController
             return $this->redirect($url);
         }
 
-        return $this->render('bbscomment/create.html.twig', array(
+        return $this->render('bbscomment/form_error.html.twig', array(
             'form'    => $form->createView(),
-            'comment' => $comment,
+            'post'    => $post,
+        ));
+    }
+    
+    /**
+     * @ParamConverter("post", class="AppBundle:BbsPost")
+     */
+    public function formAction(Request $request, BbsPost $post)
+    {
+        $comment = new BbsComment($post);
+        $form = $this->createForm(BbsCommentType::class, $comment);
+        
+        return $this->render('bbscomment/_form.html.twig', array(
+                'form' => $form->createView(),
+                'post' => $post,
         ));
     }
     
