@@ -1,0 +1,15 @@
+{% extends "layout_member_bbs.html.twig" %}
+
+{% block title %}Add Comment | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+BBS <small>- for free talk</small>
+{% endblock %}
+
+{% block bbs_main %}
+    <div class="alert alert-danger" role="alert">There was an error publishing your comment</div>
+    <h3>Add comment for blog post "{{ post.title }}"</h3>
+    <div class="well">
+        {{ include('bbscomment/_form.html.twig') }}
+    </div>
+{% endblock %}

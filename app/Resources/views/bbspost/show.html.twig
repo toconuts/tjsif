@@ -50,7 +50,7 @@ BBS <small>- for free talk</small>
         </div>
         <div class="add-comment">
             <h3>Add Comment</h3>
-            {{ render(controller('AppBundle:BbsComment:new', { 'id': post.id })) }}
+            {{ render(controller('AppBundle:BbsComment:form', { 'id': post.id })) }}
         </div>
     </div>
 </div>

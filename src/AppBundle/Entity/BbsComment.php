@@ -50,6 +50,7 @@ class BbsComment
 
     /**
      * @ORM\Column(type="text")
+     # @Assert\NotBlank()
      */
     protected $content;
 

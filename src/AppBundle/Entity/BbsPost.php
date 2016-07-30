@@ -45,6 +45,7 @@ class BbsPost
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $title;
 
@@ -57,6 +58,7 @@ class BbsPost
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     protected $content;
 

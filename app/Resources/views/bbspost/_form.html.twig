@@ -10,9 +10,11 @@
         </p>
     </div>
     <div class="panel-body">
-        {{ form_start(form, {'novalidate': 'novalidate'}) }}
+        {{ form_start(form, { method: 'POST', action: path('member_bbs_new'), 'attr': {'novalidate': 'novalidate'}}) }}
             {{ form_errors(form) }}
+            {{ form_row(form.title) }}
             {{ form_row(form.content) }}
+            {{ form_row(form.tags) }}
             {{ form_errors(form.file) }}
             {{ form_errors(form.imageFile) }}
             <div class="btn-group-wrap">
@@ -20,7 +22,7 @@
                     {{ form_widget(form.file) }}
                     {{ form_widget(form.imageFile) }}
                     <div class="btn-group" role="group">
-                        <input type="submit" value="Submit" class="btn btn-lg btn-warning" />
+                        <input type="submit" value="Post" class="btn btn-lg btn-warning" />
                     </div>
                 </div>
             </div>
