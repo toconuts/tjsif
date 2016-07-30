@@ -33,6 +33,7 @@ class ChangePassword
      *     min = 6,
      *     minMessage = "Password should by at least 6 chars long"
      * )
+     * @Assert\NotBlank()
      */
     protected $newPassword;
     
