@@ -194,12 +194,14 @@ class OrganizationController extends AbstractAppController
     
     public function toppageAction()
     {
-        $organization = $this->getDoctrine()->getManager()
+        $organizations = $this->getDoctrine()->getManager()
                 ->getRepository('AppBundle:Organization')
                 ->findBy(array('isActive' => true));
-
+        
+        $organization = $organizations[mt_rand(0, count($organizations)-1)];
+        
         return $this->render('components/member/organization_toppage.html.twig', array(
-            'organization' => $organization[mt_rand(0, count($organization)-1)],
+            'organization' => $organization,
             'organizationChoices' => (new OrganizationChoiceLoader())->getChoicesFliped(),
         ));
     }

@@ -243,12 +243,17 @@ class ProjectController extends AbstractAppController
     
     public function toppageAction()
     {
-        $project = $this->getDoctrine()->getManager()
+        $projects = $this->getDoctrine()->getManager()
                 ->getRepository('AppBundle:Project')
                 ->findBy(array('isActive' => true));
 
+        $project = null;
+        if (0 < count($projects)) {
+            $project = $projects[mt_rand(0, count($projects)-1)];
+        }
+        
         return $this->render('components/member/project_toppage.html.twig', array(
-            'project' => $project[mt_rand(0, count($project)-1)],
+            'project' => $project,
             'categoryChoices' => (new CategoryChoiceLoader())->getChoicesFliped(),
         ));
     }
