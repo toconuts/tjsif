@@ -22,7 +22,7 @@ class OrganizationChoiceLoader extends AbstractChoiceLoader
 {
     const ORGANIZATION_FORM_12_PCSHS    = '12 PCSH School';
     const ORGANIZATION_FORM_SSHS_JAPAN  = 'SSH school in Japan';
-    const ORGANIZATION_FORM_SISTER_THAI = 'Syster school in Thai';
+    const ORGANIZATION_FORM_SISTER_THAI = 'Sister school in Thai';
     const ORGANIZATION_FORM_UNIVERSITY  = 'University';
     const ORGANIZATION_FORM_GOVERNMENT  = 'Government';
     const ORGANIZATION_FORM_COMPANY     = 'Company';

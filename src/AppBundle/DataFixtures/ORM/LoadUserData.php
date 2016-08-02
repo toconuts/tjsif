@@ -217,7 +217,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user11->setEmail('user11@example.com');
         $user11->setIsActive(true);
         $user11 = $this->setRoles($user11, array('role-user'));
-        $user11->setOrganization($this->getReference('org-2-08'));
+        $user11->setOrganization($this->getReference('org-2-04'));
         $user11->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user11->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user11->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);
@@ -232,7 +232,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user12->setEmail('user12@example.com');
         $user12->setIsActive(true);
         $user12 = $this->setRoles($user12, array('role-user'));
-        $user12->setOrganization($this->getReference('org-2-08'));
+        $user12->setOrganization($this->getReference('org-3-08'));
         $user12->setOccupation(OccupationChoiceLoader::OCCUPATION_STUDENT_ID);
         $user12->setGender(GenderChoiceLoader::GENDER_FEMALE_ID);
         $user12->setType(AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID);

@@ -24,15 +24,17 @@ class OccupationChoiceLoader extends AbstractChoiceLoader
     const OCCUPATION_TEACHER        = 'Teacher';
     const OCCUPATION_DEPUTY         = 'Deputy';
     const OCCUPATION_DIRECTOR       = 'Director';
-    const OCCUPATION_JOCV           = 'JOCV';
+    const OCCUPATION_JOCV           = 'JOCV/JICA';
+    const OCCUPATION_NP             = 'NP/JF';
     const OCCUPATION_THEOTHER       = 'The other';
     
-    const OCCUPATION_STUDENT_ID     =  '1';
-    const OCCUPATION_TEACHER_ID     =  '2';
-    const OCCUPATION_DEPUTY_ID      =  '4';
-    const OCCUPATION_DIRECTOR_ID    =  '8';
-    const OCCUPATION_JOCV_ID        = '16';
-    const OCCUPATION_THEOTHER_ID    = '32';
+    const OCCUPATION_STUDENT_ID     =    '1';
+    const OCCUPATION_TEACHER_ID     =    '2';
+    const OCCUPATION_DEPUTY_ID      =    '4';
+    const OCCUPATION_DIRECTOR_ID    =    '8';
+    const OCCUPATION_JOCV_ID        =   '16';
+    const OCCUPATION_NP_ID          =   '32';
+    const OCCUPATION_THEOTHER_ID    = '1024';
     
     protected $choices = array(
         self::OCCUPATION_STUDENT    => self::OCCUPATION_STUDENT_ID,
