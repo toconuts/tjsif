@@ -97,7 +97,8 @@ class RegistrationType extends AbstractType
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
                 'choice_label' => 'name',
-                'placeholder' => 'Choose your organization, If not listed, just leave it. You can create after registration',
+                'placeholder' => 'Choose your organization',
+                'label' => 'Organization *',
             ))
             ->add('position', TextType::class)
             ->add('about_me', TextareaType::class, array(
