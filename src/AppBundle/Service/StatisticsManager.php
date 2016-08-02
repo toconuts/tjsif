@@ -41,6 +41,7 @@ class StatisticsManager
                         SUM(CASE WHEN u.occupation=8  AND u.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.occupation=16 AND u.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.occupation=32 AND u.isActive=true THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=1024 AND u.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.isActive=true THEN 1 ELSE 0 END)')
             ->from('AppBundle:Organization', 'o')
             ->leftJoin('o.users', 'u')
