@@ -8,7 +8,7 @@ Organization list
 
 {% block content %}
 <div class="container">
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
     <div class="row">
         <div class="col-sm-offset-11 col-sm-1">
             <a type="button" class="btn btn-default pull-right" href="{{ path("member_organization_new") }}">New</a>
