@@ -175,13 +175,13 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
          * Japan SSHS
          */
         $org_2_01 = new Organization();
-        $org_2_01->setName('Tokyo Gakugei University Senior High School');
-        $org_2_01->setShortname('Tokyo Gakugei');
-        $org_2_01->setCity('Gakugei');
-        $org_2_01->setProvince('Tokyo');
+        $org_2_01->setName('Seishin Gakuen High School and Junior High School');
+        $org_2_01->setShortname('Seishin Gakuen');
+        $org_2_01->setCity('Kashima');
+        $org_2_01->setProvince('Ibaraki');
         $org_2_01->setCountry(self::JP);
         $org_2_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_01 = $this->setSysters($org_2_01, array('org-1-01'));
+        $org_2_01 = $this->setSysters($org_2_01, array('org-1-02'));
         $manager->persist($org_2_01);
         $this->addReference('org-2-01', $org_2_01);
         
@@ -197,112 +197,112 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('org-2-02', $org_2_02);
         
         $org_2_03 = new Organization();
-        $org_2_03->setName('Oita Maizuru High School');
-        $org_2_03->setShortname('Oita Maizuru');
-        $org_2_03->setCity('Maizuru');
-        $org_2_03->setProvince('Oita');
+        $org_2_03->setName('Tennoji High School attached to Osaka Kyoiko University');
+        $org_2_03->setShortname('Tennoji');
+        $org_2_03->setCity('Tennoji');
+        $org_2_03->setProvince('Osaka');
         $org_2_03->setCountry(self::JP);
         $org_2_03->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_03 = $this->setSysters($org_2_03, array('org-1-03'));
+        $org_2_03 = $this->setSysters($org_2_03, array('org-1-07'));
         $manager->persist($org_2_03);
         $this->addReference('org-2-03', $org_2_03);
         
         $org_2_04 = new Organization();
-        $org_2_04->setName('Fukuoka Jyoto High School of Fukuoka Institute of Technology');
-        $org_2_04->setShortname('Fukuoka Jyoto');
-        $org_2_04->setCity('Jyoto');
-        $org_2_04->setProvince('Fukuoka');
+        $org_2_04->setName('Ichikawa Gakuen Junior & Senior High School');
+        $org_2_04->setShortname('Ichikawa Gakuen');
+        $org_2_04->setCity('Ichikawa');
+        $org_2_04->setProvince('Chiba');
         $org_2_04->setCountry(self::JP);
         $org_2_04->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_04 = $this->setSysters($org_2_04, array('org-1-04'));
+        $org_2_04 = $this->setSysters($org_2_04, array('org-1-08'));
         $manager->persist($org_2_04);
         $this->addReference('org-2-04', $org_2_04);
         
         $org_2_05 = new Organization();
-        $org_2_05->setName('Tokyo Tech High School of Science and Technology');
-        $org_2_05->setShortname('Tokyo Tech');
-        $org_2_05->setCity('Tokyo');
+        $org_2_05->setName('Bunkyo Gakuin University Girls\' Senior High School');
+        $org_2_05->setShortname('Bunkyo Gakuin');
+        $org_2_05->setCity('Bunkyo-ku');
         $org_2_05->setProvince('Tokyo');
         $org_2_05->setCountry(self::JP);
         $org_2_05->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_05 = $this->setSysters($org_2_05, array('org-1-05'));
+        $org_2_05 = $this->setSysters($org_2_05, array('org-1-09'));
         $manager->persist($org_2_05);
         $this->addReference('org-2-05', $org_2_05);
         
         $org_2_06 = new Organization();
-        $org_2_06->setName('Hiroshima University Attached High School');
-        $org_2_06->setShortname('Hiroshima University');
-        $org_2_06->setCity('Hiroshima');
-        $org_2_06->setProvince('LopHiroshimaburi');
+        $org_2_06->setName('Nara Prefectural Seisho High School');
+        $org_2_06->setShortname('Seisho');
+        $org_2_06->setCity('Gose');
+        $org_2_06->setProvince('Nara');
         $org_2_06->setCountry(self::JP);
         $org_2_06->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_06 = $this->setSysters($org_2_06, array('org-1-06'));
+        $org_2_06 = $this->setSysters($org_2_06, array('org-1-10'));
         $manager->persist($org_2_06);
         $this->addReference('org-2-06', $org_2_06);
         
         $org_2_07 = new Organization();
-        $org_2_07->setName('Tennoji High School attached to Osaka Kyoiko University');
-        $org_2_07->setShortname('Osaka Kyoiko Tennoji');
-        $org_2_07->setCity('Tennoji');
-        $org_2_07->setProvince('Osaka');
+        $org_2_07->setName('Meijo University Senior High School');
+        $org_2_07->setShortname('Meijo');
+        $org_2_07->setCity('Nagoya');
+        $org_2_07->setProvince('Aichi');
         $org_2_07->setCountry(self::JP);
         $org_2_07->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_07 = $this->setSysters($org_2_07, array('org-1-07'));
+        $org_2_07 = $this->setSysters($org_2_07, array('org-1-11'));
         $manager->persist($org_2_07);
         $this->addReference('org-2-07', $org_2_07);
         
         $org_2_08 = new Organization();
-        $org_2_08->setName('Ichikawa Gakuen Ichikawa Junior & Senior High School');
-        $org_2_08->setShortname('Ichikawa Gakuen');
-        $org_2_08->setCity('Ichikawa');
-        $org_2_08->setProvince('Chiba');
+        $org_2_08->setName('Tokai University Takanawadai High School');
+        $org_2_08->setShortname('Tokai Takanawadai');
+        $org_2_08->setCity('Minato-ku');
+        $org_2_08->setProvince('Tokyo');
         $org_2_08->setCountry(self::JP);
         $org_2_08->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_08 = $this->setSysters($org_2_08, array('org-1-08'));
+        $org_2_08 = $this->setSysters($org_2_08, array('org-1-11'));
         $manager->persist($org_2_08);
         $this->addReference('org-2-08', $org_2_08);
         
         $org_2_09 = new Organization();
-        $org_2_09->setName('Bunkyo Gakuin University Girls\' Senior High School');
-        $org_2_09->setShortname('Bunkyo Gakuin');
-        $org_2_09->setCity('Tokyo');
-        $org_2_09->setProvince('Tokyo');
+        $org_2_09->setName('Furukawa Reimei Junior & Senior High School');
+        $org_2_09->setShortname('Furukawa Reimei');
+        $org_2_09->setCity('Osaki');
+        $org_2_09->setProvince('Miyagi');
         $org_2_09->setCountry(self::JP);
         $org_2_09->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_09 = $this->setSysters($org_2_09, array('org-1-09'));
+        $org_2_09 = $this->setSysters($org_2_09, array('org-1-12'));
         $manager->persist($org_2_09);
         $this->addReference('org-2-09', $org_2_09);
         
         $org_2_10 = new Organization();
-        $org_2_10->setName('Nara Prefectural Seisho High School');
-        $org_2_10->setShortname('Nara Seisho');
-        $org_2_10->setCity('Nara');
-        $org_2_10->setProvince('Nara');
+        $org_2_10->setName('Shizuoka Kita Junior and Senior High School');
+        $org_2_10->setShortname('Shizuoka Kita');
+        $org_2_10->setCity('Shizuoka');
+        $org_2_10->setProvince('Shizuoka');
         $org_2_10->setCountry(self::JP);
         $org_2_10->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_10 = $this->setSysters($org_2_10, array('org-1-10'));
+        $org_2_10 = $this->setSysters($org_2_10, array('org-1-04'));
         $manager->persist($org_2_10);
         $this->addReference('org-2-10', $org_2_10);
         
         $org_2_11 = new Organization();
-        $org_2_11->setName('Meijo University Senior High School');
-        $org_2_11->setShortname('Meijo University');
-        $org_2_11->setCity('Nagoya');
-        $org_2_11->setProvince('Aichi');
+        $org_2_11->setName('Place holder for SSH11');
+        $org_2_11->setShortname('SSH11');
+        $org_2_11->setCity('');
+        $org_2_11->setProvince('');
         $org_2_11->setCountry(self::JP);
         $org_2_11->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_11 = $this->setSysters($org_2_11, array('org-1-11'));
+        //$org_2_11 = $this->setSysters($org_2_11, array('org-1-XX'));
         $manager->persist($org_2_11);
         $this->addReference('org-2-11', $org_2_11);
         
         $org_2_12 = new Organization();
-        $org_2_12->setName('Furukawa Reimei Junior & Senior High School');
-        $org_2_12->setShortname('Furukawa Reimei');
-        $org_2_12->setCity('Osaki');
-        $org_2_12->setProvince('Miyagi');
+        $org_2_12->setName('Place holder for SSH12');
+        $org_2_12->setShortname('SSH12');
+        $org_2_12->setCity('');
+        $org_2_12->setProvince('');
         $org_2_12->setCountry(self::JP);
         $org_2_12->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID);
-        $org_2_12 = $this->setSysters($org_2_12, array('org-1-12'));
+        //$org_2_12 = $this->setSysters($org_2_12, array('org-1-XX'));
         $manager->persist($org_2_12);
         $this->addReference('org-2-12', $org_2_12);
         
@@ -310,15 +310,112 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
          * Syster school in thai
          */
         $org_3_01 = new Organization();
-        $org_3_01->setName('Banbueng High School');
-        $org_3_01->setShortname('Banbueng High School');
-        $org_3_01->setCity('Banbueng');
-        $org_3_01->setProvince('Chonburi');
+        $org_3_01->setName('Damrongrat Songkroh School');
+        $org_3_01->setShortname('Damrongrat Songkroh School');
         $org_3_01->setCountry(self::TH);
         $org_3_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
-        $org_3_01 = $this->setSysters($org_3_01, array('org-1-08'));
+        $org_3_01 = $this->setSysters($org_3_01, array('org-1-01'));
         $manager->persist($org_3_01);
         $this->addReference('org-3-01', $org_3_01);
+        
+        $org_3_02 = new Organization();
+        $org_3_02->setName('Janokrong School');
+        $org_3_02->setShortname('Janokrong School');
+        $org_3_02->setCountry(self::TH);
+        $org_3_02->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_02 = $this->setSysters($org_3_02, array('org-1-02'));
+        $manager->persist($org_3_02);
+        $this->addReference('org-3-02', $org_3_02);
+        
+        $org_3_03 = new Organization();
+        $org_3_03->setName('Satri Angthong School');
+        $org_3_03->setShortname('Satri Angthong School');
+        $org_3_03->setCountry(self::TH);
+        $org_3_03->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_03 = $this->setSysters($org_3_03, array('org-1-03'));
+        $manager->persist($org_3_03);
+        $this->addReference('org-3-03', $org_3_03);
+        
+        $org_3_04 = new Organization();
+        $org_3_04->setName('Khaokaewittayasan');
+        $org_3_04->setShortname('Khaokaewittayasan');
+        $org_3_04->setCountry(self::TH);
+        $org_3_04->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_04 = $this->setSysters($org_3_04, array('org-1-04'));
+        $manager->persist($org_3_04);
+        $this->addReference('org-3-04', $org_3_04);
+        
+        $org_3_05 = new Organization();
+        $org_3_05->setName('Satuk School');
+        $org_3_05->setShortname('Satuk School');
+        $org_3_05->setCountry(self::TH);
+        $org_3_05->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_05 = $this->setSysters($org_3_05, array('org-1-05'));
+        $manager->persist($org_3_05);
+        $this->addReference('org-3-05', $org_3_05);
+        
+        $org_3_06 = new Organization();
+        $org_3_06->setName('Mukdawittayanukul School');
+        $org_3_06->setShortname('Mukdawittayanukul School');
+        $org_3_06->setCountry(self::TH);
+        $org_3_06->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_06 = $this->setSysters($org_3_06, array('org-1-06'));
+        $manager->persist($org_3_06);
+        $this->addReference('org-3-06', $org_3_06);
+        
+        $org_3_07 = new Organization();
+        $org_3_07->setName('Kanaratbamrung Pathumthani School');
+        $org_3_07->setShortname('Kanaratbamrung Pathumthani School');
+        $org_3_07->setCountry(self::TH);
+        $org_3_07->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_07 = $this->setSysters($org_3_07, array('org-1-07'));
+        $manager->persist($org_3_07);
+        $this->addReference('org-3-07', $org_3_07);
+        
+        $org_3_08 = new Organization();
+        $org_3_08->setName('Chonkanyanukoon School');
+        $org_3_08->setShortname('Chonkanyanukoon School');
+        $org_3_08->setCountry(self::TH);
+        $org_3_08->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_08 = $this->setSysters($org_3_08, array('org-1-08'));
+        $manager->persist($org_3_08);
+        $this->addReference('org-3-08', $org_3_08);
+        
+        $org_3_09 = new Organization();
+        $org_3_09->setName('Padengvittaya School');
+        $org_3_09->setShortname('Padengvittaya School');
+        $org_3_09->setCountry(self::TH);
+        $org_3_09->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_09 = $this->setSysters($org_3_09, array('org-1-09'));
+        $manager->persist($org_3_09);
+        $this->addReference('org-3-09', $org_3_09);
+        
+        $org_3_10 = new Organization();
+        $org_3_10->setName('Streethungsong School');
+        $org_3_10->setShortname('Streethungsong School');
+        $org_3_10->setCountry(self::TH);
+        $org_3_10->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_10 = $this->setSysters($org_3_10, array('org-1-10'));
+        $manager->persist($org_3_10);
+        $this->addReference('org-3-10', $org_3_10);
+        
+        $org_3_11 = new Organization();
+        $org_3_11->setName('Wichienmatu School');
+        $org_3_11->setShortname('Wichienmatu School');
+        $org_3_11->setCountry(self::TH);
+        $org_3_11->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_11 = $this->setSysters($org_3_11, array('org-1-11'));
+        $manager->persist($org_3_11);
+        $this->addReference('org-3-11', $org_3_11);
+        
+        $org_3_12 = new Organization();
+        $org_3_12->setName('Phimanpittayasan School');
+        $org_3_12->setShortname('Phimanpittayasan School');
+        $org_3_12->setCountry(self::TH);
+        $org_3_12->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID);
+        $org_3_12 = $this->setSysters($org_3_12, array('org-1-12'));
+        $manager->persist($org_3_12);
+        $this->addReference('org-3-12', $org_3_12);
         
         /**
          * University
@@ -337,16 +434,36 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         /**
          * Government
          */
+        
         $org_5_01 = new Organization();
-        $org_5_01->setName('Japan International Cooperation Agency Thailand Office');
-        $org_5_01->setShortname('JICA Thai');
-        $org_5_01->setCity('Klongtoey');
+        $org_5_01->setName('Management Center for the Project on the Development of Princess Chulabhorn College');
+        $org_5_01->setShortname('Chulabhorn Center');
+        $org_5_01->setCity('Dusit');
         $org_5_01->setProvince('Bangkok');
         $org_5_01->setCountry(self::TH);
         $org_5_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_GOVERNMENT_ID);
-        $org_5_01 = $this->setSysters($org_5_01, array());
         $manager->persist($org_5_01);
         $this->addReference('org-5-01', $org_5_01);
+        
+        $org_5_02 = new Organization();
+        $org_5_02->setName('Japan International Cooperation Agency Thailand Office');
+        $org_5_02->setShortname('JICA Thai');
+        $org_5_02->setCity('Klongtoey');
+        $org_5_02->setProvince('Bangkok');
+        $org_5_02->setCountry(self::TH);
+        $org_5_02->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_GOVERNMENT_ID);
+        $manager->persist($org_5_02);
+        $this->addReference('org-5-02', $org_5_02);
+        
+        $org_5_03 = new Organization();
+        $org_5_03->setName('The Japan Foundation, Bangkok');
+        $org_5_03->setShortname('JF Bangkok');
+        $org_5_03->setCity('Klongtoey');
+        $org_5_03->setProvince('Bangkok');
+        $org_5_03->setCountry(self::TH);
+        $org_5_03->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_GOVERNMENT_ID);
+        $manager->persist($org_5_03);
+        $this->addReference('org-5-03', $org_5_03);
         
         /**
          * Company
@@ -358,7 +475,6 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org_6_01->setProvince('Chonburi');
         $org_6_01->setCountry(self::TH);
         $org_6_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_COMPANY_ID);
-        $org_6_01 = $this->setSysters($org_6_01, array());
         $manager->persist($org_6_01);
         $this->addReference('org-6-01', $org_6_01);
         
@@ -372,7 +488,6 @@ class LoadOrganizationData extends AbstractFixture implements OrderedFixtureInte
         $org_99_01->setProvince('Bangkok');
         $org_99_01->setCountry(self::TH);
         $org_99_01->setType(OrganizationChoiceLoader::ORGANIZATION_FORM_THEOTHER_ID);
-        $org_99_01 = $this->setSysters($org_99_01, array());
         $manager->persist($org_99_01);
         $this->addReference('org-99-01', $org_99_01);
         
