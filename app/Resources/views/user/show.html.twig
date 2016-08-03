@@ -25,7 +25,7 @@ Profile <small>- {{ user.getFullname }}</small>
                 <a class="btn btn-lg btn-default" href="{{ app.request.headers.get('referer') }}">Back</a>
                 <a class="btn btn-lg btn-default" href="{{ path("member_user_index") }}">View member list &raquo;</a>
                 <a class="btn btn-lg btn-success" href="{{ path("member_attendance_show", {"id": user.id}) }}" role="button">View attendance &raquo;</a>
-                {% if app.user.id == user.id %}
+                {% if app.user.id == user.id or is_granted('ROLE_SUPER_ADMIN') %}
                 <a class="btn btn-lg btn-danger" href="{{ path("member_user_changepassword", {"id": user.id}) }}">Change password</a>
                 <a class="btn btn-lg btn-warning" href="{{ path("member_user_picture_upload", {"id": user.id}) }}">Change picture</a>
                 <a type="button" class="btn btn-lg btn-primary" href="{{ path("member_user_edit", {"id": user.id}) }}">Edit information</a>
