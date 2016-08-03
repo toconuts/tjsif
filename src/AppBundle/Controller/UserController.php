@@ -77,7 +77,8 @@ class UserController extends AbstractAppController
      */
     public function editAction(Request $request, User $user)
     {
-        if (!$user->isUser($this->getUser())) {
+        if (!$user->isUser($this->getUser()) && 
+                !$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') ) {
             throw $this->denyAccessUnlessGranted('edit', $user);
         }
         
