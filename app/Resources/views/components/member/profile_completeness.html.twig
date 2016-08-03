@@ -2,9 +2,9 @@
 <div class="pofile-picture">
    <a href="{{ path("member_user_show", {"id": app.user.id}) }}">
     {% if app.user.picture %}
-    <img class="img-circle" src="{{ vich_uploader_asset(app.user.picture, 'imageFile')|imagine_filter('thumbnail_sm') }}" alt="Profile picture" />
+    <img class="img-circle" src="{{ vich_uploader_asset(app.user.picture, 'imageFile')|imagine_filter('thumbnail_md') }}" alt="Profile picture" />
     {% else %}
-    <img class="img-circle" src="{{ asset('/template/user/initial_user.png')|imagine_filter('thumbnail_sm') }}" alt="User profile picture" />
+    <img class="img-circle" src="{{ asset('/template/user/initial_user.png')|imagine_filter('thumbnail_md') }}" alt="User profile picture" />
     {% endif %}
   </a>
 </div>

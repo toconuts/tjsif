@@ -47,9 +47,9 @@ Project list
                     <tr>
                         <td>
                             {% if project.picture %}
-                            <img class="img-rounded" src="{{ vich_uploader_asset(project.picture, 'imageFile')|imagine_filter('thumbnail_xs') }}" alt="Project picture" />
+                            <img class="img-rounded" src="{{ vich_uploader_asset(project.picture, 'imageFile')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
                             {% else %}
-                            <img class="img-rounded" src="{{ asset('/template/project/initial_project.png')|imagine_filter('thumbnail_xs') }}" alt="Project picture" />
+                            <img class="img-rounded" src="{{ asset('/template/project/initial_project.png')|imagine_filter('thumbnail_sm') }}" alt="Project picture" />
                             {% endif %}
                         </td>
                         <td><a href="{{ path("member_project_show", {"id": project.id}) }}">{{ project.name }}</a></td>

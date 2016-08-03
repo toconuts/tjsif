@@ -142,12 +142,17 @@ liip_imagine:
     filter_sets:
         cache: ~
         thumbnail_xs:
-            quality: 75
+            quality: 90
             filters:
                 thumbnail: { size: [40, 40], mode: outbound }
         
         thumbnail_sm:
-            quality: 75
+            quality: 90
+            filters:
+                thumbnail: { size: [120, 120], mode: outbound }
+
+        thumbnail_md:
+            quality: 90
             filters:
                 thumbnail: { size: [280, 280], mode: outbound }
 
