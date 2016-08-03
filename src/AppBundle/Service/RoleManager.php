@@ -74,6 +74,10 @@ class RoleManager
             
             $user = $this->grantRoleAdmin($user);
             
+        } else if ($user->getType() == AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID) {
+            
+            $user = $this->grantRoleAdmin($user);
+            
         } else if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_TEACHER_ID) {
             if (($user->getOrganization()->getCountry() == 'JP') ||
                 ($user->getOrganization()->getCountry() == 'TH' && 
