@@ -74,7 +74,7 @@ class RoleManager
             
             $user = $this->grantRoleAdmin($user);
             
-        } else if ($user->getType() == AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID) {
+        } else if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID) {
             
             $user = $this->grantRoleAdmin($user);
             
