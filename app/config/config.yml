@@ -7,7 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    sadmin_mails: [sadmin@example.com, toconuts@gmail.com, tjsif2016@gmail.com]
+    sadmin_mails: [sadmin@example.com, toconuts@gmail.com]
 
 framework:
     #esi:             ~

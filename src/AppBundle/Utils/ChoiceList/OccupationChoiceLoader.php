@@ -42,6 +42,7 @@ class OccupationChoiceLoader extends AbstractChoiceLoader
         self::OCCUPATION_DEPUTY     => self::OCCUPATION_DEPUTY_ID,
         self::OCCUPATION_DIRECTOR   => self::OCCUPATION_DIRECTOR_ID,
         self::OCCUPATION_JOCV       => self::OCCUPATION_JOCV_ID,
+        self::OCCUPATION_NP         => self::OCCUPATION_NP_ID,
         self::OCCUPATION_THEOTHER   => self::OCCUPATION_THEOTHER_ID,
     );
 }
