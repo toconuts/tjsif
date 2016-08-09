@@ -1,146 +1,37 @@
 # tjsif
+
 Thailand - Japan Student ICT Fair 2016 Official Web Site
 
-Verify Environment
-----------------------------------
-### PHP version
-    php -v
 
-### JSON support
-    php -i | grep json
-
-### PHP type
-    php -i | grep ctype
-
-### PDO module
-    php -i | grep pdo_mysql
-
-### SQLite
-    php -i | grep sqlite
-
-Setup Composer
-----------------------------------
-### Clone project
-In your working directory.
-    git clone https://github.com/toconuts/tjsif.git
-
-### Install curl
-    sudo apt-get install php5-curl
-    sudo apache2ctl restart
-
-### Install Composer
-
-    curl -sS https://getcomposer.org/installer | php
-    sudo mv composer.phar /usr/local/bin/composer
-
-or to see composer [official website][1]
-
-### Checking out a versioned applications
-    composer install
-
-Running server and check configuration
-----------------------------------
-### Running server
-    cd my_project_name/
-    php bin/console server:start
-### or
-    php bin/console server:run
-Then, open your browser and access the [http://localhost:8000/][1]
-
-### Stop server
-    php bin/console server:stop
-
-### Checking Symfony Application Configuration and Setup
-[http://localhost:8000/config.php][2]
-Also you can check this command
-    php bin/symfony_requirements
-
-if intl extension should be available occured.
-   > Install and enable the intl extension (used for validators).
-    sudo apt-get install php5-intl
-
-   > Check
-    $ php -m | grep intl
-    intl
-
-Setting up the Database to be UTF8
-----------------------------------
-### Add a few lines to `my.conf`.
-Version 5.5.3 introduced utf8mb4, which is recommended
-
-    sudo gedit /etc/mysql/my.cnf
-
-    [mysqld]
-    collation-server     = utf8mb4_general_ci # Replaces utf8_general_ci
-    character-set-server = utf8mb4            # Replaces utf8
-
-### Restart server
-    sudo service mysql restart
-
-Doctrine commands
-----------------------------------
-### Create and delete database 
-    php bin/console doctrine:database:drop --force
-    php bin/console doctrine:database:create
-Use for only to create development environment
+## Getting started developing the application
+Don't worry, it will be quick and easy:
+  * [Resources/doc/installtion.md](https://github.com/toconuts/tjsif/tree/master/app/Resources/doc/installation.md)
 
 
-### Create Entity or Update getter/setter
-    php bin/console doctrine:generate:entities AppBundle/Entity/entity_name
-To generate the missing getter and setter methods:
+## How to deploy the tjsif application
+The typical steps for deploying to production server:
+  * [Resources/doc/deployment.md](https://github.com/toconuts/tjsif/tree/master/app/Resources/doc/deployment.md)
 
 
-### Update Database Schema
+## For usage documentation
+Some tips for development, see:
+  * [Resources/doc/index.md](https://github.com/toconuts/tjsif/tree/master/app/Resources/doc/tips.md)
 
-    php bin/console doctrine:schema:update --force
+## Contributing
+See the:
+  * [Resources/doc/contributing.md](https://github.com/toconuts/tjsif/tree/master/app/Resources/doc/contributing.md) 
 
-### Load fixtures
-    php bin/console doctrine:fixtures:load
-
-Deployment
-----------------------------------
-
-Post-Deployment Tasks
-----------------------------------
-### Check Requirements
-    php bin/symfony_requirements
-
-### Configure `app/config/parameters.yml`
-
-### Configure `web/app.php`
-$kernel = new AppKernel('prod', false);
-
-### Install/Update Vendors
-    composer install --no-dev --optimize-autoloader
-
-### Clear Symfony Cache
-    php bin/console cache:clear --env=prod --no-debug
-
-### Dump Assetic Assets
-    php bin/console assetic:dump --env=prod --no-debug
-
-
-#TODO LIST#
+## TODO LIST
 Required:
-* ICon: Make good one
-* Add static tooltip on form create and edit
+  * Icon: Make a good one
+  * Add static tooltip on form create and edit
+  * Create tests (unit and function)
 
-Possible:
-* Organization: FAX Add @Assert\Regex()
-* Activity: Delete for sadmin. note: delete all attendances from all user
-* FormType: In show page, display updated at and updated by (with change view don't user Formtype version)
-* FormType: Add placeholder to all form type
-* BBSRepository: modify query for order if post has been commented or change to latest post and comment
-* Error page 404
-* Add more comments in the code
-* Create tests
-
-#Guide line#
-* Carousel Image Size: 1024 x 576 (16:9 PALt)
-* Update Picture Size: 500 x 500 (except BBS)
-
-http://jsfiddle.net/opengl_8080/2ZC24/show/
-
-[1]:  https://getcomposer.org/doc/00-intro.md
-[2]:  http://localhost:8000/
-[3]:  http://localhost:8000/config.php
+Options:
+  * Organization: FAX Add @Assert\Regex()
+  * Activity: Delete for sadmin. note: delete all attendances from all user
+  * FormType: In show page, display updated at and updated by (with change view don't user Formtype version)
+  * FormType: Add placeholder to all form type
+  * BBSRepository: modify query for order if post has been commented or change to latest post and comment
+  * Error page 404
+  * Add more comments in the code
