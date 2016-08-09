@@ -91,7 +91,7 @@ $ composer install --no-dev --optimize-autoloader
 
 ### Set time zone
 `/etc/php5/apache2/php.ini` and `/etc/php5/cli/php.ini`  
-See also [Set timezone](app/Resources/doc/installation.md#set-timezone)
+See also [Set timezone](installation.md#set-timezone)
 
 ### Check Requirements
 ```sh
