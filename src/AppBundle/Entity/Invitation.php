@@ -42,7 +42,7 @@ class Invitation
     /**
      * @ORM\Column(type="string", length=60)
      * @Assert\NotBlank()
-     * @Assert\Email(checkMX=true)
+     * @Assert\Email()
      * @Assert\Length(max=60)
      */    
     private $email;
