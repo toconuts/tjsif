@@ -2,12 +2,12 @@
 ## Overview
 The tjsif application requires as follow:
   * Linux
-  * Apache: (required only for production[^1])
+  * Apache: (not required during development)
   * MySql
   * PHP
   * Symphony Flamework
 
-[^1]: Symphony Flamework provides simple web server. So apache is not neccesary to set up in development.
+> Since PHP 5.4 the CLI SAPI comes with a [built-in web server](http://www.php.net/manual/en/features.commandline.webserver.php). It can be used to run your PHP applications locally during development, for testing or for application demonstrations. This way, you don't have to bother configuring a full-featured web server such as Apache or Nginx.
 
 If you don't have LAMP environment installed in your server, please do that first.
 Following commands are for example to install Apache, MySQL, PHP on Ubuntu.
