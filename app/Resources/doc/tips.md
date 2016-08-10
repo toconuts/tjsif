@@ -82,6 +82,6 @@ $ scp /local/path_to/test.txt user@remote_host:/home/user/tmp/
 
 Transfer directory
 ```sh
-$ scp -r user@remoteHost:/home/user/path_to/dir /local/path_to/dir
-$ scp -r /local/path_to/dir user@remoteHost:/home/user/path_to/
+$ scp -r user@remote_host:/home/user/path_to/dir /local/path_to/dir
+$ scp -r /local/path_to/dir user@remote_host:/home/user/path_to/
 ```
