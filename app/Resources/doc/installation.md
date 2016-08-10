@@ -2,7 +2,7 @@
 ## Overview
 The tjsif application requires as follow:
   * Linux
-  * Apache: (not required during development])
+  * Apache: (not required during development)
   * MySql
   * PHP
   * Symphony Flamework
