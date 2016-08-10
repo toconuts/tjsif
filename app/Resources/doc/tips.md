@@ -44,7 +44,7 @@ $ php bin/console doctrine:fixtures:load
 Verify grid
 http://jsfiddle.net/opengl_8080/2ZC24/show/
 
-## ubuntu
+## Linux and ubuntu
 ### Add user
 ```sh
 $ adduser user_name
@@ -67,4 +67,21 @@ $ arch
 or
 ```sh
 $ name -a
+```
+
+### file transfer on SSH
+Remote to local
+```sh
+$ scp user@remote_host:/home/user/tmp/test.txt /local/path_to/
+```
+
+Local to remote
+```sh
+$ scp /local/path_to/test.txt user@remote_host:/home/user/tmp/
+```
+
+Transfer directory
+```sh
+$ scp -r user@remoteHost:/home/user/path_to/dir /local/path_to/dir
+$ scp -r /local/path_to/dir user@remoteHost:/home/user/path_to/
 ```
