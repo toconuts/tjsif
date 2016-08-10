@@ -74,23 +74,28 @@ class RoleManager
             
             $user = $this->grantRoleAdmin($user);
             
-        } else if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID) {
+        } else if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_TEACHER_ID ||
+                $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DEPUTY_ID ||
+                $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DIRECTOR_ID) {
             
-            $user = $this->grantRoleAdmin($user);
+            if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID) {
             
-        } else if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_TEACHER_ID) {
-            if (($user->getOrganization()->getCountry() == 'JP') ||
+                $user = $this->grantRoleAdmin($user);
+                
+            } else if (($user->getOrganization()->getCountry() == 'JP') ||
                 ($user->getOrganization()->getCountry() == 'TH' && 
                     $user->getType() == AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID)) {
                 
                 $user = $this->grantRoleAdmin($user);
                 
-            }
+            } 
         }
         
         // ROLE_SUPER_ADMIN
         if (in_array($user->getEmail(), $this->sadminMails)) {
+            
             $user = $this->grantRoleSuperAdmin($user);
+            
         }
 
         return $user;
