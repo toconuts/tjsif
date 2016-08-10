@@ -34,13 +34,4 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
         ]);
     }
-    
-    /**
-     * @Route("/projects")
-     */
-    public function projectsAction()
-    {
-        return new Response('<html><body>Test for Projects Page!</body></html>');
-    }
-
 }
