@@ -33,7 +33,8 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     public function findUserSortedByOrganization()
     {
         $list = array();
-        $organizations = $this->getEntityManager()->getRepository('AppBundle:Organization')->findAll();
+        $organizations = $this->getEntityManager()
+                ->getRepository('AppBundle:Organization')->findBy([], ['id' => 'ASC']);
         
         foreach ($organizations as $organization) {
             $list[$organization->getShortname()] = $this->getEntityManager()
