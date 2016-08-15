@@ -39,5 +39,15 @@ class StatisticsController extends Controller
             'projectList'       => $projectList,
         ));
     }
+    
+    public function defaultpageAction()
+    {
+        $sm = $this->get('app.statistics_manager');
+       
+        $registrationList = $sm->getRegistrationStatistics();
+        return $this->render('components/section_registration_status.html.twig', array(
+            'registrationList'  => $registrationList,
+        ));
+    }
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

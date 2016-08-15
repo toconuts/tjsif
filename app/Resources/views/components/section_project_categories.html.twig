@@ -1,5 +1,5 @@
 <div class="project-categories">    
-    <h2><p class="text-warning">Categories</p></h2>
+    <h3><p class="text-warning"><i class="fa fa-bars fa-fw" aria-hidden="true"></i>&nbsp;Categories</p></h3>
     <p>There are seven catogities as follows:</p>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -14,7 +14,7 @@
                     <h4 class="panel-title"><i class="fa fa-caret-down fa-fw" aria-hidden="true"></i>{{ categoryChoices[category_id] }}</h4>
                 </a>
             </div>
-            <div id="collapse_{{ category_id }}" class="panel-collapse collapse{% if loop.index0 == 0 %} in{% endif %}" role="tabpanel" aria-labelledby="category_{{ category_id }}">
+            <div id="collapse_{{ category_id }}" class="panel-collapse collapse{% if loop.index0 == 4 %} in{% endif %}" role="tabpanel" aria-labelledby="category_{{ category_id }}">
                 <div class="panel-body">
                     {% for project in project_list %}
                     <div class="media">
