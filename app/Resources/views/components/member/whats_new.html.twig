@@ -5,14 +5,13 @@
             <h3 class="panel-title">Member's site opened!</h3>
         </div>
         <div class="panel-body">
-            <p>This site provides you as follows</p>
+            <p>This site provides you the following</p>
             <ul>
                 <li>Register <a href="{{ path('member_user_show', {"id": app.user.id}) }}">your profile</a>.</li>
-                <li>Reply <a href="{{ path('member_attendance_show', {"id": app.user.id}) }}">your attendance</a> to the invitation of activities.</li>
-                <li>Create <a href="{{ path('member_project_index') }}">project</a> information and upload related files</li>
-                <li>Create <a href="{{ path('member_activity_index') }}">activity</a> and confirm its attendance</li>
-                <li>Search <a href="{{ path('member_user_index') }}">your friends</a>, <a href="{{ path('member_project_index') }}">projects</a>, <a href="{{ path('member_organization_index') }}">schools and other organizations</a></li>                
-                <li>Post what's on your mind and comment the orthers
+                <li>Create <a href="{{ path('member_project_index') }}">projects</a> information and upload related files</li>
+                <li>Create <a href="{{ path('member_activity_index') }}">activities</a> and confirm <a href="{{ path('member_attendance_show', {"id": app.user.id}) }}">your attendance</a> to the activities invitations.</li>
+                <li>Search for <a href="{{ path('member_user_index') }}">your friends</a>, <a href="{{ path('member_project_index') }}">projects</a>, <a href="{{ path('member_organization_index') }}">schools and other organizations</a></li>                
+                <li>Post what's on your mind and comment the orther posts
                     <p><a class="btn btn-default" href="{{ path("member_bbs_index") }}" role="button">View BBS &raquo;</a></p>
                 </li>
                 <li>And so on...</li>

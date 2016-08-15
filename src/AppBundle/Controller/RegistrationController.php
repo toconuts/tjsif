@@ -62,7 +62,7 @@ class RegistrationController extends AbstractAppController
                 return $this->redirectToRoute('user_confirm');
             }
 
-            $this->log('Conglats! After login, you can access TJ-SIF 2016 member\'s site.', Logger::INFO);
+            $this->log('Congrats! After login, you can access TJ-SIF 2016 member\'s site.', Logger::INFO);
             
             return $this->redirectToRoute('login');
             
