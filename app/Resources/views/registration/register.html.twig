@@ -5,9 +5,10 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-offset-2 col-sm-8">
+    <h2 class="form-signin-heading"><a href="http://tjsif2016.pccchon.ac.th/" target="_blank">TJ-SIF 2016</a></h2>
+    <h3>Resistration form for member site</h3>
+    <div class="alert alert-warning text-center" role="alert">If you don't know which account type you should choose, please see <a href="http://tjsif2016.pccchon.ac.th/#howtojoin" target="_blank">Step by Step Guide</a> first. Contact persons should read from <strong>STEP2</strong>, teachers from <strong>STEP 4</strong> and students from <strong>STEP 6</strong>  of the guide above.</div>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    <h2 class="form-signin-heading">TJ-SIF 2016</h2>
-    <p>Refistration form for member site</p>
 {{ form_widget(form) }}
     <input type="submit" value="REGISTER"
        class="btn btn-lg btn-primary btn-block" />
