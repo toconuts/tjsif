@@ -28,6 +28,17 @@
   height: 500px;
 }
 
+/* Section How to join
+-------------------------------------------------- */
+.howtojoin .step-title {
+  text-align: left;
+  float: left;
+}
+
+.howtojoin .step-title-icon {
+  text-align: right;
+}
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
