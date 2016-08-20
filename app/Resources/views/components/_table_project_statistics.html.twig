@@ -16,7 +16,11 @@
         <tbody>
             {% for organization in projectList %}
             <tr>
+                {% if withlink == true %}
                 <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
+                {% else %}
+                <td>{{ organization[0].shortname }}</a></td>
+                {% endif %}
                 <td class="text-center">{{ organization[1] }}</td>
                 <td class="text-center">{{ organization[2] }}</td>
                 <td class="text-center">{{ organization[3] }}</td>
