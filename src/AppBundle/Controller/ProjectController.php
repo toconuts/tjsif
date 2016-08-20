@@ -265,11 +265,12 @@ class ProjectController extends AbstractAppController
                 ->findAllSortedCategory();
         
         $sm = $this->get('app.statistics_manager');
-        
+        $projectList = $sm->getNumberOfProjectStatistics();
         $projectStatics = $sm->getNumberOfProjectTypeGroupByOrganizationType();
         
         return $this->render('components/section_project.html.twig', array(
             'projects'              => $projects,
+            'projectList'           => $projectList,
             'projectStatics'        => $projectStatics,
             'categoryChoices'       => (new CategoryChoiceLoader())->getChoicesFliped(),
             'organizationChoices'   => (new OrganizationChoiceLoader())->getChoicesFliped(),

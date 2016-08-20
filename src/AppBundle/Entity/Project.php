@@ -7,6 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\ProjectPicture;
+use AppBundle\Utils\ChoiceList\PresentationChoiceLoader;
 
 /**
  * Project
@@ -121,6 +122,7 @@ class Project
         $this->users = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->isActive = true;
+        $this->style = PresentationChoiceLoader::PRESENTATION_ORALPOSTER_ID;
     }
     
     /**

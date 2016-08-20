@@ -1,45 +1,43 @@
 <section id="project" class="project">
     <div class="container">
         <h1>Students projects</h1>
-            <p>From grade 11 Students of Princess Chulabhorn Science High Schools (PCSH Schools), the sister schools in Thailand and Super Science High Schools (SSH Schools) in Japan</p>
-            <p>All presentations should be in <code>English</code></p>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="text-center"></th>
-                            <th class="text-center">The number of schools</th>
-                            <th class="text-center">The number of oral presentations</th>
-                            <th class="text-center">The number of poster presentations</th>
-                            <th class="text-center">Total number of projects</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% set school = 0 %}
-                        {% set oral = 0 %}
-                        {% set poster = 0 %}
-                        {% set total = 0 %}
-                        {% for organizationType in projectStatics %}
-                        <tr>
-                            <td>{{ organizationChoices[organizationType.type] }}</td>
-                            <td class="text-center">{{ organizationType[1] }}</td> {% set school = school + organizationType[1] %}
-                            <td class="text-center">{{ organizationType[2] }}</td> {% set oral = oral + organizationType[2] %}
-                            <td class="text-center">{{ organizationType[3] }}</td> {% set poster = poster + organizationType[3] %}
-                            <td class="text-center">{{ organizationType[2] + organizationType[3] }}</td> {% set total = total + organizationType[2] + organizationType[3] %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <thead>
-                        <tr>
-                            <th class="text-center">Total</th>
-                            <th class="text-center">{{ school }}</th>
-                            <th class="text-center">{{ oral }}</th>
-                            <th class="text-center">{{ poster }}</th>
-                            <th class="text-center">{{ total }}</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>From grade 11 Students of Princess Chulabhorn Science High Schools (PCSH Schools), the sister schools in Thailand and Super Science High Schools (SSH Schools) in Japan</p>
+                    <p>All presentations should be in <code>English</code></p>
+                </div>
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th class="text-center">The number of schools</th>
+                                    <th class="text-center">Total number of projects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for organizationType in projectStatics %}
+                                <tr>
+                                    <td>{{ organizationChoices[organizationType.type] }}</td>
+                                    <td class="text-center">{{ organizationType[1] }}</td>
+                                    <td class="text-center">{{ organizationType[2] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive-->
+                </div><!-- /.col-md-3-->
+                <div class="collapse" id="collapseRegistrationProject">
+                    <a data-toggle="collapse" href="#collapseRegistrationProject" aria-expanded="false" aria-controls="collapseRegistrationProject">
+                        <h3><p class="text-warning"><p class="text-warning"><i class="fa fa-registered fa-fw" aria-hidden="true"></i>&nbsp;Registration Status - Project</p></h3>
+                    </a>
+                    {{ include('components/_table_project_statistics.html.twig') }}
+                </div>
+                <button class="btn btn-default btn-lg" type="button" data-toggle="collapse" data-target="#collapseRegistrationProject" aria-expanded="false" aria-controls="collapseRegistrationProject">
+                    <i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;View current registration status - Project
+                </button>
+            </div><!-- /.row-->
         {% include "components/section_project_categories.html.twig" %}
         <hr class="featurette-divider">
     </div><!-- /.container-->
