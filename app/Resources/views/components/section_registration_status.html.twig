@@ -3,62 +3,9 @@
         <a data-toggle="collapse" href="#collapseRegistration" aria-expanded="false" aria-controls="collapseRegistration">
             <h3><p class="text-warning"><p class="text-warning"><i class="fa fa-registered fa-fw" aria-hidden="true"></i>&nbsp;Registration Status - Member</p></h3>
         </a>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Students</th>
-                        <th class="text-center">Teachers</th>
-                        <th class="text-center">Deputies</th>
-                        <th class="text-center">Director</th>
-                        <th class="text-center">JOCV/JICA</th>
-                        <th class="text-center">NP/JF</th>
-                        <th class="text-center">The others</th>
-                        <th class="text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% set student = 0 %}
-                    {% set teacher = 0 %}
-                    {% set deputies = 0 %}
-                    {% set director = 0 %}
-                    {% set jocv = 0 %}
-                    {% set np = 0 %}
-                    {% set other = 0 %}
-                    {% set total = 0 %}
-                    {% for organization in registrationList %}
-                    <tr>
-                        <td>{{ organization[0].shortname }}</a></td>
-                        <td class="text-center">{{ organization[1] }}</td> {% set student = student + organization[1] %}
-                        <td class="text-center">{{ organization[2] }}</td> {% set teacher = teacher + organization[2] %}
-                        <td class="text-center">{{ organization[3] }}</td> {% set deputies = deputies + organization[3] %}
-                        <td class="text-center">{{ organization[4] }}</td> {% set director = director + organization[4] %}
-                        <td class="text-center">{{ organization[5] }}</td> {% set jocv = jocv + organization[5] %}
-                        <td class="text-center">{{ organization[6] }}</td> {% set np = np + organization[6] %}
-                        <td class="text-center">{{ organization[7] }}</td> {% set other = other + organization[7] %}
-                        <td class="text-center"><strong>{{ organization[8] }}</strong></td> {% set total = total + organization[8] %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <thead>
-                    <tr>
-                        <th class="text-center">Total</th>
-                        <th class="text-center">{{ student }}</th>
-                        <th class="text-center">{{ teacher }}</th>
-                        <th class="text-center">{{ deputies }}</th>
-                        <th class="text-center">{{ director }}</th>
-                        <th class="text-center">{{ jocv }}</th>
-                        <th class="text-center">{{ np }}</th>
-                        <th class="text-center">{{ other }}</th>
-                        <th class="text-center">{{ total }}</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+        {{ include('components/_table_member_statistics.html.twig', { 'withlink': false}) }}
     </div>
     <button class="btn btn-default btn-lg" type="button" data-toggle="collapse" data-target="#collapseRegistration" aria-expanded="false" aria-controls="collapseRegistration">
         <i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;View current registration status - Member
     </button>
 </div>
- 
