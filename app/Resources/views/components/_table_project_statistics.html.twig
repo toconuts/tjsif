@@ -1,0 +1,32 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Name / Categories</th>
+                <th class="text-center">Agriculture</th>
+                <th class="text-center">Healthcare</th>
+                <th class="text-center">Education</th>
+                <th class="text-center">Services</th>
+                <th class="text-center">Entertainment and Games</th>
+                <th class="text-center">Household</th>
+                <th class="text-center">General Activities</th>
+                <th class="text-center">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for organization in projectList %}
+            <tr>
+                <td><a href="{{ path("member_organization_show", {"id": organization[0].id}) }}">{{ organization[0].shortname }}</a></td>
+                <td class="text-center">{{ organization[1] }}</td>
+                <td class="text-center">{{ organization[2] }}</td>
+                <td class="text-center">{{ organization[3] }}</td>
+                <td class="text-center">{{ organization[4] }}</td>
+                <td class="text-center">{{ organization[5] }}</td>
+                <td class="text-center">{{ organization[6] }}</td>
+                <td class="text-center">{{ organization[7] }}</td>
+                <td class="text-center">{{ organization[8] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div><!-- /.table -->

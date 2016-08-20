@@ -47,7 +47,8 @@ class ProjectBaseType extends AbstractType
             ))
             ->add('style', CHoiceType::class, array(
                 'choice_loader' => new PresentationChoiceLoader(),
-                'placeholder' => 'choose your presentation style'
+                'placeholder' => 'choose your presentation style',
+                'disabled' => true,
             ))
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organization',
