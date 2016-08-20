@@ -1,0 +1,47 @@
+<section id="member-menue" class="member-menu">
+    <div class="col-xs-4 col-md-6">
+        <div class="menu1">
+            <a href="{{ path("member_user_show", {"id": app.user.id}) }}">Profile</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu2">
+            <a href="{{ path("member_attendance_show", {"id": app.user.id}) }}">Attendance</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu3">
+            <a href="{{ path("member_bbs_index") }}">BBS</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu4">
+            <a href="{{ path("member_project_index") }}">Projects</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu5">
+            <a href="{{ path("member_activity_index") }}">Activities</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu6">
+            <a href="{{ path("member_user_index") }}">Members</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu7">
+            <a href="{{ path("member_organization_index") }}">Organization</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu8">
+            <a href="{{ path("member_statistics_index") }}">Statistics</a>
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-6">
+        <div class="menu9">
+            <a href="{{ path("member_notification_index") }}">Notifications</a>
+        </div>
+    </div>
+</section><!-- /.member-menu -->

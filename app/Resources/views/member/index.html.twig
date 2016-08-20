@@ -32,8 +32,13 @@ TJ-SIF 2016 <small>for members</small>
             </div>
         </div>
         <div class="col-md-4">
+            <div class="row">
+                {% include "components/member/section_member_menu.html.twig" %}
+            </div>
+            <div class="row">
             {{ render(controller('AppBundle:Notification:toppage')) }}
             <p><a class="btn btn-default" href="{{ path("member_notification_index") }}" role="button">View all notifications &raquo;</a></p>
+            </div>
         </div>            
     </div>
 

@@ -6,18 +6,118 @@ body {
 }
 
 .profile-picture-xs {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .profile-picture-sm {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .prifile-picture-md {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+/* Member menu
+-------------------------- */
+.member-menu {
+  margin-bottom: 5px;
+}
+
+.member-menu div {
+  border-radius: 6px 6px 6px 6px;
+  margin-bottom: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  text-align: center;
+}
+
+.member-menu div a {
+  font-size: 18px;
+  line-height: 27px;
+  color: inherit;
+}
+
+.member-menu div a, a:link, a:visited {
+  text-decoration: none;
+}
+
+.member-menu h3 {
+  font-weight: normal;
+}
+
+.member-menu .menu1 {
+  background-color: darkkhaki;
+  background-image: -webkit-linear-gradient(left top, white, darkkhaki);  /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, darkkhaki);    /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, darkkhaki);       /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, darkkhaki);   /* for IE10+, W3C, Opera 12.50+ */
+}
+
+.member-menu .menu2 {
+  background-color: darkorchid;
+  background-image: -webkit-linear-gradient(left top, white, darkorchid); /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, darkorchid);   /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, darkorchid);      /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, darkorchid);  /* for IE10+, W3C */
+}
+
+.member-menu .menu3 {
+  background-color: olivedrab;
+  background-image: -webkit-linear-gradient(left top, white, olivedrab);  /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, olivedrab);    /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, olivedrab);       /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, olivedrab);   /* for IE10+, W3C */
+}
+
+.member-menu .menu4 {
+  background-color: royalblue;
+  background-image: -webkit-linear-gradient(left top, white, royalblue);  /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, royalblue);    /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, royalblue);       /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, royalblue);   /* for IE10+, W3C */
+}
+
+.member-menu .menu5 {
+  background-color: darkgray;
+  background-image: -webkit-linear-gradient(left top, white, darkgray);   /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, darkgray);     /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, darkgray);        /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, darkgray);    /* for IE10+, W3C */
+}
+
+.member-menu .menu6 {
+  background-color: palevioletred;
+  background-image: -webkit-linear-gradient(left top, white, palevioletred );     /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, palevioletred);        /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, palevioletred);           /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, palevioletred);       /* for IE10+, W3C */
+}
+
+.member-menu .menu7 {
+  background-color: goldenrod;
+  background-image: -webkit-linear-gradient(left top, white, goldenrod);  /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, goldenrod);    /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, goldenrod);       /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, goldenrod);   /* for IE10+, W3C */
+}
+
+.member-menu .menu8 {
+  background-color: olive;
+  background-image: -webkit-linear-gradient(left top, white, olive );     /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, olive);        /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, olive);           /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, olive);       /* for IE10+, W3C */
+}
+
+.member-menu .menu9 {
+  background-color: gold;
+  background-image: -webkit-linear-gradient(left top, white, gold);   /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, gold);     /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, gold);        /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, gold);    /* for IE10+, W3C */
 }
 
 /* BBS
