@@ -4,7 +4,7 @@
 
 {% block content %}
 <form class="form-signin" action="{{ path('login') }}" method="post">
-    <h2 class="form-signin-heading">TJ-SIF 2016</h2>
+    <h2 class="form-signin-heading"><a href="{{ path('homepage') }}">TJ-SIF 2016</a></h2>
     <p>Sign in with your TJ-SIF 2016 Account</p>
     
     {% if error %}
@@ -37,5 +37,8 @@
     #}
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <div class="forget-password">
+        <a href="{{ path('user_resetting_password_request') }}">Forgot password ?</a>
+    </div>
 </form>
 {% endblock %}

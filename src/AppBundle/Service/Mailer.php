@@ -14,6 +14,7 @@ namespace AppBundle\Service;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Invitation;
+use AppBundle\Entity\ResettingPassword;
 
 /**
  * Description of Mailer
@@ -68,6 +69,25 @@ class Mailer
             $this->templating->render(
                     'mail/invitation.txt.twig',
                     ['invitation' => $invitation]
+                )
+            );
+        
+        return $this->mailer->send($message);
+    }
+    
+    public function sendResettingPasswordMail(ResettingPassword $resettingPassword)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Inportant: Reset Password for TJ-SIF2016 member site account')
+            ->setFrom('tjsif2016@gmail.com')
+            ->setTo($resettingPassword->getUser()->getEmail())
+            ->setBody(
+            $this->templating->render(
+                    'mail/resetting_password.txt.twig',
+                    [
+                        'user' => $resettingPassword->getUser(),
+                        'resetting_password' => $resettingPassword,
+                    ]
                 )
             );
         

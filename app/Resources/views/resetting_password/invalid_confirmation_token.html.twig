@@ -1,0 +1,8 @@
+{% extends "layout_simple.html.twig" %}
+
+{% block title %}Reeet the password | TJ-SIF 2016{% endblock %}
+
+{% block content %}
+<p>The user with "confirmation token" does not exist or that may be expired for value {{ confirmation_token }}</p>
+<p>Do you want to request for resetting password again?&nbsp;<a class="btn btn-default" href="{{ path('user_resetting_password_request') }}" role="button">Try again</a></p>
+{% endblock %}
