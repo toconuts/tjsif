@@ -1,0 +1,25 @@
+{% extends "layout_simple.html.twig" %}
+
+{% block title %}Reeet the password | TJ-SIF 2016{% endblock %}
+
+{% block content %}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-signin'}}) }}    
+    <h2 class="form-signin-heading"><a href="{{ path('homepage') }}">TJ-SIF 2016</a></h2>
+    <p>Reset the password</p>
+    
+    {{ form_label(form.userVerificationCode) }}
+    {{ form_errors(form.userVerificationCode) }}
+    {{ form_widget(form.userVerificationCode) }}
+    
+    {{ form_label(form.newPassword.first) }}
+    {{ form_errors(form.newPassword.first) }}
+    {{ form_widget(form.newPassword.first) }}
+
+    {{ form_label(form.newPassword.second) }}
+    {{ form_errors(form.newPassword.second) }}
+    {{ form_widget(form.newPassword.second) }}
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Set new password</button>
+
+{{ form_end(form) }}
+{% endblock %}

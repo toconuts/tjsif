@@ -5,6 +5,14 @@ body {
   padding-top: 70px;
 }
 
+.navbar-inverse {
+  background-color: #4d2367;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+  background-color: #3c0d58;
+}
+
 .profile-picture-xs {
   width: 24px;
   height: 24px;

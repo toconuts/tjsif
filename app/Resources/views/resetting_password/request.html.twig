@@ -1,0 +1,21 @@
+{% extends "layout_simple.html.twig" %}
+
+{% block title %}Request for resetting password | TJ-SIF 2016{% endblock %}
+
+{% block content %}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-signin'}}) }}    
+    <h2 class="form-signin-heading"><a href="{{ path('homepage') }}">TJ-SIF 2016</a></h2>
+    <p>Request for resetting password</p>
+    
+    {{ form_label(form.email) }}
+    {{ form_errors(form.email) }}
+    {{ form_widget(form.email) }}
+    
+    {{ form_label(form.termsAccepted) }}
+    {{ form_errors(form.termsAccepted) }}
+    {{ form_widget(form.termsAccepted) }}
+    
+    <button class="btn btn-lg btn-danger btn-block" type="submit">Reset password</button>
+    <a class="btn btn-lg btn-default btn-block" href="{{ path("login") }}">Cancel</a>
+{{ form_end(form) }}
+{% endblock %}

@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Invitation;
+use AppBundle\Entity\ResettingPassword;
 use AppBundle\Service\Mailer;
 use AppBundle\Service\KeyGenerator;
 use AppBundle\Service\RoleManager;
@@ -162,5 +163,87 @@ class RegistrationManager
         $key = base_convert(bin2hex($bytes), 16, 36);
 
         return $key;
+    }
+    
+    /**
+     * Request for resetting password
+     * 
+     * @param User $user
+     * @throws \Exception
+     */
+    public function requestResettingPassword(User $user)
+    {
+        $resettingPwdRepository = $this->entityManager->getRepository('AppBundle:ResettingPassword');
+        
+        $resettingPwd = $resettingPwdRepository->findOneBy(array('user' => $user));
+        if ($resettingPwd) {
+            if ($resettingPwd->isPasswordRequestNonExpired()) {
+                throw new \Exception("The password for this user has already been requested within the last 24 hours.");
+            }
+        
+        } else {
+            $resettingPwd = new ResettingPassword($user);
+        }
+
+        $resettingPwd->setConfirmationToken($this->issueActivationKey());
+        $resettingPwd->setVerificationCode($this->generateRandStr());
+
+        $this->mailer->sendResettingPasswordMail($resettingPwd);
+        
+        $this->entityManager->persist($resettingPwd);
+        $this->entityManager->flush();
+    }
+    
+    /**
+     * Get the requested resetting password.
+     * 
+     * @param type $confirmationToken
+     * @return boolean
+     */
+    public function getResettingPassword($confirmationToken)
+    {
+        $resettingPwdRepository = $this->entityManager->getRepository('AppBundle:ResettingPassword');
+        $resettingPwd = $resettingPwdRepository->findOneBy(array('confirmationToken' => $confirmationToken));
+        
+        if ($resettingPwd && $resettingPwd->isPasswordRequestNonExpired()) {
+            return $resettingPwd;
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Reset password.
+     * 
+     * @param ResettingPassword $resettingPwd
+     */
+    public function resetPassword(ResettingPassword $resettingPwd)
+    {
+        $user = $resettingPwd->getUser();
+        $password = $this->encoder->encodePassword($user, $resettingPwd->getNewPassword());
+        $user->setPassword($password);
+        
+        $resettingPwd->setConfirmationToken(null);
+        $resettingPwd->setVerificationCode(null);
+        $this->entityManager->flush();
+    }
+    
+    /**
+     * Generate rundam numbers.
+     * 
+     * @staticvar string $chars
+     * @param integer $length
+     * @return string
+     */
+    public function generateRandStr($length = 6)
+    {
+        static $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789';
+        
+        $str = '';
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $chars[mt_rand(0, (mb_strlen($chars)-1))];
+        }
+        
+        return $str;
     }
 }

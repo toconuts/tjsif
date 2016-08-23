@@ -23,7 +23,6 @@ See the:
 
 ## TODO LIST
 Required:
-  * Security: Create password reset function
   * Icon: Make a good one
   * Add static tooltip on form create and edit
   * Create tests (unit and function)
