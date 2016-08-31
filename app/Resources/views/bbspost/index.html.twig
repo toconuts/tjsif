@@ -41,7 +41,7 @@ BBS <small>- for free talk</small>
 </div>
 {% else %}
 <div class="snippet">
-    <p class="lead">{{ post.content(250) }}</p>
+    <p class="lead">{{ post.content(250)|nl2br }}</p>
     <p class="continue"><a href="{{ path('member_bbs_show', { 'id': post.id }) }}">Continue reading...</a></p>
 </div>
 {% endif %}

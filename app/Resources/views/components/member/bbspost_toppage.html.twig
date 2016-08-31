@@ -1,6 +1,6 @@
 <div class="toppage-post">
     {% for post in posts %}
-    <a href="">
+    <a href="{{ path('member_bbs_show', { 'id': post.id }) }}">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -13,7 +13,7 @@
             </h3>
         </div>
         <div class="panel-body">
-        {{ post.content(250) }}
+        {{ post.content(250)|nl2br }}
         </div>
     </div>
     </a>
