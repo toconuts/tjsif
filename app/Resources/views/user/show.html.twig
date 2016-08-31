@@ -49,48 +49,61 @@ Profile <small>- {{ user.getFullname }}</small>
             {{ form_end(form) }}
         </div>
     </div><!-- /.row -->
-   
-    <div class="row">        
-        {% if is_granted('ROLE_ADMIN') and user.id != app.user.id and user.organization.id == app.user.organization.id %}
-        <div class="col-sm-offset-1 col-sm-10">
-            {% if user.isActive %}
-            <form action="{{ path('member_user_inactivate', {id: user.id}) }}" method="POST">
-                <input type="hidden" name="_method" value="INACTIVATE"/>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button type="submit" value="Inactivate" class="btn btn-lg btn-warning">Inactivate</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-lg btn-warning" disabled>Activate</button>
-                    </div>
-                </div>
-            </form>
-            {% else %}
-            <form action="{{ path('member_user_activate', {id: user.id}) }}" method="POST">
-                <input type="hidden" name="_method" value="ACTIVATE"/>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-lg btn-warning" disabled>Inactive</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="submit" value="Activate" class="btn btn-lg btn-warning">Activate</button>
-                    </div>
-                </div>
-            </form>
-            {% endif %}
-        </div>
-        {% endif %}
-    </div><!-- /.row -->
-    {% if is_granted('ROLE_SUPER_ADMIN') and user.id != app.user.id %}
-    <div class="row">
-        <div class="col-sm-offset-1">
-            <form action="{{ path('member_user_delete', {id: user.id}) }}" method="POST">
-                <input type="hidden" name="_method" value="DELETE"/>
-                <input type="submit" value="Delete" class="btn btn-danger"/>
-            </form>
-        </div>
-    </div><!-- /.row -->
-    {% endif %}
     
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-4"><a class="btn btn-lg btn-default btn-block" href="{{ app.request.headers.get('referer') }}">Back</a></div>
+    </div>
+
+</div><!-- /.container -->
+
+<hr class="featurette-divider">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="alert alert-danger" role="alert">
+                <p class="lead"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp;Be careful to use following buttons!</p>
+                <p>Those are provided for managing user in your school or organization. If you make this user inactive, the user will not be able to signin to the TJ-SIF 2016 member site after that.</p>
+            </div>
+            {% if is_granted('ROLE_ADMIN') and user.id != app.user.id and user.organization.id == app.user.organization.id %}
+            <div class="col-sm-push-4 col-sm-8">
+                {% if user.isActive %}
+                <form action="{{ path('member_user_inactivate', {id: user.id}) }}" method="POST">
+                    <input type="hidden" name="_method" value="INACTIVATE"/>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="submit" value="Inactivate" class="btn btn-lg btn-warning">Inactivate</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-lg btn-warning" disabled>Activate</button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <form action="{{ path('member_user_activate', {id: user.id}) }}" method="POST">
+                    <input type="hidden" name="_method" value="ACTIVATE"/>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-lg btn-warning" disabled>Inactive</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="submit" value="Activate" class="btn btn-lg btn-warning">Activate</button>
+                        </div>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if is_granted('ROLE_SUPER_ADMIN') and user.id != app.user.id %}
+            <div class="col-sm-pull-8 col-sm-4">
+                <form action="{{ path('member_user_delete', {id: user.id}) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <input type="submit" value="Delete" class="btn btn-danger btn-lg"/>
+                </form>
+            </div>
+            {% endif %}
+        </div><!-- /.col-sm-offset-1 col-sm-10 -->
+    </div><!-- /.row -->
 </div><!-- /.container -->
 {% endblock %}
