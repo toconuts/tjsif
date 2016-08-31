@@ -61,11 +61,11 @@ Profile <small>- {{ user.getFullname }}</small>
 <div class="container">
     <div class="row">
         <div class="col-sm-offset-1 col-sm-10">
+            {% if is_granted('ROLE_ADMIN') and user.id != app.user.id and user.organization.id == app.user.organization.id %}
             <div class="alert alert-danger" role="alert">
                 <p class="lead"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp;Be careful to use following buttons!</p>
                 <p>Those are provided for managing user in your school or organization. If you make this user inactive, the user will not be able to signin to the TJ-SIF 2016 member site after that.</p>
             </div>
-            {% if is_granted('ROLE_ADMIN') and user.id != app.user.id and user.organization.id == app.user.organization.id %}
             <div class="col-sm-push-4 col-sm-8">
                 {% if user.isActive %}
                 <form action="{{ path('member_user_inactivate', {id: user.id}) }}" method="POST">
