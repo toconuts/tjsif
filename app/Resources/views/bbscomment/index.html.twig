@@ -11,7 +11,7 @@
         </p>
     </div>
     <div class="panel-body">
-        {{ comment.content }}
+        {{ comment.content|nl2br }}
         {% if comment.imageName %}
         <div class="bbs-image">
             <img class="bbs-image img-responsive center-block" src="{{ vich_uploader_asset(comment, 'imageFile') }}" alt="Comment picture" />
