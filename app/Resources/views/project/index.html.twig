@@ -10,9 +10,7 @@ Project list
 <div class="container">
     {% if is_granted('ROLE_ADMIN') %}
     <div class="row">
-        <div class="col-sm-offset-11 col-sm-1">
-            <a type="button" class="btn btn-default pull-right" href="{{ path("member_project_new") }}">New</a>
-        </div>
+        <a type="button" class="btn btn-success btn-lg pull-right" href="{{ path("member_project_new") }}"><i class="fa fa-plus-square-o fa-fw" aria-hidden="true"></i>Create project</a>
     </div><!-- /.row -->
     {% endif %}
     
