@@ -7,7 +7,7 @@
         {% else %}
         <img class="img-circle" src="{{ asset('template/user/initial_user.png')|imagine_filter('thumbnail_xs') }}">
         {% endif %}
-        <span class="highlight"><a href="{{ path('member_user_show', { 'id': comment.user.id }) }}"> {{ comment.user.fullname }}</a> </span>commented <time datetime="{{ comment.createdAt|date('c') }}">{{ post.createdAt|created_ago }}</time>
+        <span class="highlight"><a href="{{ path('member_user_show', { 'id': comment.user.id }) }}"> {{ comment.user.fullname }}</a> </span>commented <time datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|created_ago }}</time>
         </p>
     </div>
     <div class="panel-body">
