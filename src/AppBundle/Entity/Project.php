@@ -52,6 +52,7 @@ class Project
     
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotNull
      */
     private $category;
     
