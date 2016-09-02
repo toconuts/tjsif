@@ -174,39 +174,44 @@ Project <small>- {{ project.name }}</small>
     </div><!-- /.row -->
     
     <div class="row">
-        {% if is_granted('ROLE_SUPER_ADMIN') or 
-             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
-        {% if project.isActive %}
-        <div class="col-sm-offset-1 col-sm-10">
-            <form action="{{ path('member_project_inactivate', {id: project.id}) }}" method="POST">
-                <input type="hidden" name="_method" value="INACTIVATE"/>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button type="submit" value="Inactivate" class="btn btn-lg btn-danger"/>Inactivate</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-lg btn-danger" disabled>Activate</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        {% else %}
-        <div class="col-sm-offset-1 col-sm-10">
-            <form action="{{ path('member_project_activate', {id: project.id}) }}" method="POST">
-                <input type="hidden" name="_method" value="ACTIVATE"/>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-lg btn-danger" disabled>Inactibate</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="submit" value="Activate" class="btn btn-lg btn-danger"/>Activate</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        {% endif %}
-        {% endif %}
-    </div><!-- /.row -->
+        <div class="col-sm-offset-4 col-sm-4"><a class="btn btn-lg btn-default btn-block" href="{{ app.request.headers.get('referer') }}">Back</a></div>
+    </div>
 
+    <hr class="featurette-divider">
+
+    {% if is_granted('ROLE_SUPER_ADMIN') or 
+        (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="col-sm-push-4 col-sm-8">
+            {% if project.isActive %}
+                <form action="{{ path('member_project_inactivate', {id: project.id}) }}" method="POST">
+                    <input type="hidden" name="_method" value="INACTIVATE"/>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="submit" value="Inactivate" class="btn btn-lg btn-danger"/>Inactivate</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-lg btn-danger" disabled>Activate</button>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <form action="{{ path('member_project_activate', {id: project.id}) }}" method="POST">
+                    <input type="hidden" name="_method" value="ACTIVATE"/>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-lg btn-danger" disabled>Inactibate</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="submit" value="Activate" class="btn btn-lg btn-danger"/>Activate</button>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+            </div>
+        </div><!-- /.col-sm-offset-1 col-sm-10 -->
+    </div><!-- /.row -->
+    {% endif %}
 </div><!-- /.container -->
 {% endblock %}
