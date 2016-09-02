@@ -176,13 +176,13 @@ Project <small>- {{ project.name }}</small>
     <div class="row">
         <div class="col-sm-offset-4 col-sm-4"><a class="btn btn-lg btn-default btn-block" href="{{ app.request.headers.get('referer') }}">Back</a></div>
     </div>
-{#</div><!-- /.container -->#}
-<hr class="featurette-divider">
-{#<div class="container">#}
+
+    <hr class="featurette-divider">
+
+    {% if is_granted('ROLE_SUPER_ADMIN') or 
+        (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
     <div class="row">
         <div class="col-sm-offset-1 col-sm-10">
-        {% if is_granted('ROLE_SUPER_ADMIN') or 
-             (is_granted('ROLE_ADMIN') and app.user.organization.id == project.organization.id) %}
             <div class="col-sm-push-4 col-sm-8">
             {% if project.isActive %}
                 <form action="{{ path('member_project_inactivate', {id: project.id}) }}" method="POST">
@@ -210,8 +210,8 @@ Project <small>- {{ project.name }}</small>
                 </form>
             {% endif %}
             </div>
-        {% endif %}
         </div><!-- /.col-sm-offset-1 col-sm-10 -->
     </div><!-- /.row -->
+    {% endif %}
 </div><!-- /.container -->
 {% endblock %}
