@@ -27,16 +27,18 @@
                             </tbody>
                         </table>
                     </div><!-- /.table-responsive-->
-                </div><!-- /.col-md-3-->
-                <div class="collapse" id="collapseRegistrationProject">
-                    <a data-toggle="collapse" href="#collapseRegistrationProject" aria-expanded="false" aria-controls="collapseRegistrationProject">
-                        <h3><p class="text-warning"><p class="text-warning"><i class="fa fa-registered fa-fw" aria-hidden="true"></i>&nbsp;Registration Status - Project</p></h3>
-                    </a>
-                    {{ include('components/_table_project_statistics.html.twig', { 'withlink': false}) }}
-                </div>
-                <button class="btn btn-default btn-lg" type="button" data-toggle="collapse" data-target="#collapseRegistrationProject" aria-expanded="false" aria-controls="collapseRegistrationProject">
-                    <i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;View current registration status - Project
-                </button>
+                </div><!-- /.col-md-8-->
+                <div class="col-xs-12">
+                    <div class="collapse" id="collapseRegistrationProject">
+                        <a data-toggle="collapse" href="#collapseRegistrationProject" aria-expanded="false" aria-controls="collapseRegistrationProject">
+                            <h3><p class="text-warning"><p class="text-warning"><i class="fa fa-registered fa-fw" aria-hidden="true"></i>&nbsp;Registration Status - Project</p></h3>
+                        </a>
+                        {{ include('components/_table_project_statistics.html.twig', { 'withlink': false}) }}
+                    </div>
+                    <button class="btn btn-default btn-lg" type="button" data-toggle="collapse" data-target="#collapseRegistrationProject" aria-expanded="false" aria-controls="collapseRegistrationProject">
+                        <i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;View registration status - Project
+                    </button>
+                </div><!-- /.col-xs-12-->
             </div><!-- /.row-->
         {% include "components/section_project_categories.html.twig" %}
         <hr class="featurette-divider">
