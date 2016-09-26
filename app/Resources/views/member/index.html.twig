@@ -19,6 +19,9 @@ TJ-SIF 2016 <small>for members</small>
                 <div class="col-sm-6">
                     {% include "components/member/whats_new.html.twig" %}
                 </div>
+                <div class="col-sm-12">
+                    {% include "components/member/download.html.twig" %}
+                </div>
                 {% if is_granted('ROLE_ADMIN') %}
                 <div class="col-sm-12">
                     {% include "components/member/how_to_invite.html.twig" %}
