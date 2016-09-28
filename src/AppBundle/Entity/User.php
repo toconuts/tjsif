@@ -237,6 +237,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->attendances = new ArrayCollection();
+        $this->gender = '0';
         $this->allergies = 'None';
     }
 

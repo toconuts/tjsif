@@ -50,4 +50,42 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
         }
         return $list;
     }
+    
+    public function findAllSortedByOrganization()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.isActive = :aid')
+            ->addOrderBy('u.organization', 'ASC')
+            ->addOrderBy('u.occupation', 'ASC')
+            ->addOrderBy('u.type', 'ASC')
+            ->setParameter('aid', 1)
+            ->getQuery()
+            ->getResult();
+    }
+    
+    public function findByOccupationSortedByOrganization($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.occupation = :id AND u.isActive = :aid')
+            ->addOrderBy('u.organization', 'ASC')
+            ->addOrderBy('u.occupation', 'ASC')
+            ->addOrderBy('u.type', 'ASC')
+            ->setParameter('aid', 1)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+    
+    public function findExcluededByOccupationSortedByOrganization($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.occupation != :id AND u.isActive = :aid')
+            ->addOrderBy('u.organization', 'ASC')
+            ->addOrderBy('u.occupation', 'ASC')
+            ->addOrderBy('u.type', 'ASC')
+            ->setParameter('aid', 1)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
 }

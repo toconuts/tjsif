@@ -1,0 +1,41 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Expoet | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Export
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row sub-header">
+        <div class="col-xs-12">
+            <h2 class="">CSV</h2>
+        </div>
+    </div><!-- /.row -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Member list <small>(not include inactive user)</small></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>The list of all members</td>
+                    <td><a href="{{ path("member_export_member_all") }}" class="btn btn-lg btn-success pull-right">Download</a></td>
+                </tr>
+                <tr>
+                    <td>The list of all students</td>
+                    <td><a href="{{ path("member_export_member_student") }}" class="btn btn-lg btn-success pull-right">Download</a></td>
+                </tr>
+                <tr>
+                    <td>The list of all members exclude student</td>
+                    <td><a href="{{ path("member_export_member_nostudent") }}" class="btn btn-lg btn-success pull-right">Download</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div><!-- /.container -->
+{% endblock %}
