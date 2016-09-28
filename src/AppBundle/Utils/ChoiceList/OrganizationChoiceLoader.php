@@ -21,8 +21,9 @@ use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 class OrganizationChoiceLoader extends AbstractChoiceLoader
 {
     const ORGANIZATION_FORM_12_PCSHS    = '12 PCSH School';
-    const ORGANIZATION_FORM_SSHS_JAPAN  = 'SSH school in Japan';
-    const ORGANIZATION_FORM_SISTER_THAI = 'Sister school in Thai';
+    const ORGANIZATION_FORM_SSHS_JAPAN  = 'SSH School in Japan';
+    const ORGANIZATION_FORM_SISTER_THAI = 'Sister School in Thai';
+    const ORGANIZATION_FORM_SHS_THAI    = 'SH School in Thai';
     const ORGANIZATION_FORM_UNIVERSITY  = 'University';
     const ORGANIZATION_FORM_GOVERNMENT  = 'Government';
     const ORGANIZATION_FORM_COMPANY     = 'Company';
@@ -31,15 +32,17 @@ class OrganizationChoiceLoader extends AbstractChoiceLoader
     const ORGANIZATION_FORM_12_PCSHS_ID     = '1';
     const ORGANIZATION_FORM_SSHS_JAPAN_ID   = '2';
     const ORGANIZATION_FORM_SISTER_THAI_ID  = '3';
-    const ORGANIZATION_FORM_UNIVERSITY_ID   = '4';
-    const ORGANIZATION_FORM_GOVERNMENT_ID   = '5';
-    const ORGANIZATION_FORM_COMPANY_ID      = '6';
+    const ORGANIZATION_FORM_SHS_THAI_ID     = '4';
+    const ORGANIZATION_FORM_UNIVERSITY_ID   = '10';
+    const ORGANIZATION_FORM_GOVERNMENT_ID   = '20';
+    const ORGANIZATION_FORM_COMPANY_ID      = '30';
     const ORGANIZATION_FORM_THEOTHER_ID     = '99';
 
     protected $choices = array(
         self::ORGANIZATION_FORM_12_PCSHS    => self::ORGANIZATION_FORM_12_PCSHS_ID,
         self::ORGANIZATION_FORM_SSHS_JAPAN  => self::ORGANIZATION_FORM_SSHS_JAPAN_ID,
         self::ORGANIZATION_FORM_SISTER_THAI => self::ORGANIZATION_FORM_SISTER_THAI_ID,
+        self::ORGANIZATION_FORM_SHS_THAI    => self::ORGANIZATION_FORM_SHS_THAI_ID,
         self::ORGANIZATION_FORM_UNIVERSITY  => self::ORGANIZATION_FORM_UNIVERSITY_ID,
         self::ORGANIZATION_FORM_GOVERNMENT  => self::ORGANIZATION_FORM_GOVERNMENT_ID,
         self::ORGANIZATION_FORM_COMPANY     => self::ORGANIZATION_FORM_COMPANY_ID,
