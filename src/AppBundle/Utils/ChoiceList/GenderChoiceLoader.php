@@ -24,7 +24,7 @@ class GenderChoiceLoader extends AbstractChoiceLoader
     const GENDER_MALE   = 'Male';
     const GENDER_FEMALE = 'Female';
     
-    const GENDER_NS_ID      = null;
+    const GENDER_NS_ID      = '0';
     const GENDER_MALE_ID    = '1';
     const GENDER_FEMALE_ID  = '2';
     
@@ -33,15 +33,4 @@ class GenderChoiceLoader extends AbstractChoiceLoader
         self::GENDER_MALE   => self::GENDER_MALE_ID,
         self::GENDER_FEMALE => self::GENDER_FEMALE_ID,
     );
-    
-    /*
-    protected $choices =
-    [
-        'Not specified' => null,
-        'Male'          => '1',
-        'Female'        => '2',
-    ];*/
-    
-    
-    
 }
