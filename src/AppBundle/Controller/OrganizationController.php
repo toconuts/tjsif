@@ -39,7 +39,7 @@ class OrganizationController extends AbstractAppController
      */
     public function indexAction(Request $request)
     {
-        $dql   = "SELECT o FROM AppBundle:Organization o";
+        $dql   = "SELECT o FROM AppBundle:Organization o ORDER BY cast(o.type as Integer) ASC";
         
         $em    = $this->getDoctrine()->getManager();
         $query = $em->createQuery($dql);
