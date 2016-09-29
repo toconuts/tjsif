@@ -121,6 +121,14 @@ body {
 }
 
 .member-menu .menu9 {
+  background-color: skyblue;
+  background-image: -webkit-linear-gradient(left top, white, skyblue);   /* for webkit browsers */
+  background-image: -moz-linear-gradient(left top , white, skyblue);     /* for firefox 3.6+ */
+  background-image: -o-linear-gradient(left top, white, skyblue);        /* for Opera 11.10+ */
+  background-image: linear-gradient(to right bottom, white, skyblue);    /* for IE10+, W3C */
+}
+
+.member-menu .menu10 {
   background-color: gold;
   background-image: -webkit-linear-gradient(left top, white, gold);   /* for webkit browsers */
   background-image: -moz-linear-gradient(left top , white, gold);     /* for firefox 3.6+ */
