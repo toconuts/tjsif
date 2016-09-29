@@ -19,9 +19,12 @@ use League\Csv\Writer;
 use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserRepository;
+use AppBundle\Entity\Project;
+use AppBundle\Entity\ProjectRepository;
 use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
 use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
+use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
 
 /**
  * ExportController
@@ -93,7 +96,7 @@ class ExportController extends AbstractAppController
     
     protected function createMemberCSV($users)
     {
-        $accountChoces      = (new AccountChoiceLoader())->getChoicesFliped();
+        $accountChoices      = (new AccountChoiceLoader())->getChoicesFliped();
         $genderChoices      = (new GenderChoiceLoader())->getChoicesFliped();
         $occupationChoices  = (new OccupationChoiceLoader())->getChoicesFliped();
         
@@ -116,7 +119,7 @@ class ExportController extends AbstractAppController
                 $user->getLastname(),
                 $user->getOrganization()->getShortname(),
                 $occupationChoices[$user->getOccupation()],
-                $accountChoces[$user->getType()],
+                $accountChoices[$user->getType()],
                 $genderChoices[$user->getGender()],
                 $user->getEmail(),
                 $user->getAllergies(),
@@ -141,8 +144,73 @@ class ExportController extends AbstractAppController
             case ExportController::EXPORT_TYPE_MEMBER_NO_STUDENT:
                 $filename = 'member_no_student_';
                 break;
+            case self::EXPORT_TYPE_PROJECT:
+                $filename = 'project_all_';
+                break;
         }
         
         return $filename . date("Ymd-His", time()) . '.csv';
+    }
+    
+    /**
+     * @Route("/project/all", name="member_export_project_all")
+     */
+    public function projectAction()
+    {
+        $projects = $this->getDoctrine()->getRepository('AppBundle:Project')
+                ->findAllSortedByOrganization();
+
+        return $this->createProjectList($projects, self::EXPORT_TYPE_PROJECT);
+    }
+    
+    protected function createProjectList($projects, $type)
+    {        
+        $response = new Response($this->createProjectCSV($projects));
+        $d = $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $this->getFilename($type)
+        );
+        $response->headers->set('Content-Disposition', $d);
+        
+        return $response;
+    }
+    
+    protected function createProjectCSV($projects)
+    {
+        $categoryChoices      = (new CategoryChoiceLoader())->getChoicesFliped();
+        
+        $writer = Writer::createFromString('','');
+        $writer->setNewline("\r\n");
+        
+        $writer->insertOne(['#', 'School', 'Code', 'Title', 'Concept', 'Objective', 'Category', 'Students', 'Teachers']);
+        
+        foreach ($projects as $i => $project) {
+            
+            $students = array();
+            $teachers = array();
+            foreach ($project->getUsers() as $user) {
+                if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_STUDENT_ID) {
+                    $students[] = $user->getFullName();
+                } else {
+                    $teachers[] = $user->getFullName();
+                }
+            }
+            $students = implode(", ", $students);
+            $teachers = implode(", ", $teachers);
+            
+            $writer->insertOne([
+                $i + 1,
+                $project->getOrganization()->getShortname(),
+                $project->getTopic(),
+                $project->getName(),
+                $project->getConcept(),
+                $project->getObjective(),
+                $categoryChoices[$project->getCategory()],
+                $students,
+                $teachers,
+            ]);
+        }
+        
+        return (string)$writer;
     }
 }

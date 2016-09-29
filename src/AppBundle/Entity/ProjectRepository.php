@@ -29,4 +29,15 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
         
         return $projects;
     }
+    
+    public function findAllSortedByOrganization()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.isActive = :aid')
+            ->addOrderBy('p.organization', 'ASC')
+            ->addOrderBy('p.topic', 'ASC')
+            ->setParameter('aid', 1)
+            ->getQuery()
+            ->getResult();
+    }
 }
