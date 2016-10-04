@@ -78,7 +78,7 @@ class RoleManager
                 $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DEPUTY_ID ||
                 $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DIRECTOR_ID) {
             
-            if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID) {
+            if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID || $user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID) {
             
                 $user = $this->grantRoleAdmin($user);
                 

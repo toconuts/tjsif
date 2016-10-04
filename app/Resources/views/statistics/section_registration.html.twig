@@ -1,6 +1,9 @@
 <section id="statistics-registration" class="statistics-registration">
     <div class="container">
         <h2>Registration status</h2>
+        <div class="alert alert-warning" role="alert">
+            <h5><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp;The list does not include the member registered as <strong>Contact person  (Not attendee)</strong> and <strong>Observer</strong>, and also the <strong>inactive</strong> member</h5>
+        </div>
         {{ include('components/_table_member_statistics.html.twig', { 'withlink': true}) }}
     </div><!-- /.container -->
 </section>
