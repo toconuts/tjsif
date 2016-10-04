@@ -33,7 +33,10 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
     public function findAllSortedByOrganization()
     {
         return $this->createQueryBuilder('p')
-            ->where('p.isActive = :aid')
+            ->leftJoin('p.organization', 'o')
+            ->addSelect('o.type+0 as HIDDEN int_type')
+            ->where('p.isActive = :aid AND o.isActive = :aid')
+            ->addOrderBy('int_type', 'ASC')
             ->addOrderBy('p.organization', 'ASC')
             ->addOrderBy('p.topic', 'ASC')
             ->setParameter('aid', 1)
