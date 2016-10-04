@@ -13,6 +13,7 @@ namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
+use AppBundle\Utils\ChoiceList\OrganizationChoiceLoader;
 
 /**
  * Description of StatisticsManager
@@ -44,7 +45,11 @@ class StatisticsManager
                         SUM(CASE WHEN u.occupation=32   AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.occupation=1024 AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
                         SUM(CASE WHEN u.isActive=true   AND u.type !=:type1 AND u.type !=:type2  THEN 1 ELSE 0 END)')
+            ->addSelect('o.type+0 as HIDDEN int_type')
             ->from('AppBundle:Organization', 'o')
+            ->where('o.isActive=true')
+            ->addOrderBy('int_type', 'ASC')
+            ->addOrderBy('o.id', 'ASC')
             ->leftJoin('o.users', 'u')
             ->groupBy('o.id')
             ->setParameter('type1', AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID)
@@ -64,10 +69,17 @@ class StatisticsManager
                         SUM(CASE WHEN p.category=6 AND p.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN p.category=7 AND p.isActive=true THEN 1 ELSE 0 END),
                         SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
+            ->addSelect('o.type+0 as HIDDEN int_type')
             ->from('AppBundle:Organization', 'o')
+            ->where('o.isActive=true AND (o.type = :type1 OR o.type = :type2 OR o.type = :type3 OR o.type = :type4)')
             ->leftJoin('o.projects', 'p')
-            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
+            ->addOrderBy('int_type', 'ASC')
+            ->addOrderBy('o.id', 'ASC')
             ->groupBy('o.id')
+            ->setParameter('type1', OrganizationChoiceLoader::ORGANIZATION_FORM_12_PCSHS_ID)
+            ->setParameter('type2', OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID)
+            ->setParameter('type3', OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID)
+            ->setParameter('type4', OrganizationChoiceLoader::ORGANIZATION_FORM_SHS_THAI_ID)
         ;
         return $qb->getQuery()->getResult();
     }
