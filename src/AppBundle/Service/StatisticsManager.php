@@ -84,48 +84,18 @@ class StatisticsManager
         return $qb->getQuery()->getResult();
     }
 
-    
-    public function getNumberOfProjectCategoryGroupByOrganization()
-    {
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('o, SUM(CASE WHEN p.category=1 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=2 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=3 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=4 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=5 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=6 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.category=7 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
-            ->from('AppBundle:Organization', 'o')
-            ->leftJoin('o.projects', 'p')
-            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
-            ->groupBy('o.id')
-        ;
-        return $qb->getQuery()->getResult();
-    }
-        
-    public function getNumberOfProjectTypeGroupByOrganization()
-    {
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('o, SUM(CASE WHEN p.style=1 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.style=2 AND p.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
-            ->from('AppBundle:Organization', 'o')
-            ->leftJoin('o.projects', 'p')
-            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
-            ->groupBy('o.id')
-        ;
-        return $qb->getQuery()->getResult();
-    }
-    
     public function getNumberOfProjectTypeGroupByOrganizationType()
     {
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select('o.type, COUNT(DISTINCT o.id), SUM(CASE WHEN p.isActive=true THEN 1 ELSE 0 END)')
             ->from('AppBundle:Organization', 'o')
             ->leftJoin('o.projects', 'p')
-            ->where('o.type = 1 OR o.type = 2 OR o.type = 3')
+            ->where('o.isActive=true AND (o.type = :type1 OR o.type = :type2 OR o.type = :type3 OR o.type = :type4)')
             ->groupBy('o.type')
+            ->setParameter('type1', OrganizationChoiceLoader::ORGANIZATION_FORM_12_PCSHS_ID)
+            ->setParameter('type2', OrganizationChoiceLoader::ORGANIZATION_FORM_SSHS_JAPAN_ID)
+            ->setParameter('type3', OrganizationChoiceLoader::ORGANIZATION_FORM_SISTER_THAI_ID)
+            ->setParameter('type4', OrganizationChoiceLoader::ORGANIZATION_FORM_SHS_THAI_ID)
         ;
         return $qb->getQuery()->getResult();
     }

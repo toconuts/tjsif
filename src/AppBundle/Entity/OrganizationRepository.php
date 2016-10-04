@@ -30,4 +30,14 @@ class OrganizationRepository extends EntityRepository
         return $query;
     }
     
+    public function findAllOrderedByType()
+    {
+        $em = $this->getEntityManager();
+        return $em->createQuery(
+            'SELECT o
+            FROM AppBundle:Organization o
+            ORDER BY cast(o.type as Integer) ASC, o.id ASC'
+        )->getResult();
+    }
+    
 }
