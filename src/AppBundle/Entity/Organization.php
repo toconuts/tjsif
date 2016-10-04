@@ -30,7 +30,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Organization
 {
-    const NUM_ITEMS = 12;
+    const NUM_ITEMS = 100;
     
     /**
      * @ORM\Column(type="integer")

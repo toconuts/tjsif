@@ -35,7 +35,8 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     {
         $list = array();
         $organizations = $this->getEntityManager()
-                ->getRepository('AppBundle:Organization')->findBy([], ['id' => 'ASC']);
+                ->getRepository('AppBundle:Organization')
+                ->findAllOrderedByType();
         
         foreach ($organizations as $organization) {
             $list[$organization->getShortname()] = $this->getEntityManager()

@@ -92,7 +92,7 @@ class ProjectController extends AbstractAppController
         $project = new Project();
         $project->setOrganization($this->getUser()->getOrganization());
         
-        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAllOrderedByType();
         
         $disabled = ($this->get('security.authorization_checker')
                 ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
@@ -142,7 +142,7 @@ class ProjectController extends AbstractAppController
         $disabled = ($this->get('security.authorization_checker')
             ->isGranted('ROLE_SUPER_ADMIN')) ? false : true;
         
-        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAll();
+        $organizations = $this->getDoctrine()->getRepository('AppBundle:Organization')->findAllOrderedByType();
         
         $form = $this->createForm(ProjectType::class, $project, array(
             'organization_disabled' => $disabled,
