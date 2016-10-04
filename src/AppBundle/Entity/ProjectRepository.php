@@ -21,7 +21,9 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
             $projects[$value] = $em->createQuery(
             'SELECT p
              FROM AppBundle:Project p
-             WHERE p.isActive = true AND
+             INNER JOIN p.organization o
+             WHERE o.isActive = true AND
+                   p.isActive = true AND
                    p.category =:id'
             )->setParameter('id', $value)
             ->getResult();
