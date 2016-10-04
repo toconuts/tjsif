@@ -12,6 +12,7 @@
 namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 
 /**
  * Description of StatisticsManager
@@ -35,17 +36,19 @@ class StatisticsManager
     public function getRegistrationStatistics()
     {
         $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('o, SUM(CASE WHEN u.occupation=1  AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=2  AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=4  AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=8  AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=16 AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=32 AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.occupation=1024 AND u.isActive=true THEN 1 ELSE 0 END),
-                        SUM(CASE WHEN u.isActive=true THEN 1 ELSE 0 END)')
+        $qb->select('o, SUM(CASE WHEN u.occupation=1    AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=2    AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=4    AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=8    AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=16   AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=32   AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.occupation=1024 AND u.isActive=true AND u.type !=:type1 AND u.type !=:type2 THEN 1 ELSE 0 END),
+                        SUM(CASE WHEN u.isActive=true   AND u.type !=:type1 AND u.type !=:type2  THEN 1 ELSE 0 END)')
             ->from('AppBundle:Organization', 'o')
             ->leftJoin('o.users', 'u')
             ->groupBy('o.id')
+            ->setParameter('type1', AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID)
+            ->setParameter('type2', AccountChoiceLoader::ACCOUNT_OBSERVER_ID)
         ;
         return $qb->getQuery()->getResult();
     }

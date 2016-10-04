@@ -6,6 +6,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
+use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 
 /*
  * This file is part of the TJ-SIF 2016 project.
@@ -54,11 +55,13 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     public function findAllSortedByOrganization()
     {
         return $this->createQueryBuilder('u')
-            ->where('u.isActive = :aid')
+            ->where('u.isActive = :aid', 'u.type != :type1', 'u.type != :type2')
             ->addOrderBy('u.organization', 'ASC')
             ->addOrderBy('u.occupation', 'ASC')
             ->addOrderBy('u.type', 'ASC')
             ->setParameter('aid', 1)
+            ->setParameter('type1', AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID)
+            ->setParameter('type2', AccountChoiceLoader::ACCOUNT_OBSERVER_ID)
             ->getQuery()
             ->getResult();
     }
@@ -66,12 +69,14 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     public function findByOccupationSortedByOrganization($id)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.occupation = :id AND u.isActive = :aid')
+            ->where('u.occupation = :id', 'u.isActive = :aid', 'u.type != :type1', 'u.type != :type2')
             ->addOrderBy('u.organization', 'ASC')
             ->addOrderBy('u.occupation', 'ASC')
             ->addOrderBy('u.type', 'ASC')
             ->setParameter('aid', 1)
             ->setParameter('id', $id)
+            ->setParameter('type1', AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID)
+            ->setParameter('type2', AccountChoiceLoader::ACCOUNT_OBSERVER_ID)
             ->getQuery()
             ->getResult();
     }
@@ -79,12 +84,14 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     public function findExcluededByOccupationSortedByOrganization($id)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.occupation != :id AND u.isActive = :aid')
+            ->where('u.occupation != :id', 'u.isActive = :aid', 'u.type != :type1', 'u.type != :type2')
             ->addOrderBy('u.organization', 'ASC')
             ->addOrderBy('u.occupation', 'ASC')
             ->addOrderBy('u.type', 'ASC')
             ->setParameter('aid', 1)
             ->setParameter('id', $id)
+            ->setParameter('type1', AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID)
+            ->setParameter('type2', AccountChoiceLoader::ACCOUNT_OBSERVER_ID)
             ->getQuery()
             ->getResult();
     }
