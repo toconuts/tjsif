@@ -33,12 +33,4 @@ class AttendanceChoiceLoader extends AbstractChoiceLoader
         self::ATTENDANCE_NO     => self::ATTENDANCE_NO_VALUE,
         self::ATTENDANCE_MAYBE  => self::ATTENDANCE_MAYBE_VALUE,
     );
-    
-    /*
-    protected $choices =
-    [
-        'Yes' => true,
-        'No' => false,
-        'Maybe' => null,
-    ];*/
 }

@@ -51,7 +51,7 @@ class RegistrationController extends AbstractAppController
             $rm->registerUser($user, $invitation);
 
             $ap = $this->get('app.attendance_updater');
-            $ap->createAttendance($user);
+            $ap->updateAttendance($user);
             
             if ($rm->isChangedEmail($user, $invitation)) {
                 $session = $request->getSession();
