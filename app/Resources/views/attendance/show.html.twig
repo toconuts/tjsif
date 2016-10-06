@@ -11,7 +11,10 @@ Attendance  <small>- {{ user.getFullname }}</small>
 <div class="container">
     <div class="row">
         <div class="col-sm-offset-11 col-sm-1">
-            <a class="btn btn-default pull-right" href="{{ path("member_user_show", {"id": user.id}) }}" role="button">View profile &raquo;</a>
+            <div class="btn-group-vertical pull-right" role="group" aria-label="...">
+                <a class="btn btn-lg btn-default" href="{{ path("member_user_show", {"id": user.id}) }}" role="button">View profile &raquo;</a>
+                <a class="btn btn-lg btn-success" href="{{ path("member_factorytour_show", {"id": user.id}) }}" role="button">View factory tour &raquo;</a>
+            </div>
         </div>
     </div>
 

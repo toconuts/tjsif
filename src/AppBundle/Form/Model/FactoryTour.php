@@ -11,78 +11,82 @@
 
 namespace AppBundle\Form\Model;
 
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Utils\ChoiceList\FactoryTourChoiceLoader;
 
 /**
- * Description of ChangePassword
+ * Description of FactoryTour
  *
  * @author toconuts toconuts@gmail.com
  */
-class ChangePassword
+class FactoryTour
 {
+    const ABC = 'ABC';
+    
+    static $CAPACITIES = array(
+        FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID => 120,
+        FactoryTourChoiceLoader::FACTORY_TOUR_HINO_ID   =>  40,
+        FactoryTourChoiceLoader::FACTORY_TOUR_MCP_ID    =>  40,
+        FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID =>  40,
+    );
+    
+    private $numbersOfRegisters;
+
+
     /**
-     * @SecurityAssert\UserPassword(
-     *     message = "Wrong value for your current password"
-     * )
-     */
-    protected $oldPassword;
-     
-    /**
-     * @Assert\Length(
-     *     min = 6,
-     *     minMessage = "Password should by at least 6 chars long"
-     * )
      * @Assert\NotBlank()
      */
-    protected $newPassword;
+    protected $company;
     
     /**
-     * Set password
+     * Set company
      *
-     * @param string $password
+     * @param string $company
      *
-     * @return ChangePassword
+     * @return string
      */
-    public function setOldPassword($password)
+    public function setCompany($company)
     {
-        $this->oldPassword = $password;
-
+        $this->company = $company;
+        $this->numbersOfRegisters = array();
+        
         return $this;
     }
 
     /**
-     * get old password
+     * Get compnay
      * 
      * @return string
      */
-    public function getOldPassword()
+    public function getCompany()
     {
-        return $this->oldPassword;
-    }
-    
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return ChangePassword
-     */
-    public function setNewPassword($password)
-    {
-        $this->newPassword = $password;
-
-        return $this;
+        return $this->company;
     }
 
-    /**
-     * get old password
-     * 
-     * @return string
-     */
-    public function getNewPassword()
+    public function __construct()
     {
-        return $this->newPassword;
+        $this->company = FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID;
     }
     
+    public function getNumbersOfRegisters()
+    {
+        return $this->numbersOfRegisters;
+    }
+
+    public function addNumbersOfRegisters($key, $value)
+    {
+        $this->numbersOfRegisters[$key] = $value;
+        
+        return $this->numbersOfRegisters;
+    }
+    
+    public function resetNumberOfRegisters()
+    {
+        $this->numbersOfRegisters = array();
+    }
+    
+    public function getCapacities()
+    {
+        return self::$CAPACITIES;
+    }
 }

@@ -15,13 +15,16 @@ use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Attendance;
+use AppBundle\Form\Model\FactoryTour;
+use AppBundle\Utils\ChoiceList\FactoryTourChoiceLoader;
+use AppBundle\Utils\ChoiceList\AttendanceChoiceLoader;
 
 /**
- * Description of AttendanceUpdator
+ * Description of FactoryTourManager
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class AttendanceUpdater
+class FactoryTourManager
 {
     /**
      * Entity Manager
@@ -35,42 +38,51 @@ class AttendanceUpdater
         $this->entityManager = $entityManager;
     }
     
-    public function updateAll(Activity $activity)
+    public function getAttendance(User $user)
     {
-        $users = $this->entityManager->getRepository('AppBundle:User')->findAll();
-        foreach ($users as $user) {
-            $this->update($user, $activity);
-        }
-        $this->entityManager->flush();
-    }
-    
-    public function createAttendance(User $user)
-    {
-        $activities = $this->entityManager->getRepository('AppBundle:Activity')->findAll();
+        $names = (new FactoryTourChoiceLoader())->getChoicesFliped();
+        $activities = $this->entityManager->getRepository('AppBundle:Activity')->findByNameIn($names);
         foreach ($activities as $activity) {
-            $this->update($user, $activity);
+            $attendance = $user->findAttendance($activity);
+            if ($attendance) {
+                return $attendance;
+            }
         }
+        return null;
+    }
+    
+    public function createAttendance(User $user, FactoryTour $factoryTour)
+    {
+        $names = (new FactoryTourChoiceLoader())->getChoicesFliped();
+        $activity = $this->entityManager->getRepository('AppBundle:Activity')->findOneBy(array('name' => $names[$factoryTour->getCompany()]));
+        
+        if (!$activity) {
+            throw new \Exception('Can not find the activity you specified.');
+        }
+        
+        $a = new Activity();
+        if ($activity->getAttendances()->count() >= FactoryTour::$CAPACITIES[$factoryTour->getCompany()]) {
+            $message = 'Sorry, please select another course because ' . $names[$factoryTour->getCompany()] .  ' was filled to capacity.';
+            throw new \Exception($message);
+        }
+        
+        $attendance = new Attendance($user, $activity);
+        $attendance->setStatus(AttendanceChoiceLoader::ATTENDANCE_YES_VALUE);
+        $user->addAttendance($attendance);
+        $this->entityManager->persist($attendance);
         $this->entityManager->flush();
     }
     
-    protected function update(User $user, Activity $activity)
+    public function updateNumbersOfRegisters(FactoryTour $factoryTour)
     {
-        $attendance = $user->findAttendance($activity);
-        dump($attendance);
-        if ($attendance && !$activity->getIsConfirm()) {
-            $user->removeAttendance($attendance);
-            $this->entityManager->remove($attendance);
-        } else if (!$attendance &&
-                    $activity->getIsConfirm() && 
-                    $this->isTarget($user, $activity)) {
-            $attendance = new Attendance($user, $activity);
-            $user->addAttendance($attendance);
-            $this->entityManager->persist($attendance);
+        $factoryTour->resetNumberOfRegisters();
+        $choices = (new FactoryTourChoiceLoader())->getChoicesFliped();
+        $ar = $this->entityManager->getRepository('AppBundle:Activity');
+        foreach ($choices as $id => $name) {
+            $activity = $ar->findOneBy(array('name' => $name));
+            $factoryTour->addNumbersOfRegisters($id, ($activity) ? $activity->getAttendances()->count() : 0);
         }
+        return $factoryTour;
     }
     
-    protected function isTarget(User $user, Activity $activity)
-    {
-        return in_array($user->getOccupation(), $activity->getTargets());
-    }
 }

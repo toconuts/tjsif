@@ -14,35 +14,26 @@ namespace AppBundle\Utils\ChoiceList;
 use AppBundle\Utils\ChoiceList\AbstractChoiceLoader;
 
 /**
- * Description of OccupationChoiceLoader
+ * Description of FactoryTourChoiceLoader
  *
  * @author toconuts <toconuts@gmail.com>
  */
-class OccupationChoiceLoader extends AbstractChoiceLoader
+class FactoryTourChoiceLoader extends AbstractChoiceLoader
 {
-    const OCCUPATION_STUDENT        = 'Student';
-    const OCCUPATION_TEACHER        = 'Teacher';
-    const OCCUPATION_DEPUTY         = 'Deputy';
-    const OCCUPATION_DIRECTOR       = 'Director';
-    const OCCUPATION_JOCV           = 'JOCV/JICA';
-    const OCCUPATION_NP             = 'NP/JF';
-    const OCCUPATION_THEOTHER       = 'The other';
+    const FACTORY_TOUR_TOYOTA       = 'Factory Tour (TOYOTA)';
+    const FACTORY_TOUR_HINO         = 'Factory Tour (HINO)';
+    const FACTORY_TOUR_MCP          = 'Factory Tour (MCP)';
+    const FACTORY_TOUR_KUBOTA       = 'Factory Tour (KUBOTA)';
     
-    const OCCUPATION_STUDENT_ID     =    '1';
-    const OCCUPATION_TEACHER_ID     =    '2';
-    const OCCUPATION_DEPUTY_ID      =    '4';
-    const OCCUPATION_DIRECTOR_ID    =    '8';
-    const OCCUPATION_JOCV_ID        =   '16';
-    const OCCUPATION_NP_ID          =   '32';
-    const OCCUPATION_THEOTHER_ID    = '1024';
-    
+    const FACTORY_TOUR_TOYOTA_ID    =    '1';
+    const FACTORY_TOUR_HINO_ID      =    '2';
+    const FACTORY_TOUR_MCP_ID       =    '3';
+    const FACTORY_TOUR_KUBOTA_ID    =    '4';
+
     protected $choices = array(
-        self::OCCUPATION_STUDENT    => self::OCCUPATION_STUDENT_ID,
-        self::OCCUPATION_TEACHER    => self::OCCUPATION_TEACHER_ID,
-        self::OCCUPATION_DEPUTY     => self::OCCUPATION_DEPUTY_ID,
-        self::OCCUPATION_DIRECTOR   => self::OCCUPATION_DIRECTOR_ID,
-        self::OCCUPATION_JOCV       => self::OCCUPATION_JOCV_ID,
-        self::OCCUPATION_NP         => self::OCCUPATION_NP_ID,
-        self::OCCUPATION_THEOTHER   => self::OCCUPATION_THEOTHER_ID,
+        self::FACTORY_TOUR_TOYOTA   => self::FACTORY_TOUR_TOYOTA_ID,
+        self::FACTORY_TOUR_HINO     => self::FACTORY_TOUR_HINO_ID,
+        self::FACTORY_TOUR_MCP      => self::FACTORY_TOUR_MCP_ID,
+        self::FACTORY_TOUR_KUBOTA   => self::FACTORY_TOUR_KUBOTA_ID,
     );
 }

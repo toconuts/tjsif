@@ -11,34 +11,110 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Monolog\Logger;
+use AppBundle\Controller\AbstractAppController;
 use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
+use AppBundle\Form\Model\FactoryTour;
+use AppBundle\Utils\ChoiceList\FactoryTourChoiceLoader;
+use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 
 /**
- * Description of DashbordController
+ * Description of FactoryTourController
  *
  * @author toconuts <toconuts@gmail.com>
  * 
- * @Route("/member/old")
+ * @Route("/member/factorytour")
  */
-class DashboardController extends Controller
+class FactoryTourController extends AbstractAppController
 {
-    /**
-     * @Route("", name="dashboard_index")
-     */
-    public function indexAction()
-    {
-        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        
-        return $this->render(
-            'dashboard/index.html.twig',
-            array('users' => $users)
-        );
+    public function indexAction() {
+        //TODO: disp the list of factory tour.
     }
+    
+    /**
+     * @Route("/{id}", requirements = {"id" = "\d+"}, name="member_factorytour_show")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function showAction(User $user)
+    {
+        $fm = $this->get('app.factorytour_manager');
+        $attendance = $fm->getAttendance($user);
 
+        if ($user->isUser($this->getUser()) || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_STUDENT_ID && !$attendance) {
+                return $this->redirectToRoute('member_factorytour_new', array('id' => $user->getId()));
+            }
+        }
+        
+        $fm = $this->get('app.factorytour_manager');
+        $factoryTour = new FactoryTour();
+        $factoryTour = $fm->updateNumbersOfRegisters($factoryTour);
+        
+        return $this->render('factorytour/show.html.twig', array(
+            'attendance' => $attendance,
+            'user' => $user,
+            'factoryTour' => $factoryTour,
+        ));
+    }
+    
+    /**
+     * @Route("/{id}/new", requirements = {"id" = "\d+"}, name="member_factorytour_new")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function newAction(Request $request, User $user)
+    {
+        if (!$user->isUser($this->getUser()) && 
+                !$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->denyAccessUnlessGranted('edit', $user);
+        }
+        
+        $fm = $this->get('app.factorytour_manager');
+        $attendance = $fm->getAttendance($user);
+        if ($attendance) {
+            return $this->redirectToRoute('member_factorytour_show', array('id' => $user->getId()));
+        }
+                
+        $factoryTour = new FactoryTour();
+        $factoryTour = $fm->updateNumbersOfRegisters($factoryTour);
+        
+        $form = $this->createFormBuilder($factoryTour)
+            ->add('company', ChoiceType::class, array(
+                'choice_loader' => new FactoryTourChoiceLoader(),
+                'expanded' => true,
+                'multiple' => false,
+                'label' => false))
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $factoryTour = $form->getData();
+                
+            try {
+            
+                $fm->createAttendance($user, $factoryTour);
+                
+                $url = $this->generateUrl('member_factorytour_show', array('id' => $user->getId()));
+                $this->log('Selected factory tour', Logger::NOTICE, $url);
+                
+                return $this->redirectToRoute('member_attendance_show',array('id' => $user->getId()));
+
+            } catch (\Exception $e) {
+                $this->log($e->getMessage(), Logger::ERROR);
+                $factoryTour = $fm->updateNumbersOfRegisters($factoryTour);
+            }
+        }
+
+        return $this->render('factorytour/new.html.twig', array(
+            'form' => $form->createView(),
+            'factoryTour' => $factoryTour,
+        ));
+    }
 }

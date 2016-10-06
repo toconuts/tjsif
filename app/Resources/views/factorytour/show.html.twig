@@ -1,39 +1,38 @@
 {% extends "layout_member.html.twig" %}
 
-{% block title %}Create organization | {{ parent() }}{% endblock %}
+{% block title %}Factory Tour | {{ parent() }}{% endblock %}
 
 {% block pageheader %}
-Create organization
+Factory Tour
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    
     <div class="row sub-header">
-        <div class="col-sm-offset-1 col-sm-5">
-            <h2 class="">Organization information</h2>
-        </div>
-    </div><!-- /.row -->
-
-    <div row>
-        <div class="col-md-10">
-        {{ form_widget(form) }}
-        </div>
-    </div><!-- /.row -->
-    
-    <div class="row">
         <div class="col-sm-offset-1 col-sm-10">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-lg btn-default" href="{{ path("member_organization_index") }}">Cancel</a>
-                </div>
-                <div class="btn-group" role="group">
-                    <input type="submit" value="Create" class="btn btn-lg btn-primary" />
-                </div>
-            </div>
+            <h2 class=""><i class="fa fa-industry fa-fw" aria-hidden="true"></i>&nbsp;There are four courses available</h2>
+            <p>You can select one of the factory tours you whould like to go unless the tour is filled to capacity.</p>
+            <p><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp;Be careful! Once you choose the tour, you will not be able to change another one.</p>
         </div>
     </div><!-- /.row -->
-    {{ form_end(form) }}
+    {{ include('factorytour/_company_list.html.twig') }}
     
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-10">
+            {% if attendance %}
+            <h3 class="">{% if app.user.id == user.id %}Your{% else %}{{ user.fullname }}'s{% endif %} selected course is <code><strong>{{ attendance.activity.name }}</strong></code></h3>
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                <h5><i class="fa fa-flag-o fa-fw" aria-hidden="true"></i>&nbsp;Only students can choose the factory tour</h5>
+            </div>
+            {% endif %}
+        </div>
+    </div><!-- /.row -->
+    
+    <hr class="featurette-divider">
+    <div class="row sub-header">
+        <div class="col-sm-offset-4 col-sm-4"><a class="btn btn-lg btn-default btn-block" href="{{ app.request.headers.get('referer') }}">Back</a></div>
+    </div>
 </div><!-- /.container -->
 {% endblock %}

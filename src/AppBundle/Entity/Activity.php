@@ -64,8 +64,7 @@ class Activity
     private $description;
     
     /**
-     * @ORM\Column(type="simple_array")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="simple_array", nullable=true)
      */
     private $targets;
     
