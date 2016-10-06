@@ -56,11 +56,13 @@ class AttendanceUpdater
     protected function update(User $user, Activity $activity)
     {
         $attendance = $user->findAttendance($activity);
+        dump($attendance);
         if ($attendance && !$activity->getIsConfirm()) {
             $user->removeAttendance($attendance);
             $this->entityManager->remove($attendance);
-        } else if ($activity->getIsConfirm() && 
-                   $this->isTarget($user, $activity)) {
+        } else if (!$attendance &&
+                    $activity->getIsConfirm() && 
+                    $this->isTarget($user, $activity)) {
             $attendance = new Attendance($user, $activity);
             $user->addAttendance($attendance);
             $this->entityManager->persist($attendance);
