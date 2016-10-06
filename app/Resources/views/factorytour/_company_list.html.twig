@@ -1,0 +1,82 @@
+<div class="row">
+    
+    {% set number_of_registers = factoryTour.numbersOfRegisters[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID')] %}
+    {% set number_of_capacity = factoryTour.CAPACITIES[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID')] %}
+    <div class="col-sm-offset-1 col-sm-5">
+        {% if number_of_registers >= number_of_capacity %}
+        <div class="panel panel-danger">
+        {% elseif number_of_registers / number_of_capacity >= 0.8 %}
+        <div class="panel panel-warning">
+        {% else %}
+        <div class="panel panel-success">
+        {% endif %}
+            <div class="panel-heading">
+                <h3 class="panel-title">TOYOTA<div class="pull-right">{{ number_of_registers }}/{{ number_of_capacity }}</div></h3>
+            </div>
+            <div class="panel-body text-center">
+                <a href="http://www.toyota.co.th/switch.php" target="_blank"><img class="img" src="{{ asset('/images/logos/toyota-logo.png') }}" alt="TOYOTA logo"></a>
+                <p>Toyota Motor Thailand Co., Ltd.</p>
+            </div>
+        </div>
+    </div><!-- /.col-md-offset-1 col-sm-5 -->
+    
+    {% set number_of_registers = factoryTour.numbersOfRegisters[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_HINO_ID')] %}
+    {% set number_of_capacity = factoryTour.CAPACITIES[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_HINO_ID')] %}
+    <div class="col-sm-5">
+        {% if number_of_registers >= number_of_capacity %}
+        <div class="panel panel-danger">
+        {% elseif number_of_registers / number_of_capacity >= 0.8 %}
+        <div class="panel panel-warning">
+        {% else %}
+        <div class="panel panel-success">
+        {% endif %}
+            <div class="panel-heading">
+                <h3 class="panel-title">HINO<div class="pull-right">{{ number_of_registers }}/{{ number_of_capacity }}</div></h3>
+            </div>
+            <div class="panel-body text-center">
+                <a href="http://www.hinothailand.com/Index.php?&lang=eng" target="_blank"><img class="img" src="{{ asset('/images/logos/hino-logo.png') }}" alt="HINO logo""></a>
+                <p>HINO MOTORS SALES (THAILAND) LTD.</p>
+            </div>
+        </div>
+    </div><!-- /.col-sm-5 -->
+    
+    {% set number_of_registers = factoryTour.numbersOfRegisters[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_MCP_ID')] %}
+    {% set number_of_capacity = factoryTour.CAPACITIES[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_MCP_ID')] %}
+    <div class="col-sm-offset-1 col-sm-5">
+        {% if number_of_registers >= number_of_capacity %}
+        <div class="panel panel-danger">
+        {% elseif number_of_registers / number_of_capacity >= 0.8 %}
+        <div class="panel panel-warning">
+        {% else %}
+        <div class="panel panel-success">
+        {% endif %}
+            <div class="panel-heading">
+                <h3 class="panel-title">MCP<div class="pull-right">{{ number_of_registers }}/{{ number_of_capacity }}</div></h3>
+            </div>
+            <div class="panel-body text-center">
+                <a href="http://www.mitsubishi-mcp.co.th/" target="_blank"><img class="img" src="{{ asset('/images/logos/mcp-logo.png') }}" alt="MCP logo"></a>
+                <p>Mitsubishi Electric Consumer Products (Thailand) Co., Ltd</p>
+            </div>
+        </div>
+    </div><!-- /.col-md-offset-1 col-sm-5 -->
+    
+    {% set number_of_registers = factoryTour.numbersOfRegisters[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID')] %}
+    {% set number_of_capacity = factoryTour.CAPACITIES[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID')] %}
+    <div class="col-sm-5">
+        {% if number_of_registers >= number_of_capacity %}
+        <div class="panel panel-danger">
+        {% elseif number_of_registers / number_of_capacity >= 0.8 %}
+        <div class="panel panel-warning">
+        {% else %}
+        <div class="panel panel-success">
+        {% endif %}
+            <div class="panel-heading">
+                <h3 class="panel-title">MCP<div class="pull-right">{{ number_of_registers }}/{{ number_of_capacity }}</div></h3>
+            </div>
+            <div class="panel-body text-center">
+                <a href="http://www.siamkubota.co.th/en" target="_blank"><img class="img" src="{{ asset('/images/logos/kubota-logo.png') }}" alt="KUBOTA logo"></a>
+                <p>SIAM KUBOTA Corporation Co., Ltd</p>
+            </div>
+        </div>
+    </div><!-- /.col-sm-5 -->
+</div>

@@ -46,3 +46,8 @@ services:
         class:          AppBundle\Service\StatisticsManager
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    app.factorytour_manager:
+        class:          AppBundle\Service\FactoryTourManager
+        arguments:
+          - "@doctrine.orm.entity_manager"

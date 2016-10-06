@@ -90,6 +90,9 @@ class UserController extends AbstractAppController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
+            $ap = $this->get('app.attendance_updater');
+            $ap->updateAttendance($user);
+            
             $url = $this->generateUrl('member_user_show', array('id' => $user->getId()));
             
             $this->log('updated own profile.', Logger::NOTICE, $url);

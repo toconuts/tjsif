@@ -1,0 +1,51 @@
+{% extends "layout_member.html.twig" %}
+
+{% block title %}Factory Tour | {{ parent() }}{% endblock %}
+
+{% block pageheader %}
+Factory Tour
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-10">
+            <h2 class=""><i class="fa fa-industry fa-fw" aria-hidden="true"></i>&nbsp;There are four courses available</h2>
+            <p>You can select one of the factory tours you whould like to go unless the tour is filled to capacity.</p>
+        </div>
+    </div><!-- /.row -->
+    {{ include('factorytour/_company_list.html.twig') }}
+    
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="row sub-header">
+        <div class="col-sm-offset-1 col-sm-10">
+            <h3 class="">Which factory tour would you like to join?</h3>
+            <div class="alert alert-warning" role="alert">
+                <h5><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp;Be careful! Once you choose the tour, you will not be able to change another one.</h5>
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <div row>
+        <div class="col-md-10">
+        {{ form_widget(form) }}
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-lg btn-default" href="{{ path("member_index") }}">Not now</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <input type="submit" value="Join!" class="btn btn-lg btn-success" />
+                </div>
+            </div>
+        </div>
+    </div><!-- /.row -->
+    {{ form_end(form) }}
+    
+</div><!-- /.container -->
+{% endblock %}

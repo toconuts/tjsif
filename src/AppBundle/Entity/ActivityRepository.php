@@ -30,4 +30,15 @@ class ActivityRepository extends EntityRepository
         return $query->getResult();
     }
     
+    public function findByNameIn($names)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT a
+            FROM AppBundle:Activity a
+            WHERE a.name in (:names)'
+            )
+            ->setParameter('names', $names);
+        return $query->getResult();
+    }
 }

@@ -44,7 +44,7 @@ class AttendanceUpdater
         $this->entityManager->flush();
     }
     
-    public function createAttendance(User $user)
+    public function updateAttendance(User $user)
     {
         $activities = $this->entityManager->getRepository('AppBundle:Activity')->findAll();
         foreach ($activities as $activity) {
@@ -56,11 +56,13 @@ class AttendanceUpdater
     protected function update(User $user, Activity $activity)
     {
         $attendance = $user->findAttendance($activity);
-        if ($attendance && !$activity->getIsConfirm()) {
+        if (($attendance && !$activity->getIsConfirm()) || 
+                ($attendance && !$this->isTarget($user, $activity))) {
             $user->removeAttendance($attendance);
             $this->entityManager->remove($attendance);
-        } else if ($activity->getIsConfirm() && 
-                   $this->isTarget($user, $activity)) {
+        } else if (!$attendance &&
+                    $activity->getIsConfirm() && 
+                    $this->isTarget($user, $activity)) {
             $attendance = new Attendance($user, $activity);
             $user->addAttendance($attendance);
             $this->entityManager->persist($attendance);
