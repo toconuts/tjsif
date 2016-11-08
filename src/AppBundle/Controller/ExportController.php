@@ -21,6 +21,7 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\UserRepository;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\ProjectRepository;
+use AppBundle\Entity\Attendance;
 use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
 use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
 use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
@@ -103,7 +104,7 @@ class ExportController extends AbstractAppController
         $writer = Writer::createFromString('','');
         $writer->setNewline("\r\n");
         
-        $writer->insertOne(['#', 'Firstname', 'Lastname', 'Organization', 'Occupation', 'Type', 'Gender', 'Email', 'Allergies', 'Project']);
+        $writer->insertOne(['#', 'Firstname', 'Lastname', 'Organization', 'Occupation', 'Type', 'Gender', 'Email', 'Allergies', 'Project', 'Attendances']);
         
         foreach ($users as $i => $user) {
             
@@ -112,6 +113,12 @@ class ExportController extends AbstractAppController
                 $projectNames[] = $project->getName();
             }
             $projectNames = implode(", ", $projectNames);
+            
+            $attendanceNames = array();
+            foreach ($user->getAttendances() as $attendance) {
+                $attendanceNames[] = $attendance->getActivity()->getName();
+            }
+            $attendanceNames = implode(", ", $attendanceNames);
             
             $writer->insertOne([
                 $i + 1,
@@ -124,6 +131,7 @@ class ExportController extends AbstractAppController
                 $user->getEmail(),
                 $user->getAllergies(),
                 $projectNames,
+                $attendanceNames,
             ]);
         }
         
