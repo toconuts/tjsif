@@ -1189,7 +1189,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $attendances = new ArrayCollection();
         foreach ($this->attendances as $attendance) {
-            if ($isOfficial == $attendance->getActivity()->getIsOfficial()) {
+            if ($attendance->getActivity()->getIsActive() && $isOfficial == $attendance->getActivity()->getIsOfficial()) {
                 $attendances[] = $attendance;
             }
         }

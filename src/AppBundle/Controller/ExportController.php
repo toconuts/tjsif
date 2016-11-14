@@ -23,6 +23,7 @@ use AppBundle\Entity\Project;
 use AppBundle\Entity\ProjectRepository;
 use AppBundle\Entity\Attendance;
 use AppBundle\Utils\ChoiceList\AccountChoiceLoader;
+use AppBundle\Utils\ChoiceList\AttendanceChoiceLoader;
 use AppBundle\Utils\ChoiceList\GenderChoiceLoader;
 use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
 use AppBundle\Utils\ChoiceList\CategoryChoiceLoader;
@@ -116,7 +117,8 @@ class ExportController extends AbstractAppController
             
             $attendanceNames = array();
             foreach ($user->getAttendances() as $attendance) {
-                $attendanceNames[] = $attendance->getActivity()->getName();
+                if ($attendance->getActivity()->getIsActive() && $attendance->getStatus() == AttendanceChoiceLoader::ATTENDANCE_YES_VALUE)
+                    $attendanceNames[] = $attendance->getActivity()->getName();
             }
             $attendanceNames = implode(", ", $attendanceNames);
             
