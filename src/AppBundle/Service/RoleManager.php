@@ -75,19 +75,20 @@ class RoleManager
             $user = $this->grantRoleAdmin($user);
             
         } else if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_TEACHER_ID ||
-                $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DEPUTY_ID ||
-                $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DIRECTOR_ID) {
+                   $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DEPUTY_ID ||
+                   $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_DIRECTOR_ID ||
+                   $user->getOccupation() == OccupationChoiceLoader::OCCUPATION_THEOTHER_ID) {
             
-            if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID || $user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID) {
+            if ($user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_ID || 
+                $user->getType() == AccountChoiceLoader::ACCOUNT_CONTACT_PERSON_NA_ID) {
             
                 $user = $this->grantRoleAdmin($user);
                 
-            } else if (($user->getOrganization()->getCountry() == 'JP') ||
-                ($user->getOrganization()->getCountry() == 'TH' && 
-                    $user->getType() == AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID)) {
+            } else if (($user->getOrganization()->getCountry() == 'JP') || 
+                       ($user->getOrganization()->getCountry() == 'TH' && $user->getType() == AccountChoiceLoader::ACCOUNT_PARTICIPANT_ID)) {
                 
                 $user = $this->grantRoleAdmin($user);
-                
+
             } 
         }
         
