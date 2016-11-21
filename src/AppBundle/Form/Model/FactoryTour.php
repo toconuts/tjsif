@@ -21,10 +21,8 @@ use AppBundle\Utils\ChoiceList\FactoryTourChoiceLoader;
  */
 class FactoryTour
 {
-    const ABC = 'ABC';
-    
     static $CAPACITIES = array(
-        FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID => 120,
+        FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID =>  83,
         FactoryTourChoiceLoader::FACTORY_TOUR_HINO_ID   =>  40,
         FactoryTourChoiceLoader::FACTORY_TOUR_MCP_ID    =>  40,
         FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID =>  40,
