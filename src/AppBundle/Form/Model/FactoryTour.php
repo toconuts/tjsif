@@ -25,7 +25,6 @@ class FactoryTour
         FactoryTourChoiceLoader::FACTORY_TOUR_TOYOTA_ID =>  83,
         FactoryTourChoiceLoader::FACTORY_TOUR_HINO_ID   =>  40,
         FactoryTourChoiceLoader::FACTORY_TOUR_MCP_ID    =>  40,
-        FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID =>  40,
     );
     
     private $numbersOfRegisters;
