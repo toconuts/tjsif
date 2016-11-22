@@ -33,9 +33,6 @@ use AppBundle\Utils\ChoiceList\OccupationChoiceLoader;
  */
 class FactoryTourController extends AbstractAppController
 {
-    public function indexAction() {
-        //TODO: disp the list of factory tour.
-    }
     
     /**
      * @Route("/{id}", requirements = {"id" = "\d+"}, name="member_factorytour_show")

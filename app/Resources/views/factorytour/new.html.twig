@@ -11,10 +11,14 @@ Factory Tour
     
     <div class="row sub-header">
         <div class="col-sm-offset-1 col-sm-10">
-            <h2 class=""><i class="fa fa-industry fa-fw" aria-hidden="true"></i>&nbsp;There are four courses available</h2>
+            <h2 class=""><i class="fa fa-industry fa-fw" aria-hidden="true"></i>&nbsp;There are three courses available</h2>
             <p>You can select one of the factory tours you whould like to go unless the tour is filled to capacity.</p>
+            <div class="alert alert-warning" role="alert">
+                <h5><i class="fa fa-dot-circle-o fa-fw" aria-hidden="true"></i>&nbsp;Due to the circumstances of the company, Factory Tour Kubota is cancelled.</h5>
+            </div>
         </div>
     </div><!-- /.row -->
+
     {{ include('factorytour/_company_list.html.twig') }}
     
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}

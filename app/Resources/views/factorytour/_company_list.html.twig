@@ -60,22 +60,19 @@
         </div>
     </div><!-- /.col-md-offset-1 col-sm-5 -->
     
-    {% set number_of_registers = factoryTour.numbersOfRegisters[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID')] %}
-    {% set number_of_capacity = factoryTour.CAPACITIES[constant('AppBundle\\Utils\\ChoiceList\\FactoryTourChoiceLoader::FACTORY_TOUR_KUBOTA_ID')] %}
+    {% set number_of_registers = 0 %}
+    {% set number_of_capacity = 0 %}
     <div class="col-sm-5">
-        {% if number_of_registers >= number_of_capacity %}
-        <div class="panel panel-danger">
-        {% elseif number_of_registers / number_of_capacity >= 0.8 %}
-        <div class="panel panel-warning">
-        {% else %}
-        <div class="panel panel-success">
-        {% endif %}
+        <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">MCP<div class="pull-right">{{ number_of_registers }}/{{ number_of_capacity }}</div></h3>
+                <h3 class="panel-title">KUBOTA<div class="pull-right">Cancelled</div></h3>
             </div>
             <div class="panel-body text-center">
+                <div class="kubota-cancelled">
                 <a href="http://www.siamkubota.co.th/en" target="_blank"><img class="img" src="{{ asset('/images/logos/kubota-logo.png') }}" alt="KUBOTA logo"></a>
+                <i class="fa fa-ban fa-5x kubota-cancelled-ban" aria-hidden="true"></i>
                 <p>SIAM KUBOTA Corporation Co., Ltd</p>
+                </div>
             </div>
         </div>
     </div><!-- /.col-sm-5 -->

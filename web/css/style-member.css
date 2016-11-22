@@ -279,6 +279,20 @@ body {
   font-size: 25px;
 }
 
+.kubota-cancelled {
+  position: relative;
+}
+
+.kubota-cancelled-ban {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  color: rgba(0,0,0,.6);
+}
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 @media (min-width: 768px) {
