@@ -12,7 +12,7 @@ Factory Tour
     <div class="row sub-header">
         <div class="col-sm-offset-1 col-sm-10">
             <h2 class=""><i class="fa fa-industry fa-fw" aria-hidden="true"></i>&nbsp;There are three courses available</h2>
-            <p>You can select one of the factory tours you would like to go unless the tour is filled to capacity <strong>until 26 November</strong>.</p>
+            <p>You can select one of the factory tours you would like to go unless the tour is filled to capacity <del>until 26 November</del>.</p>
             <p><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>&nbsp;Be careful! Once you choose the tour, you will not be able to change another one.</p>
             <div class="alert alert-warning" role="alert">
                 <h5><i class="fa fa-dot-circle-o fa-fw" aria-hidden="true"></i>&nbsp;Due to the circumstances of the company, Factory Tour Kubota is cancelled.</h5>
@@ -25,6 +25,10 @@ Factory Tour
         <div class="col-sm-offset-1 col-sm-10">
             {% if attendance %}
             <h3 class="">{% if app.user.id == user.id %}Your{% else %}{{ user.fullname }}'s{% endif %} selected course is <code><strong>{{ attendance.activity.name }}</strong></code></h3>
+            {% elseif app.user.id == user.id and user.occupation == constant('AppBundle\\Utils\\ChoiceList\\OccupationChoiceLoader::OCCUPATION_STUDENT_ID') %}
+            <div class="alert alert-danger" role="alert">
+                <h5><i class="fa fa-flag-o fa-fw" aria-hidden="true"></i>&nbsp;The factory tour selection has closed because of overdue date. Your factory tour should be chosen at random.</h5>
+            </div>
             {% else %}
             <div class="alert alert-info" role="alert">
                 <h5><i class="fa fa-flag-o fa-fw" aria-hidden="true"></i>&nbsp;Only students can choose the factory tour</h5>
