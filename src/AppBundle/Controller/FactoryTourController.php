@@ -43,11 +43,12 @@ class FactoryTourController extends AbstractAppController
         $fm = $this->get('app.factorytour_manager');
         $attendance = $fm->getAttendance($user);
 
-        if ($user->isUser($this->getUser()) || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            if ($user->getOccupation() == OccupationChoiceLoader::OCCUPATION_STUDENT_ID && !$attendance) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') && !$user->isUser($this->getUser())) {
+            if (!$attendance) {
                 return $this->redirectToRoute('member_factorytour_new', array('id' => $user->getId()));
             }
         }
+        
         
         $fm = $this->get('app.factorytour_manager');
         $factoryTour = new FactoryTour();
@@ -57,6 +58,7 @@ class FactoryTourController extends AbstractAppController
             'attendance' => $attendance,
             'user' => $user,
             'factoryTour' => $factoryTour,
+            'occupationChoices'    => (new OccupationChoiceLoader())->getChoicesFliped(),
         ));
     }
     
@@ -66,8 +68,7 @@ class FactoryTourController extends AbstractAppController
      */
     public function newAction(Request $request, User $user)
     {
-        if (!$user->isUser($this->getUser()) && 
-                !$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+        if (!($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') && !$user->isUser($this->getUser()))) {
             throw $this->denyAccessUnlessGranted('edit', $user);
         }
         
