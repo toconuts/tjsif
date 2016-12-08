@@ -100,7 +100,7 @@ class FactoryTourController extends AbstractAppController
                 $fm->createAttendance($user, $factoryTour);
                 
                 $url = $this->generateUrl('member_factorytour_show', array('id' => $user->getId()));
-                $this->log('Selected factory tour', Logger::NOTICE, $url);
+                $this->log('Selected factory tour', Logger::INFO, $url);
                 
                 return $this->redirectToRoute('member_attendance_show',array('id' => $user->getId()));
 
